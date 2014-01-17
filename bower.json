@@ -23,5 +23,7 @@
 		"angular-route":"~1.2.0"
 	},
 	"devDependencies": {
+		"bootstrap":"~3.0.3",
+    "jquery": ">= 1.9.0"
 	}
 }
