@@ -1,21 +1,18 @@
-filter = (q, items)->
-  if q
-    items.filter (item)->
-      item.name.toLowerCase().indexOf(q.toLowerCase()) > -1
-  else
-    items
+comp = (a, b)->
+  a.toLowerCase().indexOf(b.toLowerCase()) > -1
+
+filter = (x, xs)->
+  q ? xs.filter ((i)-> comp(i.name, q)) : xs
 
 focuz = (el)->
-  f = (()-> el.focus())
-  window.setTimeout(f, 0)
+  window.setTimeout((()-> el.focus()) , 0)
 
 angular
 .module("angular-w", [])
-.directive "wFocus", [->
+.directive "wFocus", ->
   link: (scope, element, attrs) ->
     scope.$watch attrs.wFocus, (fcs)->
       focuz(element[0]) if fcs
-]
 
 angular
 .module("angular-w")
@@ -30,15 +27,21 @@ angular
        href="javascript:void(0)"
        ng-hide="active"
        ng-click="active=true">
-    {{ (selectedItem || 'none') | json }}
-    </a>
-    <div class="open" ng-show="active" >
-      <input ng-keydown="onkeys($event.keyCode)" w-focus="active" class="form-control" type="search" ng-model="search" />
-      <ul class="dropdown-menu" role="menu" style="margin-left: 15px;">
-       <li ng-repeat="item in shownItems" ng-class="{true: 'active'}[item == activeItem]"><a ng-click="selection(item)" href="javascript:void(0)" >{{ item.name }}</a></li>
-      </ul>
-    </div>
-  </div>
+       {{ (selectedItem || 'none') | json }}</a>
+    <div class="open"
+         ng-show="active" >
+      <input ng-keydown="onkeys($event.keyCode)"
+             w-focus="active"
+             class="form-control"
+             type="search"
+             ng-model="search" />
+      <ul class="dropdown-menu"
+          role="menu"
+          style="margin-left: 15px;">
+       <li ng-repeat="item in shownItems"
+           ng-class="{true: 'active'}[item == activeItem]">
+             <a ng-click="selection(item)"
+                href="javascript:void(0)" >{{ item.name }}</a></li></ul></div></div>
   """
   controller: ($scope, $element, $attrs) ->
 
