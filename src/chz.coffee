@@ -2,7 +2,7 @@ comp = (a, b)->
   a.toLowerCase().indexOf(b.toLowerCase()) > -1
 
 filter = (x, xs)->
-  q ? xs.filter ((i)-> comp(i.name, q)) : xs
+  if x then xs.filter ((i)-> comp(i.name, x)) else xs
 
 focuz = (el)->
   window.setTimeout((()-> el.focus()) , 0)
