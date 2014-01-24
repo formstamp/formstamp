@@ -28,7 +28,7 @@ Install the Nginx.
 Then configure:
 
     sed -i 's|http {|http {\nserver {listen 55555; root /path/to/ng-w;}|' \
-        /path/to//nginx/nginx.conf
+        /path/to/nginx/nginx.conf
 
 Then restart nginx.
 Then `/path/to/browser http://localhost:49152/demo`
