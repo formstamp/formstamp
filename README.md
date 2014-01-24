@@ -39,7 +39,7 @@ Then configure:
         /path/to/nginx/nginx.conf
 
 Then restart nginx.
-Then `/path/to/browser http://localhost:49152/demo`
+Then `/path/to/browser http://localhost:55555/demo`
 
 ### Troubleshooting
 
