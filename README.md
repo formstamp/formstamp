@@ -21,6 +21,14 @@ Then follow the instructions.
     cd /path/to/ng-w
     npm install
 
+### Grunt
+
+    npm install grunt-cli
+
+Then start watching CoffeeScript:
+
+    `npm bin`/grunt watch
+
 ### Nginx
 
 Install the Nginx.
