@@ -20,29 +20,9 @@ angular
   restrict: "A"
   scope:
     items: '='
+  require: '?ngModel'
   replace: true,
-  template: """
-  <div>
-    <a class="btn btn-default"
-       href="javascript:void(0)"
-       ng-hide="active"
-       ng-click="active=true">
-       {{ (selectedItem || 'none') | json }}</a>
-    <div class="open"
-         ng-show="active" >
-      <input ng-keydown="onkeys($event.keyCode)"
-             w-focus="active"
-             class="form-control"
-             type="search"
-             ng-model="search" />
-      <ul class="dropdown-menu"
-          role="menu"
-          style="margin-left: 15px;">
-       <li ng-repeat="item in shownItems"
-           ng-class="{true: 'active'}[item == activeItem]">
-             <a ng-click="selection(item)"
-                href="javascript:void(0)" >{{ item.name }}</a></li></ul></div></div>
-  """
+  templateUrl: "/templates/chz.html"
   controller: ($scope, $element, $attrs) ->
 
     move = (d)->
@@ -71,4 +51,14 @@ angular
 
     # run
     search('')
+
+  link: (scope, element, attrs, ngModelCtrl) ->
+    if ngModelCtrl
+      scope.$watch 'selectedItem', ->
+        ngModelCtrl.$setViewValue(scope.selectedItem)
+
+      ngModelCtrl.$render = ->
+        value = ngModelCtrl.$modelValue
+        scope.selectedItem = value
+
 ]

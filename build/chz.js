@@ -40,8 +40,9 @@
         scope: {
           items: '='
         },
+        require: '?ngModel',
         replace: true,
-        template: "<div>\n  <a class=\"btn btn-default\"\n     href=\"javascript:void(0)\"\n     ng-hide=\"active\"\n     ng-click=\"active=true\">\n     {{ (selectedItem || 'none') | json }}</a>\n  <div class=\"open\"\n       ng-show=\"active\" >\n    <input ng-keydown=\"onkeys($event.keyCode)\"\n           w-focus=\"active\"\n           class=\"form-control\"\n           type=\"search\"\n           ng-model=\"search\" />\n    <ul class=\"dropdown-menu\"\n        role=\"menu\"\n        style=\"margin-left: 15px;\">\n     <li ng-repeat=\"item in shownItems\"\n         ng-class=\"{true: 'active'}[item == activeItem]\">\n           <a ng-click=\"selection(item)\"\n              href=\"javascript:void(0)\" >{{ item.name }}</a></li></ul></div></div>",
+        templateUrl: "/templates/chz.html",
         controller: function($scope, $element, $attrs) {
           var move, search;
           move = function(d) {
@@ -74,6 +75,18 @@
           };
           $scope.$watch('search', search);
           return search('');
+        },
+        link: function(scope, element, attrs, ngModelCtrl) {
+          if (ngModelCtrl) {
+            scope.$watch('selectedItem', function() {
+              return ngModelCtrl.$setViewValue(scope.selectedItem);
+            });
+            return ngModelCtrl.$render = function() {
+              var value;
+              value = ngModelCtrl.$modelValue;
+              return scope.selectedItem = value;
+            };
+          }
         }
       };
     }
