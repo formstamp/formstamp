@@ -2,8 +2,10 @@
   <a class="btn btn-default"
      href="javascript:void(0)"
      ng-hide="active"
-     ng-click="active=true">
-     {{ (selectedItem || 'none') | json }}</a>
+     ng-click="active=true"
+     ng-disabled="disabled">
+     {{ (selectedItem || 'none') | json }}
+   </a>
   <div class="open"
        ng-show="active">
     <input ng-keydown="onkeys($event.keyCode)"

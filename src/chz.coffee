@@ -61,4 +61,7 @@ angular
         value = ngModelCtrl.$modelValue
         scope.selectedItem = value
 
+    attrs.$observe 'disabled', (value) ->
+      scope.disabled = value
+
 ]

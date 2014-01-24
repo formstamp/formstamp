@@ -81,12 +81,15 @@
             scope.$watch('selectedItem', function() {
               return ngModelCtrl.$setViewValue(scope.selectedItem);
             });
-            return ngModelCtrl.$render = function() {
+            ngModelCtrl.$render = function() {
               var value;
               value = ngModelCtrl.$modelValue;
               return scope.selectedItem = value;
             };
           }
+          return attrs.$observe('disabled', function(value) {
+            return scope.disabled = value;
+          });
         }
       };
     }
