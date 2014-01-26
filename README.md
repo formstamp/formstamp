@@ -21,6 +21,14 @@ Then follow the instructions.
     cd /path/to/ng-w
     npm install
 
+### Grunt
+
+    npm install grunt-cli
+
+Then start watching CoffeeScript:
+
+    `npm bin`/grunt watch
+
 ### Nginx
 
 Install the Nginx.
@@ -31,7 +39,7 @@ Then configure:
         /path/to/nginx/nginx.conf
 
 Then restart nginx.
-Then `/path/to/browser http://localhost:49152/demo`
+Then `/path/to/browser http://localhost:55555/demo`
 
 ### Troubleshooting
 
