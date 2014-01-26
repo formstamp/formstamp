@@ -16,12 +16,13 @@ angular
 
 angular
 .module("angular-w")
-.directive "wChz", [->
+.directive "wChz", [ ->
   restrict: "A"
   scope:
     items: '='
   require: '?ngModel'
-  replace: true,
+  replace: true
+  transclude: true
   templateUrl: "/templates/chz.html"
   controller: ($scope, $element, $attrs) ->
 
@@ -52,16 +53,23 @@ angular
     # run
     search('')
 
-  link: (scope, element, attrs, ngModelCtrl) ->
+  link: (scope, element, attrs, ngModelCtrl, transcludeFn) ->
     if ngModelCtrl
       scope.$watch 'selectedItem', ->
         ngModelCtrl.$setViewValue(scope.selectedItem)
 
       ngModelCtrl.$render = ->
-        value = ngModelCtrl.$modelValue
-        scope.selectedItem = value
+        scope.selectedItem = ngModelCtrl.$modelValue
 
     attrs.$observe 'disabled', (value) ->
       scope.disabled = value
 
+
+    scope.$watch  'selectedItem', ->
+      childScope = scope.$new()
+      childScope.item = scope.selectedItem
+      transcludeFn childScope, (clone) ->
+        if clone.text().trim() isnt ""
+          link = angular.element(element.find('a')[0])
+          link.empty().append(clone)
 ]

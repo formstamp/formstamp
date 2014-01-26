@@ -42,6 +42,7 @@
         },
         require: '?ngModel',
         replace: true,
+        transclude: true,
         templateUrl: "/templates/chz.html",
         controller: function($scope, $element, $attrs) {
           var move, search;
@@ -76,19 +77,29 @@
           $scope.$watch('search', search);
           return search('');
         },
-        link: function(scope, element, attrs, ngModelCtrl) {
+        link: function(scope, element, attrs, ngModelCtrl, transcludeFn) {
           if (ngModelCtrl) {
             scope.$watch('selectedItem', function() {
               return ngModelCtrl.$setViewValue(scope.selectedItem);
             });
             ngModelCtrl.$render = function() {
-              var value;
-              value = ngModelCtrl.$modelValue;
-              return scope.selectedItem = value;
+              return scope.selectedItem = ngModelCtrl.$modelValue;
             };
           }
-          return attrs.$observe('disabled', function(value) {
+          attrs.$observe('disabled', function(value) {
             return scope.disabled = value;
+          });
+          return scope.$watch('selectedItem', function() {
+            var childScope;
+            childScope = scope.$new();
+            childScope.item = scope.selectedItem;
+            return transcludeFn(childScope, function(clone) {
+              var link;
+              if (clone.text().trim() !== "") {
+                link = angular.element(element.find('a')[0]);
+                return link.empty().append(clone);
+              }
+            });
           });
         }
       };
