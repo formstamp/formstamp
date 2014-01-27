@@ -109,7 +109,8 @@
           return $window.addEventListener('click', function(e) {
             var parent;
             parent = $(e.target).parents('div.w-chz');
-            if (parent.length === 0) {
+            element = $(element[0]);
+            if (!parent.is(element)) {
               return scope.$apply(scope.hideDropDown);
             }
           });

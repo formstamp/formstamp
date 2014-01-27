@@ -79,6 +79,7 @@ angular
     # Hide drop down list on click elsewhere
     $window.addEventListener 'click', (e) ->
       parent = $(e.target).parents('div.w-chz')
-      if parent.length == 0
+      element = $(element[0])
+      if not parent.is(element)
         scope.$apply(scope.hideDropDown)
 ]
