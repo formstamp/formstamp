@@ -1,4 +1,4 @@
-<div>
+<div class='w-chz'>
   <a class="btn btn-default"
      href="javascript:void(0)"
      ng-hide="active"
@@ -6,8 +6,7 @@
      ng-disabled="disabled">
      {{ (selectedItem || 'none') }}
    </a>
-  <div class="open"
-       ng-show="active">
+  <div class="open" ng-show="active">
     <input ng-keydown="onkeys($event.keyCode)"
            w-focus="active"
            class="form-control"

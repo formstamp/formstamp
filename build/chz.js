@@ -34,7 +34,7 @@
   });
 
   angular.module("angular-w").directive("wChz", [
-    function() {
+    '$window', function($window) {
       return {
         restrict: "A",
         scope: {
@@ -62,7 +62,7 @@
           };
           $scope.selection = function(item) {
             $scope.selectedItem = item;
-            return $scope.active = false;
+            return $scope.hideDropDown();
           };
           $scope.onkeys = function(key) {
             switch (key) {
@@ -72,9 +72,14 @@
                 return move(-1);
               case 13:
                 return $scope.selection($scope.activeItem);
+              case 27:
+                return $scope.hideDropDown();
             }
           };
           $scope.$watch('search', search);
+          $scope.hideDropDown = function() {
+            return $scope.active = false;
+          };
           return search('');
         },
         link: function(scope, element, attrs, ngModelCtrl, transcludeFn) {
@@ -89,7 +94,7 @@
           attrs.$observe('disabled', function(value) {
             return scope.disabled = value;
           });
-          return scope.$watch('selectedItem', function() {
+          scope.$watch('selectedItem', function() {
             var childScope;
             childScope = scope.$new();
             childScope.item = scope.selectedItem;
@@ -100,6 +105,13 @@
                 return link.empty().append(clone);
               }
             });
+          });
+          return $window.addEventListener('click', function(e) {
+            var parent;
+            parent = $(e.target).parents('div.w-chz');
+            if (parent.length === 0) {
+              return scope.$apply(scope.hideDropDown);
+            }
           });
         }
       };
