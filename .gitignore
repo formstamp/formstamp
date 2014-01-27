@@ -12,6 +12,7 @@ lib-cov
 pids
 logs
 results
+build/*.js
 
 node_modules
 
