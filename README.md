@@ -3,7 +3,7 @@ ng-w
 
 Pure angularjs widgets.
 
-Development
+Installation for Development
 -----------
 
 ### Node Version Manager
