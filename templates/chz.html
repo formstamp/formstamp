@@ -1,12 +1,18 @@
 <div class='w-chz'>
   <input type='text' ng-model='selectedItem' style='display: none' ng-required='required' />
-  <a class="btn btn-default"
-     href="javascript:void(0)"
-     ng-hide="active"
-     ng-click="active=true"
-     ng-disabled="disabled">
-     {{ (selectedItem || 'none') }}
-   </a>
+    <div ng-hide="active" ng-class="{'btn-group': selectedItem}">
+      <a class="btn btn-default"
+         href="javascript:void(0)"
+         ng-click="active=true"
+         ng-disabled="disabled">
+          {{ (selectedItem || 'none') }}
+      </a>
+      <button type="button"
+              class="btn btn-default"
+              aria-hidden="true"
+              ng-show='selectedItem'
+              ng-click='selectedItem = null'>&times;</button>
+    </div>
   <div class="open" ng-show="active">
     <input ng-keydown="onkeys($event.keyCode)"
            w-focus="active"
