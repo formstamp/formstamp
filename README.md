@@ -38,8 +38,7 @@ Then configure:
     sed -i 's|http {|http {\nserver {listen 55555; root /path/to/ng-w;}|' \
         /path/to/nginx/nginx.conf
 
-Then restart nginx.
-Then `/path/to/browser http://localhost:55555/demo`
+Then restart nginx. Navigate your browser to http://localhost:55555/demo
 
 ### Troubleshooting
 
