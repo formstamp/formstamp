@@ -94,6 +94,9 @@
           attrs.$observe('disabled', function(value) {
             return scope.disabled = value;
           });
+          attrs.$observe('required', function(value) {
+            return scope.required = value;
+          });
           scope.$watch('selectedItem', function() {
             var childScope;
             childScope = scope.$new();
