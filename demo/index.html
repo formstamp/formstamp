@@ -23,20 +23,20 @@
         <h1> Widgets </h1>
         <hr/>
         <div class="form-group">
-          <label for="choosen1" class="col-sm-2 control-label">Choosen</label>
+          <label class="col-sm-2 control-label">Chosen</label>
           <div class="col-sm-10">
-            <div w-chz="true" items="items" ng-model="value" ng-disabled='disabled' />
+            <div w-chz="true" items="items" ng-model="value" ng-disabled='disabled'></div>
           </div>
         </div>
         <div class="form-group">
-          <label for="choosen2" class="col-sm-2 control-label">Choosen with same ngModel</label>
+          <label class="col-sm-2 control-label">Chosen with same ngModel</label>
           <div class="col-sm-10">
             <div w-chz="true" items="items" ng-model="value">
               <div ng-show='item'>
                 <b>{{item.name}}</b>: {{item.code}}
               </div>
               <div ng-hide='item'>
-                None
+                none
               </div>
             </div>
           </div>
@@ -45,7 +45,7 @@
           <div class="col-sm-offset-2 col-sm-10">
             <label>
               <input type='checkbox' ng-model='disabled' />
-              Disable first choosen
+              Disable first chosen
             </label>
           </div>
         </div>
