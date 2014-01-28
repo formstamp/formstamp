@@ -1,4 +1,5 @@
 <div class='w-chz'>
+  {{offset}}
   <input type='text' ng-model='selectedItem' style='display: none' ng-required='required' />
     <div ng-hide="active" ng-class="{'btn-group': selectedItem}">
       <a class="btn btn-default"
@@ -21,11 +22,12 @@
            ng-model="search" />
     <ul class="dropdown-menu"
         role="menu"
-        style="margin-left: 15px;">
+        style="margin-left: 15px">
        <li ng-repeat="item in shownItems"
            ng-class="{true: 'active'}[item == activeItem]">
          <a ng-click="selection(item)"
-            href="javascript:void(0)">{{ item.name }}</a>
+            href="javascript:void(0)"
+            id='{{item.code}}'>{{ item.name }}</a>
        </li>
     </ul>
   </div>

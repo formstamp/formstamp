@@ -20,26 +20,37 @@ angular
   restrict: "A"
   scope:
     items: '='
+    limit: '='
   require: '?ngModel'
   replace: true
   transclude: true
   templateUrl: "/templates/chz.html"
   controller: ($scope, $element, $attrs) ->
-
     move = (d) ->
       items = $scope.shownItems
       activeIndex = (items.indexOf($scope.activeItem) || 0) + d
-      activeIndex = Math.min(Math.max(activeIndex,0), items.length - 1)
-      $scope.activeItem = items[activeIndex]
+      #activeIndex = Math.min(Math.max(activeIndex,0), items.length - 1)
+      console.log activeIndex
+      $scope.offset += d
+      if activeIndex < 0
+        search($scope.prevSearch, 'up')
+      else if activeIndex == items.length
+        search($scope.prevSearch, 'down')
+      else
+        $scope.activeItem = items[activeIndex]
 
-    search = (q) ->
-      if $scope.prevSearch != q
-        $scope.shownItems = filter(q, $scope.items)[0..10]
+    search = (q, dir) ->
+      # if $scope.prevSearch != q
+      limit = if $scope.limit > 0 then $scope.limit else $scope.items.length
+      $scope.shownItems = filter(q, $scope.items)[$scope.offset..($scope.offset + limit - 1)]
+      if dir == 'up'
         $scope.activeItem = $scope.shownItems[0]
+      else if dir == 'down'
+        $scope.activeItem = $scope.shownItems[limit - 1]
       $scope.prevSearch = q
 
     $scope.selection = (item)->
-      $scope.selectedItem = item
+      $scope.selectedItem = $scope.activeItem = item
       $scope.hideDropDown()
 
     $scope.onkeys = (key)->
@@ -54,6 +65,7 @@ angular
     $scope.hideDropDown = ->
       $scope.active = false
 
+    $scope.offset = 0
     # run
     search('')
 
