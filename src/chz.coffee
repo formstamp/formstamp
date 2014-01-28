@@ -33,10 +33,10 @@ angular
       console.log activeIndex
 
       if activeIndex < 0 and $scope.items.indexOf($scope.activeItem) > 0
-        $scope.offset += d
+        $scope.offset = Math.max($scope.offset + d, 0)
         search($scope.prevSearch, 'up')
-      else if activeIndex == items.length and $scope.items.indexOf($scope.activeItem) < $scope.items.length - 1
-        $scope.offset += d
+      else if activeIndex >= items.length and $scope.items.indexOf($scope.activeItem) < $scope.items.length - 1
+        $scope.offset = Math.min($scope.offset + d, $scope.items.length - $scope.limit - 1)
         search($scope.prevSearch, 'down')
       else if items[activeIndex]
         $scope.activeItem = items[activeIndex]
@@ -59,6 +59,8 @@ angular
        switch key
          when 40 then move(1)
          when 38 then move(-1)
+         when 33 then move(-1 * $scope.limit)
+         when 34 then move($scope.limit)
          when 13 then $scope.selection($scope.activeItem)
          when 27 then $scope.hideDropDown()
 
