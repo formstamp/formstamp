@@ -38,7 +38,7 @@ angular
       else if activeIndex == items.length and $scope.items.indexOf($scope.activeItem) < $scope.items.length - 1
         $scope.offset += d
         search($scope.prevSearch, 'down')
-      else
+      else if items[activeIndex]
         $scope.activeItem = items[activeIndex]
 
     search = (q, dir) ->
