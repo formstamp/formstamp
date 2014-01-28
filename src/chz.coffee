@@ -29,12 +29,14 @@ angular
     move = (d) ->
       items = $scope.shownItems
       activeIndex = (items.indexOf($scope.activeItem) || 0) + d
-      #activeIndex = Math.min(Math.max(activeIndex,0), items.length - 1)
+      activeIndex = Math.max(activeIndex, -1)
       console.log activeIndex
-      $scope.offset += d
-      if activeIndex < 0
+
+      if activeIndex < 0 and $scope.items.indexOf($scope.activeItem) > 0
+        $scope.offset += d
         search($scope.prevSearch, 'up')
-      else if activeIndex == items.length
+      else if activeIndex == items.length and $scope.items.indexOf($scope.activeItem) < $scope.items.length - 1
+        $scope.offset += d
         search($scope.prevSearch, 'down')
       else
         $scope.activeItem = items[activeIndex]
@@ -66,6 +68,7 @@ angular
       $scope.active = false
 
     $scope.offset = 0
+    $scope.activeItem = $scope.items[0]
     # run
     search('')
 
