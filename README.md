@@ -49,8 +49,9 @@ template inside directive.  You can reference current item by
       <div class="form-group">
         <label class="col-sm-2 control-label">Chosen</label>
         <div class="col-sm-10">
-          <div w-chz items="items" ng-model="value" ng-disabled='disabled1' ng-required='required' />
-          <b>{{item.name}}</b>: {{item.code}}
+          <div w-chz items="items" ng-model="value" ng-disabled='disabled1' ng-required='required'>
+            <b>{{item.name}}</b>: {{item.code}}
+          </div>
         </div>
       </div>
     </div>
