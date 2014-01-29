@@ -12,6 +12,9 @@ Installation for Development
 
 Then follow the instructions.
 
+NOTE: This script adds `nvm` command to `.bash_profile`. It may not work if you are using not `bash` shell
+(like `zsh`). In this case you have to manually configure profile file.
+
 ### Node.js
 
     nvm install 0.10
@@ -24,6 +27,10 @@ Then follow the instructions.
 ### Grunt
 
     npm install grunt-cli
+
+Then compile CoffeeScript first time:
+
+    `npm bin`/grunt compile
 
 Then start watching CoffeeScript:
 
