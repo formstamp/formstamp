@@ -57,7 +57,6 @@ angular
       else if item.top < viewport.top
         ul.scrollTop -= viewport.top - item.top
 
-
     search = (q) ->
       if $scope.prevSearch != q
         $scope.shownItems = filter(q, $scope.items).slice(0, $scope.limit)
@@ -68,14 +67,15 @@ angular
       $scope.selectedItem = item
       $scope.hideDropDown()
 
-    $scope.onkeys = (key)->
-       switch key
-         when 40 then move(1)
-         when 38 then move(-1)
-         when 13 then $scope.selection($scope.activeItem)
-         when 27 then $scope.hideDropDown()
-         when 34 then move(11)
-         when 33 then move(-11)
+    $scope.onkeys = (event)->
+      switch event.keyCode
+        when 40 then move(1)
+        when 38 then move(-1)
+        when 13 then $scope.selection($scope.activeItem)
+        when 27 then $scope.hideDropDown()
+        when 34 then move(11)
+        when 33 then move(-11)
+      event.preventDefault()
 
     $scope.$watch 'search', search
 
