@@ -1,0 +1,12 @@
+.w-calendar {
+  user-select: none;
+  -webkit-user-select: none;
+
+  .day {
+    text-align: right;
+  }
+
+  .day-old, .day-new {
+    color: darkgray;
+  }
+}

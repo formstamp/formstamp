@@ -6,6 +6,7 @@
     <title>angular-w</title>
 
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/build/calendar.css"/>
     <style>
       .container {
         padding: 30px 10px;
@@ -19,7 +20,7 @@
   </head>
   <body>
     <div class="container" ng-controller="TestCnt">
-      <form role="form" class='form-horizontal' name='w_form' action='/demo/index.html'> 
+      <form role="form" class='form-horizontal' name='w_form' action='/demo/index.html'>
         <h1> Widgets </h1>
         <hr/>
         <div class="form-group">
@@ -72,6 +73,18 @@
       </form>
     </div>
 
+    <div class="container">
+      <form role="form" class="form-horizontal">
+        <h1>Calendar</h1>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Calendar</label>
+          <div class="col-sm-10">
+            <w-calendar/>
+          </div>
+        </div>
+      </form>
+    </div>
+
     <script type="text/javascript" src="/bower_components/angular/angular.js"></script>
     <script type="text/javascript" src="/bower_components/angular-route/angular-route.min.js"></script>
     <script type="text/javascript" src="/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
@@ -80,6 +93,7 @@
     <script type="text/javascript" src="/bower_components/jquery/jquery.min.js"></script>
 
     <script type="text/javascript" src="/build/chz.js"></script>
+    <script type="text/javascript" src="/build/calendar.js"></script>
 
     <script type="text/javascript" src="/app.js"></script>
   </body>
