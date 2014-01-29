@@ -89,10 +89,11 @@ TODO
 ----
   * Form builder.
   * ng-options support.
+  * Make demo github pages.
   * I18n.
 
 ### Chosen
- * Add ability for customizing Chosen style.
+ * Add ability for customizing Chosen style (added for list).
  * Different search algorithms.
  * Fully remove jQuery.
 
