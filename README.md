@@ -112,13 +112,11 @@ NOTE: This script adds `nvm` command to `.bash_profile`. It may not work if you 
 
 ### Grunt
 
-    npm install grunt-cli
+Then compile CoffeeScript & SASS first time:
 
-Then compile CoffeeScript first time:
+    `npm bin`/grunt sass coffee
 
-    `npm bin`/grunt compile
-
-Then start watching CoffeeScript:
+Then start watching changes in scss & coffee files:
 
     `npm bin`/grunt watch
 

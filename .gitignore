@@ -12,7 +12,8 @@ lib-cov
 pids
 logs
 results
-build/*.js
+/build
+.sass-cache
 
 node_modules
 
