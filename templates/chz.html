@@ -20,9 +20,8 @@
            class="form-control"
            type="search"
            ng-model="search" />
-    <ul class="dropdown-menu"
-        role="menu"
-        style="margin-left: 15px; max-height: 300px; overflow: auto">
+    <ul class="dropdown-menu w-chz-items-list-default w-chz-items-list"
+        role="menu">
        <li ng-repeat="item in shownItems"
            ng-class="{true: 'active'}[item == activeItem]">
          <a ng-click="selection(item)"

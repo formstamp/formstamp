@@ -46,6 +46,11 @@ template inside directive.  You can reference current object by
   </div>
 ```
 
+### Customizing styles
+For style customization library provides class
+for user extention. For styling list define css
+class `.w-chz .w-chz-items-list` with your own properties.
+
 #### Example usage
 ```html
   <div ng-controller='CountriesCtrl'>
