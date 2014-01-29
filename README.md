@@ -20,19 +20,19 @@ ng-disabled, ng-required.
 
 ### Attributes
 #### items
-**Required**
-Array of objects: `{code: 'some-code', name: 'some-name'}`
+**Required.**
+Array of objects: `{code: 'some-code', name: 'some-name'}`.
 
 #### limit
-*Optional*
+*Optional.*
 Limits number of elements in `items` that will be used.
 
 #### key-attr
-*Optional*
+*Optional.*
 Attribute for retrieving id from item. Default: 'id'.
 
 #### value-attr
-*Optional*
+*Optional.*
 Attribute for retrieving label from item. Default: 'label'.
 
 ### Templating
