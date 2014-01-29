@@ -1,10 +1,5 @@
-/**
-@toc
-1. setup - whitelist, appPath, html5Mode
-*/
-
 'use strict';
-var countries =[
+var countries = [
   {label: 'Afghanistan', id: 'AF'},
   {label: 'Åland Islands', id: 'AX'},
   {label: 'Albania', id: 'AL'},
@@ -247,12 +242,10 @@ var countries =[
   {label: 'Western Sahara', id: 'EH'},
   {label: 'Yemen', id: 'YE'},
   {label: 'Zambia', id: 'ZM'},
-  {label: 'Zimbabwe', id: 'ZW'}
-]
-angular.module('myApp', [
-'ngRoute', 'ngSanitize', 'ngTouch', 'ngAnimate',		//additional angular modules
-'angular-w'
-]).controller('TestCnt', function($scope){
+  {label: 'Zimbabwe', id: 'ZW'}];
+
+var app = angular.module('demoApp', ['angular-w']);
+
+app.controller('DemoCtrl', function($scope) {
   $scope.items = countries;
 })
-
