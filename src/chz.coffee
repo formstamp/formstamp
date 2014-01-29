@@ -20,6 +20,7 @@ angular
   restrict: "A"
   scope:
     items: '='
+    limit: '='
   require: '?ngModel'
   replace: true
   transclude: true
@@ -59,7 +60,7 @@ angular
 
     search = (q) ->
       if $scope.prevSearch != q
-        $scope.shownItems = filter(q, $scope.items)
+        $scope.shownItems = filter(q, $scope.items).slice(0, $scope.limit)
         $scope.activeItem = $scope.shownItems[0]
       $scope.prevSearch = q
 
