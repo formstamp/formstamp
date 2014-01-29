@@ -1,12 +1,23 @@
 .w-calendar {
   user-select: none;
   -webkit-user-select: none;
+  cursor: pointer;
+  display: inline-block;
+
+  .w-calendar-header {
+    text-align: center;
+  }
 
   .day {
     text-align: right;
+    color: darkgray;
   }
 
-  .day-old, .day-new {
-    color: darkgray;
+  .day-in-selected-month {
+    color: black;
+  }
+
+  .day-current {
+    font-weight: bold;
   }
 }
