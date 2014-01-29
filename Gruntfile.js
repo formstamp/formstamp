@@ -39,9 +39,9 @@ module.exports = function (grunt) {
 					nospawn: true
 				}
 			},
-			sass: {
+			less: {
 				files: ['styles/**/*.less'],
-				tasks: ['sass'],
+				tasks: ['less'],
 				options: {
 					events: ['changed', 'added'],
 					nospawn: true
