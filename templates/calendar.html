@@ -1,0 +1,17 @@
+<div class="w-calendar">
+    <div>
+        <a ng-click="prevMonth()">&lt;- Left</a>
+        <span ng-bind="months[selectedMonth] + ', ' + selectedYear"></span>
+        <a ng-click="nextMonth()">Right -&gt;</a>
+    </div>
+    <div>
+        <table class="table-condensed">
+            <tr ng-repeat="week in weeks">
+                <td ng-repeat="day in week" class="day"
+                    ng-class="{'day-old': (day.getMonth() < selectedMonth), 'day-new': (day.getMonth() > selectedMonth)}"
+                    ng-bind="day.getDate()">
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

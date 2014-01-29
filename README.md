@@ -1,11 +1,11 @@
 ====
 
-Pure angularjs widgets.
+Pure AngularJS widgets.
 
 Description
 ----------
 
-This library provides full pack of pure angluarjs widgets.
+This library provides full pack of pure AngluarJS widgets.
 List of available widgets:
   * Chosen
   * Support more later
@@ -20,25 +20,25 @@ ng-disabled, ng-required.
 
 ### Attributes
 #### items
-**Required**
-Array of objects: `{code: 'some-code', name: 'some-name'}`
+**Required.**
+Array of objects: `{code: 'some-code', name: 'some-name'}`.
 
 #### limit
-*Optional*
-Limits number of elements in `items` that will be used.
+*Optional.*
+Limits number of shown `items`. Default: `items.length`.
 
 #### key-attr
-*Optional*
-Attribute for retrieving id from item. Default: 'id'.
+*Optional.*
+Attribute for retrieving html id from item. Default: 'id'.
 
 #### value-attr
-*Optional*
-Attribute for retrieving label from item. Default: 'label'.
+*Optional.*
+Attribute for retrieving html label from item. Default: 'label'.
 
 ### Templating
-Chosen provides templating for selected value by passing html
-template inside directive.  You can reference current item by
-`item`. `item` has `code` and `name` properties.
+Chosen provides templating for selected object by passing html
+template inside directive.  You can reference current object by
+`item` and access all object's attributes.
 ```html
   <div w-chz>
     <b>{{item.name}}</b>: {{item.code}}
@@ -85,8 +85,8 @@ TODO
   * ng-options support.
 
 ### Chosen
- * Add abilty for customizing Chosen style.
- * Differen search algorithms.
+ * Add ability for customizing Chosen style.
+ * Different search algorithms.
  * Fully remove jQuery.
 
 Installation for Development
@@ -112,13 +112,11 @@ NOTE: This script adds `nvm` command to `.bash_profile`. It may not work if you 
 
 ### Grunt
 
-    npm install grunt-cli
+Then compile CoffeeScript & SASS first time:
 
-Then compile CoffeeScript first time:
+    `npm bin`/grunt sass coffee
 
-    `npm bin`/grunt compile
-
-Then start watching CoffeeScript:
+Then start watching changes in scss & coffee files:
 
     `npm bin`/grunt watch
 
