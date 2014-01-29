@@ -20,16 +20,20 @@ ng-disabled, ng-required.
 
 ### Attributes
 #### items
+**Required**
 Array of objects: `{code: 'some-code', name: 'some-name'}`
 
 #### limit
+*Optional*
 Limits number of elements in `items` that will be used.
 
-#### keyFn
-Function for retrieving key
+#### key-attr
+*Optional*
+Attribute for retrieving id from item. Default: 'id'.
 
-#### valueFn
-Function for retrieving value
+#### value-attr
+*Optional*
+Attribute for retrieving label from item. Default: 'label'.
 
 ### Templating
 Chosen provides templating for selected value by passing html
@@ -48,7 +52,14 @@ template inside directive.  You can reference current item by
       <div class="form-group">
         <label class="col-sm-2 control-label">Chosen</label>
         <div class="col-sm-10">
-          <div w-chz items="items" ng-model="value" ng-disabled='disabled1' ng-required='required'>
+          <div w-chz
+               items="items"
+               limit='30'
+               key-attr='code'
+               value-attr='name'
+               ng-model="value"
+               ng-disabled='disabled'
+               ng-required='required'>
             <b>{{item.name}}</b>: {{item.code}}
           </div>
         </div>

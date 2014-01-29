@@ -27,7 +27,7 @@
            ng-class="{true: 'active'}[item == activeItem]">
          <a ng-click="selection(item)"
             href="javascript:void(0)"
-            id='{{item.code}}'>{{ item.name }}</a>
+            id='{{item[keyAttr]}}'>{{ item[valueAttr] }}</a>
        </li>
     </ul>
   </div>

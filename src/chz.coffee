@@ -21,6 +21,8 @@ angular
   scope:
     items: '='
     limit: '='
+    keyAttr: '@'
+    valueAttr: '@'
   require: '?ngModel'
   replace: true
   transclude: true
@@ -85,32 +87,38 @@ angular
     # run
     search('')
 
-  link: (scope, element, attrs, ngModelCtrl, transcludeFn) ->
-    if ngModelCtrl
-      scope.$watch 'selectedItem', ->
-        ngModelCtrl.$setViewValue(scope.selectedItem)
+  compile: (tElement, tAttrs) ->
+    tAttrs.keyAttr ||= 'id'
+    tAttrs.valueAttr ||= 'label'
 
-      ngModelCtrl.$render = ->
-        scope.selectedItem = ngModelCtrl.$modelValue
+    # Link function
+    (scope, element, attrs, ngModelCtrl, transcludeFn) ->
 
-    attrs.$observe 'disabled', (value) ->
-      scope.disabled = value
+      if ngModelCtrl
+        scope.$watch 'selectedItem', ->
+          ngModelCtrl.$setViewValue(scope.selectedItem)
 
-    attrs.$observe 'required', (value) ->
-      scope.required = value
+        ngModelCtrl.$render = ->
+          scope.selectedItem = ngModelCtrl.$modelValue
 
-    scope.$watch  'selectedItem', ->
-      childScope = scope.$new()
-      childScope.item = scope.selectedItem
-      transcludeFn childScope, (clone) ->
-        if clone.text().trim() isnt ""
-          link = angular.element(element.find('a')[0])
-          link.empty().append(clone)
+      attrs.$observe 'disabled', (value) ->
+        scope.disabled = value
 
-    # Hide drop down list on click elsewhere
-    $window.addEventListener 'click', (e) ->
-      parent = $(e.target).parents('div.w-chz')
-      element = $(element[0])
-      if not parent.is(element)
-        scope.$apply(scope.hideDropDown)
+      attrs.$observe 'required', (value) ->
+        scope.required = value
+
+      scope.$watch  'selectedItem', ->
+        childScope = scope.$new()
+        childScope.item = scope.selectedItem
+        transcludeFn childScope, (clone) ->
+          if clone.text().trim() isnt ""
+            link = angular.element(element.find('a')[0])
+            link.empty().append(clone)
+
+      # Hide drop down list on click elsewhere
+      $window.addEventListener 'click', (e) ->
+        parent = $(e.target).parents('div.w-chz')
+        element = $(element[0])
+        if not parent.is(element)
+          scope.$apply(scope.hideDropDown)
 ]

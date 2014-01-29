@@ -28,6 +28,8 @@
             <div w-chz="true"
                  items="items"
                  limit='20'
+                 key-attr='id'
+                 value-attr='label'
                  ng-model="value"
                  ng-disabled='disabled1'
                  ng-required='required'></div>
@@ -38,7 +40,7 @@
           <div class="col-sm-10">
             <div w-chz="true" items="items" ng-model="value">
               <div ng-show='item'>
-                <b>{{item.name}}</b>: {{item.code}}
+                <b>{{item.label}}</b>: {{item.id}}
               </div>
               <div ng-hide='item'>
                 none
