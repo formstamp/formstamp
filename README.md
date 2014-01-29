@@ -1,4 +1,3 @@
-ng-w
 ====
 
 Pure angularjs widgets.
@@ -75,7 +74,6 @@ TODO
   * ng-options support.
 
 ### Chosen
- * Remove submit by enter on selecting element.
  * Add abilty for customizing Chosen style.
  * Differen search algorithms.
  * Fully remove jQuery.
