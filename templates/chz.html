@@ -22,7 +22,7 @@
            ng-model="search" />
     <ul class="dropdown-menu"
         role="menu"
-        style="margin-left: 15px">
+        style="margin-left: 15px; max-height: 300px; overflow: auto">
        <li ng-repeat="item in shownItems"
            ng-class="{true: 'active'}[item == activeItem]">
          <a ng-click="selection(item)"

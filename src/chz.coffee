@@ -20,57 +20,67 @@ angular
   restrict: "A"
   scope:
     items: '='
-    limit: '='
   require: '?ngModel'
   replace: true
   transclude: true
   templateUrl: "/templates/chz.html"
   controller: ($scope, $element, $attrs) ->
+
+    getComputedStyle = (elem, prop) ->
+      parseInt $window.getComputedStyle(elem, null).getPropertyValue(prop)
+
     move = (d) ->
       items = $scope.shownItems
       activeIndex = (items.indexOf($scope.activeItem) || 0) + d
-      activeIndex = Math.max(activeIndex, -1)
-      console.log activeIndex
+      activeIndex = Math.min(Math.max(activeIndex,0), items.length - 1)
+      $scope.activeItem = items[activeIndex]
+      scrollIfNeeded(activeIndex)
 
-      if activeIndex < 0 and $scope.items.indexOf($scope.activeItem) > 0
-        $scope.offset = Math.max($scope.offset + d, 0)
-        search($scope.prevSearch, 'up')
-      else if activeIndex >= items.length and $scope.items.indexOf($scope.activeItem) < $scope.items.length - 1
-        $scope.offset = Math.min($scope.offset + d, $scope.items.length - $scope.limit - 1)
-        search($scope.prevSearch, 'down')
-      else if items[activeIndex]
-        $scope.activeItem = items[activeIndex]
+    scrollIfNeeded = (activeIndex) ->
+      ul = $element.find('ul')[0]
+      ulHeight = ul.clientHeight - getComputedStyle(ul, 'padding-top') - getComputedStyle(ul, 'padding-bottom')
+      viewport =
+        top: ul.scrollTop
+        bottom: ul.scrollTop + ulHeight
 
-    search = (q, dir) ->
-      # if $scope.prevSearch != q
-      limit = if $scope.limit > 0 then $scope.limit else $scope.items.length
-      $scope.shownItems = filter(q, $scope.items)[$scope.offset..($scope.offset + limit - 1)]
-      if dir == 'up'
+      li = ul.querySelector('li.active')
+      liHeight = li.clientHeight - getComputedStyle(li, 'padding-top') - getComputedStyle(li, 'padding-bottom')
+      item =
+        top: activeIndex * liHeight
+        bottom: (activeIndex + 1) * liHeight
+
+      # Scroll down
+      if item.bottom > viewport.bottom
+        ul.scrollTop += item.bottom - viewport.bottom
+      # Scroll up
+      else if item.top < viewport.top
+        ul.scrollTop -= viewport.top - item.top
+
+
+    search = (q) ->
+      if $scope.prevSearch != q
+        $scope.shownItems = filter(q, $scope.items)
         $scope.activeItem = $scope.shownItems[0]
-      else if dir == 'down'
-        $scope.activeItem = $scope.shownItems[limit - 1]
       $scope.prevSearch = q
 
     $scope.selection = (item)->
-      $scope.selectedItem = $scope.activeItem = item
+      $scope.selectedItem = item
       $scope.hideDropDown()
 
     $scope.onkeys = (key)->
        switch key
          when 40 then move(1)
          when 38 then move(-1)
-         when 33 then move(-1 * $scope.limit)
-         when 34 then move($scope.limit)
          when 13 then $scope.selection($scope.activeItem)
          when 27 then $scope.hideDropDown()
+         when 34 then move(11)
+         when 33 then move(-11)
 
     $scope.$watch 'search', search
 
     $scope.hideDropDown = ->
       $scope.active = false
 
-    $scope.offset = 0
-    $scope.activeItem = $scope.items[0]
     # run
     search('')
 
