@@ -1,3 +1,4 @@
+Angular-w
 ====
 
 Pure AngularJS widgets.
@@ -83,6 +84,7 @@ TODO
 ----
   * Form builder.
   * ng-options support.
+  * I18n.
 
 ### Chosen
  * Add ability for customizing Chosen style.
