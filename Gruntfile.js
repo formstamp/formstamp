@@ -2,8 +2,7 @@
 
 module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-coffee');
-	grunt.loadNpmTasks('grunt-contrib-sass');
-	grunt.loadNpmTasks('grunt-contrib-haml');
+	grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 
 	grunt.initConfig({
@@ -15,13 +14,13 @@ module.exports = function (grunt) {
 				}
 			}
 		},
-		sass: {
+		less: {
 			dist: {
 				files: [
 					{
 						expand: true,
 						cwd: 'styles',
-						src: ['*.scss'],
+						src: ['*.less'],
 						dest: 'build',
 						ext: '.css'
 					}
@@ -41,7 +40,7 @@ module.exports = function (grunt) {
 				}
 			},
 			sass: {
-				files: ['styles/**/*.scss'],
+				files: ['styles/**/*.less'],
 				tasks: ['sass'],
 				options: {
 					events: ['changed', 'added'],

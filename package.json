@@ -16,8 +16,7 @@
     "grunt-karma": "~0.6.2",
     "grunt-coffee-build": "~1.4.12",
     "grunt-contrib-coffee": "~0.8.0",
-	  "grunt-contrib-sass": "~0.7.1",
-	  "grunt-contrib-haml": "~0.1.1",
+	  "grunt-contrib-less": "~0.9.0",
     "grunt-contrib-watch": "~0.5.3"
   },
   "scripts": {

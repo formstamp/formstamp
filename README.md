@@ -114,11 +114,11 @@ NOTE: This script adds `nvm` command to `.bash_profile`. It may not work if you 
 
 ### Grunt
 
-Then compile CoffeeScript & SASS first time:
+Then compile CoffeeScript & LESS first time:
 
-    `npm bin`/grunt sass coffee
+    `npm bin`/grunt less coffee
 
-Then start watching changes in scss & coffee files:
+Then start watching changes in less & coffee files:
 
     `npm bin`/grunt watch
 
