@@ -78,6 +78,7 @@ TODO
  * Remove submit by enter on selecting element.
  * Add abilty for customizing Chosen style.
  * Differen search algorithms.
+ * Fully remove jQuery.
 
 Installation for Development
 -----------
