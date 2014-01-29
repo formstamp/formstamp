@@ -73,6 +73,7 @@ TODO
 ----
   * Form builder.
   * ng-options support.
+
 ### Chosen
  * Remove submit by enter on selecting element.
  * Add abilty for customizing Chosen style.
