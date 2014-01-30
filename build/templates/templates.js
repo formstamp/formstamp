@@ -4,9 +4,9 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
   $templateCache.put('/templates/calendar.html',
     "<div class=\"w-calendar\">\n" +
     "  <div class=\"w-calendar-header\">\n" +
-    "    <a ng-click=\"prevMonth()\">&lt;- Left</a>\n" +
-    "    <span ng-bind=\"months[selectedMonth] + ', ' + selectedYear\"></span>\n" +
-    "    <a ng-click=\"nextMonth()\">Right -&gt;</a>\n" +
+    "    <span class=\"w-calendar-month-prev\" ng-click=\"prevMonth()\"></span>\n" +
+    "    <span class=\"w-calendar-month-selected\" ng-bind=\"months[selectedMonth] + ', ' + selectedYear\"></span>\n" +
+    "    <span class=\"w-calendar-month-next\" ng-click=\"nextMonth()\"></span>\n" +
     "  </div>\n" +
     "  <div>\n" +
     "    <table class=\"table-condensed\">\n" +

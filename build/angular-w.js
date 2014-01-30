@@ -4,9 +4,9 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
   $templateCache.put('/templates/calendar.html',
     "<div class=\"w-calendar\">\n" +
     "  <div class=\"w-calendar-header\">\n" +
-    "    <a ng-click=\"prevMonth()\">&lt;- Left</a>\n" +
-    "    <span ng-bind=\"months[selectedMonth] + ', ' + selectedYear\"></span>\n" +
-    "    <a ng-click=\"nextMonth()\">Right -&gt;</a>\n" +
+    "    <span class=\"w-calendar-month-prev\" ng-click=\"prevMonth()\"></span>\n" +
+    "    <span class=\"w-calendar-month-selected\" ng-bind=\"months[selectedMonth] + ', ' + selectedYear\"></span>\n" +
+    "    <span class=\"w-calendar-month-next\" ng-click=\"nextMonth()\"></span>\n" +
     "  </div>\n" +
     "  <div>\n" +
     "    <table class=\"table-condensed\">\n" +
@@ -75,22 +75,33 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
 }]);
 
 (function() {
+  var shiftWeekDays;
+
+  shiftWeekDays = function(weekDays, firstDayOfWeek) {
+    var weekDaysHead;
+    weekDaysHead = weekDays.slice(firstDayOfWeek, weekDays.length);
+    return weekDaysHead.concat(weekDays.slice(0, firstDayOfWeek));
+  };
+
   angular.module('angular-w').directive('wCalendar', function() {
     return {
       restrict: 'E',
       templateUrl: '/templates/calendar.html',
       replace: true,
       require: '?ngModel',
-      scope: {},
+      scope: {
+        firstDayOfWeek: '@firstDayOfWeek'
+      },
       controller: [
         '$scope', '$locale', function($scope, $locale) {
-          var currentTime, dateOffsetedBy, updateMonthDays;
+          var addDays, currentTime, updateMonthDays;
           $scope.months = $locale.DATETIME_FORMATS.SHORTMONTH;
-          $scope.weekDays = $locale.DATETIME_FORMATS.SHORTDAY;
+          $scope.firstDayOfWeek || ($scope.firstDayOfWeek = 0);
           currentTime = new Date();
           $scope.currentDate = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate());
           $scope.selectedYear = $scope.currentDate.getFullYear();
           $scope.selectedMonth = $scope.currentDate.getMonth();
+          $scope.weekDays = shiftWeekDays($locale.DATETIME_FORMATS.SHORTDAY, $scope.firstDayOfWeek);
           $scope.prevMonth = function() {
             $scope.selectedMonth--;
             if ($scope.selectedMonth < 0) {
@@ -116,13 +127,17 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
             var _ref;
             return day.getTime() === ((_ref = $scope.selectedDate) != null ? _ref.getTime() : void 0);
           };
-          dateOffsetedBy = function(date, offsetInDays) {
-            return new Date(date.getFullYear(), date.getMonth(), date.getDate() + offsetInDays);
+          addDays = function(date, days) {
+            return new Date(date.getFullYear(), date.getMonth(), date.getDate() + days);
           };
           updateMonthDays = function() {
-            var day, firstDayOfMonth, firstDayOfWeek, week;
+            var day, dayOffset, firstDayOfMonth, firstDayOfWeek, week;
             firstDayOfMonth = new Date($scope.selectedYear, $scope.selectedMonth);
-            firstDayOfWeek = dateOffsetedBy(firstDayOfMonth, -firstDayOfMonth.getDay());
+            dayOffset = parseInt($scope.firstDayOfWeek) - firstDayOfMonth.getDay();
+            if (dayOffset > 0) {
+              dayOffset -= 7;
+            }
+            firstDayOfWeek = addDays(firstDayOfMonth, dayOffset);
             return $scope.weeks = (function() {
               var _i, _results;
               _results = [];
@@ -131,7 +146,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
                   var _j, _results1;
                   _results1 = [];
                   for (day = _j = 0; _j <= 6; day = ++_j) {
-                    _results1.push(dateOffsetedBy(firstDayOfWeek, 7 * week + day));
+                    _results1.push(addDays(firstDayOfWeek, 7 * week + day));
                   }
                   return _results1;
                 })());
@@ -196,7 +211,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     }), 0);
   };
 
-  angular.module("angular-w", []).directive("wFocus", function() {
+  angular.module("angular-w").directive("wFocus", function() {
     return {
       link: function(scope, element, attrs) {
         return scope.$watch(attrs.wFocus, function(fcs) {
