@@ -5,9 +5,9 @@ angular
   replace: true
   require: '?ngModel'
   scope: {}
-  controller: ['$scope', ($scope)->
-    $scope.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-    $scope.weekDays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
+  controller: ['$scope', '$locale', ($scope, $locale)->
+    $scope.months = $locale.DATETIME_FORMATS.SHORTMONTH
+    $scope.weekDays = $locale.DATETIME_FORMATS.SHORTDAY
     currentTime = new Date()
     $scope.currentDate = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate())
     $scope.selectedYear = $scope.currentDate.getFullYear()

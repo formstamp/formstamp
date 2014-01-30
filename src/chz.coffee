@@ -41,6 +41,10 @@ angular
 
     scrollIfNeeded = (activeIndex) ->
       ul = $element.find('ul')[0]
+      li = ul.querySelector('li.active')
+
+      return unless ul and li
+
       ulHeight = ul.clientHeight - getComputedStyle(ul, 'padding-top') - getComputedStyle(ul, 'padding-bottom')
       viewport =
         top: ul.scrollTop
@@ -102,7 +106,7 @@ angular
       if ngModelCtrl
         scope.$watch 'selectedItem', ->
           ngModelCtrl.$setViewValue(scope.selectedItem)
-          if scope.selectedItem? then scope.activeItem = scope.selectedItem
+          scope.activeItem = scope.selectedItem
 
         ngModelCtrl.$render = ->
           scope.selectedItem = ngModelCtrl.$modelValue
