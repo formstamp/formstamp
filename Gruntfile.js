@@ -57,7 +57,8 @@ module.exports = function (grunt) {
         dest: 'build/templates/templates.js',
         options: {
           module: 'angular-w',
-          prefix: '/'
+          prefix: '/',
+          standalone: true
         }
       }
     },

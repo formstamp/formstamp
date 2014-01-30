@@ -1,4 +1,4 @@
-angular.module('angular-w').run(['$templateCache', function($templateCache) {
+angular.module('angular-w', []).run(['$templateCache', function($templateCache) {
   'use strict';
 
   $templateCache.put('/templates/calendar.html',
