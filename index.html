@@ -9,19 +9,35 @@
     <link rel="stylesheet" href="build/calendar.css"/>
     <link rel="stylesheet" href="build/chz.css"/>
     <style>
-      .container {
-        padding: 30px 10px;
-      }
-      form.form-horizontal {
-        padding: 1em;
-        border: 1px solid #ddd;
+      .heading {
+        padding: 40px 15px;
+        text-align: center;
       }
     </style>
 
   </head>
   <body>
     <div class="container" ng-controller="DemoCtrl">
-      <form role="form" class='form-horizontal' name='w_form' action='/demo/index.html'>
+      <nav class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+          <a class='navbar-brand' href='#'>Angular-w</a>
+        </div>
+      </nav>
+      <div class='heading'>
+        <h1>Angular-w</h1>
+        <p>
+          Pure AngularJS widgets library.
+        </p>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="bower_components/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="build/angular-w.js"></script>
+    <script type="text/javascript" src="demo/script/demo.js"></script>
+  </body>
+</html>
+   <!--   <form role="form" class='form-horizontal' name='w_form' action='/demo/index.html'>
         <h1> Widgets </h1>
         <hr/>
         <div class="form-group">
@@ -84,18 +100,4 @@
             <w-calendar ng-model="someDate"></w-calendar>
           </div>
         </div>
-      </form>
-    </div>
-
-    <script type="text/javascript" src="bower_components/angular/angular.js"></script>
-    <script type="text/javascript" src="bower_components/angular-route/angular-route.min.js"></script>
-    <script type="text/javascript" src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
-    <script type="text/javascript" src="bower_components/angular-touch/angular-touch.min.js"></script>
-    <script type="text/javascript" src="bower_components/angular-animate/angular-animate.min.js"></script>
-    <script type="text/javascript" src="bower_components/jquery/jquery.min.js"></script>
-
-    <script type="text/javascript" src="build/angular-w.js"></script>
-
-    <script type="text/javascript" src="demo/script/demo.js"></script>
-  </body>
-</html>
+      </form> -->
