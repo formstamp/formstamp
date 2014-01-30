@@ -34,7 +34,7 @@ angular
 
     move = (d) ->
       items = $scope.shownItems
-      activeIndex = (items.indexOf($scope.activeItem) || 0) + d
+      activeIndex = getActiveIndex() + d
       activeIndex = Math.min(Math.max(activeIndex,0), items.length - 1)
       $scope.activeItem = items[activeIndex]
       scrollIfNeeded(activeIndex)
@@ -90,8 +90,14 @@ angular
 
     $scope.$watch 'search', search
 
+    $scope.$watch 'active', (value) ->
+      window.setTimeout((()-> scrollIfNeeded(getActiveIndex())) , 0) if value
+
     $scope.hideDropDown = ->
       $scope.active = false
+
+    getActiveIndex = ->
+      ($scope.shownItems.indexOf($scope.activeItem) || 0)
 
     # run
     search('')
