@@ -13,7 +13,7 @@
               class="btn btn-default"
               aria-hidden="true"
               ng-show='selectedItem'
-              ng-click='selectedItem = null'>&times;</button>
+              ng-click='reset()'>&times;</button>
     </div>
   <div class="open" ng-show="active">
     <input ng-keydown="onkeys($event)"

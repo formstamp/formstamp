@@ -73,6 +73,10 @@ angular
       $scope.selectedItem = item
       $scope.hideDropDown()
 
+    $scope.reset = ->
+      $scope.selectedItem = null
+      $scope.focus = true
+
     $scope.onkeys = (event)->
       switch event.keyCode
         when 40 then move(1)
