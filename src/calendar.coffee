@@ -7,6 +7,7 @@ angular
   scope: {}
   controller: ['$scope', ($scope)->
     $scope.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    # $scope.weekDays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
     currentTime = new Date()
     $scope.currentDate = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate())
     $scope.selectedYear = $scope.currentDate.getFullYear()
@@ -23,6 +24,16 @@ angular
       if $scope.selectedMonth >= $scope.months.length
         $scope.selectedMonth = 0
         $scope.selectedYear++
+
+    $scope.isDayInSelectedMonth = (day)->
+      day.getFullYear() == $scope.selectedYear &&
+        day.getMonth() == $scope.selectedMonth
+
+    $scope.isCurrentDate = (day)->
+      day.getTime() == $scope.currentDate?.getTime()
+
+    $scope.isSelectedDate = (day)->
+      day.getTime() == $scope.selectedDate?.getTime()
 
     dateOffsetedBy = (date, offsetInDays)->
       new Date(date.getFullYear(), date.getMonth(), date.getDate() + offsetInDays)
