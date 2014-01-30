@@ -30,7 +30,7 @@
       <tr ng-repeat="monthGroup in monthGroups">
         <td ng-repeat="month in monthGroup"
             ng-click="selectMonth(month)"
-            ng-class="{'month-selected': selectedDate.getFullYear() == selectedYear && month == months[selectedMonth]}"
+            ng-class="{'month-selected': month == selectedMonth}"
             class="month">
           {{month}}
         </td>
@@ -41,7 +41,7 @@
     <div class="w-calendar-header">
       <span class="w-calendar-prev" ng-click="prevMonth()"></span>
       <span class="w-calendar-title" ng-click="switchSelectionMode()">
-        {{months[selectedMonth] + ', ' + selectedYear}}
+        {{selectedMonth + ', ' + selectedYear}}
       </span>
       <span class="w-calendar-next" ng-click="nextMonth()"></span>
     </div>

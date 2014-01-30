@@ -17,21 +17,23 @@ angular
     currentTime = new Date()
     $scope.currentDate = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate())
     $scope.selectedYear = $scope.currentDate.getFullYear()
-    $scope.selectedMonth = $scope.currentDate.getMonth()
+    $scope.selectedMonth = $scope.months[$scope.currentDate.getMonth()]
     $scope.weekDays = shiftWeekDays($locale.DATETIME_FORMATS.SHORTDAY, $scope.firstDayOfWeek)
     $scope.monthGroups = ($scope.months.slice(i * 4, i * 4 + 4) for i in [0..2])
 
     $scope.prevMonth = ->
-      $scope.selectedMonth--
-      if $scope.selectedMonth < 0
-        $scope.selectedMonth = $scope.months.length - 1
+      month = $scope.months.indexOf($scope.selectedMonth) - 1
+      if month < 0
+        month = $scope.months.length - 1
         $scope.selectedYear--
+      $scope.selectedMonth = $scope.months[month]
 
     $scope.nextMonth = ->
-      $scope.selectedMonth++
-      if $scope.selectedMonth >= $scope.months.length
-        $scope.selectedMonth = 0
+      month = $scope.months.indexOf($scope.selectedMonth) + 1
+      if month >= $scope.months.length
+        month = 0
         $scope.selectedYear++
+      $scope.selectedMonth = $scope.months[month]
 
     $scope.prevYear = ->
       $scope.selectedYear--
@@ -55,8 +57,7 @@ angular
           'day'
 
     $scope.isDayInSelectedMonth = (day)->
-      day.getFullYear() == $scope.selectedYear &&
-      day.getMonth() == $scope.selectedMonth
+      day.getFullYear() == $scope.selectedYear && $scope.months[day.getMonth()] == $scope.selectedMonth
 
     $scope.isCurrentDate = (day)->
       day.getTime() == $scope.currentDate?.getTime()
@@ -68,7 +69,8 @@ angular
       new Date(date.getFullYear(), date.getMonth(), date.getDate() + days)
 
     updateSelectionRanges = ->
-      firstDayOfMonth = new Date($scope.selectedYear, $scope.selectedMonth)
+      monthIndex = $scope.months.indexOf($scope.selectedMonth)
+      firstDayOfMonth = new Date($scope.selectedYear, monthIndex)
       dayOffset = parseInt($scope.firstDayOfWeek) - firstDayOfMonth.getDay()
       dayOffset -= 7 if dayOffset > 0
       firstDayOfWeek = addDays(firstDayOfMonth, dayOffset)
@@ -78,7 +80,7 @@ angular
     $scope.$watch 'selectedDate', ->
       if $scope.selectedDate?
         $scope.selectedYear = $scope.selectedDate.getFullYear()
-        $scope.selectedMonth = $scope.selectedDate.getMonth()
+        $scope.selectedMonth = $scope.months[$scope.selectedDate.getMonth()]
 
     $scope.$watch 'selectedMonth', updateSelectionRanges
     $scope.$watch 'selectedYear', updateSelectionRanges
@@ -102,12 +104,12 @@ angular
 
     scope.selectMonth = (monthName)->
       scope.selectionMode = 'day'
-      month = scope.months.indexOf(monthName)
+      monthIndex = scope.months.indexOf(monthName)
       if scope.selectedDate
-        scope.selectedDate = new Date(scope.selectedYear, month, scope.selectedDate.getDate())
+        scope.selectedDate = new Date(scope.selectedYear, monthIndex, scope.selectedDate.getDate())
         ngModel.$setViewValue(scope.selectedDate)
       else
-        scope.selectedMonth = month
+        scope.selectedMonth = monthName
 
     scope.selectYear = (year)->
       scope.selectionMode = 'month'

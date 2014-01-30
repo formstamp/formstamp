@@ -25,7 +25,7 @@
           currentTime = new Date();
           $scope.currentDate = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate());
           $scope.selectedYear = $scope.currentDate.getFullYear();
-          $scope.selectedMonth = $scope.currentDate.getMonth();
+          $scope.selectedMonth = $scope.months[$scope.currentDate.getMonth()];
           $scope.weekDays = shiftWeekDays($locale.DATETIME_FORMATS.SHORTDAY, $scope.firstDayOfWeek);
           $scope.monthGroups = (function() {
             var _i, _results;
@@ -36,18 +36,22 @@
             return _results;
           })();
           $scope.prevMonth = function() {
-            $scope.selectedMonth--;
-            if ($scope.selectedMonth < 0) {
-              $scope.selectedMonth = $scope.months.length - 1;
-              return $scope.selectedYear--;
+            var month;
+            month = $scope.months.indexOf($scope.selectedMonth) - 1;
+            if (month < 0) {
+              month = $scope.months.length - 1;
+              $scope.selectedYear--;
             }
+            return $scope.selectedMonth = $scope.months[month];
           };
           $scope.nextMonth = function() {
-            $scope.selectedMonth++;
-            if ($scope.selectedMonth >= $scope.months.length) {
-              $scope.selectedMonth = 0;
-              return $scope.selectedYear++;
+            var month;
+            month = $scope.months.indexOf($scope.selectedMonth) + 1;
+            if (month >= $scope.months.length) {
+              month = 0;
+              $scope.selectedYear++;
             }
+            return $scope.selectedMonth = $scope.months[month];
           };
           $scope.prevYear = function() {
             return $scope.selectedYear--;
@@ -86,7 +90,7 @@
             })();
           };
           $scope.isDayInSelectedMonth = function(day) {
-            return day.getFullYear() === $scope.selectedYear && day.getMonth() === $scope.selectedMonth;
+            return day.getFullYear() === $scope.selectedYear && $scope.months[day.getMonth()] === $scope.selectedMonth;
           };
           $scope.isCurrentDate = function(day) {
             var _ref;
@@ -100,8 +104,9 @@
             return new Date(date.getFullYear(), date.getMonth(), date.getDate() + days);
           };
           updateSelectionRanges = function() {
-            var day, dayOffset, firstDayOfMonth, firstDayOfWeek, week, _i, _ref, _ref1, _results;
-            firstDayOfMonth = new Date($scope.selectedYear, $scope.selectedMonth);
+            var day, dayOffset, firstDayOfMonth, firstDayOfWeek, monthIndex, week, _i, _ref, _ref1, _results;
+            monthIndex = $scope.months.indexOf($scope.selectedMonth);
+            firstDayOfMonth = new Date($scope.selectedYear, monthIndex);
             dayOffset = parseInt($scope.firstDayOfWeek) - firstDayOfMonth.getDay();
             if (dayOffset > 0) {
               dayOffset -= 7;
@@ -131,7 +136,7 @@
           $scope.$watch('selectedDate', function() {
             if ($scope.selectedDate != null) {
               $scope.selectedYear = $scope.selectedDate.getFullYear();
-              return $scope.selectedMonth = $scope.selectedDate.getMonth();
+              return $scope.selectedMonth = $scope.months[$scope.selectedDate.getMonth()];
             }
           });
           $scope.$watch('selectedMonth', updateSelectionRanges);
@@ -167,14 +172,14 @@
           return ngModel.$setViewValue(day);
         };
         scope.selectMonth = function(monthName) {
-          var month;
+          var monthIndex;
           scope.selectionMode = 'day';
-          month = scope.months.indexOf(monthName);
+          monthIndex = scope.months.indexOf(monthName);
           if (scope.selectedDate) {
-            scope.selectedDate = new Date(scope.selectedYear, month, scope.selectedDate.getDate());
+            scope.selectedDate = new Date(scope.selectedYear, monthIndex, scope.selectedDate.getDate());
             return ngModel.$setViewValue(scope.selectedDate);
           } else {
-            return scope.selectedMonth = month;
+            return scope.selectedMonth = monthName;
           }
         };
         return scope.selectYear = function(year) {
