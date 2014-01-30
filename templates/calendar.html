@@ -11,7 +11,7 @@
       <tr data-ng-repeat="yearGroup in yearGroups">
         <td data-ng-repeat="year in yearGroup"
             data-ng-click="selectYear(year)"
-            data-ng-class="{'year-selected': year == selectedYear}"
+            data-ng-class="{'active': year == selectedYear}"
             class="year">
           {{year}}
         </td>
@@ -30,7 +30,7 @@
       <tr data-ng-repeat="monthGroup in monthGroups">
         <td data-ng-repeat="month in monthGroup"
             data-ng-click="selectMonth(month)"
-            data-ng-class="{'month-selected': month == selectedMonth}"
+            data-ng-class="{'active': month == selectedMonth}"
             class="month">
           {{month}}
         </td>
@@ -58,7 +58,7 @@
         <td data-ng-repeat="day in week" class="day"
             data-ng-class="{'day-in-selected-month': isDayInSelectedMonth(day),
                        'day-current': isCurrentDate(day),
-                       'day-selected': isSelectedDate(day)}"
+                       'active': isSelectedDate(day)}"
             data-ng-click="selectDay(day)">
           {{day.getDate()}}
         </td>

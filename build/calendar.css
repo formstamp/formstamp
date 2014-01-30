@@ -44,9 +44,9 @@
 .w-calendar .day-current {
   font-weight: bold;
 }
-.w-calendar .day-selected,
-.w-calendar .month-selected,
-.w-calendar .year-selected {
+.w-calendar .day.active,
+.w-calendar .month.active,
+.w-calendar .year.active {
   font-weight: bold;
   background-color: lightgray;
 }
