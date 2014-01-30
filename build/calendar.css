@@ -4,14 +4,34 @@
 }
 .w-calendar .w-calendar-header {
   text-align: center;
+  vertical-align: middle;
 }
-.w-calendar .w-calendar-header a {
+.w-calendar .w-calendar-month-next,
+.w-calendar .w-calendar-month-prev,
+.w-calendar .w-calendar-month-selected {
+  vertical-align: middle;
+}
+.w-calendar .w-calendar-month-selected {
+  font-size: 1.5em;
+  display: inline-block;
+  width: 10em;
+}
+.w-calendar .w-calendar-month-next,
+.w-calendar .w-calendar-month-prev {
+  display: inline-block;
   cursor: pointer;
+}
+.w-calendar .w-calendar-month-prev:before {
+  content: '\025C0';
+}
+.w-calendar .w-calendar-month-next:after {
+  content: '\025B6';
 }
 .w-calendar .day {
   cursor: pointer;
-  text-align: right;
+  text-align: center;
   color: darkgray;
+  width: 2.5em;
 }
 .w-calendar .day-in-selected-month {
   color: black;

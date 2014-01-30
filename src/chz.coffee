@@ -8,7 +8,7 @@ focuz = (el)->
   window.setTimeout((()-> el.focus()) , 0)
 
 angular
-.module("angular-w", [])
+.module("angular-w")
 .directive "wFocus", ->
   link: (scope, element, attrs) ->
     scope.$watch attrs.wFocus, (fcs)->

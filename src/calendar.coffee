@@ -1,17 +1,23 @@
+shiftWeekDays = (weekDays, firstDayOfWeek)->
+  weekDaysHead = weekDays.slice(firstDayOfWeek, weekDays.length)
+  weekDaysHead.concat(weekDays.slice(0, firstDayOfWeek))
+
 angular
 .module('angular-w').directive 'wCalendar', ->
   restrict: 'E'
   templateUrl: '/templates/calendar.html'
   replace: true
   require: '?ngModel'
-  scope: {}
+  scope: {firstDayOfWeek: '@firstDayOfWeek'}
   controller: ['$scope', '$locale', ($scope, $locale)->
     $scope.months = $locale.DATETIME_FORMATS.SHORTMONTH
-    $scope.weekDays = $locale.DATETIME_FORMATS.SHORTDAY
+    $scope.firstDayOfWeek ||= 0
+
     currentTime = new Date()
     $scope.currentDate = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate())
     $scope.selectedYear = $scope.currentDate.getFullYear()
     $scope.selectedMonth = $scope.currentDate.getMonth()
+    $scope.weekDays = shiftWeekDays($locale.DATETIME_FORMATS.SHORTDAY, $scope.firstDayOfWeek)
 
     $scope.prevMonth = ->
       $scope.selectedMonth--
@@ -27,7 +33,7 @@ angular
 
     $scope.isDayInSelectedMonth = (day)->
       day.getFullYear() == $scope.selectedYear &&
-        day.getMonth() == $scope.selectedMonth
+      day.getMonth() == $scope.selectedMonth
 
     $scope.isCurrentDate = (day)->
       day.getTime() == $scope.currentDate?.getTime()
@@ -35,13 +41,15 @@ angular
     $scope.isSelectedDate = (day)->
       day.getTime() == $scope.selectedDate?.getTime()
 
-    dateOffsetedBy = (date, offsetInDays)->
-      new Date(date.getFullYear(), date.getMonth(), date.getDate() + offsetInDays)
+    addDays = (date, days)->
+      new Date(date.getFullYear(), date.getMonth(), date.getDate() + days)
 
     updateMonthDays = ->
       firstDayOfMonth = new Date($scope.selectedYear, $scope.selectedMonth)
-      firstDayOfWeek = dateOffsetedBy(firstDayOfMonth, -firstDayOfMonth.getDay())
-      $scope.weeks = ((dateOffsetedBy(firstDayOfWeek, 7 * week + day) for day in [0..6]) for week in [0..5])
+      dayOffset = parseInt($scope.firstDayOfWeek) - firstDayOfMonth.getDay()
+      dayOffset -= 7 if dayOffset > 0
+      firstDayOfWeek = addDays(firstDayOfMonth, dayOffset)
+      $scope.weeks = ((addDays(firstDayOfWeek, 7 * week + day) for day in [0..6]) for week in [0..5])
 
     $scope.$watch 'selectedDate', ->
       if $scope.selectedDate?

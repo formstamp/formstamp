@@ -21,7 +21,7 @@
     }), 0);
   };
 
-  angular.module("angular-w", []).directive("wFocus", function() {
+  angular.module("angular-w").directive("wFocus", function() {
     return {
       link: function(scope, element, attrs) {
         return scope.$watch(attrs.wFocus, function(fcs) {

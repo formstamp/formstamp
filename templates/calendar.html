@@ -1,8 +1,8 @@
 <div class="w-calendar">
   <div class="w-calendar-header">
-    <a ng-click="prevMonth()">&lt;- Left</a>
-    <span ng-bind="months[selectedMonth] + ', ' + selectedYear"></span>
-    <a ng-click="nextMonth()">Right -&gt;</a>
+    <span class="w-calendar-month-prev" ng-click="prevMonth()"></span>
+    <span class="w-calendar-month-selected" ng-bind="months[selectedMonth] + ', ' + selectedYear"></span>
+    <span class="w-calendar-month-next" ng-click="nextMonth()"></span>
   </div>
   <div>
     <table class="table-condensed">
