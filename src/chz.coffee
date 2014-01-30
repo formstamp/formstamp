@@ -70,14 +70,15 @@ angular
       $scope.hideDropDown()
 
     $scope.onkeys = (event)->
+      console.log event.keyCode
       switch event.keyCode
         when 40 then move(1)
         when 38 then move(-1)
-        when 13 then $scope.selection($scope.activeItem)
+        when 13 then $scope.selection($scope.activeItem); $scope.focus=true;event.preventDefault()
+        when  9 then $scope.selection($scope.activeItem)
         when 27 then $scope.hideDropDown()
         when 34 then move(11)
         when 33 then move(-11)
-      event.preventDefault()
 
     $scope.$watch 'search', search
 
