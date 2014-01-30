@@ -5,7 +5,8 @@
          href="javascript:void(0)"
          ng-click="active=true"
          w-focus='focus'
-         ng-disabled="disabled">
+         ng-disabled="disabled"
+         ng-blur='focus=false'>
           {{ (selectedItem || 'none') }}
       </a>
       <button type="button"

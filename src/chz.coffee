@@ -78,7 +78,9 @@ angular
           $scope.focus=true
           event.preventDefault()
         when  9 then $scope.selection($scope.activeItem)
-        when 27 then $scope.hideDropDown()
+        when 27
+          $scope.hideDropDown()
+          $scope.focus=true
         when 34 then move(11)
         when 33 then move(-11)
 
