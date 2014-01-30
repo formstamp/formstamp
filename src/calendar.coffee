@@ -4,10 +4,17 @@ angular
   templateUrl: '/templates/calendar.html'
   replace: true
   require: '?ngModel'
-  scope: {}
+  scope: {firstDayOfWeek: '@firstDayOfWeek'}
   controller: ['$scope', '$locale', ($scope, $locale)->
     $scope.months = $locale.DATETIME_FORMATS.SHORTMONTH
     $scope.weekDays = $locale.DATETIME_FORMATS.SHORTDAY
+    console.log($scope.firstDayOfWeek)
+    if typeof $scope.firstDayOfWeek == undefined
+      $scope.firstDayOfWeek = 0
+    weekDays = $scope.weekDays
+    weekDaysHead = weekDays.slice($scope.firstDayOfWeek, weekDays.length)
+    weekDaysTail = weekDays.slice(0, $scope.firstDayOfWeek)
+    $scope.weekDays = weekDaysHead.concat(weekDaysTail)
     currentTime = new Date()
     $scope.currentDate = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate())
     $scope.selectedYear = $scope.currentDate.getFullYear()
