@@ -8,7 +8,10 @@
         <table class="table-condensed">
             <tr ng-repeat="week in weeks">
                 <td ng-repeat="day in week" class="day"
-                    ng-class="{'day-in-selected-month': (day.getFullYear() == selectedYear && day.getMonth() == selectedMonth), 'day-current': (day.getTime() == currentDate.getTime())}"
+                    ng-class="{'day-in-selected-month': isDayInSelectedMonth(day),
+                               'day-current': isCurrentDate(day),
+                               'day-selected': isSelectedDate(day)}"
+                    ng-click="selectDay(day)"
                     ng-bind="day.getDate()">
                 </td>
             </tr>

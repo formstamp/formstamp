@@ -59,7 +59,7 @@ class `.w-chz .w-chz-items-list` with your own properties.
         <label class="col-sm-2 control-label">Chosen</label>
         <div class="col-sm-10">
           <div w-chz
-               items="items"
+               items="countries"
                limit='30'
                key-attr='code'
                value-attr='name'
