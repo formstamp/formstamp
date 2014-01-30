@@ -3,14 +3,38 @@
   display: inline-block;
 
   .w-calendar-header {
-    a { cursor: pointer; }
     text-align: center;
+    vertical-align: middle;
+  }
+
+  .w-calendar-month-next, .w-calendar-month-prev, .w-calendar-month-selected {
+    vertical-align: middle;
+  }
+
+  .w-calendar-month-selected {
+    font-size: 1.5em;
+    display: inline-block;
+    width: 10em;
+  }
+
+  .w-calendar-month-next, .w-calendar-month-prev {
+    display: inline-block;
+    cursor: pointer;
+  }
+
+  .w-calendar-month-prev:before {
+    content: '\025C0';
+  }
+
+  .w-calendar-month-next:after {
+    content: '\025B6';
   }
 
   .day {
     cursor: pointer;
-    text-align: right;
+    text-align: center;
     color: darkgray;
+    width: 2.5em;
   }
 
   .day-in-selected-month {
