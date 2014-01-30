@@ -80,7 +80,10 @@
         <div class="form-group">
           <label class="col-sm-2 control-label">Calendar</label>
           <div class="col-sm-10">
-            Date: <input type="text" ng-model="someDate">
+            <input type="text" ng-model="someDate">
+            <br/>
+            {{someDate|date:'fullDate'}}
+            <br/>
             <w-calendar ng-model="someDate" first-day-of-week="1"></w-calendar>
           </div>
         </div>

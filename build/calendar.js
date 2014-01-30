@@ -18,7 +18,8 @@
       },
       controller: [
         '$scope', '$locale', function($scope, $locale) {
-          var addDays, currentTime, updateMonthDays;
+          var addDays, currentTime, i, updateSelectionRanges;
+          $scope.selectionMode = 'day';
           $scope.months = $locale.DATETIME_FORMATS.SHORTMONTH;
           $scope.firstDayOfWeek || ($scope.firstDayOfWeek = 0);
           currentTime = new Date();
@@ -26,6 +27,14 @@
           $scope.selectedYear = $scope.currentDate.getFullYear();
           $scope.selectedMonth = $scope.currentDate.getMonth();
           $scope.weekDays = shiftWeekDays($locale.DATETIME_FORMATS.SHORTDAY, $scope.firstDayOfWeek);
+          $scope.monthGroups = (function() {
+            var _i, _results;
+            _results = [];
+            for (i = _i = 0; _i <= 2; i = ++_i) {
+              _results.push($scope.months.slice(i * 4, i * 4 + 4));
+            }
+            return _results;
+          })();
           $scope.prevMonth = function() {
             $scope.selectedMonth--;
             if ($scope.selectedMonth < 0) {
@@ -39,6 +48,42 @@
               $scope.selectedMonth = 0;
               return $scope.selectedYear++;
             }
+          };
+          $scope.prevYear = function() {
+            return $scope.selectedYear--;
+          };
+          $scope.nextYear = function() {
+            return $scope.selectedYear++;
+          };
+          $scope.prevYearRange = function() {
+            var rangeSize, _i, _ref, _ref1, _results;
+            rangeSize = $scope.years.length;
+            return $scope.years = (function() {
+              _results = [];
+              for (var _i = _ref = $scope.years[0] - rangeSize, _ref1 = $scope.years[$scope.years.length - 1] - rangeSize; _ref <= _ref1 ? _i <= _ref1 : _i >= _ref1; _ref <= _ref1 ? _i++ : _i--){ _results.push(_i); }
+              return _results;
+            }).apply(this);
+          };
+          $scope.nextYearRange = function() {
+            var rangeSize, _i, _ref, _ref1, _results;
+            rangeSize = $scope.years.length;
+            return $scope.years = (function() {
+              _results = [];
+              for (var _i = _ref = $scope.years[0] + rangeSize, _ref1 = $scope.years[$scope.years.length - 1] + rangeSize; _ref <= _ref1 ? _i <= _ref1 : _i >= _ref1; _ref <= _ref1 ? _i++ : _i--){ _results.push(_i); }
+              return _results;
+            }).apply(this);
+          };
+          $scope.switchSelectionMode = function() {
+            return $scope.selectionMode = (function() {
+              switch ($scope.selectionMode) {
+                case 'day':
+                  return 'month';
+                case 'month':
+                  return 'year';
+                default:
+                  return 'day';
+              }
+            })();
           };
           $scope.isDayInSelectedMonth = function(day) {
             return day.getFullYear() === $scope.selectedYear && day.getMonth() === $scope.selectedMonth;
@@ -54,15 +99,15 @@
           addDays = function(date, days) {
             return new Date(date.getFullYear(), date.getMonth(), date.getDate() + days);
           };
-          updateMonthDays = function() {
-            var day, dayOffset, firstDayOfMonth, firstDayOfWeek, week;
+          updateSelectionRanges = function() {
+            var day, dayOffset, firstDayOfMonth, firstDayOfWeek, week, _i, _ref, _ref1, _results;
             firstDayOfMonth = new Date($scope.selectedYear, $scope.selectedMonth);
             dayOffset = parseInt($scope.firstDayOfWeek) - firstDayOfMonth.getDay();
             if (dayOffset > 0) {
               dayOffset -= 7;
             }
             firstDayOfWeek = addDays(firstDayOfMonth, dayOffset);
-            return $scope.weeks = (function() {
+            $scope.weeks = (function() {
               var _i, _results;
               _results = [];
               for (week = _i = 0; _i <= 5; week = ++_i) {
@@ -77,6 +122,11 @@
               }
               return _results;
             })();
+            return $scope.years = (function() {
+              _results = [];
+              for (var _i = _ref = $scope.selectedYear - 5, _ref1 = $scope.selectedYear + 6; _ref <= _ref1 ? _i <= _ref1 : _i >= _ref1; _ref <= _ref1 ? _i++ : _i--){ _results.push(_i); }
+              return _results;
+            }).apply(this);
           };
           $scope.$watch('selectedDate', function() {
             if ($scope.selectedDate != null) {
@@ -84,8 +134,18 @@
               return $scope.selectedMonth = $scope.selectedDate.getMonth();
             }
           });
-          $scope.$watch('selectedMonth', updateMonthDays);
-          return $scope.$watch('selectedYear', updateMonthDays);
+          $scope.$watch('selectedMonth', updateSelectionRanges);
+          $scope.$watch('selectedYear', updateSelectionRanges);
+          return $scope.$watch('years', function() {
+            return $scope.yearGroups = (function() {
+              var _i, _results;
+              _results = [];
+              for (i = _i = 0; _i <= 3; i = ++_i) {
+                _results.push($scope.years.slice(i * 4, i * 4 + 4));
+              }
+              return _results;
+            })();
+          });
         }
       ],
       link: function(scope, element, attrs, ngModel) {
@@ -102,9 +162,29 @@
           scope.selectedDate = parseDate(ngModel.$modelValue);
           return console.log(scope.selectedDate);
         };
-        return scope.selectDay = function(day) {
+        scope.selectDay = function(day) {
           scope.selectedDate = day;
           return ngModel.$setViewValue(day);
+        };
+        scope.selectMonth = function(monthName) {
+          var month;
+          scope.selectionMode = 'day';
+          month = scope.months.indexOf(monthName);
+          if (scope.selectedDate) {
+            scope.selectedDate = new Date(scope.selectedYear, month, scope.selectedDate.getDate());
+            return ngModel.$setViewValue(scope.selectedDate);
+          } else {
+            return scope.selectedMonth = month;
+          }
+        };
+        return scope.selectYear = function(year) {
+          scope.selectionMode = 'month';
+          if (scope.selectedDate) {
+            scope.selectedDate = new Date(year, scope.selectedDate.getMonth(), scope.selectedDate.getDate());
+            return ngModel.$setViewValue(scope.selectedDate);
+          } else {
+            return scope.selectedYear = year;
+          }
         };
       }
     };

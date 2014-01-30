@@ -7,34 +7,38 @@
     vertical-align: middle;
   }
 
-  .w-calendar-month-next, .w-calendar-month-prev, .w-calendar-month-selected {
+  .w-calendar-next, .w-calendar-prev, .w-calendar-title {
     vertical-align: middle;
+    cursor: pointer;
+    display: inline-block;
   }
 
-  .w-calendar-month-selected {
+  .w-calendar-title {
     font-size: 1.5em;
-    display: inline-block;
     width: 10em;
   }
 
-  .w-calendar-month-next, .w-calendar-month-prev {
-    display: inline-block;
-    cursor: pointer;
-  }
-
-  .w-calendar-month-prev:before {
+  .w-calendar-prev:before {
     content: '\025C0';
   }
 
-  .w-calendar-month-next:after {
+  .w-calendar-next:after {
     content: '\025B6';
   }
 
-  .day {
+  .month, .day, .year {
     cursor: pointer;
     text-align: center;
+  }
+
+  .day {
     color: darkgray;
     width: 2.5em;
+  }
+
+  .month, .year {
+    font-size: 1.5em;
+    width: 3.1em;
   }
 
   .day-in-selected-month {
@@ -45,7 +49,7 @@
     font-weight: bold;
   }
 
-  .day-selected {
+  .day-selected, .month-selected, .year-selected {
     font-weight: bold;
     background-color: lightgray;
   }
