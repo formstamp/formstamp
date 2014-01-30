@@ -7,7 +7,7 @@ angular
   scope: {}
   controller: ['$scope', ($scope)->
     $scope.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-    # $scope.weekDays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
+    $scope.weekDays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
     currentTime = new Date()
     $scope.currentDate = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate())
     $scope.selectedYear = $scope.currentDate.getFullYear()
@@ -43,6 +43,11 @@ angular
       firstDayOfWeek = dateOffsetedBy(firstDayOfMonth, -firstDayOfMonth.getDay())
       $scope.weeks = ((dateOffsetedBy(firstDayOfWeek, 7 * week + day) for day in [0..6]) for week in [0..5])
 
+    $scope.$watch 'selectedDate', ->
+      if $scope.selectedDate?
+        $scope.selectedYear = $scope.selectedDate.getFullYear()
+        $scope.selectedMonth = $scope.selectedDate.getMonth()
+
     $scope.$watch 'selectedMonth', updateMonthDays
     $scope.$watch 'selectedYear', updateMonthDays
   ]
@@ -51,7 +56,7 @@ angular
       time = Date.parse(dateString)
       unless isNaN(time)
         parsedDate = new Date(time)
-        new Date(parsedDate.getUTCFullYear(), parsedDate.getUTCMonth(), parsedDate.getUTCDate())
+        new Date(parsedDate.getFullYear(), parsedDate.getMonth(), parsedDate.getDate())
 
     ngModel.$render = ->
       scope.selectedDate = parseDate(ngModel.$modelValue)
