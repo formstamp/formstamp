@@ -1,4 +1,12 @@
 (function() {
+  var shiftWeekDays;
+
+  shiftWeekDays = function(weekDays, firstDayOfWeek) {
+    var weekDaysHead;
+    weekDaysHead = weekDays.slice(firstDayOfWeek, weekDays.length);
+    return weekDaysHead.concat(weekDays.slice(0, firstDayOfWeek));
+  };
+
   angular.module('angular-w').directive('wCalendar', function() {
     return {
       restrict: 'E',
@@ -10,21 +18,14 @@
       },
       controller: [
         '$scope', '$locale', function($scope, $locale) {
-          var currentTime, dateOffsetedBy, updateMonthDays, weekDays, weekDaysHead, weekDaysTail;
+          var addDays, currentTime, updateMonthDays;
           $scope.months = $locale.DATETIME_FORMATS.SHORTMONTH;
-          $scope.weekDays = $locale.DATETIME_FORMATS.SHORTDAY;
-          console.log($scope.firstDayOfWeek);
-          if (typeof $scope.firstDayOfWeek === void 0) {
-            $scope.firstDayOfWeek = 0;
-          }
-          weekDays = $scope.weekDays;
-          weekDaysHead = weekDays.slice($scope.firstDayOfWeek, weekDays.length);
-          weekDaysTail = weekDays.slice(0, $scope.firstDayOfWeek);
-          $scope.weekDays = weekDaysHead.concat(weekDaysTail);
+          $scope.firstDayOfWeek || ($scope.firstDayOfWeek = 0);
           currentTime = new Date();
           $scope.currentDate = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate());
           $scope.selectedYear = $scope.currentDate.getFullYear();
           $scope.selectedMonth = $scope.currentDate.getMonth();
+          $scope.weekDays = shiftWeekDays($locale.DATETIME_FORMATS.SHORTDAY, $scope.firstDayOfWeek);
           $scope.prevMonth = function() {
             $scope.selectedMonth--;
             if ($scope.selectedMonth < 0) {
@@ -50,13 +51,17 @@
             var _ref;
             return day.getTime() === ((_ref = $scope.selectedDate) != null ? _ref.getTime() : void 0);
           };
-          dateOffsetedBy = function(date, offsetInDays) {
-            return new Date(date.getFullYear(), date.getMonth(), date.getDate() + offsetInDays);
+          addDays = function(date, days) {
+            return new Date(date.getFullYear(), date.getMonth(), date.getDate() + days);
           };
           updateMonthDays = function() {
-            var day, firstDayOfMonth, firstDayOfWeek, week;
+            var day, dayOffset, firstDayOfMonth, firstDayOfWeek, week;
             firstDayOfMonth = new Date($scope.selectedYear, $scope.selectedMonth);
-            firstDayOfWeek = dateOffsetedBy(firstDayOfMonth, -firstDayOfMonth.getDay());
+            dayOffset = parseInt($scope.firstDayOfWeek) - firstDayOfMonth.getDay();
+            if (dayOffset > 0) {
+              dayOffset -= 7;
+            }
+            firstDayOfWeek = addDays(firstDayOfMonth, dayOffset);
             return $scope.weeks = (function() {
               var _i, _results;
               _results = [];
@@ -65,7 +70,7 @@
                   var _j, _results1;
                   _results1 = [];
                   for (day = _j = 0; _j <= 6; day = ++_j) {
-                    _results1.push(dateOffsetedBy(firstDayOfWeek, 7 * week + day));
+                    _results1.push(addDays(firstDayOfWeek, 7 * week + day));
                   }
                   return _results1;
                 })());
