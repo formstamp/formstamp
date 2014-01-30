@@ -34,7 +34,7 @@ angular
 
     move = (d) ->
       items = $scope.shownItems
-      activeIndex = (items.indexOf($scope.activeItem) || 0) + d
+      activeIndex = getActiveIndex() + d
       activeIndex = Math.min(Math.max(activeIndex,0), items.length - 1)
       $scope.activeItem = items[activeIndex]
       scrollIfNeeded(activeIndex)
@@ -73,6 +73,10 @@ angular
       $scope.selectedItem = item
       $scope.hideDropDown()
 
+    $scope.reset = ->
+      $scope.selectedItem = null
+      $scope.focus = true
+
     $scope.onkeys = (event)->
       switch event.keyCode
         when 40 then move(1)
@@ -82,14 +86,22 @@ angular
           $scope.focus=true
           event.preventDefault()
         when  9 then $scope.selection($scope.activeItem)
-        when 27 then $scope.hideDropDown()
+        when 27
+          $scope.hideDropDown()
+          $scope.focus=true
         when 34 then move(11)
         when 33 then move(-11)
 
     $scope.$watch 'search', search
 
+    $scope.$watch 'active', (value) ->
+      window.setTimeout((()-> scrollIfNeeded(getActiveIndex())) , 0) if value
+
     $scope.hideDropDown = ->
       $scope.active = false
+
+    getActiveIndex = ->
+      ($scope.shownItems.indexOf($scope.activeItem) || 0)
 
     # run
     search('')

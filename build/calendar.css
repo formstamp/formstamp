@@ -1,0 +1,25 @@
+.w-calendar {
+  user-select: none;
+  display: inline-block;
+}
+.w-calendar .w-calendar-header {
+  text-align: center;
+}
+.w-calendar .w-calendar-header a {
+  cursor: pointer;
+}
+.w-calendar .day {
+  cursor: pointer;
+  text-align: right;
+  color: darkgray;
+}
+.w-calendar .day-in-selected-month {
+  color: black;
+}
+.w-calendar .day-current {
+  font-weight: bold;
+}
+.w-calendar .day-selected {
+  font-weight: bold;
+  background-color: lightgray;
+}
