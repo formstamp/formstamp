@@ -1,20 +1,29 @@
 <div class="w-calendar">
-    <div class="w-calendar-header">
-        <a ng-click="prevMonth()">&lt;- Left</a>
-        <span ng-bind="months[selectedMonth] + ', ' + selectedYear"></span>
-        <a ng-click="nextMonth()">Right -&gt;</a>
-    </div>
-    <div>
-        <table class="table-condensed">
-            <tr ng-repeat="week in weeks">
-                <td ng-repeat="day in week" class="day"
-                    ng-class="{'day-in-selected-month': isDayInSelectedMonth(day),
-                               'day-current': isCurrentDate(day),
-                               'day-selected': isSelectedDate(day)}"
-                    ng-click="selectDay(day)"
-                    ng-bind="day.getDate()">
-                </td>
-            </tr>
-        </table>
-    </div>
+  <div class="w-calendar-header">
+    <a ng-click="prevMonth()">&lt;- Left</a>
+    <span ng-bind="months[selectedMonth] + ', ' + selectedYear"></span>
+    <a ng-click="nextMonth()">Right -&gt;</a>
+  </div>
+  <div>
+    <table class="table-condensed">
+      <thead>
+        <tr>
+          <th ng-repeat="weekDay in weekDays">
+            {{weekDay}}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="week in weeks">
+          <td ng-repeat="day in week" class="day"
+              ng-class="{'day-in-selected-month': isDayInSelectedMonth(day),
+                        'day-current': isCurrentDate(day),
+                        'day-selected': isSelectedDate(day)}"
+              ng-click="selectDay(day)">
+            {{day.getDate()}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

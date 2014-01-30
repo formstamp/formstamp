@@ -7,7 +7,7 @@ angular
   scope: {}
   controller: ['$scope', ($scope)->
     $scope.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-    # $scope.weekDays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
+    $scope.weekDays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
     currentTime = new Date()
     $scope.currentDate = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate())
     $scope.selectedYear = $scope.currentDate.getFullYear()
