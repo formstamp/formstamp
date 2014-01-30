@@ -70,7 +70,6 @@ angular
       $scope.hideDropDown()
 
     $scope.onkeys = (event)->
-      console.log event.keyCode
       switch event.keyCode
         when 40 then move(1)
         when 38 then move(-1)
@@ -101,6 +100,7 @@ angular
       if ngModelCtrl
         scope.$watch 'selectedItem', ->
           ngModelCtrl.$setViewValue(scope.selectedItem)
+          if scope.selectedItem? then scope.activeItem = scope.selectedItem
 
         ngModelCtrl.$render = ->
           scope.selectedItem = ngModelCtrl.$modelValue
