@@ -1,8 +1,8 @@
 comp = (a, b)->
   a.toLowerCase().indexOf(b.toLowerCase()) > -1
 
-filter = (x, xs)->
-  if x then xs.filter ((i)-> comp(i.name, x)) else xs
+filter = (x, xs, valueAttr)->
+  if x then xs.filter ((i)-> comp(i[valueAttr], x)) else xs
 
 focuz = (el)->
   window.setTimeout((()-> el.focus()) , 0)
@@ -61,7 +61,7 @@ angular
 
     search = (q) ->
       if $scope.prevSearch != q
-        $scope.shownItems = filter(q, $scope.items).slice(0, $scope.limit)
+        $scope.shownItems = filter(q, $scope.items, $scope.valueAttr).slice(0, $scope.limit)
         $scope.activeItem = $scope.shownItems[0]
       $scope.prevSearch = q
 
