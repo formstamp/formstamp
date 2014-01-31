@@ -10,7 +10,8 @@ module.exports = function (grunt) {
 			compile: {
 				files: {
 					'build/chz.js': 'src/chz.coffee',
-					'build/calendar.js': 'src/calendar.coffee'
+					'build/calendar.js': 'src/calendar.coffee',
+					'build/popup.js': 'src/popup.coffee'
 				}
 			}
 		},
