@@ -11,6 +11,9 @@
         template: '<div ng-show="isPopupVisible" ng-transclude></div>',
         link: function(scope, element) {
           scope.isPopupVisible = false;
+          scope.showPopup = function(attachTo) {
+            return scope.isPopupVisible = true;
+          };
           return element.attr('name', scope.name);
         }
       };
@@ -21,16 +24,16 @@
         restrict: 'A',
         link: function(scope, element, attrs) {
           return element.on('focus', function() {
-            var el, _i, _len, _ref, _results;
+            var el, popup, _i, _len, _ref, _results;
             _ref = $document.find("div");
             _results = [];
             for (_i = 0, _len = _ref.length; _i < _len; _i++) {
               el = _ref[_i];
-              element = angular.element(el);
-              if (element.attr('name') === attrs.wPopup) {
+              popup = angular.element(el);
+              if (popup.attr('name') === attrs.wPopup) {
                 console.log('element', el);
-                element.isolateScope().$apply(function(scope) {
-                  return scope.isPopupVisible = true;
+                popup.isolateScope().$apply(function(scope) {
+                  return scope.showPopup(element);
                 });
                 break;
               } else {
