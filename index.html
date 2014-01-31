@@ -6,17 +6,24 @@
     <title>angular-w</title>
 
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="styles/style.css"/>
     <link rel="stylesheet" href="build/calendar.css"/>
     <link rel="stylesheet" href="build/chz.css"/>
     <style>
-      .heading {
-        padding: 40px 15px;
-        text-align: center;
+      .wip {
+        color:red;
+      }
+      .page-header {
+        padding-top: 40px;
       }
     </style>
 
   </head>
   <body>
+
+  <!-- Le navbar
+  ================================================== -->
+
     <div class="container" ng-controller="DemoCtrl">
       <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
         <div class="container">
@@ -26,57 +33,317 @@
           </div>
 
           <!-- Collect the nav links, forms, and other content for toggling -->
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-              <li><a href="#">Chosen</a></li>
-              <li><a href="#">Calendar</a></li>
+              <li><a href="#select">Select</a></li>
+              <li><a href="#multiselect">MultiSelect</a></li>
+              <li><a href="#combo">Combo</a></li>
+              <li><a href="#tags">Tags</a></li>
+              <li><a href="#calendar">Calendar</a></li>
+              <li><a href="#timepicker">Timepicker</a></li>
+              <li><a href="#datetime">Datetime</a></li>
+              <li><a href="#slider">Slider</a></li>
+              <li class="pull-right"><a href="#">by Health Samurai</a></li>
             </ul>
-          </div><!-- /.navbar-collapse -->
+          </div>
+          <!-- /.navbar-collapse -->
+
         </div>
       </nav>
-
-      <div class='jumbotron'>
-        <h1>Angular-w</h1>
-        <p>
-          Pure AngularJS widgets library.
-        </p>
-      </div>
-
-      <div>
-        <h1>Chosen</h1>
-        <div class="row">
-          <div class="col-md-12">
-            <h2>Option name</h2>
-            <p>description</p>
-          </div>
-          <div class="col-md-6">
-            demonstration of option effect will be here
-          </div>
-          <div class="col-md-6">
-            option description and usage will be here
-          </div>
-        </div>
-        <hr>
-        <h1>Calendar</h1>
-        <div class="row">
-          <div class="col-md-12">
-            <h2>Option name</h2>
-            <p>description</p>
-          </div>
-          <div class="col-md-6">
-            demonstration of option effect will be here
-          </div>
-          <div class="col-md-6">
-            option description and usage will be here
-          </div>
-        </div>
-      </div>
     </div>
 
-    <script type="text/javascript" src="bower_components/angular/angular.js"></script>
-    <script type="text/javascript" src="bower_components/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="build/angular-w.js"></script>
-    <script type="text/javascript" src="demo/script/demo.js"></script>
+
+  <!-- Le header
+  ================================================== -->
+
+    <header class="bs-header">
+    <div class="container">
+
+      <h1>Angular-w</h1>
+
+      <p>Pure AngularJS widgets library.</p>
+    </div>
+    </header>
+
+  <!-- Le main
+  ================================================== -->
+    <div class="container">
+
+      <section>
+
+  <!-- =Select description
+  --------------------------------------------------------------------------- -->
+        <div id="select">
+          <div class="page-header">
+            <h1>Select <span class="pull-right wip">WIP</span></h1>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div>
+                <div>
+                  <h2>Description</h2>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6" >
+              <div class="pull-right">
+                <h2>Demonstration</h2>
+                <p>
+                  Beautiful live example goes here.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+  <!-- =MultiSelect description
+  --------------------------------------------------------------------------- -->
+        <div id="multiselect">
+          <div class="page-header">
+            <h1>MultiSelect <span class="pull-right wip">WIP</span></h1>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div>
+                <div>
+                  <h2>Description</h2>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6" >
+              <div class="pull-right">
+                <h2>Demonstration</h2>
+                <p>
+                  Beautiful live example goes here.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+  <!-- =Combo description
+  --------------------------------------------------------------------------- -->
+        <div id="combo">
+          <div class="page-header">
+            <h1>Combo <span class="pull-right wip">WIP</span></h1>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div>
+                <div>
+                  <h2>Description</h2>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6" >
+              <div class="pull-right">
+                <h2>Demonstration</h2>
+                <p>
+                  Beautiful live example goes here.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+  <!-- =Tags description
+  --------------------------------------------------------------------------- -->
+        <div id="tags">
+          <div class="page-header">
+            <h1>Tags <span class="pull-right wip">WIP</span></h1>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div>
+                <div>
+                  <h2>Description</h2>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6" >
+              <div class="pull-right">
+                <h2>Demonstration</h2>
+                <p>
+                  Beautiful live example goes here.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+  <!-- =Calendar description
+  --------------------------------------------------------------------------- -->
+        <div id="calendar">
+          <div class="page-header">
+            <h1>Calendar <span class="pull-right wip">WIP</span></h1>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div>
+                <div>
+                  <h2>Description</h2>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6" >
+              <div class="pull-right">
+                <h2>Demonstration</h2>
+                <p>
+                  Beautiful live example goes here.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+  <!-- =Timepicker description
+  --------------------------------------------------------------------------- -->
+        <div id="timepicker">
+          <div class="page-header">
+            <h1>Timepicker <span class="pull-right wip">WIP</span></h1>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div>
+                <div>
+                  <h2>Description</h2>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6" >
+              <div class="pull-right">
+                <h2>Demonstration</h2>
+                <p>
+                  Beautiful live example goes here.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+  <!-- =Datetime description
+  --------------------------------------------------------------------------- -->
+        <div id="datetime">
+          <div class="page-header">
+            <h1>Datetime <span class="pull-right wip">WIP</span></h1>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div>
+                <div>
+                  <h2>Description</h2>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6" >
+              <div class="pull-right">
+                <h2>Demonstration</h2>
+                <p>
+                  Beautiful live example goes here.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+  <!-- =Slider description
+  --------------------------------------------------------------------------- -->
+        <div id="slider">
+          <div class="page-header">
+            <h1>Slider <span class="pull-right wip">WIP</span></h1>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div>
+                <div>
+                  <h2>Description</h2>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6" >
+              <div class="pull-right">
+                <h2>Demonstration</h2>
+                <p>
+                  Beautiful live example goes here.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
   </body>
 </html>
    <!--   <form role="form" class='form-horizontal' name='w_form' action='/demo/index.html'>
