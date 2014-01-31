@@ -3,22 +3,20 @@ shiftWeekDays = (weekDays, firstDayOfWeek)->
   weekDaysHead.concat(weekDays.slice(0, firstDayOfWeek))
 
 angular
-.module('angular-w').directive 'wCalendar', ->
+.module('angular-w').directive 'wCalendar', ['$locale', ($locale)->
   restrict: 'E'
   templateUrl: '/templates/calendar.html'
   replace: true
   require: '?ngModel'
-  scope: {firstDayOfWeek: '@firstDayOfWeek'}
-  controller: ['$scope', '$locale', ($scope, $locale)->
+  scope: {}
+  controller: ['$scope', '$attrs', ($scope, $attrs)->
     $scope.selectionMode = 'day'
     $scope.months = $locale.DATETIME_FORMATS.SHORTMONTH
-    $scope.firstDayOfWeek ||= 0
 
     currentTime = new Date()
     $scope.currentDate = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate())
     $scope.selectedYear = $scope.currentDate.getFullYear()
     $scope.selectedMonth = $scope.months[$scope.currentDate.getMonth()]
-    $scope.weekDays = shiftWeekDays($locale.DATETIME_FORMATS.SHORTDAY, $scope.firstDayOfWeek)
     $scope.monthGroups = ($scope.months.slice(i * 4, i * 4 + 4) for i in [0..2])
 
     $scope.prevMonth = ->
@@ -71,7 +69,7 @@ angular
     updateSelectionRanges = ->
       monthIndex = $scope.months.indexOf($scope.selectedMonth)
       firstDayOfMonth = new Date($scope.selectedYear, monthIndex)
-      dayOffset = parseInt($scope.firstDayOfWeek) - firstDayOfMonth.getDay()
+      dayOffset = $scope.firstDayOfWeek - firstDayOfMonth.getDay()
       dayOffset -= 7 if dayOffset > 0
       firstDayOfWeek = addDays(firstDayOfMonth, dayOffset)
       $scope.weeks = ((addDays(firstDayOfWeek, 7 * week + day) for day in [0..6]) for week in [0..5])
@@ -86,6 +84,9 @@ angular
     $scope.$watch 'selectedYear', updateSelectionRanges
     $scope.$watch 'years', ->
       $scope.yearGroups = ($scope.years.slice(i * 4, i * 4 + 4) for i in [0..3])
+
+    $scope.firstDayOfWeek = parseInt($attrs.firstDayOfWeek || 0)
+    $scope.weekDays = shiftWeekDays($locale.DATETIME_FORMATS.SHORTDAY, $scope.firstDayOfWeek)
   ]
   link: (scope, element, attrs, ngModel)->
     parseDate = (dateString)->
@@ -96,7 +97,6 @@ angular
 
     ngModel.$render = ->
       scope.selectedDate = parseDate(ngModel.$modelValue)
-      console.log(scope.selectedDate)
 
     scope.selectDay = (day)->
       scope.selectedDate = day
@@ -118,3 +118,4 @@ angular
         ngModel.$setViewValue(scope.selectedDate)
       else
         scope.selectedYear = year
+]
