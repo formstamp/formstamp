@@ -1,20 +1,38 @@
 (function() {
   angular.module('angular-w').directive('wPopup', [
-    function() {
+    "$compile", function($compile) {
       return {
         restrict: 'E',
+        scope: {},
         replace: true,
-        transclude: true,
-        scope: {
-          'name': '='
+        template: function(tElement, tAttrs) {
+          var content, template;
+          content = tElement.html();
+          console.log('content', content);
+          console.log('tAttrs.name', tAttrs.name);
+          template = "<div ng-show='isPopupVisible'>" + content + "</div>";
+          console.log('template', template);
+          console.log('tElement', tElement);
+          return template;
         },
-        template: '<div ng-show="isPopupVisible" ng-transclude></div>',
-        link: function(scope, element) {
-          scope.isPopupVisible = false;
-          scope.showPopup = function(attachTo) {
-            return scope.isPopupVisible = true;
+        compile: function(tElement, tAttrs) {
+          var content;
+          content = tElement.html();
+          tElement.empty();
+          return function(scope, element) {
+            console.log('scope', scope);
+            console.log('i am linked', element);
+            scope.isPopupVisible = false;
+            return scope.showPopup = function(attachTo) {
+              var childScope, linkedContent;
+              scope.isPopupVisible = true;
+              console.log('attachTo', attachTo);
+              console.log('content', content);
+              childScope = scope.$new();
+              linkedContent = content;
+              return element.html(linkedContent);
+            };
           };
-          return element.attr('name', scope.name);
         }
       };
     }
@@ -25,6 +43,7 @@
         link: function(scope, element, attrs) {
           return element.on('focus', function() {
             var el, popup, _i, _len, _ref, _results;
+            console.log('popup will show');
             _ref = $document.find("div");
             _results = [];
             for (_i = 0, _len = _ref.length; _i < _len; _i++) {
