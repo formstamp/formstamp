@@ -3,6 +3,7 @@
     "$document", "$compile", function($document, $compile) {
       return {
         restrict: 'E',
+        scope: {},
         replace: true,
         template: function(tElement, tAttrs) {
           var content;
@@ -17,21 +18,20 @@
             event.preventDefault();
             return event.stopPropagation();
           });
-          contentLinkFn = $compile(angular.element(content)[0]);
-          return function(originalScope, element) {
-            var childScope, documentClickBind, linkedContent;
-            childScope = originalScope.$new();
-            childScope.isPopupVisible = false;
-            linkedContent = contentLinkFn(childScope);
+          contentLinkFn = $compile(angular.element(content));
+          return function(scope, element) {
+            var documentClickBind, linkedContent;
+            scope.isPopupVisible = false;
+            linkedContent = contentLinkFn(scope.$parent);
             element.append(linkedContent);
             documentClickBind = function(event) {
-              if (childScope.isPopupVisible && event.target !== childScope.attachTo) {
-                return originalScope.$apply(function() {
-                  return childScope.isPopupVisible = false;
+              if (scope.isPopupVisible && event.target !== scope.attachTo) {
+                return scope.$apply(function() {
+                  return scope.isPopupVisible = false;
                 });
               }
             };
-            childScope.$watch('isPopupVisible', function(isPopupVisible) {
+            scope.$watch('isPopupVisible', function(isPopupVisible) {
               if (isPopupVisible) {
                 $document.bind('click', documentClickBind);
                 return element.css("display", "");
@@ -40,13 +40,9 @@
                 return element.css("display", "none");
               }
             });
-            originalScope.$on('$destroy', function() {
-              linkedContent.remove();
-              return childScope.$destroy();
-            });
-            return originalScope.showPopup = function(attachTo) {
-              childScope.isPopupVisible = true;
-              return childScope.attachTo = attachTo;
+            return scope.showPopup = function(attachTo) {
+              scope.isPopupVisible = true;
+              return scope.attachTo = attachTo;
             };
           };
         }
@@ -65,7 +61,7 @@
               el = _ref[_i];
               popup = angular.element(el);
               if (popup.attr('name') === attrs.wPopup) {
-                popup.scope().$apply(function(scope) {
+                popup.isolateScope().$apply(function(scope) {
                   return scope.showPopup(element[0]);
                 });
                 break;
