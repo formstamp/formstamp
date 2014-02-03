@@ -131,9 +131,7 @@
 &lt;form role='form' ng-controller='ChzItemsCtrl'&gt;
   &lt;div class='form-group'&gt;
     &lt;label&gt;Select weapon:&lt;/label&gt;
-    &lt;div w-chz items='weapons'&gt;
-      {{(item || 'none') | json}}
-    &lt;/div&gt;
+    &lt;div w-chz items='weapons'&gt;&lt;/div&gt;
   &lt;/div&gt;
 &lt;/form&gt;</pre>
                 <pre ng-non-bindable=''>
@@ -151,9 +149,7 @@ angular.module('angular-w-demo')
               <form role='form' ng-controller='ChzItemsCtrl'>
                 <div class='form-group'>
                   <label>Select weapon:</label>
-                  <div w-chz items='weapons'>
-                    {{(item || 'none') | json}}
-                  </div>
+                  <div w-chz items='weapons'></div>
                 </div>
               </form>
             </div>
@@ -176,15 +172,11 @@ angular.module('angular-w-demo')
 &lt;form role='form' ng-controller='ChzLimitsCtrl'&gt;
   &lt;div class='form-group'&gt;
     &lt;label&gt;Select number of weapons:&lt;/label&gt;
-    &lt;div w-chz items='numbers' ng-model='numberOfWeapons'&gt;
-      {{item.id || 'none'}}
-    &lt;/div&gt;
+    &lt;div w-chz items='numbers' ng-model='numberOfWeapons'&gt;&lt;/div&gt;
   &lt;/div&gt;
   &lt;div class='form-group'&gt;
     &lt;label&gt;Select weapon:&lt;/label&gt;
-    &lt;div w-chz items='weapons' limit='numberOfWeapons.id'&gt;
-      {{item.id || 'none'}}
-    &lt;/div&gt;
+    &lt;div w-chz items='weapons' limit='numberOfWeapons.id'&gt;&lt;/div&gt;
   &lt;/div&gt;
 &lt;/form&gt;
 </pre>
@@ -208,15 +200,11 @@ angular.module('angular-w-demo')
               <form role='form' ng-controller='ChzLimitsCtrl'>
                 <div class='form-group'>
                   <label>Select number of weapons:</label>
-                  <div w-chz items='numbers' ng-model='numberOfWeapons'>
-                    {{item.id || 'none'}}
-                  </div>
+                  <div w-chz items='numbers' ng-model='numberOfWeapons'></div>
                 </div>
                 <div class='form-group'>
                   <label>Select weapon:</label>
-                  <div w-chz items='weapons' limit='numberOfWeapons.id'>
-                    {{item.label || 'none'}}
-                  </div>
+                  <div w-chz items='weapons' limit='numberOfWeapons.id'></div>
                 </div>
               </form>
             </div>
@@ -241,14 +229,7 @@ angular.module('angular-w-demo')
 &lt;form role='form' ng-controller='ChzKeyValuesCtrl'&gt;
   &lt;div class='form-group'&gt;
     &lt;label&gt;Select city of Japan:&lt;/label&gt;
-    &lt;div w-chz items='cities' key-attr='code' value-attr='name'&gt;
-      &lt;div ng-show='item'&gt;
-        Code: {{item.code}}, Name: {{item.name}}
-      &lt;/div&gt;
-      &lt;div ng-hide='item'&gt;
-        No city selected
-      &lt;/div&gt;
-    &lt;/div&gt;
+    &lt;div w-chz items='cities' key-attr='code' value-attr='name'&gt;&lt;/div&gt;
   &lt;/div&gt;
 &lt;/form&gt;</pre>
                 <pre ng-non-bindable=''>
@@ -267,14 +248,7 @@ angular.module('angular-w-demo')
               <form role='form' ng-controller='ChzKeyValuesCtrl'>
                 <div class='form-group'>
                   <label>Select city of Japan:</label>
-                  <div w-chz items='cities' key-attr='code' value-attr='name'>
-                    <div ng-show='item'>
-                      Code: {{item.code}}, Name: {{item.name}}
-                    </div>
-                    <div ng-hide='item'>
-                      No city selected
-                    </div>
-                  </div>
+                  <div w-chz items='cities' key-attr='code' value-attr='name'></div>
                 </div>
               </form>
             </div>

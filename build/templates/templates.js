@@ -84,7 +84,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "         w-focus='focus'\n" +
     "         ng-disabled=\"disabled\"\n" +
     "         ng-blur='focus=false'>\n" +
-    "          {{ (selectedItem || 'none') }}\n" +
+    "          {{selectedItem[valueAttr] || 'none'}}\n" +
     "      </a>\n" +
     "      <button type=\"button\"\n" +
     "              class=\"btn btn-default\"\n" +
