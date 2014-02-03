@@ -20,8 +20,7 @@ angular
     contentLinkFn = $compile(angular.element(content)[0])
     return (originalScope, element)->
       originalScope.isPopupVisible = false
-      childScope = originalScope.$new()
-      linkedContent = contentLinkFn(childScope)
+      linkedContent = contentLinkFn(originalScope)
       element.append(linkedContent)
       documentClickBind = (event)->
         if originalScope.isPopupVisible and
@@ -36,7 +35,6 @@ angular
           $document.unbind('click', documentClickBind)
       originalScope.$on '$destroy', ->
         linkedContent.remove();
-        childScope.$destroy();
       originalScope.showPopup = (attachTo)->
         originalScope.isPopupVisible = true
         #FIXME: Copy element to scope is a evil.
