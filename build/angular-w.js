@@ -518,10 +518,9 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
           });
           contentLinkFn = $compile(angular.element(content)[0]);
           return function(originalScope, element) {
-            var childScope, documentClickBind, linkedContent;
+            var documentClickBind, linkedContent;
             originalScope.isPopupVisible = false;
-            childScope = originalScope.$new();
-            linkedContent = contentLinkFn(childScope);
+            linkedContent = contentLinkFn(originalScope);
             element.append(linkedContent);
             documentClickBind = function(event) {
               if (originalScope.isPopupVisible && event.target !== originalScope.attachTo) {
@@ -538,8 +537,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
               }
             });
             originalScope.$on('$destroy', function() {
-              linkedContent.remove();
-              return childScope.$destroy();
+              return linkedContent.remove();
             });
             return originalScope.showPopup = function(attachTo) {
               originalScope.isPopupVisible = true;
