@@ -13,7 +13,8 @@ module.exports = function (grunt) {
 			compile: {
 				files: {
 					'build/chz.js': 'src/chz.coffee',
-					'build/calendar.js': 'src/calendar.coffee'
+					'build/calendar.js': 'src/calendar.coffee',
+					'build/popup.js': 'src/popup.coffee'
 				}
 			}
 		},
@@ -34,17 +35,9 @@ module.exports = function (grunt) {
 			options: {
 				nospawn: true
 			},
-			coffee: {
-				files: ['src/**/*.coffee'],
-				tasks: ['coffee'],
-				options: {
-					events: ['changed', 'added'],
-					nospawn: true
-				}
-			},
-			less: {
-				files: ['styles/**/*.less'],
-				tasks: ['less'],
+			sources: {
+				files: ['src/**/*.coffee', 'styles/**/*.less'],
+				tasks: ['build'],
 				options: {
 					events: ['changed', 'added'],
 					nospawn: true
