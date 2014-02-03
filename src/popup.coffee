@@ -7,7 +7,7 @@ angular
   template: (tElement, tAttrs)->
     content = tElement.html()
     """
-    <div>
+    <div ng-show="isPopupVisible">
       #{content}
     </div>
     """
@@ -31,22 +31,25 @@ angular
         if isPopupVisible
           # updatePosition();
           $document.bind('click', documentClickBind)
-          element.css("display", "")
         else
           $document.unbind('click', documentClickBind)
-          element.css("display", "none")
       scope.showPopup = (attachTo)->
         scope.isPopupVisible = true
         #FIXME: Copy element to scope is a evil.
         scope.attachTo = attachTo
+      scope.hidePopup = ->
+        scope.isPopupVisible = false
 ]).directive('wPopup', ['$document', ($document)->
   restrict: 'A'
   link: (scope, element, attrs)->
-    element.on 'focus', ->
+    getPopup = ->
       for el in $document.find("div")
         popup = angular.element(el)
         if popup.attr('name') == attrs.wPopup
-          popup.isolateScope().$apply (scope)->
-            scope.showPopup(element[0])
-          break
+          return popup
+    element.on 'focus', ->
+      scope.$apply ->
+        popupScope = getPopup().isolateScope()
+        popupScope.showPopup(element[0])
+        scope.hidePopup = popupScope.hidePopup
 ])

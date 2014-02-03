@@ -98,6 +98,7 @@ TODO
  * Fully remove jQuery.
  * Add select option, for providing selected value.
  * Add default template.
+ * Support array of primitives.
 
 Installation for Development
 -----------
