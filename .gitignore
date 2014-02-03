@@ -15,6 +15,7 @@ results
 .sass-cache
 
 node_modules
+build/
 
 #Actually, need to track these for site to run on Github Pages..
 #bower_components*sw?
