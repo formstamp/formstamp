@@ -98,7 +98,7 @@
           <w-calendar ng-model="someOtherDate"></w-calendar>
         </w-popup>
         <input w-popup="egegey" ng-model="yetOtherDate"/>
-        <w-popup name="egegey">
+        <w-popup name="egegey" ng-change="hidePopup()" ng-model="yetOtherDate">
           <w-calendar ng-model="yetOtherDate"></w-calendar>
         </w-popup>
       </div>
