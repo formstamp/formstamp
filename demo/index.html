@@ -95,11 +95,11 @@
         <br/>
         <input w-popup="ololo" ng-model="someOtherDate"/>
         <w-popup name="ololo">
-          <w-calendar ng-model="someOtherDate"></w-calendar>
+          <w-calendar ng-model="someOtherDate" ng-change="hidePopup()"></w-calendar>
         </w-popup>
         <input w-popup="egegey" ng-model="yetOtherDate"/>
-        <w-popup name="egegey" ng-change="hidePopup()" ng-model="yetOtherDate">
-          <w-calendar ng-model="yetOtherDate"></w-calendar>
+        <w-popup name="egegey">
+          <w-calendar ng-model="yetOtherDate" ng-change="hidePopup()"></w-calendar>
         </w-popup>
       </div>
     </div>

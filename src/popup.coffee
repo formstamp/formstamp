@@ -38,30 +38,18 @@ angular
         #FIXME: Copy element to scope is a evil.
         scope.attachTo = attachTo
       scope.hidePopup = ->
-        console.log('hide popup')
         scope.isPopupVisible = false
 ]).directive('wPopup', ['$document', ($document)->
   restrict: 'A'
-  scope: {}
   link: (scope, element, attrs)->
     getPopup = ->
       for el in $document.find("div")
         popup = angular.element(el)
         if popup.attr('name') == attrs.wPopup
           return popup
-
-    popupCommand = (command, args...)->
-      popupScope = getPopup().isolateScope()
-      popupScope[command].apply(popupScope, args)
-
-    scope.showPopup = (attachTo)->
-      popupCommand('showPopup', attachTo)
-
-    scope.hidePopup = ->
-      popupCommand('hidePopup')
-
     element.on 'focus', ->
       scope.$apply ->
-        scope.showPopup(element[0])
-
+        popupScope = getPopup().isolateScope()
+        popupScope.showPopup(element[0])
+        scope.hidePopup = popupScope.hidePopup
 ])
