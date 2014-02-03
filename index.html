@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="demoApp">
+<html lang="en" ng-app="angular-w-demo">
   <head>
     <meta charset="utf-8">
 
@@ -16,6 +16,9 @@
       .page-header {
         padding-top: 40px;
       }
+      .demonstration {
+        padding-left: 200px;
+      }
     </style>
 
   </head>
@@ -24,7 +27,7 @@
   <!-- Le navbar
   ================================================== -->
 
-    <div class="container" ng-controller="DemoCtrl">
+    <div class="container">
       <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
         <div class="container">
           <!-- Brand and toggle get grouped for better mobile display -->
@@ -71,8 +74,7 @@
 
       <section>
 
-  <!-- =Select description
-  --------------------------------------------------------------------------- -->
+  <!-- =Select description -->
         <div id="select">
           <div class="page-header">
             <h1>Select <span class="pull-right wip">WIP</span></h1>
@@ -80,27 +82,262 @@
           <div class="row">
             <div class="col-md-6">
               <div>
-                <div>
-                  <h2>Description</h2>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                  </p>
-                </div>
+                <h2>Description</h2>
+                <h5>Directive: <code>w-chz</code></h5>
+                <p>
+                  This input provides default select-like behavior.
+                  It allows to select only one item from predefined list
+                  or none of them. Supports several angular directives: <code>ng-model</code>,
+                  <code>ng-disabled</code>, <code>ng-required</code>.
+                  In <code>ng-model</code> it holds full object, not only value.
+                </p>
               </div>
             </div>
 
-            <div class="col-md-6" >
-              <div class="pull-right">
-                <h2>Demonstration</h2>
+            <div class="col-md-6 demonstration" ng-controller='ChzCtrl'>
+              <h2>Demo</h2>
+              <form role='form'>
+                <div class='form-group'>
+                  <label>Award for Miyamoto:</label>
+                  <div w-chz items='awards' ng-model='coins'>
+                    {{item.label || 'none'}}
+                  </div>
+                </div>
+              </form>
+              <p>
+                Miyamoto was awarded by imperator for <b>{{coins.id}} ({{coins.label}})</b> coins.
+              </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div>
+                <h3>Option <var>items</var></h3>
+                <h5>Required: <code>true</code></h5>
                 <p>
-                  Beautiful live example goes here.
+                  Option used for setting items list on <code>w-chz</code>.
+                  Value in it should be a list of objects with two fields:
+                  <code>id</code> and <code>label</code>. They can be overriden by
+                  <code>key-attr</code> and <code>value-attr</code> options respiectively. 
                 </p>
               </div>
+            </div>
+
+          </div>
+          <div class='row'>
+            <div class="col-md-6">
+              <h4>Example</h4>
+              <pre ng-non-bindable=''>
+&lt;form role='form' ng-controller='ChzItemsCtrl'&gt;
+  &lt;div class='form-group'&gt;
+    &lt;label&gt;Select weapon:&lt;/label&gt;
+    &lt;div w-chz items='weapons'&gt;
+      {{(item || 'none') | json}}
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/form&gt;</pre>
+                <pre ng-non-bindable=''>
+angular.module('angular-w-demo')
+  .controller('ChzItemsCtrl', function($scope) {
+    $scope.weapons = [
+      {id: 'katana', label: 'Long sword Katana'},
+      {id: 'yuml', label: 'Longbow Yuml'},
+      {id: 'yari', label: 'Spear Yari'}
+    ];
+});</pre>
+            </div>
+            <div class="col-md-6 demonstration">
+              <h4>Demo</h4>
+              <form role='form' ng-controller='ChzItemsCtrl'>
+                <div class='form-group'>
+                  <label>Select weapon:</label>
+                  <div w-chz items='weapons'>
+                    {{(item || 'none') | json}}
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div>
+                <h3>Option <var>limit</var></h3>
+                <h5>Required: <code>false</code></h5>
+                <p>
+                  If it is set - limits number of items will be used.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class='row'>
+            <div class="col-md-6">
+              <h4>Example</h4>
+              <pre ng-non-bindable=''>
+&lt;form role='form' ng-controller='ChzLimitsCtrl'&gt;
+  &lt;div class='form-group'&gt;
+    &lt;label&gt;Select number of weapons:&lt;/label&gt;
+    &lt;div w-chz items='numbers' ng-model='numberOfWeapons'&gt;
+      {{item.id || 'none'}}
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class='form-group'&gt;
+    &lt;label&gt;Select weapon:&lt;/label&gt;
+    &lt;div w-chz items='weapons' limit='numberOfWeapons.id'&gt;
+      {{item.id || 'none'}}
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/form&gt;
+</pre>
+                <pre ng-non-bindable=''>
+angular.module('angular-w-demo')
+.controller('ChzLimitsCtrl', function($scope) {
+  $scope.numbers = [
+    {id: 1, label: 1},
+    {id: 2, label: 2},
+    {id: 3, label: 3}
+  ];
+  $scope.weapons = [
+    {id: 'katana', label: 'Long sword Katana'},
+    {id: 'yuml', label: 'Longbow Yuml'},
+    {id: 'yari', label: 'Spear Yari'}
+  ];
+});</pre>
+            </div>
+            <div class="col-md-6 demonstration">
+              <h4>Demo</h4>
+              <form role='form' ng-controller='ChzLimitsCtrl'>
+                <div class='form-group'>
+                  <label>Select number of weapons:</label>
+                  <div w-chz items='numbers' ng-model='numberOfWeapons'>
+                    {{item.id || 'none'}}
+                  </div>
+                </div>
+                <div class='form-group'>
+                  <label>Select weapon:</label>
+                  <div w-chz items='weapons' limit='numberOfWeapons.id'>
+                    {{item.label || 'none'}}
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div>
+                <h3>Options <var>key-attr</var> and <var>value-attr</var></h3>
+                <h5>Required: <code>false</code></h5>
+                <p>
+                  Overrides default names of fields for id and label of item.
+                  Default values: <code>key-attr = 'id'</code>,
+                  <code>value-attr = 'label'</code>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class='row'>
+            <div class="col-md-6">
+              <h4>Example</h4>
+              <pre ng-non-bindable=''>
+&lt;form role='form' ng-controller='ChzKeyValuesCtrl'&gt;
+  &lt;div class='form-group'&gt;
+    &lt;label&gt;Select city of Japan:&lt;/label&gt;
+    &lt;div w-chz items='cities' key-attr='code' value-attr='name'&gt;
+      &lt;div ng-show='item'&gt;
+        Code: {{item.code}}, Name: {{item.name}}
+      &lt;/div&gt;
+      &lt;div ng-hide='item'&gt;
+        No city selected
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/form&gt;</pre>
+                <pre ng-non-bindable=''>
+angular.module('angular-w-demo')
+.controller('ChzKeyValuesCtrl', function($scope) {
+  $scope.cities = [
+    {code: 'JP SPK', name: 'Sapporo'},
+    {code: 'JP SDJ', name: 'Sendai'},
+    {code: 'JP TYO', name: 'Tokyo'},
+    {code: 'JP NGO', name: 'Nagoya'}
+  ];
+});</pre>
+            </div>
+            <div class="col-md-6 demonstration">
+              <h4>Demo</h4>
+              <form role='form' ng-controller='ChzKeyValuesCtrl'>
+                <div class='form-group'>
+                  <label>Select city of Japan:</label>
+                  <div w-chz items='cities' key-attr='code' value-attr='name'>
+                    <div ng-show='item'>
+                      Code: {{item.code}}, Name: {{item.name}}
+                    </div>
+                    <div ng-hide='item'>
+                      No city selected
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div>
+                <h3>Templating</h3>
+                <h5>Required: <code>false</code></h5>
+                <p>
+                  If some inner html is provided for directive tag,
+                  then those html will be used for rendering selected value.
+                  Selected item is accessible from templating by <code>item</code>
+                  variable. By default <code>item['label']</code> will be rendered or if
+                  <code>value-attr</code> is provided, then <code>item[value-attr]</code> will
+                  be used.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class='row'>
+            <div class="col-md-6">
+              <h4>Example</h4>
+              <pre ng-non-bindable=''>
+&lt;form role='form' ng-controller='ChzTemplatingsCtrl'&gt;
+  &lt;div class='form-group'&gt;
+    &lt;label&gt;Select city of Japan:&lt;/label&gt;
+    &lt;div w-chz items='cities'&gt;
+      &lt;div ng-show='item'&gt;
+        Code: &lt;b&gt;{{item.id}}&lt;/b&gt;, Name: &lt;b&gt;{{item.label}}&lt;/b&gt;
+      &lt;/div&gt;
+      &lt;div ng-hide='item'&gt;
+        No city selected
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/form&gt;</pre>
+                <pre ng-non-bindable=''>
+angular.module('angular-w-demo')
+.controller('ChzTemplatingsCtrl', function($scope) {
+  $scope.cities = [
+    {id: 'JP SPK', label: 'Sapporo'},
+    {id: 'JP SDJ', label: 'Sendai'},
+    {id: 'JP TYO', label: 'Tokyo'},
+    {id: 'JP NGO', label: 'Nagoya'}
+  ];
+});</pre>
+            </div>
+            <div class="col-md-6 demonstration">
+              <h4>Demo</h4>
+              <form role='form' ng-controller='ChzTemplatingsCtrl'>
+                <div class='form-group'>
+                  <label>Select city of Japan:</label>
+                  <div w-chz items='cities'>
+                    <div ng-show='item'>
+                      Code: <b>{{item.id}}</b>, Name: <b>{{item.label}}</b>
+                    </div>
+                    <div ng-hide='item'>
+                      No city selected
+                    </div>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -344,69 +581,10 @@
         </div>
       </section>
     </div>
+    <script type='text/javascript' src='bower_components/jquery/jquery.js'></script>
+    <script type='text/javascript' src='bower_components/angular/angular.js'></script>
+    <script type='text/javascript' src='build/angular-w.js'></script>
+    <script type='text/javascript' src='scripts/app.js'></script>
+    <script type='text/javascript' src='scripts/chz_ctrl.js'></script>
   </body>
 </html>
-   <!--   <form role="form" class='form-horizontal' name='w_form' action='/demo/index.html'>
-        <h1> Widgets </h1>
-        <hr/>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">Chosen</label>
-          <div class="col-sm-10">
-            <div w-chz="true"
-                 items="items"
-                 limit='20'
-                 key-attr='id'
-                 value-attr='label'
-                 ng-model="value"
-                 ng-disabled='disabled1'
-                 ng-required='required'></div>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">Chosen with same ngModel</label>
-          <div class="col-sm-10">
-            <div w-chz="true" items="items" ng-model="value">
-              <div ng-show='item'>
-                <b>{{item.label}}</b>: {{item.id}}
-              </div>
-              <div ng-hide='item'>
-                none
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10">
-            <label>
-              <input type='checkbox' ng-model='disabled1' />
-              Disable first chosen
-            </label>
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10">
-              <label>
-                  <input type='checkbox' ng-model='required' ng-init='required = true'/>
-                  Make first chosen required
-              </label>
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default">Submit</button>
-          </div>
-        </div>
-      </form>
-    </div>
-
-    <div class="container">
-      <form role="form" class="form-horizontal">
-        <h1>Calendar</h1>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">Calendar</label>
-          <div class="col-sm-10">
-            Date: <input type="text" ng-model="someDate">
-            <w-calendar ng-model="someDate"></w-calendar>
-          </div>
-        </div>
-      </form> -->
