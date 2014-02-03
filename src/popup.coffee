@@ -7,7 +7,7 @@ angular
   template: (tElement, tAttrs)->
     content = tElement.html()
     """
-    <div ng-show='isPopupVisible'>
+    <div>
       #{content}
     </div>
     """
@@ -17,28 +17,28 @@ angular
     tElement.bind 'click', (event)->
       event.preventDefault()
       event.stopPropagation()
-    contentLinkFn = $compile(angular.element(content)[0])
-    return (originalScope, element)->
-      originalScope.isPopupVisible = false
-      linkedContent = contentLinkFn(originalScope)
+    contentLinkFn = $compile(angular.element(content))
+    return (scope, element)->
+      scope.isPopupVisible = false
+      linkedContent = contentLinkFn(scope.$parent)
       element.append(linkedContent)
       documentClickBind = (event)->
-        if originalScope.isPopupVisible and
-           event.target isnt originalScope.attachTo
-          originalScope.$apply ->
-            originalScope.isPopupVisible = false
-      originalScope.$watch 'isPopupVisible', (isPopupVisible)->
+        if scope.isPopupVisible and
+        event.target isnt scope.attachTo
+          scope.$apply ->
+            scope.isPopupVisible = false
+      scope.$watch 'isPopupVisible', (isPopupVisible)->
         if isPopupVisible
           # updatePosition();
           $document.bind('click', documentClickBind)
+          element.css("display", "")
         else
           $document.unbind('click', documentClickBind)
-      originalScope.$on '$destroy', ->
-        linkedContent.remove();
-      originalScope.showPopup = (attachTo)->
-        originalScope.isPopupVisible = true
+          element.css("display", "none")
+      scope.showPopup = (attachTo)->
+        scope.isPopupVisible = true
         #FIXME: Copy element to scope is a evil.
-        originalScope.attachTo = attachTo
+        scope.attachTo = attachTo
 ]).directive('wPopup', ['$document', ($document)->
   restrict: 'A'
   link: (scope, element, attrs)->

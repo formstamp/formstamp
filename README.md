@@ -120,11 +120,11 @@ NOTE: This script adds `nvm` command to `.bash_profile`. It may not work if you 
 
 ### Grunt
 
-Then compile CoffeeScript & LESS first time:
+Then build it at first time:
 
-    `npm bin`/grunt less coffee
+    `npm bin`/grunt build
 
-Then start watching changes in less & coffee files:
+Then start watching changes:
 
     `npm bin`/grunt watch
 
