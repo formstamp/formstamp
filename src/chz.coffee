@@ -1,5 +1,5 @@
 comp = (a, b)->
-  a.toLowerCase().indexOf(b.toLowerCase()) > -1
+  a.toString().toLowerCase().indexOf(b.toString().toLowerCase()) > -1
 
 filter = (x, xs, valueAttr)->
   if x then xs.filter ((i)-> comp(i[valueAttr], x)) else xs
@@ -64,10 +64,8 @@ angular
         ul.scrollTop -= viewport.top - item.top
 
     search = (q) ->
-      if $scope.prevSearch != q
-        $scope.shownItems = filter(q, $scope.items, $scope.valueAttr).slice(0, $scope.limit)
-        $scope.activeItem = $scope.shownItems[0]
-      $scope.prevSearch = q
+      $scope.shownItems = filter(q, $scope.items, $scope.valueAttr).slice(0, $scope.limit)
+      $scope.activeItem = $scope.shownItems[0]
 
     $scope.selection = (item)->
       $scope.selectedItem = item
@@ -93,6 +91,7 @@ angular
         when 33 then move(-11)
 
     $scope.$watch 'search', search
+    $scope.$watch 'limit', -> search('')
 
     $scope.$watch 'active', (value) ->
       window.setTimeout((()-> scrollIfNeeded(getActiveIndex())) , 0) if value
@@ -127,7 +126,7 @@ angular
       attrs.$observe 'required', (value) ->
         scope.required = value
 
-      scope.$watch  'selectedItem', ->
+      scope.$watch 'selectedItem', ->
         childScope = scope.$new()
         childScope.item = scope.selectedItem
         transcludeFn childScope, (clone) ->
