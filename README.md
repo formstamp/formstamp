@@ -96,6 +96,8 @@ TODO
  * Add ability for customizing Chosen style (added for list).
  * Different search algorithms.
  * Fully remove jQuery.
+ * Add select option, for providing selected value.
+ * Add default template.
 
 Installation for Development
 -----------
