@@ -1,28 +1,68 @@
-<div class="w-calendar">
-  <div class="w-calendar-header">
-    <span class="w-calendar-month-prev" ng-click="prevMonth()"></span>
-    <span class="w-calendar-month-selected" ng-bind="months[selectedMonth] + ', ' + selectedYear"></span>
-    <span class="w-calendar-month-next" ng-click="nextMonth()"></span>
+<div class="w-calendar" data-ng-switch="selectionMode">
+  <div data-ng-switch-when="year">
+    <div class="w-calendar-header">
+      <span class="w-calendar-prev" data-ng-click="prevYearRange()"></span>
+      <span class="w-calendar-title" data-ng-click="switchSelectionMode()">
+        {{years[0]}}-{{years[years.length-1]}}
+      </span>
+      <span class="w-calendar-next" data-ng-click="nextYearRange()"></span>
+    </div>
+    <table class="table-condensed">
+      <tr data-ng-repeat="yearGroup in yearGroups">
+        <td data-ng-repeat="year in yearGroup"
+            data-ng-click="selectYear(year)"
+            data-ng-class="{'active': year == selectedYear}"
+            class="year">
+          {{year}}
+        </td>
+      </tr>
+    </table>
   </div>
-  <div>
+  <div data-ng-switch-when="month">
+    <div class="w-calendar-header">
+      <span class="w-calendar-prev" data-ng-click="prevYear()"></span>
+      <span class="w-calendar-title" data-ng-click="switchSelectionMode()">
+        {{selectedYear}}
+      </span>
+      <span class="w-calendar-next" data-ng-click="nextYear()"></span>
+    </div>
+    <table class="table-condensed">
+      <tr data-ng-repeat="monthGroup in monthGroups">
+        <td data-ng-repeat="month in monthGroup"
+            data-ng-click="selectMonth(month)"
+            data-ng-class="{'active': month == selectedMonth}"
+            class="month">
+          {{month}}
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div data-ng-switch-default>
+    <div class="w-calendar-header">
+      <span class="w-calendar-prev" data-ng-click="prevMonth()"></span>
+      <span class="w-calendar-title" data-ng-click="switchSelectionMode()">
+        {{selectedMonth + ', ' + selectedYear}}
+      </span>
+      <span class="w-calendar-next" data-ng-click="nextMonth()"></span>
+    </div>
     <table class="table-condensed">
       <thead>
-        <tr>
-          <th ng-repeat="weekDay in weekDays">
-            {{weekDay}}
-          </th>
-        </tr>
+      <tr>
+        <th data-ng-repeat="weekDay in weekDays">
+          {{weekDay}}
+        </th>
+      </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="week in weeks">
-          <td ng-repeat="day in week" class="day"
-              ng-class="{'day-in-selected-month': isDayInSelectedMonth(day),
-                        'day-current': isCurrentDate(day),
-                        'day-selected': isSelectedDate(day)}"
-              ng-click="selectDay(day)">
-            {{day.getDate()}}
-          </td>
-        </tr>
+      <tr data-ng-repeat="week in weeks">
+        <td data-ng-repeat="day in week" class="day"
+            data-ng-class="{'day-in-selected-month': isDayInSelectedMonth(day),
+                       'day-current': isCurrentDate(day),
+                       'active': isSelectedDate(day)}"
+            data-ng-click="selectDay(day)">
+          {{day.getDate()}}
+        </td>
+      </tr>
       </tbody>
     </table>
   </div>
