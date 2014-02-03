@@ -1,6 +1,6 @@
 (function() {
   angular.module('angular-w').directive('wPopup', [
-    "$compile", function($compile) {
+    "$document", "$compile", function($document, $compile) {
       return {
         restrict: 'E',
         scope: {},
@@ -14,19 +14,38 @@
           var content, contentLinkFn;
           content = tElement.html().trim();
           tElement.empty();
+          tElement.bind('click', function(event) {
+            event.preventDefault();
+            return event.stopPropagation();
+          });
           contentLinkFn = $compile(angular.element(content)[0]);
           return function(originalScope, element) {
-            var childScope, linkedContent;
+            var childScope, documentClickBind, linkedContent;
             originalScope.isPopupVisible = false;
             childScope = originalScope.$new();
             linkedContent = contentLinkFn(childScope);
             element.append(linkedContent);
+            documentClickBind = function(event) {
+              if (originalScope.isPopupVisible && event.target !== originalScope.attachTo) {
+                return originalScope.$apply(function() {
+                  return originalScope.isPopupVisible = false;
+                });
+              }
+            };
+            originalScope.$watch('isPopupVisible', function(isPopupVisible) {
+              if (isPopupVisible) {
+                return $document.bind('click', documentClickBind);
+              } else {
+                return $document.unbind('click', documentClickBind);
+              }
+            });
             originalScope.$on('$destroy', function() {
               linkedContent.remove();
               return childScope.$destroy();
             });
             return originalScope.showPopup = function(attachTo) {
-              return originalScope.isPopupVisible = true;
+              originalScope.isPopupVisible = true;
+              return originalScope.attachTo = attachTo;
             };
           };
         }
@@ -46,7 +65,7 @@
               popup = angular.element(el);
               if (popup.attr('name') === attrs.wPopup) {
                 popup.isolateScope().$apply(function(scope) {
-                  return scope.showPopup(element);
+                  return scope.showPopup(element[0]);
                 });
                 break;
               } else {
