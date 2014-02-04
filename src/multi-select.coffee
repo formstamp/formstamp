@@ -1,6 +1,14 @@
 comp = (a, b)->
   a.toLowerCase().indexOf(b.toLowerCase()) > -1
 
+hash_key = (item)->
+  angular.toJson(item)
+
+difference = (a, b)->
+  hash = {}
+  hash[hash_key(b_element)] = true for b_element in b
+  a.filter ((a_element)-> not hash[hash_key(a_element)])
+
 filter = (x, xs, valueAttr)->
   if x then xs.filter ((i)-> comp(i[valueAttr], x)) else xs
 
@@ -64,14 +72,17 @@ angular
           ul.scrollTop -= viewport.top - item.top
 
       search = (q) ->
-        if $scope.prevSearch != q
-          $scope.shownItems = filter(q, $scope.items, $scope.valueAttr).slice(0, $scope.limit)
-          $scope.activeItem = $scope.shownItems[0]
+        $scope.shownItems = difference(
+          filter(q, $scope.items, $scope.valueAttr).slice(0, $scope.limit),
+          [$scope.selectedItem]
+        )
+        $scope.activeItem = $scope.shownItems[0]
         $scope.prevSearch = q
 
       $scope.selection = (item)->
         $scope.selectedItem = item
         $scope.hideDropDown()
+        search ''
 
       $scope.reset = ->
         $scope.selectedItem = null
