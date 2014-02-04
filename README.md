@@ -114,15 +114,6 @@ List of objects to display in dropdown.
 This attribute contains name of field that
 will be displayed in dropdown.
 
-#### on-select
-*Optional*
-This hander will be called if the item
-was selected from list. Selected item 
-will be passed to the handler. Selecting is mean:
-  * clicking on item in list;
-  * pressing enter on selected item;
-  * pressing tab on selected item.
-
 #### on-click
 *Optional*
 This hander will be called if item
@@ -146,6 +137,16 @@ was selected from list pressing `tab`.
 Selected item will be passed to the handler.
 If `on-tab` and `on-select` used simultaneously
 then only `on-tab` will be called.
+
+#### on-esc
+*Optional*
+This hander will be called if `esc`
+was pressed.
+
+### on-search
+This handler will be called on typing in search input.
+Search term will be passed to handler. It should return
+filtered list of items to display.
 
 TODO
 ----
