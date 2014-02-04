@@ -1,6 +1,6 @@
 <span>
   <input type="text" data-ng-focus="popup.show('w-datepicker-popup', $event.target)"
-         data-ng-model="date" data-ng-change="dateSelection()">
+         data-ng-model="date" data-ng-change="dateSelection()" data-date-format="shortDate">
   <w-popup name="w-datepicker-popup">
     <w-calendar data-ng-model="date" data-ng-change="popup.hide(); dateSelection()"/>
   </w-popup>
