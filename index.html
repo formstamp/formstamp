@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="styles/style.css"/>
     <link rel="stylesheet" href="build/calendar.css"/>
     <link rel="stylesheet" href="build/chz.css"/>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.css" type="text/css"></script>
     <style>
       .wip {
         color:red;
@@ -127,14 +128,14 @@
           <div class='row'>
             <div class="col-md-6">
               <h4>Example</h4>
-              <pre ng-non-bindable=''>
+              <pre class='prettyprint' ng-non-bindable=''>
 &lt;form role='form' ng-controller='ChzItemsCtrl'&gt;
   &lt;div class='form-group'&gt;
     &lt;label&gt;Select weapon:&lt;/label&gt;
     &lt;div w-chz items='weapons'&gt;&lt;/div&gt;
   &lt;/div&gt;
 &lt;/form&gt;</pre>
-                <pre ng-non-bindable=''>
+              <pre class='prettyprint' ng-non-bindable=''>
 angular.module('angular-w-demo')
   .controller('ChzItemsCtrl', function($scope) {
     $scope.weapons = [
@@ -168,7 +169,7 @@ angular.module('angular-w-demo')
           <div class='row'>
             <div class="col-md-6">
               <h4>Example</h4>
-              <pre ng-non-bindable=''>
+              <pre class='prettyprint' ng-non-bindable=''>
 &lt;form role='form' ng-controller='ChzLimitsCtrl'&gt;
   &lt;div class='form-group'&gt;
     &lt;label&gt;Select number of weapons:&lt;/label&gt;
@@ -180,7 +181,7 @@ angular.module('angular-w-demo')
   &lt;/div&gt;
 &lt;/form&gt;
 </pre>
-                <pre ng-non-bindable=''>
+              <pre class='prettyprint' ng-non-bindable=''>
 angular.module('angular-w-demo')
 .controller('ChzLimitsCtrl', function($scope) {
   $scope.numbers = [
@@ -225,14 +226,14 @@ angular.module('angular-w-demo')
           <div class='row'>
             <div class="col-md-6">
               <h4>Example</h4>
-              <pre ng-non-bindable=''>
+              <pre class='prettyprint' ng-non-bindable=''>
 &lt;form role='form' ng-controller='ChzKeyValuesCtrl'&gt;
   &lt;div class='form-group'&gt;
     &lt;label&gt;Select city of Japan:&lt;/label&gt;
     &lt;div w-chz items='cities' key-attr='code' value-attr='name'&gt;&lt;/div&gt;
   &lt;/div&gt;
 &lt;/form&gt;</pre>
-                <pre ng-non-bindable=''>
+              <pre class='prettyprint' ng-non-bindable=''>
 angular.module('angular-w-demo')
 .controller('ChzKeyValuesCtrl', function($scope) {
   $scope.cities = [
@@ -272,7 +273,7 @@ angular.module('angular-w-demo')
           <div class='row'>
             <div class="col-md-6">
               <h4>Example</h4>
-              <pre ng-non-bindable=''>
+              <pre class='prettyprint' ng-non-bindable=''>
 &lt;form role='form' ng-controller='ChzTemplatingsCtrl'&gt;
   &lt;div class='form-group'&gt;
     &lt;label&gt;Select city of Japan:&lt;/label&gt;
@@ -286,7 +287,7 @@ angular.module('angular-w-demo')
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/form&gt;</pre>
-                <pre ng-non-bindable=''>
+              <pre class='prettyprint' ng-non-bindable=''>
 angular.module('angular-w-demo')
 .controller('ChzTemplatingsCtrl', function($scope) {
   $scope.cities = [
@@ -555,6 +556,7 @@ angular.module('angular-w-demo')
         </div>
       </section>
     </div>
+    <script type='text/javascript' src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
     <script type='text/javascript' src='bower_components/jquery/jquery.js'></script>
     <script type='text/javascript' src='bower_components/angular/angular.js'></script>
     <script type='text/javascript' src='build/angular-w.js'></script>
