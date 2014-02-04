@@ -95,6 +95,7 @@ TODO
 ### Chosen
  * Add ability for customizing Chosen style (added for list).
  * Different search algorithms.
+ * Delegate id and name to input.
  * Fully remove jQuery.
  * Add select option, for providing selected value.
  * Add default template.
