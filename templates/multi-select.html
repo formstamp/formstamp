@@ -1,18 +1,18 @@
 <div class='w-multi-select'>
   <input type='text' ng-model='selectedItem' style='display: none' ng-required='required' />
-  <div ng-hide="active" ng-class="{'btn-group': selectedItem}">
+  <div ng-hide="active" ng-class="{'btn-group': selectedItems}">
     <a class="btn btn-default w-multi-select-active"
        href="javascript:void(0)"
        ng-click="active=true"
        w-focus='focus'
        ng-disabled="disabled"
        ng-blur='focus=false'>
-      {{ (selectedItem || 'none') }}
+      {{ (selectedItems || 'none') }}
     </a>
     <button type="button"
             class="btn btn-default"
             aria-hidden="true"
-            ng-show='selectedItem'
+            ng-show='selectedItems.length'
             ng-click='reset()'>&times;</button>
   </div>
   <div class="open" ng-show="active">

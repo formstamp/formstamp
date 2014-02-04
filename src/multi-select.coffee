@@ -5,6 +5,7 @@ hash_key = (item)->
   angular.toJson(item)
 
 difference = (a, b)->
+  return a unless b && a
   hash = {}
   hash[hash_key(b_element)] = true for b_element in b
   a.filter ((a_element)-> not hash[hash_key(a_element)])
@@ -74,18 +75,18 @@ angular
       search = (q) ->
         $scope.shownItems = difference(
           filter(q, $scope.items, $scope.valueAttr).slice(0, $scope.limit),
-          [$scope.selectedItem]
+          $scope.selectedItems
         )
         $scope.activeItem = $scope.shownItems[0]
         $scope.prevSearch = q
 
       $scope.selection = (item)->
-        $scope.selectedItem = item
+        $scope.selectedItems.push(item)
         $scope.hideDropDown()
         search ''
 
       $scope.reset = ->
-        $scope.selectedItem = null
+        $scope.selectedItems = []
         $scope.focus = true
 
       $scope.onkeys = (event)->
@@ -114,6 +115,8 @@ angular
       getActiveIndex = ->
         ($scope.shownItems.indexOf($scope.activeItem) || 0)
 
+      # TODO move to init
+      $scope.selectedItems = []
       # run
       search('')
 
@@ -125,16 +128,16 @@ angular
       (scope, element, attrs, ngModelCtrl, transcludeFn) ->
 
         if ngModelCtrl
-          scope.$watch 'selectedItem', ->
-            ngModelCtrl.$setViewValue(scope.selectedItem)
-            scope.activeItem = scope.selectedItem
+          scope.$watch 'selectedItems', ->
+            ngModelCtrl.$setViewValue(scope.selectedItems)
+            scope.activeItem = scope.selectedItems
 
           ngModelCtrl.$render = ->
-            scope.selectedItem = ngModelCtrl.$modelValue
+            scope.selectedItems = ngModelCtrl.$modelValue || []
 
-        scope.$watch  'selectedItem', ->
+        scope.$watch  'selectedItems', ->
           childScope = scope.$new()
-          childScope.item = scope.selectedItem
+          childScope.items = scope.selectedItems
           transcludeFn childScope, (clone) ->
             if clone.text().trim() isnt ""
               link = element[0].querySelector('a.w-multi-select-active')
