@@ -93,6 +93,59 @@ ng-disabled, ng-required.
 Multiselect has same attributes as a Chosen. Also
 it has some additional options.
 
+Internals
+---------
+### Dropdown
+Provides basic dropdown. It consits of list
+of items and event callbacks on them.
+
+### Attributes
+#### opened
+*Required*
+Idicates whether dropdown is open or not.
+If `true` it is open, if `false` it is closed.
+
+#### items
+*Required*
+List of objects to display in dropdown.
+
+#### value-attr
+*Required*
+This attribute contains name of field that
+will be displayed in dropdown.
+
+#### on-select
+*Optional*
+This hander will be called if the item
+was selected from list. Selected item 
+will be passed to the handler. Selecting is mean:
+  * clicking on item in list;
+  * pressing enter on selected item;
+  * pressing tab on selected item.
+
+#### on-click
+*Optional*
+This hander will be called if item
+was selected from list by clicking on it.
+Selected item will be passed to the handler.
+If `on-click` and `on-select` used simultaneously
+then only `on-click` will be called.
+
+#### on-enter
+*Optional*
+This hander will be called if item
+was selected from list pressing `enter`.
+Selected item will be passed to the handler.
+If `on-enter` and `on-select` used simultaneously
+then only `on-enter` will be called.
+
+#### on-tab
+*Optional*
+This hander will be called if item
+was selected from list pressing `tab`.
+Selected item will be passed to the handler.
+If `on-tab` and `on-select` used simultaneously
+then only `on-tab` will be called.
 
 TODO
 ----
