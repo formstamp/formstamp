@@ -19,6 +19,7 @@ angular
     add: (name, popup)->
       @popups[name] = popup
     show: (name, target)->
+      @hide()
       popupContent = @popups[name]
       return unless popupContent?
       attachTo = target
@@ -35,6 +36,7 @@ angular
     hide: ->
       $document.unbind('click', documentClickBind)
       currentPopup?.remove()
+      currentPopup = attachTo = undefined
       return
   $rootScope.popup = popupManager
 ])
