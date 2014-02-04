@@ -19,6 +19,7 @@ angular
     add: (name, popup)->
       @popups[name] = popup
     show: (name, target)->
+      console.log('show', name, target)
       popupContent = @popups[name]
       return unless popupContent?
       attachTo = target

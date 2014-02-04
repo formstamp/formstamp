@@ -14,6 +14,7 @@ module.exports = function (grunt) {
 				files: {
 					'build/chz.js': 'src/chz.coffee',
 					'build/calendar.js': 'src/calendar.coffee',
+					'build/datepicker.js': 'src/datepicker.coffee',
 					'build/popup.js': 'src/popup.coffee'
 				}
 			}

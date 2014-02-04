@@ -93,14 +93,9 @@
         <!--<input type="text" ng-model="someDate">-->
         <!--<w-calendar ng-model="someDate"></w-calendar>-->
         <br/>
-        <input ng-focus="popup.show('ololo', $event.target)" ng-model="someOtherDate"/>
-        <w-popup name="ololo">
-          <w-calendar ng-model="someOtherDate" ng-change="popup.hide()"></w-calendar>
-        </w-popup>
-        <input ng-focus="popup.show('egegey', $event.target)" ng-model="yetOtherDate"/>
-        <w-popup name="egegey">
-          <w-calendar ng-model="yetOtherDate" ng-change="popup.hide()"></w-calendar>
-        </w-popup>
+        <input ng-model="someDate"/>
+        <w-datepicker ng-model="someDate"></w-datepicker>{{someDate}}
+        <w-datepicker ng-model="otherDate"></w-datepicker>{{otherDate}}
       </div>
     </div>
   </form>
