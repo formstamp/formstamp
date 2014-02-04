@@ -84,6 +84,15 @@ class `.w-chz .w-chz-items-list` with your own properties.
         {name: 'American Samoa', code: 'AS'}];
   });
 ```
+### MultiSelect
+Provides basic select-like input. And allows to select
+multiple values from provided values. It has support for ng-model,
+ng-disabled, ng-required.
+
+### Attributes
+Multiselect has same attributes as a Chosen. Also
+it has some additional options.
+
 
 TODO
 ----
@@ -96,6 +105,10 @@ TODO
  * Add ability for customizing Chosen style (added for list).
  * Different search algorithms.
  * Fully remove jQuery.
+
+### MultiSelect
+ * Same as in Chosen.
+ * Add options for limiting number (min, max)  of selected values.
 
 Installation for Development
 -----------
