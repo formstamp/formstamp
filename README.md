@@ -134,7 +134,7 @@ then only `on-click` will be called.
 #### on-enter
 *Optional*.
 This hander will be called if item
-was selected from list pressing `enter`.
+was selected from list by pressing `enter`.
 Selected item will be passed to the handler.
 If `on-enter` and `on-select` used simultaneously
 then only `on-enter` will be called.
@@ -142,7 +142,7 @@ then only `on-enter` will be called.
 #### on-tab
 *Optional*.
 This hander will be called if item
-was selected from list pressing `tab`.
+was selected from list by pressing `tab`.
 Selected item will be passed to the handler.
 If `on-tab` and `on-select` used simultaneously
 then only `on-tab` will be called.
