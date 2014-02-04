@@ -15,7 +15,8 @@ module.exports = function (grunt) {
 					'build/chz.js': 'src/chz.coffee',
 					'build/calendar.js': 'src/calendar.coffee',
 					'build/popup.js': 'src/popup.coffee',
-          'build/multi-select.js': 'src/multi-select.coffee'
+          'build/multi-select.js': 'src/multi-select.coffee',
+          'build/dropdown.js': 'src/dropdown.coffee'
 				}
 			}
 		},

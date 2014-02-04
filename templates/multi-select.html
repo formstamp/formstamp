@@ -19,22 +19,10 @@
             ng-show='selectedItems.length'
             ng-click='reset()'>&times;</button>
   </div>
-  <div class="open" ng-show="active">
-    <input ng-keydown="onkeys($event)"
-           w-focus="active"
-           class="form-control"
-           type="search"
-           placeholder='Search'
-           ng-model="search" />
-    <ul class="dropdown-menu w-multi-select-items-list-default w-multi-select-items-list"
-        role="menu">
-      <li ng-repeat="item in shownItems"
-          ng-class="{true: 'active'}[item == activeItem]">
-        <a ng-click="selection(item)"
-           href="javascript:void(0)"
-           id='{{item[keyAttr]}}'
-           tabindex='-1'>{{ item[valueAttr] }}</a>
-      </li>
-    </ul>
-  </div>
+  <div w-dropdown
+       opened='active'
+       items='shownItems'
+       value-attr='valueAttr'
+       select='selection'
+       focus-input='focus'></div>
 </div>

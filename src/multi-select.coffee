@@ -38,40 +38,6 @@ angular
     templateUrl: "/templates/multi-select.html"
     controller: ($scope, $element, $attrs) ->
 
-      getComputedStyle = (elem, prop) ->
-        parseInt $window.getComputedStyle(elem, null).getPropertyValue(prop)
-
-      move = (d) ->
-        items = $scope.shownItems
-        activeIndex = getActiveIndex() + d
-        activeIndex = Math.min(Math.max(activeIndex,0), items.length - 1)
-        $scope.activeItem = items[activeIndex]
-        scrollIfNeeded(activeIndex)
-
-      scrollIfNeeded = (activeIndex) ->
-        ul = $element.find('ul')[0]
-        li = ul.querySelector('li.active')
-
-        return unless ul and li
-
-        ulHeight = ul.clientHeight - getComputedStyle(ul, 'padding-top') - getComputedStyle(ul, 'padding-bottom')
-        viewport =
-          top: ul.scrollTop
-          bottom: ul.scrollTop + ulHeight
-
-        li = ul.querySelector('li.active')
-        liHeight = li.clientHeight - getComputedStyle(li, 'padding-top') - getComputedStyle(li, 'padding-bottom')
-        item =
-          top: activeIndex * liHeight
-          bottom: (activeIndex + 1) * liHeight
-
-        # Scroll down
-        if item.bottom > viewport.bottom
-          ul.scrollTop += item.bottom - viewport.bottom
-          # Scroll up
-        else if item.top < viewport.top
-          ul.scrollTop -= viewport.top - item.top
-
       search = (q) ->
         $scope.shownItems = difference(
           filter(q, $scope.items, $scope.valueAttr).slice(0, $scope.limit),
@@ -90,7 +56,6 @@ angular
       #TODO: why is this method's name a noun instead of a verb?
       $scope.selection = (item)->
         $scope.selectedItems.push(item)
-        $scope.hideDropDown()
         resetDropDown()
 
       $scope.deselect = (item)->
@@ -103,31 +68,7 @@ angular
         $scope.selectedItems = []
         $scope.focus = true
 
-      $scope.onkeys = (event)->
-        switch event.keyCode
-          when 40 then move(1)
-          when 38 then move(-1)
-          when 13
-            $scope.selection($scope.activeItem)
-            $scope.focus=true
-            event.preventDefault()
-          when  9 then $scope.selection($scope.activeItem)
-          when 27
-            $scope.hideDropDown()
-            $scope.focus=true
-          when 34 then move(11)
-          when 33 then move(-11)
-
       $scope.$watch 'search', search
-
-      $scope.$watch 'active', (value) ->
-        window.setTimeout((()-> scrollIfNeeded(getActiveIndex())) , 0) if value
-
-      $scope.hideDropDown = ->
-        $scope.active = false
-
-      getActiveIndex = ->
-        ($scope.shownItems.indexOf($scope.activeItem) || 0)
 
       # TODO move to init
       $scope.selectedItems = []
@@ -162,5 +103,6 @@ angular
         $window.addEventListener 'click', (e) ->
           parent = $(e.target).parents('div.w-multi-select')[0]
           if parent != element[0]
-            scope.$apply(scope.hideDropDown)
+            scope.$apply ->
+              scope.active = false
   ]
