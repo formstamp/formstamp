@@ -93,13 +93,13 @@
         <!--<input type="text" ng-model="someDate">-->
         <!--<w-calendar ng-model="someDate"></w-calendar>-->
         <br/>
-        <input w-popup="ololo" ng-model="someOtherDate"/>
+        <input ng-focus="popup.show('ololo', $event.target)" ng-model="someOtherDate"/>
         <w-popup name="ololo">
-          <w-calendar ng-model="someOtherDate" ng-change="hidePopup()"></w-calendar>
+          <w-calendar ng-model="someOtherDate" ng-change="popup.hide()"></w-calendar>
         </w-popup>
-        <input w-popup="egegey" ng-model="yetOtherDate"/>
+        <input ng-focus="popup.show('egegey', $event.target)" ng-model="yetOtherDate"/>
         <w-popup name="egegey">
-          <w-calendar ng-model="yetOtherDate" ng-change="hidePopup()"></w-calendar>
+          <w-calendar ng-model="yetOtherDate" ng-change="popup.hide()"></w-calendar>
         </w-popup>
       </div>
     </div>
