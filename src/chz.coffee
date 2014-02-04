@@ -29,23 +29,30 @@ angular
   templateUrl: "/templates/chz.html"
   controller: ($scope, $element, $attrs) ->
 
-    search = (q) ->
-      if $scope.prevSearch != q
-        $scope.shownItems = filter(q, $scope.items, $scope.valueAttr).slice(0, $scope.limit)
-        $scope.activeItem = $scope.shownItems[0]
-      $scope.prevSearch = q
+    $scope.search = (q) ->
+      filter(q, $scope.items, $scope.valueAttr).slice(0, $scope.limit)
 
-    $scope.selection = (item)->
+    $scope.hideDropDown = ->
+      $scope.active = false
+
+    $scope.select = (item)->
       $scope.selectedItem = item
+      $scope.hideDropDown()
+
+    $scope.onEnter = (item) ->
+      $scope.select(item)
+      $scope.focus = true
+
+    $scope.onEsc = ->
+      $scope.hideDropDown()
+      $scope.focus = true
 
     $scope.reset = ->
       $scope.selectedItem = null
       $scope.focus = true
 
-    $scope.$watch 'search', search
-
     # run
-    search('')
+    $scope.search('')
 
   compile: (tElement, tAttrs) ->
     tAttrs.keyAttr ||= 'id'
@@ -77,9 +84,9 @@ angular
             angular.element(link).empty().append(clone)
 
       # Hide drop down list on click elsewhere
+      # TODO should be moved somehow to w-dropdown
       $window.addEventListener 'click', (e) ->
         parent = $(e.target).parents('div.w-chz')[0]
         if parent != element[0]
-          scope.$apply ->
-            scope.active = false
+          scope.$apply(scope.hideDropDown)
 ]

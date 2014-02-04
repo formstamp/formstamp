@@ -38,13 +38,12 @@ angular
     templateUrl: "/templates/multi-select.html"
     controller: ($scope, $element, $attrs) ->
 
-      search = (q) ->
+      $scope.search = (q) ->
         $scope.shownItems = difference(
           filter(q, $scope.items, $scope.valueAttr).slice(0, $scope.limit),
           $scope.selectedItems
         )
-        $scope.activeItem = $scope.shownItems[0]
-        $scope.prevSearch = q
+        $scope.shownItems
 
       resetDropDown = ->
         $scope.shownItems = difference(
@@ -53,10 +52,21 @@ angular
         )
         $scope.activeItem = $scope.shownItems[0]
 
-      #TODO: why is this method's name a noun instead of a verb?
-      $scope.selection = (item)->
+      $scope.hideDropDown = ->
+        $scope.active = false
+
+      $scope.select = (item)->
         $scope.selectedItems.push(item)
+        $scope.hideDropDown()
         resetDropDown()
+
+      $scope.onEnter = (item) ->
+        $scope.select(item)
+        $scope.focus = true
+
+      $scope.onEsc = ->
+        $scope.hideDropDown()
+        $scope.focus = true
 
       $scope.deselect = (item)->
         index = $scope.selectedItems.indexOf(item)
@@ -67,8 +77,6 @@ angular
       $scope.reset = ->
         $scope.selectedItems = []
         $scope.focus = true
-
-      $scope.$watch 'search', search
 
       # TODO move to init
       $scope.selectedItems = []
@@ -100,9 +108,9 @@ angular
               angular.element(link).empty().append(clone)
 
         # Hide drop down list on click elsewhere
+        # TODO should be moved somehow to w-dropdown
         $window.addEventListener 'click', (e) ->
           parent = $(e.target).parents('div.w-multi-select')[0]
           if parent != element[0]
-            scope.$apply ->
-              scope.active = false
+            scope.$apply(scope.hideDropDown)
   ]

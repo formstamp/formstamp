@@ -15,10 +15,13 @@
             ng-show='selectedItem'
             ng-click='reset()'>&times;</button>
   </div>
-  <div w-dropdown=''
-    opened='active'
-    items='shownItems'
-    value-attr='valueAttr'
-    select='selection'
-    focus-input='focus'></div>
+  <div w-dropdown
+       opened='active'
+       items='shownItems'
+       value-attr='valueAttr'
+       on-search='search'
+       on-click='select'
+       on-enter='onEnter'
+       on-tab='select'
+       on-esc='onEsc'></div>
 </div>
