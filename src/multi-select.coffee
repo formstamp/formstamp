@@ -80,10 +80,24 @@ angular
         $scope.activeItem = $scope.shownItems[0]
         $scope.prevSearch = q
 
+      resetDropDown = ->
+        $scope.shownItems = difference(
+          $scope.items.slice(0, $scope.limit),
+          $scope.selectedItems
+        )
+        $scope.activeItem = $scope.shownItems[0]
+
+      #TODO: why is this method's name a noun instead of a verb?
       $scope.selection = (item)->
         $scope.selectedItems.push(item)
         $scope.hideDropDown()
-        search ''
+        resetDropDown()
+
+      $scope.deselect = (item)->
+        index = $scope.selectedItems.indexOf(item)
+        if index > -1
+          $scope.selectedItems.splice($scope.selectedItems.indexOf(item), 1)
+          resetDropDown()
 
       $scope.reset = ->
         $scope.selectedItems = []
@@ -118,7 +132,7 @@ angular
       # TODO move to init
       $scope.selectedItems = []
       # run
-      search('')
+      resetDropDown()
 
     compile: (tElement, tAttrs) ->
       tAttrs.keyAttr ||= 'id'
@@ -130,6 +144,7 @@ angular
         if ngModelCtrl
           scope.$watch 'selectedItems', ->
             ngModelCtrl.$setViewValue(scope.selectedItems)
+            #TODO: activeItem can't hold an array
             scope.activeItem = scope.selectedItems
 
           ngModelCtrl.$render = ->

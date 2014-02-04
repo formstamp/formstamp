@@ -1,14 +1,18 @@
 <div class='w-multi-select'>
   <input type='text' ng-model='selectedItem' style='display: none' ng-required='required' />
-  <div ng-hide="active" ng-class="{'btn-group': selectedItems}">
-    <a class="btn btn-default w-multi-select-active"
+  <div ng-hide="active" ng-class="{'btn-group': selectedItems.length}">
+    <div class="btn btn-default w-multi-select-active-items"
        href="javascript:void(0)"
        ng-click="active=true"
        w-focus='focus'
        ng-disabled="disabled"
        ng-blur='focus=false'>
-      {{ (selectedItems || 'none') }}
-    </a>
+      <span ng-hide='selectedItems.length'>none</span>
+      <span ng-repeat='selectedItem in selectedItems' class="label label-primary w-multi-select-active-item">
+        <span class="glyphicon glyphicon-remove" ng-click="deselect(selectedItem)"></span>
+        {{selectedItem}}
+      </span>
+    </div>
     <button type="button"
             class="btn btn-default"
             aria-hidden="true"
