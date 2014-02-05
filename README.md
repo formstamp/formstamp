@@ -85,6 +85,32 @@ class `.w-chz .w-chz-items-list` with your own properties.
   });
 ```
 
+### Combo
+This input provides base combo input. It allows you
+to select one values from provided list or type own value.
+This input is operates only on values. Each value is toString
+represantation of item in list.
+
+### Attributes
+#### items
+*Required*.
+Array of items. `toString` will be called on item when retrieving it
+from list.
+
+#### limit
+*Optional.*
+Limits number of shown `items`. Default: `items.length`.
+
+### Templating
+Combo provides templating for selected object by passing html
+template inside directive.  You can reference current object by
+`item`.
+```html
+  <div w-chz>
+    <b>{{item}}
+  </div>
+```
+
 TODO
 ----
   * Form builder.
