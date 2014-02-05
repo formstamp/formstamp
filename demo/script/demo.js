@@ -281,4 +281,10 @@ var chars = [
 
 app.controller('MultiSelectCtrl', function($scope) {
   $scope.items = chars;
-})
+});
+
+app.controller('ComboCtrl', function($scope) {
+  $scope.items = countries.map(function (item) {
+    return item.label;
+  });
+});

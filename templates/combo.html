@@ -7,7 +7,7 @@
          w-focus='focus'
          ng-disabled="disabled"
          ng-blur='focus=false'>
-          {{selectedItem[valueAttr] || 'none'}}
+          {{selectedItem || 'none'}}
       </a>
       <button type="button"
               class="btn btn-default"
@@ -29,7 +29,7 @@
          <a ng-click="selection(item)"
             href="javascript:void(0)"
             id='{{item[keyAttr]}}'
-            tabindex='-1'>{{ item[valueAttr] }}</a>
+            tabindex='-1'>{{ item }}</a>
        </li>
     </ul>
   </div>

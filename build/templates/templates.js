@@ -77,30 +77,79 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
   $templateCache.put('/templates/chz.html',
     "<div class='w-chz'>\n" +
     "  <input type='text' ng-model='selectedItem' style='display: none' ng-required='required' />\n" +
-    "  <div ng-hide=\"active\" ng-class=\"{'btn-group': selectedItem}\">\n" +
-    "    <a class=\"btn btn-default w-chz-active\"\n" +
-    "       href=\"javascript:void(0)\"\n" +
-    "       ng-click=\"active=true\"\n" +
-    "       w-focus='focus'\n" +
-    "       ng-disabled=\"disabled\"\n" +
-    "       ng-blur='focus=false'>\n" +
-    "        {{ selectedItem[valueAttr] || 'none' }}\n" +
-    "    </a>\n" +
-    "    <button type=\"button\"\n" +
-    "            class=\"btn btn-default\"\n" +
-    "            aria-hidden=\"true\"\n" +
-    "            ng-show='selectedItem'\n" +
-    "            ng-click='reset()'>&times;</button>\n" +
+    "    <div ng-hide=\"active\" ng-class=\"{'btn-group': selectedItem}\">\n" +
+    "      <a class=\"btn btn-default w-chz-active\"\n" +
+    "         href=\"javascript:void(0)\"\n" +
+    "         ng-click=\"active=true\"\n" +
+    "         w-focus='focus'\n" +
+    "         ng-disabled=\"disabled\"\n" +
+    "         ng-blur='focus=false'>\n" +
+    "          {{selectedItem[valueAttr] || 'none'}}\n" +
+    "      </a>\n" +
+    "      <button type=\"button\"\n" +
+    "              class=\"btn btn-default\"\n" +
+    "              aria-hidden=\"true\"\n" +
+    "              ng-show='selectedItem'\n" +
+    "              ng-click='reset()'>&times;</button>\n" +
+    "    </div>\n" +
+    "  <div class=\"open\" ng-show=\"active\">\n" +
+    "    <input ng-keydown=\"onkeys($event)\"\n" +
+    "           w-focus=\"active\"\n" +
+    "           class=\"form-control\"\n" +
+    "           type=\"search\"\n" +
+    "           placeholder='Search'\n" +
+    "           ng-model=\"search\" />\n" +
+    "    <ul class=\"dropdown-menu w-chz-items-list-default w-chz-items-list\"\n" +
+    "        role=\"menu\">\n" +
+    "       <li ng-repeat=\"item in shownItems\"\n" +
+    "           ng-class=\"{true: 'active'}[item == activeItem]\">\n" +
+    "         <a ng-click=\"selection(item)\"\n" +
+    "            href=\"javascript:void(0)\"\n" +
+    "            id='{{item[keyAttr]}}'\n" +
+    "            tabindex='-1'>{{ item[valueAttr] }}</a>\n" +
+    "       </li>\n" +
+    "    </ul>\n" +
     "  </div>\n" +
-    "  <div w-dropdown\n" +
-    "       opened='active'\n" +
-    "       items='shownItems'\n" +
-    "       value-attr='valueAttr'\n" +
-    "       on-search='search'\n" +
-    "       on-click='select'\n" +
-    "       on-enter='onEnter'\n" +
-    "       on-tab='select'\n" +
-    "       on-esc='onEsc'></div>\n" +
+    "</div>\n"
+  );
+
+
+  $templateCache.put('/templates/combo.html',
+    "<div class='w-chz'>\n" +
+    "  <input type='text' ng-model='selectedItem' style='display: none' ng-required='required' />\n" +
+    "    <div ng-hide=\"active\" ng-class=\"{'btn-group': selectedItem}\">\n" +
+    "      <a class=\"btn btn-default w-chz-active\"\n" +
+    "         href=\"javascript:void(0)\"\n" +
+    "         ng-click=\"active=true\"\n" +
+    "         w-focus='focus'\n" +
+    "         ng-disabled=\"disabled\"\n" +
+    "         ng-blur='focus=false'>\n" +
+    "          {{selectedItem || 'none'}}\n" +
+    "      </a>\n" +
+    "      <button type=\"button\"\n" +
+    "              class=\"btn btn-default\"\n" +
+    "              aria-hidden=\"true\"\n" +
+    "              ng-show='selectedItem'\n" +
+    "              ng-click='reset()'>&times;</button>\n" +
+    "    </div>\n" +
+    "  <div class=\"open\" ng-show=\"active\">\n" +
+    "    <input ng-keydown=\"onkeys($event)\"\n" +
+    "           w-focus=\"active\"\n" +
+    "           class=\"form-control\"\n" +
+    "           type=\"search\"\n" +
+    "           placeholder='Search'\n" +
+    "           ng-model=\"search\" />\n" +
+    "    <ul class=\"dropdown-menu w-chz-items-list-default w-chz-items-list\"\n" +
+    "        role=\"menu\">\n" +
+    "       <li ng-repeat=\"item in shownItems\"\n" +
+    "           ng-class=\"{true: 'active'}[item == activeItem]\">\n" +
+    "         <a ng-click=\"selection(item)\"\n" +
+    "            href=\"javascript:void(0)\"\n" +
+    "            id='{{item[keyAttr]}}'\n" +
+    "            tabindex='-1'>{{ item }}</a>\n" +
+    "       </li>\n" +
+    "    </ul>\n" +
+    "  </div>\n" +
     "</div>\n"
   );
 
@@ -113,28 +162,6 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "    <w-calendar data-ng-model=\"date\" data-ng-change=\"popup.hide(); dateSelection()\"/>\n" +
     "  </w-popup>\n" +
     "</span>"
-  );
-
-
-  $templateCache.put('/templates/dropdown.html',
-    "<div class=\"open w-dropdown\" ng-show=\"opened\">\n" +
-    "  <input ng-keydown=\"onkeys($event)\"\n" +
-    "         w-focus=\"opened\"\n" +
-    "         class=\"form-control\"\n" +
-    "         type=\"search\"\n" +
-    "         placeholder='Search'\n" +
-    "         ng-model=\"search\" />\n" +
-    "  <ul class=\"dropdown-menu w-dropdown-items\"\n" +
-    "      role=\"menu\">\n" +
-    "     <li ng-repeat=\"item in items\"\n" +
-    "         ng-class=\"{true: 'active'}[item == activeItem]\">\n" +
-    "       <a ng-click=\"onClick(item)\"\n" +
-    "          href=\"javascript:void(0)\"\n" +
-    "          tabindex='-1'>{{ item[valueAttr] }}</a>\n" +
-    "     </li>\n" +
-    "  </ul>\n" +
-    "</div>\n" +
-    "\n"
   );
 
 
@@ -160,15 +187,24 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "            ng-show='selectedItems.length'\n" +
     "            ng-click='reset()'>&times;</button>\n" +
     "  </div>\n" +
-    "  <div w-dropdown\n" +
-    "       opened='active'\n" +
-    "       items='shownItems'\n" +
-    "       value-attr='valueAttr'\n" +
-    "       on-search='search'\n" +
-    "       on-click='select'\n" +
-    "       on-enter='onEnter'\n" +
-    "       on-tab='select'\n" +
-    "       on-esc='onEsc'></div>\n" +
+    "  <div class=\"open\" ng-show=\"active\">\n" +
+    "    <input ng-keydown=\"onkeys($event)\"\n" +
+    "           w-focus=\"active\"\n" +
+    "           class=\"form-control\"\n" +
+    "           type=\"search\"\n" +
+    "           placeholder='Search'\n" +
+    "           ng-model=\"search\" />\n" +
+    "    <ul class=\"dropdown-menu w-multi-select-items-list-default w-multi-select-items-list\"\n" +
+    "        role=\"menu\">\n" +
+    "      <li ng-repeat=\"item in shownItems\"\n" +
+    "          ng-class=\"{true: 'active'}[item == activeItem]\">\n" +
+    "        <a ng-click=\"selection(item)\"\n" +
+    "           href=\"javascript:void(0)\"\n" +
+    "           id='{{item[keyAttr]}}'\n" +
+    "           tabindex='-1'>{{ item[valueAttr] }}</a>\n" +
+    "      </li>\n" +
+    "    </ul>\n" +
+    "  </div>\n" +
     "</div>\n"
   );
 

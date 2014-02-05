@@ -90,61 +90,6 @@ MultiSelect allows to select multiple items from a predefined list of options. S
 ### Attributes
 MultiSelect has the same set of attributes as Chosen.
 
-Internals
----------
-### Dropdown
-Provides basic dropdown. It consits of list
-of items and event callbacks on them.
-
-### Attributes
-#### opened
-*Required*.
-Idicates whether open or close dropdown.
-If `true` it is opened, if `false` it is closed.
-
-#### items
-*Required*.
-List of objects to display in dropdown.
-
-#### value-attr
-*Required*.
-This attribute contains name of field that
-will be displayed in dropdown.
-
-#### on-click
-*Optional*.
-This hander will be called if item
-was selected from list by clicking on it.
-Selected item will be passed to the handler.
-If `on-click` and `on-select` used simultaneously
-then only `on-click` will be called.
-
-#### on-enter
-*Optional*.
-This hander will be called if item
-was selected from list by pressing `enter`.
-Selected item will be passed to the handler.
-If `on-enter` and `on-select` used simultaneously
-then only `on-enter` will be called.
-
-#### on-tab
-*Optional*.
-This hander will be called if item
-was selected from list by pressing `tab`.
-Selected item will be passed to the handler.
-If `on-tab` and `on-select` used simultaneously
-then only `on-tab` will be called.
-
-#### on-esc
-*Optional*
-This hander will be called if `esc`
-was pressed.
-
-### on-search
-This handler will be called on typing in search input.
-Search term will be passed to handler. It should return
-filtered list of items to display.
-
 ### Combo
 This input provides base combo input. It allows you
 to select one values from provided list or type own value.

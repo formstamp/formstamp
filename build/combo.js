@@ -1,55 +1,34 @@
 (function() {
-  var comp, difference, filter, hash_key;
+  var comp, filter;
 
   comp = function(a, b) {
-    return a.toLowerCase().indexOf(b.toLowerCase()) > -1;
+    return a.toString().toLowerCase().indexOf(b.toString().toLowerCase()) > -1;
   };
 
-  hash_key = function(item) {
-    return angular.toJson(item);
-  };
-
-  difference = function(a, b) {
-    var b_element, hash, _i, _len;
-    if (!(b && a)) {
-      return a;
-    }
-    hash = {};
-    for (_i = 0, _len = b.length; _i < _len; _i++) {
-      b_element = b[_i];
-      hash[hash_key(b_element)] = true;
-    }
-    return a.filter((function(a_element) {
-      return !hash[hash_key(a_element)];
-    }));
-  };
-
-  filter = function(x, xs, valueAttr) {
+  filter = function(x, xs) {
     if (x) {
       return xs.filter((function(i) {
-        return comp(i[valueAttr], x);
+        return comp(i, x);
       }));
     } else {
       return xs;
     }
   };
 
-  angular.module("angular-w").directive("wMultiSelect", [
+  angular.module("angular-w").directive("wCombo", [
     '$window', function($window) {
       return {
         restrict: "A",
         scope: {
           items: '=',
-          limit: '=',
-          keyAttr: '@',
-          valueAttr: '@'
+          limit: '='
         },
         require: '?ngModel',
         replace: true,
         transclude: true,
-        templateUrl: "/templates/multi-select.html",
+        templateUrl: "/templates/combo.html",
         controller: function($scope, $element, $attrs) {
-          var getActiveIndex, getComputedStyle, move, resetDropDown, scrollIfNeeded, search;
+          var getActiveIndex, getComputedStyle, move, scrollIfNeeded, search;
           getComputedStyle = function(elem, prop) {
             return parseInt($window.getComputedStyle(elem, null).getPropertyValue(prop));
           };
@@ -86,31 +65,20 @@
             }
           };
           search = function(q) {
-            $scope.shownItems = difference(filter(q, $scope.items, $scope.valueAttr).slice(0, $scope.limit), $scope.selectedItems);
-            $scope.activeItem = $scope.shownItems[0];
-            return $scope.prevSearch = q;
-          };
-          resetDropDown = function() {
-            $scope.shownItems = difference($scope.items.slice(0, $scope.limit), $scope.selectedItems);
+            $scope.shownItems = filter(q, $scope.items).slice(0, $scope.limit);
+            if ($scope.shownItems.length === 0) {
+              $scope.shownItems.push(q);
+              $scope.activeItem = $scope.shownItems[$scope.shownItems.length];
+            }
             return $scope.activeItem = $scope.shownItems[0];
           };
           $scope.selection = function(item) {
-            $scope.selectedItems.push(item);
-            $scope.hideDropDown();
-            return resetDropDown();
-          };
-          $scope.deselect = function(item) {
-            var index;
-            index = $scope.selectedItems.indexOf(item);
-            if (index > -1) {
-              $scope.selectedItems.splice($scope.selectedItems.indexOf(item), 1);
-              return resetDropDown();
-            }
+            $scope.selectedItem = item;
+            return $scope.hideDropDown();
           };
           $scope.reset = function() {
-            $scope.selectedItems = [];
-            $scope.focus = true;
-            return search('');
+            $scope.selectedItem = null;
+            return $scope.focus = true;
           };
           $scope.onkeys = function(event) {
             switch (event.keyCode) {
@@ -119,11 +87,11 @@
               case 38:
                 return move(-1);
               case 13:
-                $scope.selection($scope.activeItem);
+                $scope.selection($scope.activeItem || $scope.search);
                 $scope.focus = true;
                 return event.preventDefault();
               case 9:
-                return $scope.selection($scope.activeItem);
+                return $scope.selection($scope.search);
               case 27:
                 $scope.hideDropDown();
                 return $scope.focus = true;
@@ -134,6 +102,9 @@
             }
           };
           $scope.$watch('search', search);
+          $scope.$watch('limit', function() {
+            return search('');
+          });
           $scope.$watch('active', function(value) {
             if (value) {
               return window.setTimeout((function() {
@@ -147,42 +118,47 @@
           getActiveIndex = function() {
             return $scope.shownItems.indexOf($scope.activeItem) || 0;
           };
-          $scope.selectedItems = [];
-          return resetDropDown();
+          return search('');
         },
-        compile: function(tElement, tAttrs) {
-          tAttrs.keyAttr || (tAttrs.keyAttr = 'id');
-          tAttrs.valueAttr || (tAttrs.valueAttr = 'label');
-          return function(scope, element, attrs, ngModelCtrl, transcludeFn) {
-            if (ngModelCtrl) {
-              scope.$watch('selectedItems', function() {
-                ngModelCtrl.$setViewValue(scope.selectedItems);
-                return scope.activeItem = scope.selectedItems;
-              });
-              ngModelCtrl.$render = function() {
-                return scope.selectedItems = ngModelCtrl.$modelValue || [];
-              };
-            }
-            scope.$watch('selectedItems', function() {
-              var childScope;
-              childScope = scope.$new();
-              childScope.items = scope.selectedItems;
-              return transcludeFn(childScope, function(clone) {
-                var link;
-                if (clone.text().trim() !== "") {
-                  link = element[0].querySelector('a.w-multi-select-active');
-                  return angular.element(link).empty().append(clone);
-                }
-              });
+        link: function(scope, element, attrs, ngModelCtrl, transcludeFn) {
+          if (ngModelCtrl) {
+            scope.$watch('selectedItem', function() {
+              ngModelCtrl.$setViewValue(scope.selectedItem);
+              scope.activeItem = scope.selectedItem;
+              return scope.search = scope.selectedItem;
             });
-            return $window.addEventListener('click', function(e) {
-              var parent;
-              parent = $(e.target).parents('div.w-multi-select')[0];
-              if (parent !== element[0]) {
-                return scope.$apply(scope.hideDropDown);
+            ngModelCtrl.$render = function() {
+              return scope.selectedItem = ngModelCtrl.$modelValue;
+            };
+          }
+          attrs.$observe('disabled', function(value) {
+            return scope.disabled = value;
+          });
+          attrs.$observe('required', function(value) {
+            return scope.required = value;
+          });
+          scope.$watch('selectedItem', function() {
+            var childScope;
+            childScope = scope.$new();
+            childScope.item = scope.selectedItem;
+            return transcludeFn(childScope, function(clone) {
+              var link;
+              if (clone.text().trim() !== "") {
+                link = element[0].querySelector('a.w-chz-active');
+                return angular.element(link).empty().append(clone);
               }
             });
-          };
+          });
+          return $window.addEventListener('click', function(e) {
+            var parent;
+            parent = $(e.target).parents('div.w-chz')[0];
+            if (parent !== element[0]) {
+              return scope.$apply(function() {
+                scope.hideDropDown();
+                return scope.selection(scope.search);
+              });
+            }
+          });
         }
       };
     }
