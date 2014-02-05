@@ -106,7 +106,7 @@ Combo provides templating for selected object by passing html
 template inside directive.  You can reference current object by
 `item`.
 ```html
-  <div w-chz>
+  <div w-combo>
     <b>{{item}}</b>
   </div>
 ```
