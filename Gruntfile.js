@@ -18,7 +18,6 @@ module.exports = function (grunt) {
 					'build/date-format.js': 'src/date-format.coffee',
 					'build/popup.js': 'src/popup.coffee',
           'build/multi-select.js': 'src/multi-select.coffee',
-          'build/dropdown.js': 'src/dropdown.coffee',
           'build/focus.js': 'src/focus.coffee',
           'build/combo.js': 'src/combo.coffee'
 				}
