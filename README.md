@@ -107,7 +107,7 @@ template inside directive.  You can reference current object by
 `item`.
 ```html
   <div w-chz>
-    <b>{{item}}
+    <b>{{item}}</b>
   </div>
 ```
 
