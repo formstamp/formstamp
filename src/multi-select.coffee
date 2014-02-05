@@ -92,6 +92,7 @@ angular
       $scope.reset = ->
         $scope.selectedItems = []
         $scope.focus = true
+        search('')
 
       $scope.onkeys = (event)->
         switch event.keyCode
