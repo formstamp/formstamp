@@ -1,9 +1,3 @@
-comp = (a, b)->
-  a.toString().toLowerCase().indexOf(b.toString().toLowerCase()) > -1
-
-filter = (x, xs, valueAttr)->
-  if x then xs.filter ((i)-> comp(i[valueAttr], x)) else xs
-
 angular
 .module("angular-w")
 .directive "wChz", ['$window', ($window) ->

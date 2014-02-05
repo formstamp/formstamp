@@ -10,12 +10,22 @@ module.exports = function (grunt) {
 
   grunt.initConfig({
     coffee: {
-      compile: {
-          expand: true,     // Enable dynamic expansion.
-          cwd: 'src/',      // Src matches are relative to this path.
-          src: ['**/*.coffee'], // Actual pattern(s) to match.
-          dest: 'build/',   // Destination path prefix.
-          ext: '.js'   // Dest filepaths will have this extension.
+      directives: {
+          expand: true,
+          cwd: 'src/',
+          src: ['*.coffee'],
+          dest: 'build/',
+          ext: '.js'
+      },
+      utils: {
+        options: {
+          bare: true
+        },
+        expand: true,
+        cwd: 'src/utils',
+        src: ['*.coffee'],
+        dest: 'build/utils/',
+        ext: '.js'
       }
     },
     less: {
@@ -43,7 +53,7 @@ module.exports = function (grunt) {
     clean: ['build/**/*'],
     concat: {
       js: {
-        src: ['<%= ngtemplates.app.dest %>', 'build/*.js'],
+        src: ['build/utils/*.js', '<%= ngtemplates.app.dest %>', 'build/*.js'],
         dest: 'build/angular-w.js'
       },
       css: {

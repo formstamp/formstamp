@@ -1,9 +1,3 @@
-comp = (a, b)->
-  a.toString().toLowerCase().indexOf(b.toString().toLowerCase()) > -1
-
-filter = (x, xs)->
-  if x then xs.filter ((i)-> comp(i, x)) else xs
-
 angular
 .module("angular-w")
 .directive "wCombo", ['$window', ($window) ->

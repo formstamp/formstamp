@@ -1,6 +1,3 @@
-comp = (a, b)->
-  a.toLowerCase().indexOf(b.toLowerCase()) > -1
-
 hash_key = (item)->
   angular.toJson(item)
 
@@ -9,9 +6,6 @@ difference = (a, b)->
   hash = {}
   hash[hash_key(b_element)] = true for b_element in b
   a.filter ((a_element)-> not hash[hash_key(a_element)])
-
-filter = (x, xs, valueAttr)->
-  if x then xs.filter ((i)-> comp(i[valueAttr], x)) else xs
 
 angular
 .module("angular-w")
