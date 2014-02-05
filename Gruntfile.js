@@ -11,16 +11,11 @@ module.exports = function (grunt) {
   grunt.initConfig({
     coffee: {
       compile: {
-        files: {
-          'build/chz.js': 'src/chz.coffee',
-          'build/calendar.js': 'src/calendar.coffee',
-          'build/datepicker.js': 'src/datepicker.coffee',
-          'build/date-format.js': 'src/date-format.coffee',
-          'build/popup.js': 'src/popup.coffee',
-          'build/multi-select.js': 'src/multi-select.coffee',
-          'build/focus.js': 'src/focus.coffee',
-          'build/combo.js': 'src/combo.coffee'
-        }
+          expand: true,     // Enable dynamic expansion.
+          cwd: 'src/',      // Src matches are relative to this path.
+          src: ['**/*.coffee'], // Actual pattern(s) to match.
+          dest: 'build/',   // Destination path prefix.
+          ext: '.js'   // Dest filepaths will have this extension.
       }
     },
     less: {
