@@ -36,19 +36,6 @@ module.exports = function (grunt) {
 				]
 			}
 		},
-		watch: {
-			options: {
-				nospawn: true
-			},
-			sources: {
-				files: ['src/**/*.coffee', 'styles/**/*.less', 'templates/**/*.html'],
-				tasks: ['build'],
-				options: {
-					events: ['changed', 'added'],
-					nospawn: true
-				}
-			}
-    },
     ngtemplates: {
       app: {
         src: 'templates/*.html',
@@ -62,11 +49,28 @@ module.exports = function (grunt) {
     },
     clean: ['build/**/*'],
     concat: {
-      app: {
+      js: {
         src: ['<%= ngtemplates.app.dest %>', 'build/*.js'],
         dest: 'build/angular-w.js'
+      },
+      css: {
+        src: ['build/*.css'],
+        dest: 'build/angular-w.css'
       }
+    },
+		watch: {
+			options: {
+				nospawn: true
+			},
+			sources: {
+				files: ['src/**/*.coffee', 'styles/**/*.less', 'templates/**/*.html'],
+				tasks: ['build'],
+				options: {
+					events: ['changed', 'added'],
+					nospawn: true
+				}
+			}
     }
 	})
-	grunt.registerTask('build', ['clean', 'coffee', 'less', 'ngtemplates', 'concat']);
+	grunt.registerTask('build', ['clean', 'coffee', 'less', 'ngtemplates', 'concat:js', 'concat:css']);
 };
