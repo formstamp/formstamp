@@ -148,6 +148,32 @@ This handler will be called on typing in search input.
 Search term will be passed to handler. It should return
 filtered list of items to display.
 
+### Combo
+This input provides base combo input. It allows you
+to select one values from provided list or type own value.
+This input is operates only on values. Each value is toString
+represantation of item in list.
+
+### Attributes
+#### items
+*Required*.
+Array of items. `toString` will be called on item when retrieving it
+from list.
+
+#### limit
+*Optional.*
+Limits number of shown `items`. Default: `items.length`.
+
+### Templating
+Combo provides templating for selected object by passing html
+template inside directive.  You can reference current object by
+`item`.
+```html
+  <div w-combo>
+    <b>{{item}}</b>
+  </div>
+```
+
 TODO
 ----
   * Form builder.
@@ -161,7 +187,6 @@ TODO
  * Delegate id and name to input.
  * Fully remove jQuery.
  * Add select option, for providing selected value.
- * Add default template.
  * Support array of primitives.
 
 ### MultiSelect
