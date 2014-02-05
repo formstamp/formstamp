@@ -284,5 +284,7 @@ app.controller('MultiSelectCtrl', function($scope) {
 });
 
 app.controller('ComboCtrl', function($scope) {
-  $scope.items = countries;
+  $scope.items = countries.map(function (item) {
+    return item.label;
+  });
 });
