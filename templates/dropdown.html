@@ -9,7 +9,7 @@
       role="menu">
      <li ng-repeat="item in items"
          ng-class="{true: 'active'}[item == activeItem]">
-       <a ng-click="onClick(item)"
+       <a ng-click="click(item)"
           href="javascript:void(0)"
           tabindex='-1'>{{ item[valueAttr] }}</a>
      </li>

@@ -4,6 +4,7 @@ angular.module('angular-w').directive 'wDropdown', ['$window', ($window) ->
   scope:
     opened: '='
     items: '='
+    selectedItem: '='
     valueAttr: '='
     onSearch: '='
     onClick: '='
@@ -13,15 +14,16 @@ angular.module('angular-w').directive 'wDropdown', ['$window', ($window) ->
     focusInput: '='
   templateUrl: '/templates/dropdown.html'
   link: (scope, element, attrs) ->
-    getActiveIndex = ->
-      (scope.items.indexOf(scope.activeItem) || 0)
+
+    getIndexFor = (item) ->
+      (scope.items.indexOf(item) || 0)
 
     getComputedStyle = (elem, prop) ->
       parseInt $window.getComputedStyle(elem, null).getPropertyValue(prop)
 
     move = (d) ->
       items = scope.items
-      activeIndex = getActiveIndex() + d
+      activeIndex = getIndexFor(scope.activeItem) + d
       activeIndex = Math.min(Math.max(activeIndex,0), items.length - 1)
       scope.activeItem = items[activeIndex]
       scrollIfNeeded(activeIndex)
@@ -50,6 +52,11 @@ angular.module('angular-w').directive 'wDropdown', ['$window', ($window) ->
       else if item.top < viewport.top
         ul.scrollTop -= viewport.top - item.top
 
+    scope.click = (item) ->
+      if scope.onClick
+        scope.onClick(item)
+        scope.activeItem = item
+
     scope.onkeys = (event)->
       switch event.keyCode
         when 40 then move(1)
@@ -63,7 +70,8 @@ angular.module('angular-w').directive 'wDropdown', ['$window', ($window) ->
         when 33 then move(-11)
 
     scope.$watch 'opened', (value) ->
-      window.setTimeout((()-> scrollIfNeeded(getActiveIndex())) , 0) if value
+      scope.activeItem = scope.selectedItem
+      window.setTimeout((()-> scrollIfNeeded(getIndexFor(scope.selectedItem))) , 0) if value
 
     scope.$watch 'search', (q) ->
       scope.items = scope.onSearch(q)
