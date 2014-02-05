@@ -13,9 +13,6 @@ angular
   templateUrl: "/templates/chz.html"
   controller: ($scope, $element, $attrs) ->
 
-    getComputedStyle = (elem, prop) ->
-      parseInt $window.getComputedStyle(elem, null).getPropertyValue(prop)
-
     move = (d) ->
       items = $scope.shownItems
       activeIndex = getActiveIndex() + d
@@ -29,13 +26,12 @@ angular
 
       return unless ul and li
 
-      ulHeight = ul.clientHeight - getComputedStyle(ul, 'padding-top') - getComputedStyle(ul, 'padding-bottom')
       viewport =
         top: ul.scrollTop
-        bottom: ul.scrollTop + ulHeight
+        bottom: ul.scrollTop + innerHeightOf(ul)
 
       li = ul.querySelector('li.active')
-      liHeight = li.clientHeight - getComputedStyle(li, 'padding-top') - getComputedStyle(li, 'padding-bottom')
+      liHeight = innerHeightOf(li)
       item =
         top: activeIndex * liHeight
         bottom: (activeIndex + 1) * liHeight
