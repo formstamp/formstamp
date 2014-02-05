@@ -4,16 +4,6 @@ comp = (a, b)->
 filter = (x, xs, valueAttr)->
   if x then xs.filter ((i)-> comp(i[valueAttr], x)) else xs
 
-focuz = (el)->
-  window.setTimeout((()-> el.focus()) , 0)
-
-angular
-.module("angular-w")
-.directive "wFocus", ->
-  link: (scope, element, attrs) ->
-    scope.$watch attrs.wFocus, (fcs)->
-      focuz(element[0]) if fcs
-
 angular
 .module("angular-w")
 .directive "wChz", ['$window', ($window) ->
@@ -30,26 +20,6 @@ angular
   controller: ($scope, $element, $attrs) ->
     $scope.search = (q) ->
       filter(q, $scope.items, $scope.valueAttr).slice(0, $scope.limit)
-
-    $scope.hideDropDown = ->
-      $scope.active = false
-
-    $scope.select = (item)->
-      $scope.selectedItem = item
-      $scope.hideDropDown()
-
-    $scope.onEnter = (item) ->
-      $scope.select(item)
-      $scope.focus = true
-
-    $scope.onEsc = ->
-      $scope.hideDropDown()
-      $scope.focus = true
-
-    $scope.reset = ->
-      $scope.selectedItem = null
-      $scope.focus = true
-
     # run
     $scope.search('')
 
@@ -63,7 +33,6 @@ angular
       if ngModelCtrl
         scope.$watch 'selectedItem', ->
           ngModelCtrl.$setViewValue(scope.selectedItem)
-          scope.activeItem = scope.selectedItem
 
         ngModelCtrl.$render = ->
           scope.selectedItem = ngModelCtrl.$modelValue
@@ -88,4 +57,24 @@ angular
         parent = $(e.target).parents('div.w-chz')[0]
         if parent != element[0]
           scope.$apply(scope.hideDropDown)
+
+      scope.hideDropDown = ->
+        scope.active = false
+
+      scope.select = (item)->
+        scope.selectedItem = item
+        scope.hideDropDown()
+
+      scope.onEnter = (item) ->
+        scope.select(item)
+        scope.focus = true
+
+      scope.onEsc = ->
+        scope.hideDropDown()
+        scope.focus = true
+
+      scope.reset = ->
+        scope.selectedItem = null
+        scope.focus = true
+
 ]
