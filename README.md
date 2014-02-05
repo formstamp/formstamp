@@ -85,13 +85,10 @@ class `.w-chz .w-chz-items-list` with your own properties.
   });
 ```
 ### MultiSelect
-Provides basic select-like input. And allows to select
-multiple values from provided values. It has support for ng-model,
-ng-disabled, ng-required.
+MultiSelect allows to select multiple items from a predefined list of options. Supported angular directives and options are similar to Select.
 
 ### Attributes
-Multiselect has same attributes as a Chosen. Also
-it has some additional options.
+MultiSelect has the same set of attributes as Chosen.
 
 Internals
 ---------
