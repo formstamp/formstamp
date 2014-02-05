@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="styles/style.css"/>
     <link rel="stylesheet" href="build/calendar.css"/>
     <link rel="stylesheet" href="build/chz.css"/>
-    <link href="http://cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.css" type="text/css"></script>
+    <link rel="stylesheet" href="build/multi-select.css"/>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.css" type="text/css"/>
     <style>
       .wip {
         color:red;
@@ -330,27 +331,47 @@ angular.module('angular-w-demo')
           <div class="row">
             <div class="col-md-6">
               <div>
-                <div>
-                  <h2>Description</h2>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-6" >
-              <div class="pull-right">
-                <h2>Demonstration</h2>
+                <h2>Description</h2>
+                <h5>Directive: <code>w-multi-select</code></h5>
                 <p>
-                  Beautiful live example goes here.
+                  MultiSelect allows to select multiple items from a predefined list of options.
+                  Supported angular directives and options are similar to Select.
                 </p>
               </div>
+            </div>
+          </div>
+          <div class='row'>
+            <div class="col-md-6">
+              <h4>Example</h4>
+              <pre class='prettyprint' ng-non-bindable=''>
+&lt;form role='form' ng-controller='MultiSelectCtrl'&gt;
+  &lt;div class='form-group'&gt;
+    &lt;label&gt;Leisure Time:&lt;/label&gt;
+    &lt;div w-multi-select items='games'&gt;
+      'none'
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/form></pre>
+              <pre class='prettyprint' ng-non-bindable=''>
+angular.module('angular-w-demo')
+.controller('MultiSelectCtrl', ['$scope', function($scope) {
+  $scope.games = [
+    {id: 0, label: 'Dragon Quest'},
+    {id: 1, label: 'Final Fantasy'},
+    {id: 2, label: 'Shin Megami Tensei'}
+  ];
+}]);</pre>
+            </div>
+            <div class="col-md-6 demonstration">
+              <h2>Demo</h2>
+              <form role='form' ng-controller='MultiSelectCtrl'>
+                <div class='form-group'>
+                  <label>Leisure Time:</label>
+                  <div w-multi-select items='games'>
+                    'none'
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -566,5 +587,6 @@ angular.module('angular-w-demo')
     <script type='text/javascript' src='build/angular-w.js'></script>
     <script type='text/javascript' src='scripts/app.js'></script>
     <script type='text/javascript' src='scripts/chz_ctrl.js'></script>
+    <script type='text/javascript' src='scripts/multi_select_ctrl.js'></script>
   </body>
 </html>

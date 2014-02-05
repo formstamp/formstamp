@@ -165,29 +165,23 @@
           ngModel.$render = function() {
             return scope.selectedDate = parseDate(ngModel.$modelValue);
           };
+          scope.isSameYear = function() {
+            var _ref;
+            return ((_ref = parseDate(ngModel.$modelValue)) != null ? _ref.getFullYear() : void 0) === scope.selectedYear;
+          };
           scope.selectDay = function(day) {
             scope.selectedDate = day;
             return ngModel.$setViewValue(day);
           };
           scope.selectMonth = function(monthName) {
-            var monthIndex;
             scope.selectionMode = 'day';
-            monthIndex = scope.months.indexOf(monthName);
-            if (scope.selectedDate) {
-              scope.selectedDate = new Date(scope.selectedYear, monthIndex, scope.selectedDate.getDate());
-              return ngModel.$setViewValue(scope.selectedDate);
-            } else {
-              return scope.selectedMonth = monthName;
-            }
+            scope.selectedDate = void 0;
+            return scope.selectedMonth = monthName;
           };
           return scope.selectYear = function(year) {
             scope.selectionMode = 'month';
-            if (scope.selectedDate) {
-              scope.selectedDate = new Date(year, scope.selectedDate.getMonth(), scope.selectedDate.getDate());
-              return ngModel.$setViewValue(scope.selectedDate);
-            } else {
-              return scope.selectedYear = year;
-            }
+            scope.selectedDate = void 0;
+            return scope.selectedYear = year;
           };
         }
       };

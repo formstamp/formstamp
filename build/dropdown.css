@@ -1,0 +1,4 @@
+.w-dropdown .w-dropdown-items {
+  max-height: 300px;
+  overflow-y: auto;
+}
