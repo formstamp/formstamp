@@ -13,16 +13,6 @@ difference = (a, b)->
 filter = (x, xs, valueAttr)->
   if x then xs.filter ((i)-> comp(i[valueAttr], x)) else xs
 
-focuz = (el)->
-  window.setTimeout((()-> el.focus()) , 0)
-
-angular
-.module("angular-w")
-.directive "wFocus", ->
-    link: (scope, element, attrs) ->
-      scope.$watch attrs.wFocus, (fcs)->
-        focuz(element[0]) if fcs
-
 angular
 .module("angular-w")
 .directive "wMultiSelect", ['$window', ($window) ->
