@@ -249,3 +249,36 @@ var app = angular.module('demoApp', ['angular-w']);
 app.controller('DemoCtrl', function($scope) {
   $scope.items = countries;
 })
+
+var chars = [
+  {char: '97', code: 'a'},
+  {char: '98', code: 'b'},
+  {char: '99', code: 'c'},
+  {char: '100', code: 'd'},
+  {char: '101', code: 'e'},
+  {char: '102', code: 'f'},
+  {char: '103', code: 'g'},
+  {char: '104', code: 'h'},
+  {char: '105', code: 'i'},
+  {char: '106', code: 'j'},
+  {char: '107', code: 'k'},
+  {char: '108', code: 'l'},
+  {char: '109', code: 'm'},
+  {char: '110', code: 'n'},
+  {char: '111', code: 'o'},
+  {char: '112', code: 'p'},
+  {char: '113', code: 'q'},
+  {char: '114', code: 'r'},
+  {char: '115', code: 's'},
+  {char: '116', code: 't'},
+  {char: '117', code: 'u'},
+  {char: '118', code: 'v'},
+  {char: '119', code: 'w'},
+  {char: '120', code: 'x'},
+  {char: '121', code: 'y'},
+  {char: '122', code: 'z'}
+]
+
+app.controller('MultiSelectCtrl', function($scope) {
+  $scope.items = chars;
+})

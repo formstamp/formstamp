@@ -98,24 +98,20 @@ angular
     ngModel.$render = ->
       scope.selectedDate = parseDate(ngModel.$modelValue)
 
+    scope.isSameYear = ->
+      parseDate(ngModel.$modelValue)?.getFullYear() == scope.selectedYear
+
     scope.selectDay = (day)->
       scope.selectedDate = day
       ngModel.$setViewValue(day)
 
     scope.selectMonth = (monthName)->
       scope.selectionMode = 'day'
-      monthIndex = scope.months.indexOf(monthName)
-      if scope.selectedDate
-        scope.selectedDate = new Date(scope.selectedYear, monthIndex, scope.selectedDate.getDate())
-        ngModel.$setViewValue(scope.selectedDate)
-      else
-        scope.selectedMonth = monthName
+      scope.selectedDate = undefined
+      scope.selectedMonth = monthName
 
     scope.selectYear = (year)->
       scope.selectionMode = 'month'
-      if scope.selectedDate
-        scope.selectedDate = new Date(year, scope.selectedDate.getMonth(), scope.selectedDate.getDate())
-        ngModel.$setViewValue(scope.selectedDate)
-      else
-        scope.selectedYear = year
+      scope.selectedDate = undefined
+      scope.selectedYear = year
 ]

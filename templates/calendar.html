@@ -30,7 +30,7 @@
       <tr data-ng-repeat="monthGroup in monthGroups">
         <td data-ng-repeat="month in monthGroup"
             data-ng-click="selectMonth(month)"
-            data-ng-class="{'active': month == selectedMonth}"
+            data-ng-class="{'active': month == selectedMonth && isSameYear()}"
             class="month">
           {{month}}
         </td>
