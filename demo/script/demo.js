@@ -294,3 +294,7 @@ app.controller('TagsCtrl', function($scope) {
     return item.char + item.char + item.char;
   });
 });
+
+app.controller('RadioCtrl', function($scope) {
+  $scope.items = countries;
+})
