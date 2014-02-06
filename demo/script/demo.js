@@ -296,5 +296,10 @@ app.controller('TagsCtrl', function($scope) {
 });
 
 app.controller('RadioCtrl', function($scope) {
-  $scope.items = countries;
+  $scope.items = [
+    {id: 'F', label: 'Female'},
+    {id: 'M', label: 'Male'},
+    {id: 'U', label: 'Unknown'},
+    {id: 'O', label: 'Other'}
+  ]
 })

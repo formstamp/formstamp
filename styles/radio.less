@@ -1,21 +1,17 @@
 .w-radio {
   position: relative;
-  .w-radio-items-list-default {
-    max-height: 300px;
-    overflow-y: auto;
 
-    li {
-      display: block;
-    }
-    .active{
-      background-color: #428bca;
-      color: #fff;
+  .w-radio-item-container {
+    text-decoration: none;
+    color: inherit;
 
-      a {
-        background-color: #428bca;
-        color: #fff;
+    .w-radio-item-container-sign {
+      margin-left: -20px;
+
+      &[disabled] {
+        color: #ccc;
+        cursor: default;
       }
     }
-
   }
 }
