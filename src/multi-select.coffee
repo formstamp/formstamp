@@ -69,9 +69,10 @@ angular
 
       #TODO: why is this method's name a noun instead of a verb?
       $scope.selection = (item)->
-        $scope.selectedItems.push(item)
-        $scope.hideDropDown()
-        resetDropDown()
+        if item? and $scope.selectedItems.indexOf(item) == -1
+          $scope.selectedItems.push(item)
+          $scope.hideDropDown()
+          resetDropDown()
 
       $scope.deselect = (item)->
         index = $scope.selectedItems.indexOf(item)
