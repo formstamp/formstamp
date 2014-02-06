@@ -10,7 +10,7 @@
       <span ng-hide='selectedItems.length'>none</span>
       <span ng-repeat='selectedItem in selectedItems' class="label label-primary w-multi-select-active-item">
         <span class="glyphicon glyphicon-remove" ng-click="deselect(selectedItem)"></span>
-        {{selectedItem}}
+        {{selectedItem[valueAttr]}}
       </span>
     </div>
     <button type="button"
