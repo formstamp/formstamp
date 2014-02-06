@@ -46,6 +46,9 @@
           };
           search = function(q) {
             $scope.shownItems = filter(q, $scope.items).slice(0, $scope.limit);
+            if ($scope.shownItems.length === 0) {
+              $scope.shownItems.push(q);
+            }
             $scope.activeItem = $scope.shownItems[0];
             return $scope.prevSearch = q;
           };

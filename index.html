@@ -438,27 +438,53 @@ angular.module('angular-w-demo')
           <div class="row">
             <div class="col-md-6">
               <div>
-                <div>
-                  <h2>Description</h2>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-6" >
-              <div class="pull-right">
-                <h2>Demonstration</h2>
+                <h2>Description</h2>
+                <h5>Directive: <code>w-tags</code></h5>
                 <p>
-                  Beautiful live example goes here.
+                  Tags allows to select multiple values from a predefined list or to enter custom values.
+                  Only primitive types are supported as predefined values. Supports several angular directives: <code>ng-model</code>,
+                  <code>ng-disabled</code>, <code>ng-required</code>. Available options are <code>items</code> and <code>limit</code>.
+                  Attributes: <code>items</code> and <code>limit</code>.
                 </p>
               </div>
+            </div>
+          </div>
+          <div class='row'>
+            <div class="col-md-6">
+              <h4>Example</h4>
+                <pre class='prettyprint' ng-non-bindable=''>
+&lt;form role="form" ng-controller='TagsCtrl'&gt;
+  &lt;div class="form-group"&gt;
+    &lt;label&gt;Choose your element&lt;/label&gt;
+    &lt;div w-tags="true"
+         items="items"
+         limit='20'
+         ng-model="value"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/form></pre>
+              <pre class='prettyprint' ng-non-bindable=''>
+angular.module('angular-w-demo')
+  .controller('TagsCtrl', ['$scope', function($scope) {
+    $scope.items = [
+      'earth',
+      'water',
+      'fire',
+      'wind',
+      'void'
+    ];
+  }]);</pre>
+            </div>
+            <div class="col-md-6 demonstration">
+              <h2>Demo</h2>
+              <form role="form" ng-controller='TagsCtrl'>
+                <div class="form-group">
+                  <label>Choose your element</label>
+                  <div w-tags="true"
+                       items="items"
+                       limit='20'
+                       ng-model="value"></div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -608,5 +634,6 @@ angular.module('angular-w-demo')
     <script type='text/javascript' src='scripts/chz_ctrl.js'></script>
     <script type='text/javascript' src='scripts/multi_select_ctrl.js'></script>
     <script type='text/javascript' src='scripts/combo_ctrl.js'></script>
+    <script type='text/javascript' src='scripts/tags_ctrl.js'></script>
   </body>
 </html>
