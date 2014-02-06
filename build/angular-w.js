@@ -403,22 +403,6 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
 }).call(this);
 
 (function() {
-  var comp, filter;
-
-  comp = function(a, b) {
-    return a.toString().toLowerCase().indexOf(b.toString().toLowerCase()) > -1;
-  };
-
-  filter = function(x, xs, valueAttr) {
-    if (x) {
-      return xs.filter((function(i) {
-        return comp(i[valueAttr], x);
-      }));
-    } else {
-      return xs;
-    }
-  };
-
   angular.module("angular-w").directive("wChz", [
     '$window', function($window) {
       return {
@@ -434,10 +418,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
         transclude: true,
         templateUrl: "/templates/chz.html",
         controller: function($scope, $element, $attrs) {
-          var getActiveIndex, getComputedStyle, move, scrollIfNeeded, search;
-          getComputedStyle = function(elem, prop) {
-            return parseInt($window.getComputedStyle(elem, null).getPropertyValue(prop));
-          };
+          var getActiveIndex, move, scrollIfNeeded, search;
           move = function(d) {
             var activeIndex, items;
             items = $scope.shownItems;
@@ -447,19 +428,18 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
             return scrollIfNeeded(activeIndex);
           };
           scrollIfNeeded = function(activeIndex) {
-            var item, li, liHeight, ul, ulHeight, viewport;
+            var item, li, liHeight, ul, viewport;
             ul = $element.find('ul')[0];
             li = ul.querySelector('li.active');
             if (!(ul && li)) {
               return;
             }
-            ulHeight = ul.clientHeight - getComputedStyle(ul, 'padding-top') - getComputedStyle(ul, 'padding-bottom');
             viewport = {
               top: ul.scrollTop,
-              bottom: ul.scrollTop + ulHeight
+              bottom: ul.scrollTop + innerHeightOf(ul)
             };
             li = ul.querySelector('li.active');
-            liHeight = li.clientHeight - getComputedStyle(li, 'padding-top') - getComputedStyle(li, 'padding-bottom');
+            liHeight = innerHeightOf(li);
             item = {
               top: activeIndex * liHeight,
               bottom: (activeIndex + 1) * liHeight
@@ -569,22 +549,6 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
 }).call(this);
 
 (function() {
-  var comp, filter;
-
-  comp = function(a, b) {
-    return a.toString().toLowerCase().indexOf(b.toString().toLowerCase()) > -1;
-  };
-
-  filter = function(x, xs) {
-    if (x) {
-      return xs.filter((function(i) {
-        return comp(i, x);
-      }));
-    } else {
-      return xs;
-    }
-  };
-
   angular.module("angular-w").directive("wCombo", [
     '$window', function($window) {
       return {
@@ -598,10 +562,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
         transclude: true,
         templateUrl: "/templates/combo.html",
         controller: function($scope, $element, $attrs) {
-          var getActiveIndex, getComputedStyle, move, scrollIfNeeded, search;
-          getComputedStyle = function(elem, prop) {
-            return parseInt($window.getComputedStyle(elem, null).getPropertyValue(prop));
-          };
+          var getActiveIndex, move, scrollIfNeeded, search;
           move = function(d) {
             var activeIndex, items;
             items = $scope.shownItems;
@@ -611,19 +572,18 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
             return scrollIfNeeded(activeIndex);
           };
           scrollIfNeeded = function(activeIndex) {
-            var item, li, liHeight, ul, ulHeight, viewport;
+            var item, li, liHeight, ul, viewport;
             ul = $element.find('ul')[0];
             li = ul.querySelector('li.active');
             if (!(ul && li)) {
               return;
             }
-            ulHeight = ul.clientHeight - getComputedStyle(ul, 'padding-top') - getComputedStyle(ul, 'padding-bottom');
             viewport = {
               top: ul.scrollTop,
-              bottom: ul.scrollTop + ulHeight
+              bottom: ul.scrollTop + innerHeightOf(ul)
             };
             li = ul.querySelector('li.active');
-            liHeight = li.clientHeight - getComputedStyle(li, 'padding-top') - getComputedStyle(li, 'padding-bottom');
+            liHeight = innerHeightOf(li);
             item = {
               top: activeIndex * liHeight,
               bottom: (activeIndex + 1) * liHeight
@@ -804,11 +764,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
 }).call(this);
 
 (function() {
-  var comp, difference, filter, hash_key;
-
-  comp = function(a, b) {
-    return a.toLowerCase().indexOf(b.toLowerCase()) > -1;
-  };
+  var difference, hash_key;
 
   hash_key = function(item) {
     return angular.toJson(item);
@@ -829,16 +785,6 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     }));
   };
 
-  filter = function(x, xs, valueAttr) {
-    if (x) {
-      return xs.filter((function(i) {
-        return comp(i[valueAttr], x);
-      }));
-    } else {
-      return xs;
-    }
-  };
-
   angular.module("angular-w").directive("wMultiSelect", [
     '$window', function($window) {
       return {
@@ -854,10 +800,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
         transclude: true,
         templateUrl: "/templates/multi-select.html",
         controller: function($scope, $element, $attrs) {
-          var getActiveIndex, getComputedStyle, move, resetDropDown, scrollIfNeeded, search;
-          getComputedStyle = function(elem, prop) {
-            return parseInt($window.getComputedStyle(elem, null).getPropertyValue(prop));
-          };
+          var getActiveIndex, move, resetDropDown, scrollIfNeeded, search;
           move = function(d) {
             var activeIndex, items;
             items = $scope.shownItems;
@@ -867,19 +810,18 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
             return scrollIfNeeded(activeIndex);
           };
           scrollIfNeeded = function(activeIndex) {
-            var item, li, liHeight, ul, ulHeight, viewport;
+            var item, li, liHeight, ul, viewport;
             ul = $element.find('ul')[0];
             li = ul.querySelector('li.active');
             if (!(ul && li)) {
               return;
             }
-            ulHeight = ul.clientHeight - getComputedStyle(ul, 'padding-top') - getComputedStyle(ul, 'padding-bottom');
             viewport = {
               top: ul.scrollTop,
-              bottom: ul.scrollTop + ulHeight
+              bottom: ul.scrollTop + innerHeightOf(ul)
             };
             li = ul.querySelector('li.active');
-            liHeight = li.clientHeight - getComputedStyle(li, 'padding-top') - getComputedStyle(li, 'padding-bottom');
+            liHeight = innerHeightOf(li);
             item = {
               top: activeIndex * liHeight,
               bottom: (activeIndex + 1) * liHeight
