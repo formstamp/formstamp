@@ -5,6 +5,7 @@ angular
     scope:
       items: '='
       limit: '='
+      inline: '='
       keyAttr: '@'
       valueAttr: '@'
     require: '?ngModel'
