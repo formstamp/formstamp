@@ -178,7 +178,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "      <span ng-hide='selectedItems.length'>none</span>\n" +
     "      <span ng-repeat='selectedItem in selectedItems' class=\"label label-primary w-multi-select-active-item\">\n" +
     "        <span class=\"glyphicon glyphicon-remove\" ng-click=\"deselect(selectedItem)\"></span>\n" +
-    "        {{selectedItem}}\n" +
+    "        {{selectedItem[valueAttr]}}\n" +
     "      </span>\n" +
     "    </div>\n" +
     "    <button type=\"button\"\n" +
@@ -202,6 +202,50 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "           href=\"javascript:void(0)\"\n" +
     "           id='{{item[keyAttr]}}'\n" +
     "           tabindex='-1'>{{ item[valueAttr] }}</a>\n" +
+    "      </li>\n" +
+    "    </ul>\n" +
+    "  </div>\n" +
+    "</div>\n"
+  );
+
+
+  $templateCache.put('/templates/tags.html',
+    "<div class='w-multi-select'>\n" +
+    "  <input type='text' ng-model='selectedItem' style='display: none' ng-required='required' />\n" +
+    "  <div ng-hide=\"active\" ng-class=\"{'btn-group': selectedItems.length}\">\n" +
+    "    <div class=\"btn btn-default w-multi-select-active-items\"\n" +
+    "         href=\"javascript:void(0)\"\n" +
+    "         ng-click=\"active=true\"\n" +
+    "         w-focus='focus'\n" +
+    "         ng-disabled=\"disabled\"\n" +
+    "         ng-blur='focus=false'>\n" +
+    "      <span ng-hide='selectedItems.length'>none</span>\n" +
+    "      <span ng-repeat='selectedItem in selectedItems' class=\"label label-primary w-multi-select-active-item\">\n" +
+    "        <span class=\"glyphicon glyphicon-remove\" ng-click=\"deselect(selectedItem)\"></span>\n" +
+    "        {{selectedItem}}\n" +
+    "      </span>\n" +
+    "    </div>\n" +
+    "    <button type=\"button\"\n" +
+    "            class=\"btn btn-default\"\n" +
+    "            aria-hidden=\"true\"\n" +
+    "            ng-show='selectedItems.length'\n" +
+    "            ng-click='reset()'>&times;</button>\n" +
+    "  </div>\n" +
+    "  <div class=\"open\" ng-show=\"active\">\n" +
+    "    <input ng-keydown=\"onkeys($event)\"\n" +
+    "           w-focus=\"active\"\n" +
+    "           class=\"form-control\"\n" +
+    "           type=\"search\"\n" +
+    "           placeholder='Search'\n" +
+    "           ng-model=\"search\" />\n" +
+    "    <ul class=\"dropdown-menu w-multi-select-items-list-default w-multi-select-items-list\"\n" +
+    "        role=\"menu\">\n" +
+    "      <li ng-repeat=\"item in shownItems\"\n" +
+    "          ng-class=\"{true: 'active'}[item == activeItem]\">\n" +
+    "        <a ng-click=\"selection(item)\"\n" +
+    "           href=\"javascript:void(0)\"\n" +
+    "           id='{{item[keyAttr]}}'\n" +
+    "           tabindex='-1'>{{ item }}</a>\n" +
     "      </li>\n" +
     "    </ul>\n" +
     "  </div>\n" +

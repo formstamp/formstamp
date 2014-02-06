@@ -2,15 +2,15 @@
   <input type='text' ng-model='selectedItem' style='display: none' ng-required='required' />
   <div ng-hide="active" ng-class="{'btn-group': selectedItems.length}">
     <div class="btn btn-default w-multi-select-active-items"
-       href="javascript:void(0)"
-       ng-click="active=true"
-       w-focus='focus'
-       ng-disabled="disabled"
-       ng-blur='focus=false'>
+         href="javascript:void(0)"
+         ng-click="active=true"
+         w-focus='focus'
+         ng-disabled="disabled"
+         ng-blur='focus=false'>
       <span ng-hide='selectedItems.length'>none</span>
       <span ng-repeat='selectedItem in selectedItems' class="label label-primary w-multi-select-active-item">
         <span class="glyphicon glyphicon-remove" ng-click="deselect(selectedItem)"></span>
-        {{selectedItem[valueAttr]}}
+        {{selectedItem}}
       </span>
     </div>
     <button type="button"
@@ -33,7 +33,7 @@
         <a ng-click="selection(item)"
            href="javascript:void(0)"
            id='{{item[keyAttr]}}'
-           tabindex='-1'>{{ item[valueAttr] }}</a>
+           tabindex='-1'>{{ item }}</a>
       </li>
     </ul>
   </div>

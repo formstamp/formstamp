@@ -115,6 +115,14 @@ template inside directive.  You can reference current object by
   </div>
 ```
 
+### Tags
+Provides basic combo-like input and allows to select
+multiple values from provided values. It has support for ng-model,
+ng-disabled, ng-required.
+
+### Attributes
+Multiselect has only items and limit attributes.
+
 TODO
 ----
   * Form builder.
