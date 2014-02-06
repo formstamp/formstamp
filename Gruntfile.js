@@ -10,17 +10,22 @@ module.exports = function (grunt) {
 
   grunt.initConfig({
     coffee: {
-      compile: {
-        files: {
-          'build/chz.js': 'src/chz.coffee',
-          'build/calendar.js': 'src/calendar.coffee',
-          'build/datepicker.js': 'src/datepicker.coffee',
-          'build/date-format.js': 'src/date-format.coffee',
-          'build/popup.js': 'src/popup.coffee',
-          'build/multi-select.js': 'src/multi-select.coffee',
-          'build/focus.js': 'src/focus.coffee',
-          'build/combo.js': 'src/combo.coffee'
-        }
+      directives: {
+          expand: true,
+          cwd: 'src/',
+          src: ['*.coffee'],
+          dest: 'build/',
+          ext: '.js'
+      },
+      utils: {
+        options: {
+          bare: true
+        },
+        expand: true,
+        cwd: 'src/utils',
+        src: ['*.coffee'],
+        dest: 'build/utils/',
+        ext: '.js'
       }
     },
     less: {
@@ -48,7 +53,7 @@ module.exports = function (grunt) {
     clean: ['build/**/*'],
     concat: {
       js: {
-        src: ['<%= ngtemplates.app.dest %>', 'build/*.js'],
+        src: ['build/utils/*.js', '<%= ngtemplates.app.dest %>', 'build/*.js'],
         dest: 'build/angular-w.js'
       },
       css: {

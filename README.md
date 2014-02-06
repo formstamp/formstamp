@@ -9,7 +9,8 @@ Description
 This library provides full pack of pure AngluarJS widgets.
 List of available widgets:
   * Chosen
-  * Support more later
+  * MultiSelect
+  * Combo
 
 Widgets
 -------
@@ -91,10 +92,8 @@ MultiSelect allows to select multiple items from a predefined list of options. S
 MultiSelect has the same set of attributes as Chosen.
 
 ### Combo
-This input provides base combo input. It allows you
-to select one values from provided list or type own value.
-This input is operates only on values. Each value is toString
-represantation of item in list.
+Combo provides basic combo behavior. It allows to select a value from a predefined list of options or to enter custom value.
+Only primitive types are supported as options. Supports several angular directives: ng-model, ng-disabled, ng-required.
 
 ### Attributes
 #### items
