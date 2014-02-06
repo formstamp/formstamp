@@ -27,7 +27,8 @@
            placeholder='Search'
            ng-model="search" />
     <ul class="dropdown-menu w-multi-select-items-list-default w-multi-select-items-list"
-        role="menu">
+        role="menu"
+        ng-show="shownItems.length">
       <li ng-repeat="item in shownItems"
           ng-class="{true: 'active'}[item == activeItem]">
         <a ng-click="selection(item)"
