@@ -100,7 +100,8 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "           placeholder='Search'\n" +
     "           ng-model=\"search\" />\n" +
     "    <ul class=\"dropdown-menu w-chz-items-list-default w-chz-items-list\"\n" +
-    "        role=\"menu\">\n" +
+    "        role=\"menu\"\n" +
+    "        ng-show=\"shownItems.length\">\n" +
     "       <li ng-repeat=\"item in shownItems\"\n" +
     "           ng-class=\"{true: 'active'}[item == activeItem]\">\n" +
     "         <a ng-click=\"selection(item)\"\n" +
@@ -195,7 +196,8 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "           placeholder='Search'\n" +
     "           ng-model=\"search\" />\n" +
     "    <ul class=\"dropdown-menu w-multi-select-items-list-default w-multi-select-items-list\"\n" +
-    "        role=\"menu\">\n" +
+    "        role=\"menu\"\n" +
+    "        ng-show=\"shownItems.length\">\n" +
     "      <li ng-repeat=\"item in shownItems\"\n" +
     "          ng-class=\"{true: 'active'}[item == activeItem]\">\n" +
     "        <a ng-click=\"selection(item)\"\n" +

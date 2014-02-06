@@ -126,7 +126,8 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "           placeholder='Search'\n" +
     "           ng-model=\"search\" />\n" +
     "    <ul class=\"dropdown-menu w-chz-items-list-default w-chz-items-list\"\n" +
-    "        role=\"menu\">\n" +
+    "        role=\"menu\"\n" +
+    "        ng-show=\"shownItems.length\">\n" +
     "       <li ng-repeat=\"item in shownItems\"\n" +
     "           ng-class=\"{true: 'active'}[item == activeItem]\">\n" +
     "         <a ng-click=\"selection(item)\"\n" +
@@ -221,7 +222,8 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "           placeholder='Search'\n" +
     "           ng-model=\"search\" />\n" +
     "    <ul class=\"dropdown-menu w-multi-select-items-list-default w-multi-select-items-list\"\n" +
-    "        role=\"menu\">\n" +
+    "        role=\"menu\"\n" +
+    "        ng-show=\"shownItems.length\">\n" +
     "      <li ng-repeat=\"item in shownItems\"\n" +
     "          ng-class=\"{true: 'active'}[item == activeItem]\">\n" +
     "        <a ng-click=\"selection(item)\"\n" +
@@ -911,9 +913,11 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
             return $scope.activeItem = $scope.shownItems[0];
           };
           $scope.selection = function(item) {
-            $scope.selectedItems.push(item);
-            $scope.hideDropDown();
-            return resetDropDown();
+            if ((item != null) && $scope.selectedItems.indexOf(item) === -1) {
+              $scope.selectedItems.push(item);
+              $scope.hideDropDown();
+              return resetDropDown();
+            }
           };
           $scope.deselect = function(item) {
             var index;

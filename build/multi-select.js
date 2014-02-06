@@ -77,9 +77,11 @@
             return $scope.activeItem = $scope.shownItems[0];
           };
           $scope.selection = function(item) {
-            $scope.selectedItems.push(item);
-            $scope.hideDropDown();
-            return resetDropDown();
+            if ((item != null) && $scope.selectedItems.indexOf(item) === -1) {
+              $scope.selectedItems.push(item);
+              $scope.hideDropDown();
+              return resetDropDown();
+            }
           };
           $scope.deselect = function(item) {
             var index;
