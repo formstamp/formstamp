@@ -91,8 +91,7 @@ multiple values from provided values. It has support for ng-model,
 ng-disabled, ng-required.
 
 ### Attributes
-Multiselect has same attributes as a Chosen. Also
-it has some additional options.
+Multiselect has same attributes as a Chosen.
 
 ### Combo
 Combo provides basic combo behavior. It allows to select a value from a predefined list of options or to enter custom value.
@@ -117,6 +116,14 @@ template inside directive.  You can reference current object by
     <b>{{item}}</b>
   </div>
 ```
+
+### Tags
+Provides basic combo-like input and allows to select
+multiple values from provided values. It has support for ng-model,
+ng-disabled, ng-required.
+
+### Attributes
+Multiselect has only items and limit attributes.
 
 TODO
 ----
