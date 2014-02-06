@@ -251,32 +251,32 @@ app.controller('DemoCtrl', function($scope) {
 })
 
 var chars = [
-  {char: '97', code: 'a'},
-  {char: '98', code: 'b'},
-  {char: '99', code: 'c'},
-  {char: '100', code: 'd'},
-  {char: '101', code: 'e'},
-  {char: '102', code: 'f'},
-  {char: '103', code: 'g'},
-  {char: '104', code: 'h'},
-  {char: '105', code: 'i'},
-  {char: '106', code: 'j'},
-  {char: '107', code: 'k'},
-  {char: '108', code: 'l'},
-  {char: '109', code: 'm'},
-  {char: '110', code: 'n'},
-  {char: '111', code: 'o'},
-  {char: '112', code: 'p'},
-  {char: '113', code: 'q'},
-  {char: '114', code: 'r'},
-  {char: '115', code: 's'},
-  {char: '116', code: 't'},
-  {char: '117', code: 'u'},
-  {char: '118', code: 'v'},
-  {char: '119', code: 'w'},
-  {char: '120', code: 'x'},
-  {char: '121', code: 'y'},
-  {char: '122', code: 'z'}
+  {code: '97', char: 'a'},
+  {code: '98', char: 'b'},
+  {code: '99', char: 'c'},
+  {code: '100', char: 'd'},
+  {code: '101', char: 'e'},
+  {code: '102', char: 'f'},
+  {code: '103', char: 'g'},
+  {code: '104', char: 'h'},
+  {code: '105', char: 'i'},
+  {code: '106', char: 'j'},
+  {code: '107', char: 'k'},
+  {code: '108', char: 'l'},
+  {code: '109', char: 'm'},
+  {code: '110', char: 'n'},
+  {code: '111', char: 'o'},
+  {code: '112', char: 'p'},
+  {code: '113', char: 'q'},
+  {code: '114', char: 'r'},
+  {code: '115', char: 's'},
+  {code: '116', char: 't'},
+  {code: '117', char: 'u'},
+  {code: '118', char: 'v'},
+  {code: '119', char: 'w'},
+  {code: '120', char: 'x'},
+  {code: '121', char: 'y'},
+  {code: '122', char: 'z'}
 ]
 
 app.controller('MultiSelectCtrl', function($scope) {
@@ -286,5 +286,11 @@ app.controller('MultiSelectCtrl', function($scope) {
 app.controller('ComboCtrl', function($scope) {
   $scope.items = countries.map(function (item) {
     return item.label;
+  });
+});
+
+app.controller('TagsCtrl', function($scope) {
+  $scope.items = chars.map(function (item) {
+    return item.char + item.char + item.char;
   });
 });

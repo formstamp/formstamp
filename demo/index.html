@@ -81,8 +81,8 @@
             <div w-multi-select="true"
                  items="items"
                  limit='20'
-                 key-attr='char'
-                 value-attr='code'
+                 key-attr='code'
+                 value-attr='char'
                  ng-model="value"></div>
           </div>
         </div>
@@ -115,6 +115,37 @@
                  ng-model="value"></div>
           </div>
         </div>
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Tags -->
+    <div class="container" ng-controller="TagsCtrl">
+      <form role="form" class='form-horizontal' name='w_form' action='/demo/index.html'>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Tags</label>
+          <div class="col-sm-10">
+            <div w-tags="true"
+                 items="items"
+                 limit='20'
+                 ng-model="value"></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Tags</label>
+          <div class="col-sm-10">
+            <div w-tags="true"
+                 items="items"
+                 limit='20'
+                 ng-model="value"></div>
+          </div>
+        </div>
+
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-10">
             <button type="submit" class="btn btn-default">Submit</button>
