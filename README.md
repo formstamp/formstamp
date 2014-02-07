@@ -7,10 +7,54 @@ Description
 ----------
 
 This library provides full pack of pure AngluarJS widgets.
-List of available widgets:
-  * Chosen
-  * MultiSelect
-  * Combo
+
+Form builder
+-----------
+Form bulider builds angular-compatible forms using widgets
+provided by this library. It supports errors and validations.
+
+### Using
+```
+    <form w-form-for='samurai' ng-submit='send()'>
+      <input w-field='name' label='Name' w-combo items='names' />
+      <input w-field='age' label='Age' w-chz  items='ages' />
+      <input w-field='gender' label='Gender' w-radio  items='genders' />
+      <input w-field='likesToEat' label='Likes to eat' w-checkbox  items='meals' />
+
+      <input type='submit' value='Save' />
+    </form>
+```
+
+### Errors
+Objects errors are extracted from its model passed to wFormFor attribute.
+It should next format:
+```javascript
+  {
+    name: ..., /* this is custom field */
+    age: ..., /* this is custom field */
+    /* other custom attrs */,
+    $errors: { /* this is special field */
+      name: ['Too bad!', 'Ugly!'],
+      age: ['Too young!']
+    }
+  }
+  
+
+### Submiting
+For form submitting use `ng-submit` or `ng-click` on submit button.
+Function call submit handler SHOULD! update model passed to `w-form-for`,
+e.g. `samurai`.
+
+```
+
+Example of handler: 
+```javascript
+  $scope.send = function() {
+    var res = $http.post('/').success(function(data) {
+      $scope.samurai = data;
+    });
+  }
+```
 
 Widgets
 -------

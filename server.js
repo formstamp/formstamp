@@ -6,10 +6,18 @@ app.use(express.static('build'));
 app.use(express.static('demo'));
 
 app.post('/', function(req, res) {
-  var body = 'Hello World';
-  res.setHeader('Content-Type', 'text/plain');
-  res.setHeader('Content-Length', Buffer.byteLength(body));
-  res.end(body);
+  var body = {
+    name: 'Joe',
+    gender: { id: 'M', label: 'Male' },
+    age: { id: 21, label: 21 },
+    likesToEat: [ { id: 'meat', label: 'meat' }],
+    $errors: {
+      name: ['Bad name!'],
+      gender: [],
+      age: ["He's too old!"]
+    }
+  }
+  res.send(body);
 });
 
 

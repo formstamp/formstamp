@@ -35,13 +35,11 @@
         </ol>
       </div>
       <pre>{{ samurai | json }}</pre>
-      <pre>{{ samuraiForm | json }}</pre>
-      <a ng-click='send()'>Send</a>
-      <form w-form-for='samurai' w-submit='send()'>
-        <input w-field='name' label='Name' required='true' w-combo items='names' />
-        <input w-field='age' label='Age' w-chz  required='true' items='ages' />
-        <input w-field='gender' label='Gender' required='true' w-radio  items='genders' />
-        <input w-field='likesToEat' label='Likes to eat' required='true' w-checkbox  items='meals' />
+      <form w-form-for='samurai' ng-submit='send()'>
+        <input w-field='name' label='Name' w-combo items='names' />
+        <input w-field='age' label='Age' w-chz  items='ages' />
+        <input w-field='gender' label='Gender' w-radio  items='genders' />
+        <input w-field='likesToEat' label='Likes to eat' w-checkbox  items='meals' />
 
         <input type='submit' value='Save' />
       </form>
