@@ -1,0 +1,14 @@
+<div class='w-checkbox'>
+  <input type='text' ng-model='selectedItem' style='display: none' ng-required='required' ng-disabled='disabled' />
+  <div class='checkbox' ng-repeat='item in shownItems' ng-class="{'w-checkbox-inline': inline}">
+    <label ng-click='toggle(item)'>
+      <a href='javascript:void(0)' class='w-checkbox-item-container'>
+        <span
+                ng-disabled='disabled'
+                class="w-checkbox-item-container-sign glyphicon glyphicon-search"
+                ng-class="{'glyphicon-pushpin': selectedItems.indexOf(item) > -1}"></span>
+        {{item[valueAttr]}}
+      </a>
+    </label>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<div class='w-radio'>
+  <input type='text' ng-model='selectedItem' style='display: none' ng-required='required' ng-disabled='disabled' />
+  <div class='radio' ng-repeat='item in shownItems' ng-class="{'w-radio-inline': inline}">
+    <label ng-click='selection(item)'>
+      <a href='javascript:void(0)' class='w-radio-item-container'>
+        <span 
+          ng-disabled='disabled'
+          class="w-radio-item-container-sign glyphicon glyphicon-search"
+          ng-class="{'glyphicon-pushpin': item == selectedItem}"></span>
+        {{item[valueAttr]}}
+      </a>
+    </label>
+  </div>
+  <!--
+    <div>
+      <ul class="w-radio-items-list-default w-radio-items-list"
+          role="menu"
+          ng-show="shownItems.length"
+          ng-keydown="onkeys($event)" tabindex="0">
+        <li ng-repeat="item in shownItems"
+            class="glyphicon glyphicon-unchecked"
+            ng-class="{'active' : item==activeItem, 'glyphicon-record':item==selectedItem}">
+          <a ng-click="selection(item)"
+             href="javascript:void(0)"
+             id='{{item[keyAttr]}}'
+             tabindex='-1'>{{ item[valueAttr] }}</a>
+        </li>
+      </ul>
+    </div>
+  -->
+</div>
+
+

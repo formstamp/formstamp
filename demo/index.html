@@ -154,6 +154,45 @@
       </form>
     </div>
 
+
+    <!-- Radiobutton -->
+    <div class="container" ng-controller="RadioCtrl">
+      <form role="form" class='form-horizontal' name='w_form' action='/demo/index.html'>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Radio (same controller as Select, different template)</label>
+          <div class="col-sm-10">
+            <div w-radio="true"
+                 items="items"
+                 ng-model="value"></div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Radio (same controller as Select, different template)</label>
+          <div class="col-sm-10">
+            <div w-radio="true"
+                 items="items"
+                 inline='true'
+                 ng-model="value"></div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Checkboxes -->
+    <div class="container" ng-controller="CheckboxCtrl">
+      <form role="form" class='form-horizontal' name='w_form' action='/demo/index.html'>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Checkbox</label>
+          <div class="col-sm-10">
+            <div w-checkbox="true"
+                 items="items"
+                 ng-model="value"></div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Calendar -->
     <div class="container">
       <form role="form" class="form-horizontal">
         <h1>Calendar</h1>
