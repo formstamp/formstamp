@@ -1,7 +1,6 @@
 var express = require('express');
 var app = express();
 
-app.engine('.html', require('ejs').renderFile);
 app.use(express.static('bower_components'));
 app.use(express.static('build'));
 app.use(express.static('demo'));
