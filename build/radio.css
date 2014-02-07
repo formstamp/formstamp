@@ -5,6 +5,9 @@
   float: left;
   padding-left: 20px;
 }
+.w-radio .w-radio-inline + .w-radio-inline {
+  margin-left: 10px;
+}
 .w-radio .w-radio-item-container {
   text-decoration: none;
   color: inherit;
