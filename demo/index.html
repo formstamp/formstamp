@@ -178,6 +178,20 @@
       </form>
     </div>
 
+    <!-- Checkboxes -->
+    <div class="container" ng-controller="CheckboxCtrl">
+      <form role="form" class='form-horizontal' name='w_form' action='/demo/index.html'>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Checkbox</label>
+          <div class="col-sm-10">
+            <div w-checkbox="true"
+                 items="items"
+                 ng-model="value"></div>
+          </div>
+        </div>
+      </form>
+    </div>
+
     <!-- Calendar -->
     <div class="container">
       <form role="form" class="form-horizontal">

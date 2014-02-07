@@ -302,4 +302,13 @@ app.controller('RadioCtrl', function($scope) {
     {id: 'U', label: 'Unknown'},
     {id: 'O', label: 'Other'}
   ]
+});
+
+app.controller('CheckboxCtrl', function($scope) {
+  $scope.items = [
+    {id: 'F', label: 'Female'},
+    {id: 'M', label: 'Male'},
+    {id: 'U', label: 'Unknown'},
+    {id: 'O', label: 'Other'}
+  ]
 })
