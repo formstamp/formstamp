@@ -34,12 +34,11 @@ angular
 
         if ngModelCtrl
           scope.$watch 'selectedItem', ->
-            ngModelCtrl.$setViewValue(scope.selectedItem)
-            scope.activeItem = scope.selectedItem
+            ngModelCtrl.$setViewValue(scope.selectedItems)
 
           ngModelCtrl.$render = ->
             unless scope.disabled
-              scope.selectedItem = ngModelCtrl.$modelValue
+              scope.selectedItems = ngModelCtrl.$modelValue
 
         attrs.$observe 'disabled', (value) ->
           scope.disabled = value
