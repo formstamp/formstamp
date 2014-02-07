@@ -548,6 +548,63 @@ angular.module('angular-w-demo')
     </div>
   </div>
 
+  <!-- =Checkbox description
+  --------------------------------------------------------------------------- -->
+  <div id="checkbox">
+    <div class="page-header">
+      <h1>Checkbox <span class="pull-right wip">WIP</span></h1>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div>
+          <h2>Description</h2>
+          <h5>Directive: <code>w-checkbox</code></h5>
+          <p>
+            Provides default checkbox-like behaviour. Supports several angular directives: <code>ng-model</code>,
+            <code>ng-disabled</code>, <code>ng-required</code>. Available options are <code>items</code> and <code>limit</code>.
+            Attributes: <code>items</code> and <code>limit</code>.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class='row'>
+      <div class="col-md-6">
+        <h4>Example</h4>
+                <pre class='prettyprint' ng-non-bindable=''>
+&lt;form role="form" ng-controller='CheckboxCtrl'&gt;
+  &lt;div class="form-group"&gt;
+    &lt;label&gt;What would you like to drink?&lt;/label&gt;
+    &lt;div w-checkbox="true"
+         items="items"
+         limit='20'
+         ng-model="value"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/form></pre>
+              <pre class='prettyprint' ng-non-bindable=''>
+angular.module('angular-w-demo')
+  .controller('CheckboxCtrl', ['$scope', function($scope) {
+    $scope.items = [
+      {id: 'A', label: 'Awamori'},
+      {id: 'S', label: 'Sake'},
+      {id: 'U', label: 'Umeshu'}
+    ];
+  }]);</pre>
+      </div>
+      <div class="col-md-6 demonstration">
+        <h2>Demo</h2>
+        <form role="form" ng-controller='CheckboxCtrl'>
+          <div class="form-group">
+            <label>What would you like to drink?</label>
+            <div w-checkbox="true"
+                 items="items"
+                 limit='20'
+                 ng-model="value"></div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <!-- =Calendar description
   --------------------------------------------------------------------------- -->
         <div id="calendar">
@@ -695,5 +752,6 @@ angular.module('angular-w-demo')
     <script type='text/javascript' src='scripts/combo_ctrl.js'></script>
     <script type='text/javascript' src='scripts/tags_ctrl.js'></script>
     <script type='text/javascript' src='scripts/radio_ctrl.js'></script>
+    <script type='text/javascript' src='scripts/checkbox_ctrl.js'></script>
   </body>
 </html>
