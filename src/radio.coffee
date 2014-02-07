@@ -29,7 +29,6 @@ angular
         if ngModelCtrl
           scope.$watch 'selectedItem', ->
             ngModelCtrl.$setViewValue(scope.selectedItem)
-            scope.activeItem = scope.selectedItem
 
           ngModelCtrl.$render = ->
             unless scope.disabled
