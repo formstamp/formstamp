@@ -304,6 +304,32 @@ app.controller('RadioCtrl', function($scope) {
   ]
 });
 
+app.controller('FormBuilderCtrl', function($scope, $http) {
+  $scope.samurai = {}
+  $scope.genders = [
+    {id: 'F', label: 'Female'},
+    {id: 'M', label: 'Male'},
+    {id: 'U', label: 'Unknown'},
+    {id: 'O', label: 'Other'}
+  ];
+  $scope.names = ["Joe", "Sue", "Sam"];
+  $scope.ages = [
+    {id: 21, label: 21},
+    {id: 22, label: 22},
+    {id: 23, label: 23},
+    {id: 24, label: 24}
+  ];
+  $scope.meals = [
+    {id: 'meat', label: 'meat'},
+    {id: 'milk', label: 'milk'},
+    {id: 'orange', label: 'orange'}
+  ];
+
+  $scope.send = function() {
+    $http.post('/index.html');
+  }
+});
+
 app.controller('CheckboxCtrl', function($scope) {
   $scope.items = [
     {id: 'F', label: 'Female'},
@@ -312,3 +338,4 @@ app.controller('CheckboxCtrl', function($scope) {
     {id: 'O', label: 'Other'}
   ]
 })
+

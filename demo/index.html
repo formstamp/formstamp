@@ -22,6 +22,29 @@
       <h1> Widgets </h1>
       <hr/>
     </div>
+    <div class="container" ng-controller='FormBuilderCtrl'>
+      <h1>Form builder</h1>
+      <div>
+        <h3>Form should:</h3>
+        <ol>
+          <li>Generate id, ng-model</li>
+          <li>Append errors container.</li>
+          <li>Append required.</li>
+          <li>On submit it should check if required fileds are set and validation is passed. If validation failed - show errors.</li>
+          <li>Do not allow leave dirty form.</li>
+        </ol>
+      </div>
+      <pre>{{ samurai | json }}</pre>
+      <pre>{{ samuraiForm | json }}</pre>
+      <form w-form-for='samurai' w-submit='send()'>
+        <input w-field='name' label='Name' required='true' w-combo items='names' />
+        <input w-field='age' label='Age' w-chz  required='true' items='ages' />
+        <input w-field='gender' label='Gender' required='true' w-radio  items='genders' />
+        <input w-field='likesToEat' label='Likes to eat' required='true' w-checkbox  items='meals' />
+
+        <input type='submit' value='Save' />
+      </form>
+    </div>
     <div class="container" ng-controller="DemoCtrl">
       <form role="form" class='form-horizontal' name='w_form' action='/demo/index.html'>
         <div class="form-group">
@@ -216,6 +239,18 @@
         </div>
       </form>
     </div>
+
+
+    <!--
+      <div> 
+          Form should:
+            1. 
+            2. 
+            3. 
+          Inputs should:
+            1. Pass id and name to hidden input.
+      </div>
+    -->
 
   <script type="text/javascript" src="/bower_components/angular/angular.js"></script>
   <script type="text/javascript" src="/bower_components/angular-route/angular-route.min.js"></script>
