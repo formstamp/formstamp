@@ -100,6 +100,24 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
   );
 
 
+  $templateCache.put('/templates/checkbox.html',
+    "<div class='w-checkbox'>\n" +
+    "  <input type='text' ng-model='selectedItem' style='display: none' ng-required='required' ng-disabled='disabled' />\n" +
+    "  <div class='checkbox' ng-repeat='item in shownItems' ng-class=\"{'w-checkbox-inline': inline}\">\n" +
+    "    <label ng-click='toggle(item)'>\n" +
+    "      <a href='javascript:void(0)' class='w-checkbox-item-container'>\n" +
+    "        <span\n" +
+    "                ng-disabled='disabled'\n" +
+    "                class=\"w-checkbox-item-container-sign glyphicon glyphicon-search\"\n" +
+    "                ng-class=\"{'glyphicon-pushpin': selectedItems.indexOf(item) > -1}\"></span>\n" +
+    "        {{item[valueAttr]}}\n" +
+    "      </a>\n" +
+    "    </label>\n" +
+    "  </div>\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('/templates/chz.html',
     "<div class='w-chz'>\n" +
     "  <input type='text' ng-model='selectedItem' style='display: none' ng-required='required' />\n" +
@@ -234,6 +252,43 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "    </ul>\n" +
     "  </div>\n" +
     "</div>\n"
+  );
+
+
+  $templateCache.put('/templates/radio.html',
+    "<div class='w-radio'>\n" +
+    "  <input type='text' ng-model='selectedItem' style='display: none' ng-required='required' ng-disabled='disabled' />\n" +
+    "  <div class='radio' ng-repeat='item in shownItems' ng-class=\"{'w-radio-inline': inline}\">\n" +
+    "    <label ng-click='selection(item)'>\n" +
+    "      <a href='javascript:void(0)' class='w-radio-item-container'>\n" +
+    "        <span \n" +
+    "          ng-disabled='disabled'\n" +
+    "          class=\"w-radio-item-container-sign glyphicon glyphicon-search\"\n" +
+    "          ng-class=\"{'glyphicon-pushpin': item == selectedItem}\"></span>\n" +
+    "        {{item[valueAttr]}}\n" +
+    "      </a>\n" +
+    "    </label>\n" +
+    "  </div>\n" +
+    "  <!--\n" +
+    "    <div>\n" +
+    "      <ul class=\"w-radio-items-list-default w-radio-items-list\"\n" +
+    "          role=\"menu\"\n" +
+    "          ng-show=\"shownItems.length\"\n" +
+    "          ng-keydown=\"onkeys($event)\" tabindex=\"0\">\n" +
+    "        <li ng-repeat=\"item in shownItems\"\n" +
+    "            class=\"glyphicon glyphicon-unchecked\"\n" +
+    "            ng-class=\"{'active' : item==activeItem, 'glyphicon-record':item==selectedItem}\">\n" +
+    "          <a ng-click=\"selection(item)\"\n" +
+    "             href=\"javascript:void(0)\"\n" +
+    "             id='{{item[keyAttr]}}'\n" +
+    "             tabindex='-1'>{{ item[valueAttr] }}</a>\n" +
+    "        </li>\n" +
+    "      </ul>\n" +
+    "    </div>\n" +
+    "  -->\n" +
+    "</div>\n" +
+    "\n" +
+    "\n"
   );
 
 
@@ -466,6 +521,62 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
             scope.selectionMode = 'month';
             scope.selectedDate = void 0;
             return scope.selectedYear = year;
+          };
+        }
+      };
+    }
+  ]);
+
+}).call(this);
+
+(function() {
+  angular.module("angular-w").directive("wCheckbox", [
+    '$window', function($window) {
+      return {
+        restrict: "A",
+        scope: {
+          items: '=',
+          limit: '=',
+          inline: '=',
+          keyAttr: '@',
+          valueAttr: '@'
+        },
+        require: '?ngModel',
+        replace: true,
+        transclude: true,
+        templateUrl: "/templates/checkbox.html",
+        controller: function($scope, $element, $attrs) {
+          $scope.toggle = function(item) {
+            if ($scope.selectedItems.indexOf(item) === -1) {
+              return $scope.selectedItems.push(item);
+            } else {
+              return $scope.selectedItems.splice($scope.selectedItems.indexOf(item), 1);
+            }
+          };
+          $scope.selectedItems = [];
+          return $scope.shownItems = $scope.items;
+        },
+        compile: function(tElement, tAttrs) {
+          tAttrs.keyAttr || (tAttrs.keyAttr = 'id');
+          tAttrs.valueAttr || (tAttrs.valueAttr = 'label');
+          return function(scope, element, attrs, ngModelCtrl, transcludeFn) {
+            if (ngModelCtrl) {
+              scope.$watch('selectedItem', function() {
+                ngModelCtrl.$setViewValue(scope.selectedItem);
+                return scope.activeItem = scope.selectedItem;
+              });
+              ngModelCtrl.$render = function() {
+                if (!scope.disabled) {
+                  return scope.selectedItem = ngModelCtrl.$modelValue;
+                }
+              };
+            }
+            attrs.$observe('disabled', function(value) {
+              return scope.disabled = value;
+            });
+            return attrs.$observe('required', function(value) {
+              return scope.required = value;
+            });
           };
         }
       };
@@ -1068,6 +1179,59 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
         }
       };
       return $rootScope.popup = popupManager;
+    }
+  ]);
+
+}).call(this);
+
+(function() {
+  angular.module("angular-w").directive("wRadio", [
+    '$window', function($window) {
+      return {
+        restrict: "A",
+        scope: {
+          items: '=',
+          limit: '=',
+          inline: '=',
+          keyAttr: '@',
+          valueAttr: '@'
+        },
+        require: '?ngModel',
+        replace: true,
+        transclude: true,
+        templateUrl: "/templates/radio.html",
+        controller: function($scope, $element, $attrs) {
+          $scope.selection = function(item) {
+            if (!$scope.disabled) {
+              return $scope.selectedItem = item;
+            }
+          };
+          return $scope.shownItems = $scope.items;
+        },
+        compile: function(tElement, tAttrs) {
+          tAttrs.keyAttr || (tAttrs.keyAttr = 'id');
+          tAttrs.valueAttr || (tAttrs.valueAttr = 'label');
+          return function(scope, element, attrs, ngModelCtrl, transcludeFn) {
+            if (ngModelCtrl) {
+              scope.$watch('selectedItem', function() {
+                ngModelCtrl.$setViewValue(scope.selectedItem);
+                return scope.activeItem = scope.selectedItem;
+              });
+              ngModelCtrl.$render = function() {
+                if (!scope.disabled) {
+                  return scope.selectedItem = ngModelCtrl.$modelValue;
+                }
+              };
+            }
+            attrs.$observe('disabled', function(value) {
+              return scope.disabled = value;
+            });
+            return attrs.$observe('required', function(value) {
+              return scope.required = value;
+            });
+          };
+        }
+      };
     }
   ]);
 

@@ -74,6 +74,24 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
   );
 
 
+  $templateCache.put('/templates/checkbox.html',
+    "<div class='w-checkbox'>\n" +
+    "  <input type='text' ng-model='selectedItem' style='display: none' ng-required='required' ng-disabled='disabled' />\n" +
+    "  <div class='checkbox' ng-repeat='item in shownItems' ng-class=\"{'w-checkbox-inline': inline}\">\n" +
+    "    <label ng-click='toggle(item)'>\n" +
+    "      <a href='javascript:void(0)' class='w-checkbox-item-container'>\n" +
+    "        <span\n" +
+    "                ng-disabled='disabled'\n" +
+    "                class=\"w-checkbox-item-container-sign glyphicon glyphicon-search\"\n" +
+    "                ng-class=\"{'glyphicon-pushpin': selectedItems.indexOf(item) > -1}\"></span>\n" +
+    "        {{item[valueAttr]}}\n" +
+    "      </a>\n" +
+    "    </label>\n" +
+    "  </div>\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('/templates/chz.html',
     "<div class='w-chz'>\n" +
     "  <input type='text' ng-model='selectedItem' style='display: none' ng-required='required' />\n" +
@@ -208,6 +226,43 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "    </ul>\n" +
     "  </div>\n" +
     "</div>\n"
+  );
+
+
+  $templateCache.put('/templates/radio.html',
+    "<div class='w-radio'>\n" +
+    "  <input type='text' ng-model='selectedItem' style='display: none' ng-required='required' ng-disabled='disabled' />\n" +
+    "  <div class='radio' ng-repeat='item in shownItems' ng-class=\"{'w-radio-inline': inline}\">\n" +
+    "    <label ng-click='selection(item)'>\n" +
+    "      <a href='javascript:void(0)' class='w-radio-item-container'>\n" +
+    "        <span \n" +
+    "          ng-disabled='disabled'\n" +
+    "          class=\"w-radio-item-container-sign glyphicon glyphicon-search\"\n" +
+    "          ng-class=\"{'glyphicon-pushpin': item == selectedItem}\"></span>\n" +
+    "        {{item[valueAttr]}}\n" +
+    "      </a>\n" +
+    "    </label>\n" +
+    "  </div>\n" +
+    "  <!--\n" +
+    "    <div>\n" +
+    "      <ul class=\"w-radio-items-list-default w-radio-items-list\"\n" +
+    "          role=\"menu\"\n" +
+    "          ng-show=\"shownItems.length\"\n" +
+    "          ng-keydown=\"onkeys($event)\" tabindex=\"0\">\n" +
+    "        <li ng-repeat=\"item in shownItems\"\n" +
+    "            class=\"glyphicon glyphicon-unchecked\"\n" +
+    "            ng-class=\"{'active' : item==activeItem, 'glyphicon-record':item==selectedItem}\">\n" +
+    "          <a ng-click=\"selection(item)\"\n" +
+    "             href=\"javascript:void(0)\"\n" +
+    "             id='{{item[keyAttr]}}'\n" +
+    "             tabindex='-1'>{{ item[valueAttr] }}</a>\n" +
+    "        </li>\n" +
+    "      </ul>\n" +
+    "    </div>\n" +
+    "  -->\n" +
+    "</div>\n" +
+    "\n" +
+    "\n"
   );
 
 

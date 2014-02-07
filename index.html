@@ -42,6 +42,8 @@
               <li><a href="#multiselect">MultiSelect</a></li>
               <li><a href="#combo">Combo</a></li>
               <li><a href="#tags">Tags</a></li>
+              <li><a href="#radio">Radio</a></li>
+              <li><a href="#checkbox">Checkbox</a></li>
               <li><a href="#calendar">Calendar</a></li>
               <li><a href="#timepicker">Timepicker</a></li>
               <li><a href="#datetime">Datetime</a></li>
@@ -489,6 +491,63 @@ angular.module('angular-w-demo')
           </div>
         </div>
 
+  <!-- =Radio description
+  --------------------------------------------------------------------------- -->
+  <div id="radio">
+    <div class="page-header">
+      <h1>Radio <span class="pull-right wip">WIP</span></h1>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div>
+          <h2>Description</h2>
+          <h5>Directive: <code>w-radio</code></h5>
+          <p>
+            Provides default radio-like behaviour. Supports several angular directives: <code>ng-model</code>,
+            <code>ng-disabled</code>, <code>ng-required</code>. Available options are <code>items</code> and <code>limit</code>.
+            Attributes: <code>items</code> and <code>limit</code>.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class='row'>
+      <div class="col-md-6">
+        <h4>Example</h4>
+                <pre class='prettyprint' ng-non-bindable=''>
+&lt;form role="form" ng-controller='RadioCtrl'&gt;
+  &lt;div class="form-group"&gt;
+    &lt;label&gt;Choose your katawari&lt;/label&gt;
+    &lt;div w-radio="true"
+         items="items"
+         limit='20'
+         ng-model="value"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/form&gt;</pre>
+              <pre class='prettyprint' ng-non-bindable=''>
+angular.module('angular-w-demo')
+  .controller('RadioCtrl', ['$scope', function($scope) {
+    $scope.items = [
+      {id: 'S', label: 'Shijima'},
+      {id: 'M', label: 'Musubi'},
+      {id: 'Y', label: 'Yosuga'}
+    ];
+  }]);</pre>
+      </div>
+      <div class="col-md-6 demonstration">
+        <h2>Demo</h2>
+        <form role="form" ng-controller='RadioCtrl'>
+          <div class="form-group">
+            <label>Choose your katawari</label>
+            <div w-radio="true"
+                 items="items"
+                 limit='20'
+                 ng-model="value"></div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <!-- =Calendar description
   --------------------------------------------------------------------------- -->
         <div id="calendar">
@@ -635,5 +694,6 @@ angular.module('angular-w-demo')
     <script type='text/javascript' src='scripts/multi_select_ctrl.js'></script>
     <script type='text/javascript' src='scripts/combo_ctrl.js'></script>
     <script type='text/javascript' src='scripts/tags_ctrl.js'></script>
+    <script type='text/javascript' src='scripts/radio_ctrl.js'></script>
   </body>
 </html>
