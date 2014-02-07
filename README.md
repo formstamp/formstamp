@@ -175,16 +175,9 @@ Then start watching changes:
 
     `npm bin`/grunt watch
 
-### Nginx
-
-Install the Nginx.
-
-Then configure:
-
-    sed -i 's|http {|http {\nserver {listen 55555; root /path/to/ng-w;}|' \
-        /path/to/nginx/nginx.conf
-
-Then restart nginx. Navigate your browser to http://localhost:55555/demo
+### Expressjs
+To run demo:
+     `node server.js`
 
 ### Troubleshooting
 

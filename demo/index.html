@@ -4,8 +4,8 @@
   <meta charset="utf-8">
 
   <title>angular-w</title>
-    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="/build/angular-w.css"/>
+    <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/angular-w.css"/>
     <style>
       .container {
         padding: 30px 10px;
@@ -36,6 +36,7 @@
       </div>
       <pre>{{ samurai | json }}</pre>
       <pre>{{ samuraiForm | json }}</pre>
+      <a ng-click='send()'>Send</a>
       <form w-form-for='samurai' w-submit='send()'>
         <input w-field='name' label='Name' required='true' w-combo items='names' />
         <input w-field='age' label='Age' w-chz  required='true' items='ages' />
@@ -252,13 +253,13 @@
       </div>
     -->
 
-  <script type="text/javascript" src="/bower_components/angular/angular.js"></script>
-  <script type="text/javascript" src="/bower_components/angular-route/angular-route.min.js"></script>
-  <script type="text/javascript" src="/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
-  <script type="text/javascript" src="/bower_components/angular-touch/angular-touch.min.js"></script>
-  <script type="text/javascript" src="/bower_components/angular-animate/angular-animate.min.js"></script>
-  <script type="text/javascript" src="/bower_components/jquery/jquery.min.js"></script>
-  <script type="text/javascript" src="/build/angular-w.js"></script>
-  <script type="text/javascript" src="/demo/script/demo.js"></script>
+  <script type="text/javascript" src="/angular/angular.js"></script>
+  <script type="text/javascript" src="/angular-route/angular-route.min.js"></script>
+  <script type="text/javascript" src="/angular-sanitize/angular-sanitize.min.js"></script>
+  <script type="text/javascript" src="/angular-touch/angular-touch.min.js"></script>
+  <script type="text/javascript" src="/angular-animate/angular-animate.min.js"></script>
+  <script type="text/javascript" src="/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/angular-w.js"></script>
+  <script type="text/javascript" src="/script/demo.js"></script>
   </body>
 </html>
