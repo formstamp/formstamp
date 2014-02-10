@@ -16,7 +16,7 @@ app.post('/', function(req, res) {
       gender: [],
       age: ["He's too old!"]
     }
-  }
+  };
   res.send(body);
 });
 
