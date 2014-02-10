@@ -17,6 +17,9 @@ angular
       $scope.selection = (item)->
         $scope.selectedItem = item unless $scope.disabled
 
+      $scope.isSelected = (item) ->
+        angular.equals(item, $scope.selectedItem)
+
       $scope.shownItems = $scope.items
 
     compile: (tElement, tAttrs) ->
