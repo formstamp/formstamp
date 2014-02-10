@@ -327,7 +327,7 @@ app.controller('FormBuilderCtrl', function($scope, $http) {
 
   $scope.send = function() {
     var res = $http.post('/').success(function(data) {
-      angular.extend($scope.samurai, data);
+      angular.copy(data, $scope.samurai);
     });
   }
 });
