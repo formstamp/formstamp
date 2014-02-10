@@ -2,6 +2,7 @@
   <input type='text' ng-model='selectedItem' style='display: none' ng-required='required' />
   <div ng-hide="active" ng-class="{'btn-group': selectedItems.length}">
     <div class="btn btn-default w-multi-select-active-items"
+         ng-class='{"has-error": invalid}'
          href="javascript:void(0)"
          ng-click="active=true"
          w-focus='focus'

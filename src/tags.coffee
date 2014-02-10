@@ -5,6 +5,7 @@ angular
     scope:
       items: '='
       limit: '='
+      invalid: '='
     require: '?ngModel'
     replace: true
     transclude: true

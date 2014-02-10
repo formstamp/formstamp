@@ -4,6 +4,7 @@ angular
   restrict: "A"
   scope:
     items: '='
+    invalid: '='
     limit: '='
     keyAttr: '@'
     valueAttr: '@'
@@ -93,12 +94,13 @@ angular
     (scope, element, attrs, ngModelCtrl, transcludeFn) ->
 
       if ngModelCtrl
-        scope.$watch 'selectedItem', ->
-          ngModelCtrl.$setViewValue(scope.selectedItem)
-          scope.activeItem = scope.selectedItem
+        scope.$watch 'selectedItem', (newValue, oldValue) ->
+          if newValue isnt oldValue
+            ngModelCtrl.$setViewValue(scope.selectedItem)
+            scope.activeItem = scope.selectedItem
 
         ngModelCtrl.$render = ->
-          scope.selectedItem = ngModelCtrl.$modelValue
+          scope.selectedItem = ngModelCtrl.$viewValue
 
       attrs.$observe 'disabled', (value) ->
         scope.disabled = value

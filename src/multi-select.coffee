@@ -13,6 +13,7 @@ angular
     restrict: "A"
     scope:
       items: '='
+      invalid: '='
       limit: '='
       keyAttr: '@'
       valueAttr: '@'

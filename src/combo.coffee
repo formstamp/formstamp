@@ -5,6 +5,7 @@ angular
   scope:
     items: '='
     limit: '='
+    invalid: '='
   require: '?ngModel'
   replace: true
   transclude: true
@@ -108,12 +109,12 @@ angular
       childScope.item = scope.selectedItem
       transcludeFn childScope, (clone) ->
         if clone.text().trim() isnt ""
-          link = element[0].querySelector('a.w-chz-active')
+          link = element[0].querySelector('a.w-combo-active')
           angular.element(link).empty().append(clone)
 
     # Hide drop down list on click elsewhere
     $window.addEventListener 'click', (e) ->
-      parent = $(e.target).parents('div.w-chz')[0]
+      parent = $(e.target).parents('div.w-combo')[0]
       if parent != element[0]
         scope.$apply ->
           scope.hideDropDown()
