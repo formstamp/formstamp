@@ -6,7 +6,7 @@
         <span
                 ng-disabled='disabled'
                 class="w-checkbox-item-container-sign glyphicon glyphicon-search"
-                ng-class="{'glyphicon-pushpin': selectedItems.indexOf(item) > -1}"></span>
+                ng-class="{'glyphicon-pushpin': hasItem(item)}"></span>
         {{item[valueAttr]}}
       </a>
     </label>

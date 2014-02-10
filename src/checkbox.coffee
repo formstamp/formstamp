@@ -15,10 +15,13 @@ angular
     controller: ($scope, $element, $attrs) ->
 
       $scope.toggle = (item)->
-        if $scope.selectedItems.indexOf(item) == -1
+        if !$scope.hasItem(item)
           $scope.selectedItems.push(item)
         else
-          $scope.selectedItems.splice($scope.selectedItems.indexOf(item), 1)
+          $scope.selectedItems.splice(indexOf($scope.selectedItems, item), 1)
+
+      $scope.hasItem = (item) ->
+        indexOf($scope.selectedItems, item) > -1
 
       $scope.selectedItems = []
       $scope.shownItems = $scope.items

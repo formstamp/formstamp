@@ -50,16 +50,16 @@ angular
 
       #TODO: why is this method's name a noun instead of a verb?
       $scope.selection = (item)->
-        if item? and item.length > 0 and $scope.selectedItems.indexOf(item) == -1
+        if item? and item.length > 0 and indexOf($scope.selectedItems, item) == -1
           $scope.selectedItems.push(item)
           $scope.hideDropDown()
           $scope.search = ''
 
 
       $scope.deselect = (item)->
-        index = $scope.selectedItems.indexOf(item)
+        index = indexOf($scope.selectedItems, item)
         if index > -1
-          $scope.selectedItems.splice($scope.selectedItems.indexOf(item), 1)
+          $scope.selectedItems.splice(index, 1)
 
       $scope.reset = ->
         $scope.selectedItems = []
@@ -90,7 +90,7 @@ angular
         $scope.active = false
 
       getActiveIndex = ->
-        ($scope.shownItems.indexOf($scope.activeItem) || 0)
+        indexOf($scope.shownItems, $scope.activeItem) || 0
 
       # TODO move to init
       $scope.selectedItems = []

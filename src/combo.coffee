@@ -80,7 +80,7 @@ angular
       $scope.active = false
 
     getActiveIndex = ->
-      ($scope.shownItems.indexOf($scope.activeItem) || 0)
+      indexOf($scope.shownItems, $scope.activeItem) || 0
 
     # run
     search('')
