@@ -33,12 +33,13 @@ angular
       (scope, element, attrs, ngModelCtrl, transcludeFn) ->
 
         if ngModelCtrl
-          scope.$watch 'selectedItem', ->
-            ngModelCtrl.$setViewValue(scope.selectedItems)
+          scope.$watchCollection 'selectedItems', (newValue, oldValue)->
+            unless newValue is oldValue
+              ngModelCtrl.$setViewValue(scope.selectedItems)
 
           ngModelCtrl.$render = ->
             unless scope.disabled
-              scope.selectedItems = ngModelCtrl.$modelValue
+              scope.selectedItems = ngModelCtrl.$viewValue || []
 
         attrs.$observe 'disabled', (value) ->
           scope.disabled = value

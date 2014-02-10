@@ -88,13 +88,14 @@ angular
   link: (scope, element, attrs, ngModelCtrl, transcludeFn) ->
 
     if ngModelCtrl
-      scope.$watch 'selectedItem', ->
-        ngModelCtrl.$setViewValue(scope.selectedItem)
-        scope.activeItem = scope.selectedItem
-        scope.search = scope.selectedItem
+      scope.$watch 'selectedItem', (newValue, oldValue)->
+        unless newValue is oldValue
+          ngModelCtrl.$setViewValue(scope.selectedItem)
+          scope.activeItem = scope.selectedItem
+          scope.search = scope.selectedItem
 
       ngModelCtrl.$render = ->
-        scope.selectedItem = ngModelCtrl.$modelValue
+        scope.selectedItem = ngModelCtrl.$viewValue
 
     attrs.$observe 'disabled', (value) ->
       scope.disabled = value

@@ -1,6 +1,6 @@
 <div class='w-checkbox'>
   <input type='text' ng-model='selectedItem' style='display: none' ng-required='required' ng-disabled='disabled' />
-  <div class='checkbox' ng-repeat='item in shownItems' ng-class="{'w-checkbox-inline': inline}">
+  <div class='checkbox' ng-repeat='item in shownItems track by item.id' ng-class="{'w-checkbox-inline': inline}">
     <label ng-click='toggle(item)'>
       <a href='javascript:void(0)' class='w-checkbox-item-container'>
         <span

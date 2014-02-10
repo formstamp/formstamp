@@ -305,7 +305,7 @@ app.controller('RadioCtrl', function($scope) {
 });
 
 app.controller('FormBuilderCtrl', function($scope, $http) {
-  $scope.samurai = {}
+  $scope.samurai = {};
   $scope.genders = [
     {id: 'F', label: 'Female'},
     {id: 'M', label: 'Male'},
@@ -327,7 +327,7 @@ app.controller('FormBuilderCtrl', function($scope, $http) {
 
   $scope.send = function() {
     var res = $http.post('/').success(function(data) {
-      $scope.samurai = data;
+      angular.extend($scope.samurai, data);
     });
   }
 });
