@@ -6,7 +6,6 @@ angular
       errors: '='
       items: '='
       limit: '='
-      invalid: '='
     require: '?ngModel'
     replace: true
     transclude: true
