@@ -324,7 +324,7 @@ app.controller('FormBuilderCtrl', function($scope, $http) {
     {id: 'milk', label: 'milk'},
     {id: 'orange', label: 'orange'}
   ];
-  $scope.warriors = [
+  $scope. = [
     {id: 'Oda', label: 'Nobunaga'},
     {id: 'Suzu', label: 'Hitomi'},
     {id: 'Ruji', label: 'Takeda'}

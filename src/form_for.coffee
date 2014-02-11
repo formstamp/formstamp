@@ -1,5 +1,5 @@
 angular
-.module('angular-w').directive 'wFormFor', [->
+.module('angular-w').directive 'wFormFor', ['$window', ($window)->
   restrict: 'A'
   scope:
     object: '=wFormFor'
@@ -9,6 +9,10 @@ angular
 
     (scope, element, attrs) ->
       #element.controller('form').$setPristine()
+      $window.addEventListener 'beforeunload', ->
+        if element.controller('form').$dirty
+          'You will lose unsaved changes unless you stay on this page'
+
 
   controller: ($scope, $element, $attrs) ->
     @getObject = ->
