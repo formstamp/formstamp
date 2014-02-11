@@ -12,6 +12,7 @@ angular
 .directive "wMultiSelect", ['$window', ($window) ->
     restrict: "A"
     scope:
+      errors: '='
       items: '='
       invalid: '='
       limit: '='
@@ -111,6 +112,9 @@ angular
 
       getActiveIndex = ->
         indexOf($scope.shownItems, $scope.activeItem) || 0
+
+      $scope.invalid = ->
+        $scope.errors? and $scope.errors.length > 0
 
       # TODO move to init
       $scope.selectedItems = []
