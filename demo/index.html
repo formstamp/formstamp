@@ -26,16 +26,17 @@
       <div class='row'>
         <h1>Form builder</h1>
         <div class='col-sm-8'>
-          <form w-form-for='samurai' ng-submit='send()'>
+          <form name='form' w-form-for='samurai' ng-submit='send()'>
+            {{form.$dirty | json}}
             <div w-field='name' type='w-combo' items='names' label='Name'></div>
 
             <div w-field='age' type='w-chz' items='ages' label='Age'></div>
 
             <div w-field='gender' type='w-radio' items='genders' label='Gender'></div>
 
-            <div w-field='likesToEat' type='w-checkbox' items='meals' label='Likes to eat'></div>
+            <!--<div w-field='likesToEat' type='w-checkbox' items='meals' label='Likes to eat'></div>
 
-            <div w-submit>Save</div>
+            <div w-submit>Save</div> -->
           </form>
         </div>
         <div class='col-sm-4'> 

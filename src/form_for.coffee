@@ -7,7 +7,8 @@ angular
     tElement.attr('class', 'form-horizontal')
     tElement.attr('role', 'form')
 
-    () ->
+    (scope, element, attrs) ->
+      #element.controller('form').$setPristine()
 
   controller: ($scope, $element, $attrs) ->
     @getObject = ->
