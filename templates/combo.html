@@ -2,7 +2,7 @@
   <input type='text' ng-model='selectedItem' style='display: none' ng-required='required' />
     <div ng-hide="active" ng-class="{'btn-group': selectedItem}">
       <a class="btn btn-default w-combo-active"
-         ng-class='{"btn-danger": invalid}'
+         ng-class='{"btn-danger": invalid()}'
          href="javascript:void(0)"
          ng-click="active=true"
          w-focus='focus'
@@ -34,4 +34,5 @@
        </li>
     </ul>
   </div>
+  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>
 </div>

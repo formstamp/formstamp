@@ -3,9 +3,9 @@ angular
 .directive "wCombo", ['$window', ($window) ->
   restrict: "A"
   scope:
+    errors: '='
     items: '='
     limit: '='
-    invalid: '='
   require: '?ngModel'
   replace: true
   transclude: true
@@ -82,6 +82,9 @@ angular
 
     getActiveIndex = ->
       indexOf($scope.shownItems, $scope.activeItem) || 0
+
+    $scope.invalid = ->
+      $scope.errors? and $scope.errors.length > 0
 
     # run
     search('')

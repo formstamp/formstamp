@@ -33,12 +33,9 @@
               <div class='col-sm-10'>
                 <div w-combo
                      items='names'
-                     invalid='samurai.$errors.name'
                      name='samurai[name]' 
-                     ng-model='samurai.name'></div>
-                <div>
-                  <p ng-repeat='error in samurai.$errors.name' class='text-danger'>{{error}}</p>
-                </div>
+                     ng-model='samurai.name'
+                     errors='samurai.$errors.name'></div>
               </div>
             </div>
 
