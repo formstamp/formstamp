@@ -26,7 +26,7 @@
         role="menu"
         ng-show="shownItems.length">
        <li ng-repeat="item in shownItems"
-           ng-class="{true: 'active'}[item == activeItem]">
+           ng-class="{active: isActive(item)}">
          <a ng-click="selection(item)"
             href="javascript:void(0)"
             id='{{item[keyAttr]}}'

@@ -8,7 +8,6 @@ angular
     tElement.attr('role', 'form')
 
     (scope, element, attrs) ->
-      #element.controller('form').$setPristine()
       $window.addEventListener 'beforeunload', ->
         if element.controller('form').$dirty
           'You will lose unsaved changes unless you stay on this page'

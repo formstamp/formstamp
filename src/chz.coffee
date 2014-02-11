@@ -19,30 +19,14 @@ angular
       activeIndex = getActiveIndex() + d
       activeIndex = Math.min(Math.max(activeIndex,0), items.length - 1)
       $scope.activeItem = items[activeIndex]
-      scrollIfNeeded(activeIndex)
+      scroll()
 
-    scrollIfNeeded = (activeIndex) ->
-      ul = $element.find('ul')[0]
-      li = ul.querySelector('li.active')
-
-      return unless ul and li
-
-      viewport =
-        top: ul.scrollTop
-        bottom: ul.scrollTop + innerHeightOf(ul)
-
-      li = ul.querySelector('li.active')
-      liHeight = innerHeightOf(li)
-      item =
-        top: activeIndex * liHeight
-        bottom: (activeIndex + 1) * liHeight
-
-      # Scroll down
-      if item.bottom > viewport.bottom
-        ul.scrollTop += item.bottom - viewport.bottom
-      # Scroll up
-      else if item.top < viewport.top
-        ul.scrollTop -= viewport.top - item.top
+    scroll = ->
+      delayedScrollFn = ->
+        ul = $element.find('ul')[0]
+        li = ul.querySelector('li.active')
+        scrollToTarget(ul, li)
+      setTimeout(delayedScrollFn, 0)
 
     search = (q) ->
       $scope.shownItems = filter(q, $scope.items, $scope.valueAttr).slice(0, $scope.limit)
@@ -75,10 +59,13 @@ angular
     $scope.$watch 'limit', -> search('')
 
     $scope.$watch 'active', (value) ->
-      window.setTimeout((()-> scrollIfNeeded(getActiveIndex())) , 0) if value
+      scroll() if value
 
     $scope.hideDropDown = ->
       $scope.active = false
+
+    $scope.isActive = (item) ->
+      angular.equals(item, $scope.activeItem)
 
     getActiveIndex = ->
       indexOf($scope.shownItems, $scope.activeItem) || 0

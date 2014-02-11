@@ -313,12 +313,14 @@ app.controller('FormBuilderCtrl', function($scope, $http) {
     {id: 'O', label: 'Other'}
   ];
   $scope.names = ["Joe", "Sue", "Sam"];
-  $scope.ages = [
-    {id: 21, label: 21},
-    {id: 22, label: 22},
-    {id: 23, label: 23},
-    {id: 24, label: 24}
-  ];
+  $scope.ages = []
+  for (var age = 0; age < 100; age++) {
+    $scope.ages.push({
+      id: age,
+      label: age
+    });
+  }
+
   $scope.meals = [
     {id: 'meat', label: 'meat'},
     {id: 'milk', label: 'milk'},
