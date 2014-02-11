@@ -57,12 +57,9 @@
               <div class='col-sm-10'>
                 <div w-radio
                      items='genders'
-                     invalid='samurai.$errors.gender'
                      name='samurai[gender]' 
-                     ng-model='samurai.gender'></div>
-                <div>
-                  <p ng-repeat='error in samurai.$errors.gender' class='text-danger'>{{error}}</p>
-                </div>
+                     ng-model='samurai.gender'
+                     errors='samurai.$errors.gender'></div>
               </div>
             </div>
 
