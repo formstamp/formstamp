@@ -17,4 +17,8 @@ angular.module('angular-w')
     (scope, element, attrs, formForCtrl) ->
       scope.object = formForCtrl.getObject()
       scope.objectName = formForCtrl.getObjectName()
+      scope.inputName = "#{scope.objectName}[#{scope.field}]"
+
+      scope.errors = ->
+        scope.object.$errors[scope.field] if scope.object.$errors
 ]

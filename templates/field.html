@@ -1,11 +1,11 @@
 <div class='form-group'
-     ng-class='{"has-error": object.$errors[field].length > 0}'>
-  <label for='{{objectName}}[{{field}}]' class='col-sm-2 control-label'>{{label}}</label>
+     ng-class='{"has-error": errors().length > 0}'>
+  <label for='{{inputName}}' class='col-sm-2 control-label'>{{label}}</label>
   <div class='col-sm-10'>
     <div class='w-field-input'
          items='items'
-         errors='object.$errors[field]'
-         name='{{objectName}}[{{field}}]' 
+         errors='errors()'
+         name='{{inputName}}' 
          ng-model='object[field]'></div>
   </div>
 </div>
