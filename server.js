@@ -21,5 +21,4 @@ app.post('/', function(req, res) {
 });
 
 
-app.listen(17405);
-
+app.listen(parseInt(process.argv[2]) || 17405);

@@ -221,7 +221,10 @@ Then start watching changes:
 
 ### Expressjs
 To run demo:
-     `node server.js`
+    `node server.js`
+You can specify port as a second first argument:
+    `node server.js 3000`
+Default port is 17405.
 
 ### Troubleshooting
 
