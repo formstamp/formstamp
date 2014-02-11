@@ -67,10 +67,11 @@
                  ng-class='{"has-error": samurai.$errors.likesToEat.length > 0}'>
               <label for='samurai[likesToEat]' class='col-sm-2 control-label'>Likes to eat</label>
               <div class='col-sm-10'>
-                <div name='samurai[likesToEat]' w-checkbox items='meals' ng-model='samurai.likesToEat'></div>
-                <div>
-                  <p ng-repeat='error in samurai.$errors.likesToEat' class='text-danger'>{{error}}</p>
-                </div>
+                <div w-checkbox
+                     items='meals'
+                     name='samurai[likesToEat]'
+                     ng-model='samurai.likesToEat'
+                     errors='samurai.$errors.likesToEat'></div>
               </div>
             </div>
 

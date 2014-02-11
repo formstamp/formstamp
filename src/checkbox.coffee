@@ -3,6 +3,7 @@ angular
 .directive "wCheckbox", ['$window', ($window) ->
     restrict: "A"
     scope:
+      errors: '='
       items: '='
       limit: '='
       inline: '='
@@ -22,6 +23,9 @@ angular
 
       $scope.hasItem = (item) ->
         indexOf($scope.selectedItems, item) > -1
+
+      $scope.invalid = ->
+        $scope.errors? and $scope.errors.length > 0
 
       $scope.selectedItems = []
       $scope.shownItems = $scope.items
