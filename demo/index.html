@@ -44,13 +44,10 @@
               <label for='samurai[age]' class='col-sm-2 control-label'>Age</label>
               <div class='col-sm-10'>
                 <div w-chz
-                     items='ages' 
-                     invalid='samurai.$errors.age'
+                     items='ages'
                      name='samurai[age]'
-                     ng-model='samurai.age'></div>
-                <div>
-                  <p ng-repeat='error in samurai.$errors.age' class='text-danger'>{{error}}</p>
-                </div>
+                     ng-model='samurai.age'
+                     errors='samurai.$errors.age'></div>
               </div>
             </div>
 
