@@ -2,10 +2,9 @@ angular.module('angular-w')
 .directive 'wField', [->
   restrict: 'A'
   replace: true
+  require: '^wFormFor'
   scope:
     items: '='
-    object: '='
-    objectName: '@object'
     field: '@wField'
     type: '@'
     label: '@'
@@ -15,5 +14,7 @@ angular.module('angular-w')
     inputDiv = tElement[0].querySelector('.w-field-input')
     angular.element(inputDiv).attr(type, '')
 
-    (scope, element) ->
+    (scope, element, attrs, formForCtrl) ->
+      scope.object = formForCtrl.getObject()
+      scope.objectName = formForCtrl.getObjectName()
 ]
