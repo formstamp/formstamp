@@ -104,10 +104,11 @@ angular
 
     link: (scope, element, attrs, ngModelCtrl, transcludeFn) ->
       if ngModelCtrl
-        scope.$watch 'selectedItems', ->
-          ngModelCtrl.$setViewValue(scope.selectedItems)
-          #TODO: activeItem can't hold an array
-          scope.activeItem = scope.selectedItems
+        setViewValue = (newValue, oldValue)->
+          unless angular.equals(newValue, oldValue)
+            ngModelCtrl.$setViewValue(scope.selectedItems)
+
+        scope.$watch 'selectedItems', setViewValue, true
 
         ngModelCtrl.$render = ->
           scope.selectedItems = ngModelCtrl.$modelValue || []
