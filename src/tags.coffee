@@ -3,6 +3,7 @@ angular
 .directive "wTags", ['$window', ($window) ->
     restrict: "A"
     scope:
+      errors: '='
       items: '='
       limit: '='
       invalid: '='
@@ -95,6 +96,9 @@ angular
 
       # TODO move to init
       $scope.selectedItems = []
+
+      $scope.invalid = ->
+        $scope.errors? and $scope.errors.length > 0
 
       # run
       search('')
