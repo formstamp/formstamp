@@ -34,8 +34,9 @@ angular
       (scope, element, attrs, ngModelCtrl, transcludeFn) ->
 
         if ngModelCtrl
-          scope.$watch 'selectedItem', ->
-            ngModelCtrl.$setViewValue(scope.selectedItem)
+          scope.$watch 'selectedItem', (newValue, oldValue)->
+            unless newValue is oldValue
+              ngModelCtrl.$setViewValue(scope.selectedItem)
 
           ngModelCtrl.$render = ->
             unless scope.disabled

@@ -41,7 +41,7 @@ angular
 
         if ngModelCtrl
           scope.$watchCollection 'selectedItems', (newValue, oldValue)->
-            unless newValue is oldValue
+            unless angular.equals(newValue, oldValue)
               ngModelCtrl.$setViewValue(scope.selectedItems)
 
           ngModelCtrl.$render = ->
