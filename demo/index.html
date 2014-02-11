@@ -27,59 +27,15 @@
         <h1>Form builder</h1>
         <div class='col-sm-8'>
           <form ng-controller='FormCtrl' ng-init='object = samurai' class='form-horizontal' role='form' ng-submit='send()' name='form'>
-            <div class='form-group'
-                 ng-class='{"has-error": samurai.$errors.name.length > 0}'>
-              <label for='samurai[name]' class='col-sm-2 control-label'>Name</label>
-              <div class='col-sm-10'>
-                <div w-combo
-                     items='names'
-                     name='samurai[name]' 
-                     ng-model='samurai.name'
-                     errors='samurai.$errors.name'></div>
-              </div>
-            </div>
+            <div w-field='name' type='w-combo' object='samurai' items='names' label='Name'></div>
 
-            <div class='form-group'
-                 ng-class='{"has-error": samurai.$errors.age.length > 0}'>
-              <label for='samurai[age]' class='col-sm-2 control-label'>Age</label>
-              <div class='col-sm-10'>
-                <div w-chz
-                     items='ages'
-                     name='samurai[age]'
-                     ng-model='samurai.age'
-                     errors='samurai.$errors.age'></div>
-              </div>
-            </div>
+            <div w-field='age' type='w-chz' object='samurai' items='ages' label='Age'></div>
 
-            <div class='form-group'
-                 ng-class='{"has-error": samurai.$errors.gender.length > 0}'>
-              <label for='samurai[gender]' class='col-sm-2 control-label'>Gender</label>
-              <div class='col-sm-10'>
-                <div w-radio
-                     items='genders'
-                     name='samurai[gender]' 
-                     ng-model='samurai.gender'
-                     errors='samurai.$errors.gender'></div>
-              </div>
-            </div>
+            <div w-field='gender' type='w-radio' object='samurai' items='genders' label='Gender'></div>
 
-            <div class='form-group'
-                 ng-class='{"has-error": samurai.$errors.likesToEat.length > 0}'>
-              <label for='samurai[likesToEat]' class='col-sm-2 control-label'>Likes to eat</label>
-              <div class='col-sm-10'>
-                <div w-checkbox
-                     items='meals'
-                     name='samurai[likesToEat]'
-                     ng-model='samurai.likesToEat'
-                     errors='samurai.$errors.likesToEat'></div>
-              </div>
-            </div>
+            <div w-field='likesToEat' type='w-checkbox' object='samurai' items='meals' label='Likes to eat'></div>
 
-            <div class="form-group">
-              <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-default">Save</button>
-              </div>
-            </div>
+            <div w-submit>Save</div>
           </form>
         </div>
         <div class='col-sm-4'> 
