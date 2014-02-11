@@ -14,7 +14,6 @@ angular
     scope:
       errors: '='
       items: '='
-      invalid: '='
       limit: '='
       keyAttr: '@'
       valueAttr: '@'
