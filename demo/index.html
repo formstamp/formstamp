@@ -27,9 +27,18 @@
         <h1>Form builder</h1>
         <div class='col-sm-8'>
           <form name='form' w-form-for='samurai' ng-submit='send()'>
-            <div w-field='name' type='w-combo' items='names' label='Name'></div>
+            <div w-field='name'
+                 type='w-combo'
+                 items='names'
+                 label='Name'
+                 ng-required='true'
+                 ng-minlength='2'
+                 ng-maxlength='4'></div>
 
-            <div w-field='age' type='w-chz' items='ages' label='Age'></div>
+            <div w-field='age'
+                 type='w-chz'
+                 items='ages'
+                 label='Age'></div>
 
             <div w-field='gender' type='w-radio' items='genders' label='Gender'></div>
 

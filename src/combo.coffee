@@ -82,6 +82,8 @@ angular
       ngModelCtrl.$render = ->
         scope.selectedItem = ngModelCtrl.$viewValue
 
+      addValidations(attrs, ngModelCtrl)
+
     attrs.$observe 'disabled', (value) ->
       scope.disabled = value
 

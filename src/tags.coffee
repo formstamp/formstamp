@@ -92,6 +92,8 @@ angular
         ngModelCtrl.$render = ->
           scope.selectedItems = ngModelCtrl.$modelValue || []
 
+        addValidations(attrs, ngModelCtrl)
+
       scope.$watch  'selectedItems', ->
         childScope = scope.$new()
         childScope.items = scope.selectedItems
