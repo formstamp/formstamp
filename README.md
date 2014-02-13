@@ -33,7 +33,7 @@ It should next format:
     name: ..., /* this is custom field */
     age: ..., /* this is custom field */
     /* other custom attrs */,
-    $errors: { /* this is special field */
+    $error: { /* this is special field */
       name: ['Too bad!', 'Ugly!'],
       age: ['Too young!']
     }

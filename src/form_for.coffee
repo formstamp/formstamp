@@ -9,10 +9,11 @@ angular
     tElement.attr('role', 'form')
 
     (scope, element, attrs, formController) ->
+
+      # Dirty form handling
       $window.addEventListener 'beforeunload', ->
         if formController.$dirty
           'You will lose unsaved changes unless you stay on this page'
-
 
   controller: ($scope, $element, $attrs) ->
     @getObject = ->

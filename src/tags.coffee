@@ -3,7 +3,7 @@ angular
 .directive "wTags", ['$window', ($window) ->
     restrict: "A"
     scope:
-      errors: '='
+      invalid: '='
       items: '='
       limit: '='
     require: '?ngModel'
@@ -73,9 +73,6 @@ angular
 
       getActiveIndex = ->
         indexOf($scope.shownItems, $scope.activeItem) || 0
-
-      $scope.invalid = ->
-        $scope.errors? and $scope.errors.length > 0
 
       # run
       $scope.selectedItems = []

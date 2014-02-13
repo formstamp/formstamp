@@ -11,7 +11,7 @@ app.post('/', function(req, res) {
     gender: { id: 'M', label: 'Male' },
     age: { id: 21, label: 21 },
     likesToEat: [ { id: 'meat', label: 'meat' }],
-    $errors: {
+    $error: {
       name: ['Bad name!', 'Too short!'],
       gender: ['Too young!'],
       age: ["He's too old!"]

@@ -3,7 +3,7 @@ angular
 .directive "wChz", ['$window', ($window) ->
   restrict: "A"
   scope:
-    errors: '='
+    invalid: '='
     items: '='
     limit: '='
     keyAttr: '@'
@@ -69,9 +69,6 @@ angular
 
     getActiveIndex = ->
       indexOf($scope.shownItems, $scope.activeItem) || 0
-
-    $scope.invalid =->
-      $scope.errors? and $scope.errors.length > 0
 
     # run
     search('')
