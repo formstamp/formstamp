@@ -56,8 +56,8 @@ angular
       $scope.selection = (item)->
         if item? and indexOf($scope.selectedItems, item) == -1
           $scope.selectedItems.push(item)
-          $scope.hideDropDown()
-          resetDropDown()
+        $scope.hideDropDown()
+        resetDropDown()
 
       $scope.deselect = (item)->
         index = indexOf($scope.selectedItems, item)
@@ -69,6 +69,10 @@ angular
         $scope.selectedItems = []
         $scope.focus = true
         search('')
+
+      $scope.activeKeys = (event) ->
+        if event.keyCode == 13
+          $scope.active = true
 
       $scope.onkeys = (event)->
         switch event.keyCode

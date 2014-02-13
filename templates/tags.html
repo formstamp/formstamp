@@ -6,7 +6,9 @@
          ng-click="active=true"
          w-focus='focus'
          ng-disabled="disabled"
-         ng-blur='focus=false'>
+         tabindex='0'
+         ng-blur='focus=false'
+         ng-keydown='activeKeys($event)'>
       <span ng-hide='selectedItems.length'>none</span>
       <span ng-repeat='selectedItem in selectedItems' class="label label-primary w-multi-select-active-item">
         <span class="glyphicon glyphicon-remove" ng-click="deselect(selectedItem)"></span>
