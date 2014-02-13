@@ -16,7 +16,13 @@
               ng-click='reset()'>&times;</button>
     </div>
   <div class="open" ng-show="active">
-    <input ng-keydown="onkeys($event)"
+    <input w-down='move(1)'
+           w-up='move(-1)'
+           w-pgup='onPgup($event)'
+           w-pgdown='onPgdown($event)'
+           w-enter='onEnter($event)'
+           w-tab='onTab()'
+           w-esc='onEsc()'
            w-focus="active"
            class="form-control"
            type="search"

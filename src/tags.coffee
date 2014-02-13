@@ -12,20 +12,6 @@ angular
     templateUrl: "/templates/tags.html"
     controller: ($scope, $element, $attrs) ->
 
-      move = (d) ->
-        items = $scope.shownItems
-        activeIndex = getActiveIndex() + d
-        activeIndex = Math.min(Math.max(activeIndex,0), items.length - 1)
-        $scope.activeItem = items[activeIndex]
-        scroll()
-
-      scroll = ->
-        delayedScrollFn = ->
-          ul = $element.find('ul')[0]
-          li = ul.querySelector('li.active')
-          scrollToTarget(ul, li)
-        setTimeout(delayedScrollFn, 0)
-
       search = (q) ->
         $scope.shownItems = filter(q, $scope.items).slice(0, $scope.limit)
         if $scope.shownItems.length == 0
@@ -55,28 +41,11 @@ angular
         if event.keyCode == 13
           $scope.active = true
 
-      $scope.onkeys = (event)->
-        switch event.keyCode
-          when 40 then move(1)
-          when 38 then move(-1)
-          when 13
-            $scope.selection($scope.activeItem || $scope.search)
-            $scope.focus=true
-            event.preventDefault()
-          when  9 then $scope.selection($scope.search || $scope.activeItem)
-          when 27
-            $scope.hideDropDown()
-            $scope.focus=true
-          when 34 then move(11)
-          when 33 then move(-11)
 
       $scope.$watch 'search', search
 
       $scope.hideDropDown = ->
         $scope.active = false
-
-      getActiveIndex = ->
-        indexOf($scope.shownItems, $scope.activeItem) || 0
 
       # run
       $scope.selectedItems = []
@@ -113,4 +82,41 @@ angular
           scope.$apply ->
             scope.hideDropDown()
             scope.selection(scope.search)
+
+      scope.onEnter = (event) ->
+        scope.selection(scope.activeItem || scope.search)
+        scope.focus=true
+        event.preventDefault()
+
+      scope.onPgup = (event) ->
+        scope.move(-11)
+        event.preventDefault()
+
+      scope.onPgdown = (event) ->
+        scope.move(11)
+        event.preventDefault()
+
+      scope.onTab = ->
+        scope.selection(scope.search || scope.activeItem)
+
+      scope.onEsc = ->
+        scope.hideDropDown()
+        scope.focus=true
+
+      getActiveIndex = ->
+        indexOf(scope.shownItems, scope.activeItem) || 0
+
+      scope.move = (d) ->
+        items = scope.shownItems
+        activeIndex = getActiveIndex() + d
+        activeIndex = Math.min(Math.max(activeIndex,0), items.length - 1)
+        scope.activeItem = items[activeIndex]
+        scroll()
+
+      scroll = ->
+        delayedScrollFn = ->
+          ul = element.find('ul')[0]
+          li = ul.querySelector('li.active')
+          scrollToTarget(ul, li)
+        setTimeout(delayedScrollFn, 0)
   ]

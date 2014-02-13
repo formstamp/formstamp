@@ -39,6 +39,7 @@ scrollToTarget = (container, target) ->
   else if item.top < viewport.top
     container.scrollTop -= viewport.top - item.top
 
+
 addValidations = (attrs, ctrl) ->
 
   validate = (ctrl, validatorName, validity, value) ->
@@ -84,4 +85,3 @@ addValidations = (attrs, ctrl) ->
 
     ctrl.$formatters.push(patternValidator)
     ctrl.$parsers.push(patternValidator)
-
