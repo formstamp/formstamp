@@ -26,7 +26,7 @@
       <div class='row'>
         <h1>Form builder</h1>
         <div class='col-sm-8'>
-          <form name='form' w-form-for='samurai' ng-submit='send()'>
+          <form name='form' w-form-for='samurai' w-submit='send()'>
             <div w-field='name'
                  type='w-combo'
                  items='names'
@@ -49,7 +49,7 @@
 
             <div w-field='aspirations' type='w-tags' items='goals' label='Aspirations'></div>
 
-            <div w-submit>Save</div>
+            <div w-submit-field>Save</div>
           </form>
         </div>
         <div class='col-sm-4'> 

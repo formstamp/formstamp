@@ -1,7 +1,14 @@
-angular.module('angular-w')
-.directive 'wSubmit', [->
-  restrict: 'A'
-  replace: true
-  transclude: true
-  templateUrl: '/templates/submit.html'
+angular
+.module("angular-w")
+.directive "wSubmit", ['$parse', ($parse) ->
+  restrict: "A"
+  require: '?form'
+  link: (scope, element, attr, controller) ->
+    fn = $parse(attr.wSubmit)
+    element.bind 'submit', (event) ->
+      scope.$apply ->
+        if !controller or controller.$valid
+          fn(scope, {$event:event})
+        else
+          controller.$setDirty()
 ]

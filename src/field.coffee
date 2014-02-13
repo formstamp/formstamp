@@ -46,7 +46,7 @@ angular.module('angular-w')
         formCtrl[scope.field].$error[validityName]
 
       scope.$watch ->
-        return unless formCtrl[scope.field].$dirty
+        return unless formCtrl.$dirty
 
         scope.validationErrors = []
         angular.forEach scope.defaultErrors, (value, key) ->

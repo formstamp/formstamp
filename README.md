@@ -41,9 +41,8 @@ It should next format:
   
 
 ### Submiting
-For form submitting use `ng-submit` or `ng-click` on submit button.
-Function call submit handler SHOULD! update model passed to `w-form-for`,
-e.g. `samurai`.
+For form submitting use `w-submit`. It prevents for submiting if form is invalid.
+Function call submit handler SHOULD! update model passed to `w-form-for`.
 
 ```
 
