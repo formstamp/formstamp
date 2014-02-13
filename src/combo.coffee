@@ -84,9 +84,6 @@ angular
     attrs.$observe 'disabled', (value) ->
       scope.disabled = value
 
-    attrs.$observe 'required', (value) ->
-      scope.required = value
-
     scope.$watch 'selectedItem', ->
       childScope = scope.$new()
       childScope.item = scope.selectedItem
