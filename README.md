@@ -16,12 +16,10 @@ provided by this library. It supports errors and validations.
 ### Using
 ```
     <form w-form-for='samurai' ng-submit='send()'>
-      <input w-field='name' label='Name' w-combo items='names' />
-      <input w-field='age' label='Age' w-chz  items='ages' />
-      <input w-field='gender' label='Gender' w-radio  items='genders' />
-      <input w-field='likesToEat' label='Likes to eat' w-checkbox  items='meals' />
+      <div w-field='name' label='Name' type='w-combo' items='names'></div>
+      <div w-field='age' label='Age' type='w-chz'  items='ages'></div>
 
-      <input type='submit' value='Save' />
+      <div w-submit-field>Save</div>
     </form>
 ```
 
@@ -49,7 +47,7 @@ Function call submit handler SHOULD! update model passed to `w-form-for`.
 Example of handler: 
 ```javascript
   $scope.send = function() {
-    var res = $http.post('/').success(function(data) {
+    $http.post('/').success(function(data) {
       $scope.samurai = data;
     });
   }
