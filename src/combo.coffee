@@ -71,7 +71,7 @@ angular
 
     if ngModelCtrl
       scope.$watch 'selectedItem', (newValue, oldValue)->
-        unless newValue is oldValue
+        if newValue isnt oldValue
           ngModelCtrl.$setViewValue(scope.selectedItem)
           scope.activeItem = scope.selectedItem
           scope.search = scope.selectedItem

@@ -1,8 +1,10 @@
 angular.module('angular-w')
 .directive 'wField', [->
 
-  VALIDATION_DIRECTIVES = ['ngRequired', 'ngMinlength',
-    'ngMaxlength', 'ngPattern']
+  VALIDATION_DIRECTIVES = [
+    'ngRequired', 'ngMinlength',
+    'ngMaxlength', 'ngPattern',
+    'ngDisabled']
 
   restrict: 'A'
   replace: true

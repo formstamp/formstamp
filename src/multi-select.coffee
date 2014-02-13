@@ -116,9 +116,11 @@ angular
 
           scope.$watch 'selectedItems', setViewValue, true
 
-
           ngModelCtrl.$render = ->
             scope.selectedItems = ngModelCtrl.$modelValue || []
+
+        attrs.$observe 'disabled', (value) ->
+          scope.disabled = value
 
         scope.$watch  'selectedItems', ->
           childScope = scope.$new()
