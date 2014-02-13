@@ -16,7 +16,7 @@ angular
     controller: ($scope, $element, $attrs) ->
 
       $scope.selection = (item)->
-        $scope.selectedItem = item unless $scope.disabled
+        $scope.selectedItem = item
 
       $scope.isSelected = (item) ->
         angular.equals(item, $scope.selectedItem)
@@ -39,8 +39,7 @@ angular
               ngModelCtrl.$setViewValue(scope.selectedItem)
 
           ngModelCtrl.$render = ->
-            unless scope.disabled
-              scope.selectedItem = ngModelCtrl.$modelValue
+            scope.selectedItem = ngModelCtrl.$modelValue
 
         attrs.$observe 'disabled', (value) ->
           scope.disabled = value

@@ -26,7 +26,6 @@ angular
       $scope.selectedItem = null
       $scope.focus = true
 
-
     $scope.$watch 'search', search
     $scope.$watch 'limit', -> search('')
 
@@ -50,7 +49,6 @@ angular
         scope.$watch 'selectedItem', (newValue, oldValue) ->
           if newValue isnt oldValue
             ngModelCtrl.$setViewValue(scope.selectedItem)
-            scope.activeItem = scope.selectedItem
 
         ngModelCtrl.$render = ->
           scope.selectedItem = ngModelCtrl.$viewValue
@@ -110,5 +108,7 @@ angular
         setTimeout(delayedScrollFn, 0)
 
       scope.$watch 'active', (value) ->
-        scroll() if value
+        if value
+          scope.activeItem = scope.selectedItem
+          scroll()
 ]

@@ -13,7 +13,6 @@ directiveFactory = (keyCode, dirName) ->
     link: (scope, element, attr) ->
       fn = $parse(attr[dirName])
       element.on 'keydown', (event) ->
-        console.log event.keyCode
         if event.keyCode == keyCode
           scope.$apply ->
             fn(scope, $event: event)
