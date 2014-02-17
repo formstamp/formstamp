@@ -69,7 +69,12 @@
         <form role='form' ng-controller='ChzKeyValuesCtrl'>
           <div class='form-group'>
             <label>Select city of Japan:</label>
-            <div w-chz items='cities' key-attr='code' value-attr='name'></div>
+            <div w-chz items='cities'  ng-model='city'
+                       key-attr='code' value-attr='name'>
+            </div>
+            Name: <b>{{city.name}}</b>
+            <br />
+            Code: <b>{{city.code}}</b>
           </div>
         </form>
       example_js: |
@@ -124,7 +129,18 @@
     <form role='form' ng-controller='MultiSelectCtrl'>
       <div class='form-group'>
         <label>Leisure Time:</label>
-        <div w-multi-select items='games'></div>
+        <div w-multi-select
+             ng-model='selectedGames'
+             items='games'>
+        </div>
+      </div>
+      <div>
+        You want to pay in
+        <ul>
+          <li ng-repeat='item in selectedGames'>
+            {{item.label}}
+          </li>
+        </ul>
       </div>
     </form>
   example_js: |
@@ -149,8 +165,11 @@
     <form role="form" ng-controller='ComboCtrl'>
       <div class="form-group">
         <label>Choose your element</label>
-        <div w-combo="true" items="items" ng-model="value"></div>
+        <div w-combo="true"
+             items="items"
+             ng-model="element"></div>
       </div>
+      Your element is: {{ element || 'none' }}
     </form>
   example_js: |
     angular.module('angular-w-demo')
@@ -173,7 +192,12 @@
         <div w-tags="true"
              items="items"
              limit='20'
-             ng-model="value"></div>
+             ng-model="elements">
+        </div>
+        Your elements is:
+        <ul>
+          <li ng-repeat='element in elements'>{{element}}</li>
+        </ul>
       </div>
     </form>
   example_js: |
