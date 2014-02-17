@@ -4,6 +4,7 @@
       return {
         restrict: "A",
         scope: {
+          errors: '=',
           items: '=',
           limit: '=',
           inline: '=',
@@ -16,9 +17,13 @@
         templateUrl: "/templates/radio.html",
         controller: function($scope, $element, $attrs) {
           $scope.selection = function(item) {
-            if (!$scope.disabled) {
-              return $scope.selectedItem = item;
-            }
+            return $scope.selectedItem = item;
+          };
+          $scope.isSelected = function(item) {
+            return angular.equals(item, $scope.selectedItem);
+          };
+          $scope.invalid = function() {
+            return ($scope.errors != null) && $scope.errors.length > 0;
           };
           return $scope.shownItems = $scope.items;
         },
@@ -27,14 +32,13 @@
           tAttrs.valueAttr || (tAttrs.valueAttr = 'label');
           return function(scope, element, attrs, ngModelCtrl, transcludeFn) {
             if (ngModelCtrl) {
-              scope.$watch('selectedItem', function() {
-                ngModelCtrl.$setViewValue(scope.selectedItem);
-                return scope.activeItem = scope.selectedItem;
+              scope.$watch('selectedItem', function(newValue, oldValue) {
+                if (newValue !== oldValue) {
+                  return ngModelCtrl.$setViewValue(scope.selectedItem);
+                }
               });
               ngModelCtrl.$render = function() {
-                if (!scope.disabled) {
-                  return scope.selectedItem = ngModelCtrl.$modelValue;
-                }
+                return scope.selectedItem = ngModelCtrl.$modelValue;
               };
             }
             attrs.$observe('disabled', function(value) {

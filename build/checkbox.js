@@ -4,6 +4,7 @@
       return {
         restrict: "A",
         scope: {
+          errors: '=',
           items: '=',
           limit: '=',
           inline: '=',
@@ -16,11 +17,17 @@
         templateUrl: "/templates/checkbox.html",
         controller: function($scope, $element, $attrs) {
           $scope.toggle = function(item) {
-            if ($scope.selectedItems.indexOf(item) === -1) {
+            if (!$scope.hasItem(item)) {
               return $scope.selectedItems.push(item);
             } else {
-              return $scope.selectedItems.splice($scope.selectedItems.indexOf(item), 1);
+              return $scope.selectedItems.splice(indexOf($scope.selectedItems, item), 1);
             }
+          };
+          $scope.hasItem = function(item) {
+            return indexOf($scope.selectedItems, item) > -1;
+          };
+          $scope.invalid = function() {
+            return ($scope.errors != null) && $scope.errors.length > 0;
           };
           $scope.selectedItems = [];
           return $scope.shownItems = $scope.items;
@@ -29,14 +36,17 @@
           tAttrs.keyAttr || (tAttrs.keyAttr = 'id');
           tAttrs.valueAttr || (tAttrs.valueAttr = 'label');
           return function(scope, element, attrs, ngModelCtrl, transcludeFn) {
+            var setViewValue;
             if (ngModelCtrl) {
-              scope.$watch('selectedItem', function() {
-                ngModelCtrl.$setViewValue(scope.selectedItem);
-                return scope.activeItem = scope.selectedItem;
-              });
+              setViewValue = function(newValue, oldValue) {
+                if (!angular.equals(newValue, oldValue)) {
+                  return ngModelCtrl.$setViewValue(scope.selectedItems);
+                }
+              };
+              scope.$watch('selectedItems', setViewValue, true);
               ngModelCtrl.$render = function() {
                 if (!scope.disabled) {
-                  return scope.selectedItem = ngModelCtrl.$modelValue;
+                  return scope.selectedItems = ngModelCtrl.$viewValue || [];
                 }
               };
             }

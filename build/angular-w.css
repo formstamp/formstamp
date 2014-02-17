@@ -81,6 +81,14 @@
   overflow-y: auto;
 }
 
+.w-combo {
+  position: relative;
+}
+.w-combo .w-combo-items-list-default {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
 .w-multi-select {
   position: relative;
 }

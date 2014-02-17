@@ -76,27 +76,27 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
 
   $templateCache.put('/templates/checkbox.html',
     "<div class='w-checkbox'>\n" +
-    "  <input type='text' ng-model='selectedItem' style='display: none' ng-required='required' ng-disabled='disabled' />\n" +
-    "  <div class='checkbox' ng-repeat='item in shownItems' ng-class=\"{'w-checkbox-inline': inline}\">\n" +
+    "  <div class='checkbox' ng-repeat='item in shownItems track by item.id' ng-class=\"{'w-checkbox-inline': inline}\">\n" +
     "    <label ng-click='toggle(item)'>\n" +
     "      <a href='javascript:void(0)' class='w-checkbox-item-container'>\n" +
     "        <span\n" +
     "                ng-disabled='disabled'\n" +
     "                class=\"w-checkbox-item-container-sign glyphicon glyphicon-search\"\n" +
-    "                ng-class=\"{'glyphicon-pushpin': selectedItems.indexOf(item) > -1}\"></span>\n" +
+    "                ng-class=\"{'glyphicon-pushpin': hasItem(item)}\"></span>\n" +
     "        {{item[valueAttr]}}\n" +
     "      </a>\n" +
     "    </label>\n" +
     "  </div>\n" +
-    "</div>"
+    "  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>\n" +
+    "</div>\n"
   );
 
 
   $templateCache.put('/templates/chz.html',
     "<div class='w-chz'>\n" +
-    "  <input type='text' ng-model='selectedItem' style='display: none' ng-required='required' />\n" +
     "    <div ng-hide=\"active\" ng-class=\"{'btn-group': selectedItem}\">\n" +
     "      <a class=\"btn btn-default w-chz-active\"\n" +
+    "         ng-class='{\"btn-danger\": invalid}'\n" +
     "         href=\"javascript:void(0)\"\n" +
     "         ng-click=\"active=true\"\n" +
     "         w-focus='focus'\n" +
@@ -111,7 +111,13 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "              ng-click='reset()'>&times;</button>\n" +
     "    </div>\n" +
     "  <div class=\"open\" ng-show=\"active\">\n" +
-    "    <input ng-keydown=\"onkeys($event)\"\n" +
+    "    <input w-down='move(1)'\n" +
+    "           w-up='move(-1)'\n" +
+    "           w-pgup='onPgup($event)'\n" +
+    "           w-pgdown='onPgdown($event)'\n" +
+    "           w-enter='onEnter($event)'\n" +
+    "           w-tab='onTab()'\n" +
+    "           w-esc='onEsc()'\n" +
     "           w-focus=\"active\"\n" +
     "           class=\"form-control\"\n" +
     "           type=\"search\"\n" +
@@ -121,7 +127,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "        role=\"menu\"\n" +
     "        ng-show=\"shownItems.length\">\n" +
     "       <li ng-repeat=\"item in shownItems\"\n" +
-    "           ng-class=\"{true: 'active'}[item == activeItem]\">\n" +
+    "           ng-class=\"{active: isActive(item)}\">\n" +
     "         <a ng-click=\"selection(item)\"\n" +
     "            href=\"javascript:void(0)\"\n" +
     "            id='{{item[keyAttr]}}'\n" +
@@ -129,15 +135,16 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "       </li>\n" +
     "    </ul>\n" +
     "  </div>\n" +
+    "  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>\n" +
     "</div>\n"
   );
 
 
   $templateCache.put('/templates/combo.html',
-    "<div class='w-chz'>\n" +
-    "  <input type='text' ng-model='selectedItem' style='display: none' ng-required='required' />\n" +
+    "<div class='w-combo'>\n" +
     "    <div ng-hide=\"active\" ng-class=\"{'btn-group': selectedItem}\">\n" +
-    "      <a class=\"btn btn-default w-chz-active\"\n" +
+    "      <a class=\"btn btn-default w-combo-active\"\n" +
+    "         ng-class='{\"btn-danger\": invalid}'\n" +
     "         href=\"javascript:void(0)\"\n" +
     "         ng-click=\"active=true\"\n" +
     "         w-focus='focus'\n" +
@@ -152,13 +159,19 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "              ng-click='reset()'>&times;</button>\n" +
     "    </div>\n" +
     "  <div class=\"open\" ng-show=\"active\">\n" +
-    "    <input ng-keydown=\"onkeys($event)\"\n" +
+    "    <input w-down='move(1)'\n" +
+    "           w-up='move(-1)'\n" +
+    "           w-pgup='onPgup($event)'\n" +
+    "           w-pgdown='onPgdown($event)'\n" +
+    "           w-enter='onEnter($event)'\n" +
+    "           w-tab='onTab()'\n" +
+    "           w-esc='onEsc()'\n" +
     "           w-focus=\"active\"\n" +
     "           class=\"form-control\"\n" +
     "           type=\"search\"\n" +
     "           placeholder='Search'\n" +
     "           ng-model=\"search\" />\n" +
-    "    <ul class=\"dropdown-menu w-chz-items-list-default w-chz-items-list\"\n" +
+    "    <ul class=\"dropdown-menu w-combo-items-list-default w-combo-items-list\"\n" +
     "        role=\"menu\">\n" +
     "       <li ng-repeat=\"item in shownItems\"\n" +
     "           ng-class=\"{true: 'active'}[item == activeItem]\">\n" +
@@ -169,6 +182,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "       </li>\n" +
     "    </ul>\n" +
     "  </div>\n" +
+    "  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>\n" +
     "</div>\n"
   );
 
@@ -184,16 +198,38 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
   );
 
 
+  $templateCache.put('/templates/field.html',
+    "<div class='form-group'\n" +
+    "  ng-class='{\"has-error\": validationErrors.length > 0}'>\n" +
+    "  <label for='{{field}}' class='col-sm-2 control-label'>{{label}}</label>\n" +
+    "  <div class='col-sm-10'>\n" +
+    "    <div class='w-field-input'\n" +
+    "         items='items'\n" +
+    "         invalid='validationErrors.length > 0'\n" +
+    "         ng-model='object[field]'></div>\n" +
+    "    <div>\n" +
+    "      <p class='text-danger' ng-repeat='message in validationErrors'>\n" +
+    "        <span>{{message}}</span>\n" +
+    "      </p>\n" +
+    "    </div>\n" +
+    "  </div>\n" +
+    "</div>\n" +
+    "\n"
+  );
+
+
   $templateCache.put('/templates/multi-select.html',
     "<div class='w-multi-select'>\n" +
-    "  <input type='text' ng-model='selectedItem' style='display: none' ng-required='required' />\n" +
     "  <div ng-hide=\"active\" ng-class=\"{'btn-group': selectedItems.length}\">\n" +
     "    <div class=\"btn btn-default w-multi-select-active-items\"\n" +
+    "       ng-class='{\"has-error\": invalid}'\n" +
     "       href=\"javascript:void(0)\"\n" +
-    "       ng-click=\"active=true\"\n" +
+    "       ng-click='showDropdown()'\n" +
     "       w-focus='focus'\n" +
     "       ng-disabled=\"disabled\"\n" +
-    "       ng-blur='focus=false'>\n" +
+    "       tabindex='0'\n" +
+    "       ng-blur='focus=false'\n" +
+    "       w-enter='showDropdown()'>\n" +
     "      <span ng-hide='selectedItems.length'>none</span>\n" +
     "      <span ng-repeat='selectedItem in selectedItems' class=\"label label-primary w-multi-select-active-item\">\n" +
     "        <span class=\"glyphicon glyphicon-remove\" ng-click=\"deselect(selectedItem)\"></span>\n" +
@@ -208,6 +244,13 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "  </div>\n" +
     "  <div class=\"open\" ng-show=\"active\">\n" +
     "    <input ng-keydown=\"onkeys($event)\"\n" +
+    "           w-down='move(1)'\n" +
+    "           w-up='move(-1)'\n" +
+    "           w-pgup='onPgup($event)'\n" +
+    "           w-pgdown='onPgdown($event)'\n" +
+    "           w-enter='onEnter($event)'\n" +
+    "           w-tab='onTab()'\n" +
+    "           w-esc='onEsc()'\n" +
     "           w-focus=\"active\"\n" +
     "           class=\"form-control\"\n" +
     "           type=\"search\"\n" +
@@ -225,57 +268,52 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "      </li>\n" +
     "    </ul>\n" +
     "  </div>\n" +
+    "  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>\n" +
     "</div>\n"
   );
 
 
   $templateCache.put('/templates/radio.html',
     "<div class='w-radio'>\n" +
-    "  <input type='text' ng-model='selectedItem' style='display: none' ng-required='required' ng-disabled='disabled' />\n" +
     "  <div class='radio' ng-repeat='item in shownItems' ng-class=\"{'w-radio-inline': inline}\">\n" +
     "    <label ng-click='selection(item)'>\n" +
     "      <a href='javascript:void(0)' class='w-radio-item-container'>\n" +
-    "        <span \n" +
+    "        <span\n" +
     "          ng-disabled='disabled'\n" +
     "          class=\"w-radio-item-container-sign glyphicon glyphicon-search\"\n" +
-    "          ng-class=\"{'glyphicon-pushpin': item == selectedItem}\"></span>\n" +
+    "          ng-class=\"{'glyphicon-pushpin': isSelected(item)}\"></span>\n" +
     "        {{item[valueAttr]}}\n" +
     "      </a>\n" +
     "    </label>\n" +
     "  </div>\n" +
-    "  <!--\n" +
-    "    <div>\n" +
-    "      <ul class=\"w-radio-items-list-default w-radio-items-list\"\n" +
-    "          role=\"menu\"\n" +
-    "          ng-show=\"shownItems.length\"\n" +
-    "          ng-keydown=\"onkeys($event)\" tabindex=\"0\">\n" +
-    "        <li ng-repeat=\"item in shownItems\"\n" +
-    "            class=\"glyphicon glyphicon-unchecked\"\n" +
-    "            ng-class=\"{'active' : item==activeItem, 'glyphicon-record':item==selectedItem}\">\n" +
-    "          <a ng-click=\"selection(item)\"\n" +
-    "             href=\"javascript:void(0)\"\n" +
-    "             id='{{item[keyAttr]}}'\n" +
-    "             tabindex='-1'>{{ item[valueAttr] }}</a>\n" +
-    "        </li>\n" +
-    "      </ul>\n" +
-    "    </div>\n" +
-    "  -->\n" +
+    "  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>\n" +
     "</div>\n" +
     "\n" +
     "\n"
   );
 
 
+  $templateCache.put('/templates/submit_field.html',
+    "<div class=\"form-group\">\n" +
+    "  <div class=\"col-sm-offset-2 col-sm-10\">\n" +
+    "    <button type=\"submit\" class=\"btn btn-default\" ng-transclude></button>\n" +
+    "  </div>\n" +
+    "</div>\n"
+  );
+
+
   $templateCache.put('/templates/tags.html',
     "<div class='w-multi-select'>\n" +
-    "  <input type='text' ng-model='selectedItem' style='display: none' ng-required='required' />\n" +
     "  <div ng-hide=\"active\" ng-class=\"{'btn-group': selectedItems.length}\">\n" +
     "    <div class=\"btn btn-default w-multi-select-active-items\"\n" +
+    "         ng-class='{\"has-error\": invalid}'\n" +
     "         href=\"javascript:void(0)\"\n" +
     "         ng-click=\"active=true\"\n" +
     "         w-focus='focus'\n" +
     "         ng-disabled=\"disabled\"\n" +
-    "         ng-blur='focus=false'>\n" +
+    "         tabindex='0'\n" +
+    "         ng-blur='focus=false'\n" +
+    "         ng-keydown='activeKeys($event)'>\n" +
     "      <span ng-hide='selectedItems.length'>none</span>\n" +
     "      <span ng-repeat='selectedItem in selectedItems' class=\"label label-primary w-multi-select-active-item\">\n" +
     "        <span class=\"glyphicon glyphicon-remove\" ng-click=\"deselect(selectedItem)\"></span>\n" +
@@ -289,7 +327,13 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "            ng-click='reset()'>&times;</button>\n" +
     "  </div>\n" +
     "  <div class=\"open\" ng-show=\"active\">\n" +
-    "    <input ng-keydown=\"onkeys($event)\"\n" +
+    "    <input w-down='move(1)'\n" +
+    "           w-up='move(-1)'\n" +
+    "           w-pgup='onPgup($event)'\n" +
+    "           w-pgdown='onPgdown($event)'\n" +
+    "           w-enter='onEnter($event)'\n" +
+    "           w-tab='onTab()'\n" +
+    "           w-esc='onEsc()'\n" +
     "           w-focus=\"active\"\n" +
     "           class=\"form-control\"\n" +
     "           type=\"search\"\n" +
@@ -306,6 +350,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "      </li>\n" +
     "    </ul>\n" +
     "  </div>\n" +
+    "  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>\n" +
     "</div>\n"
   );
 

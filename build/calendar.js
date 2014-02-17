@@ -34,7 +34,7 @@
             })();
             $scope.prevMonth = function() {
               var month;
-              month = $scope.months.indexOf($scope.selectedMonth) - 1;
+              month = indexOf($scope.months, $scope.selectedMonth) - 1;
               if (month < 0) {
                 month = $scope.months.length - 1;
                 $scope.selectedYear--;
@@ -43,7 +43,7 @@
             };
             $scope.nextMonth = function() {
               var month;
-              month = $scope.months.indexOf($scope.selectedMonth) + 1;
+              month = indexOf($scope.months, $scope.selectedMonth) + 1;
               if (month >= $scope.months.length) {
                 month = 0;
                 $scope.selectedYear++;
@@ -102,7 +102,7 @@
             };
             updateSelectionRanges = function() {
               var day, dayOffset, firstDayOfMonth, firstDayOfWeek, monthIndex, week, _i, _ref, _ref1, _results;
-              monthIndex = $scope.months.indexOf($scope.selectedMonth);
+              monthIndex = indexOf($scope.months, $scope.selectedMonth);
               firstDayOfMonth = new Date($scope.selectedYear, monthIndex);
               dayOffset = $scope.firstDayOfWeek - firstDayOfMonth.getDay();
               if (dayOffset > 0) {

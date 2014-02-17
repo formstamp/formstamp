@@ -4,6 +4,7 @@
       return {
         restrict: "A",
         scope: {
+          invalid: '=',
           items: '=',
           limit: '='
         },
@@ -12,38 +13,7 @@
         transclude: true,
         templateUrl: "/templates/tags.html",
         controller: function($scope, $element, $attrs) {
-          var getActiveIndex, move, scrollIfNeeded, search;
-          move = function(d) {
-            var activeIndex, items;
-            items = $scope.shownItems;
-            activeIndex = getActiveIndex() + d;
-            activeIndex = Math.min(Math.max(activeIndex, 0), items.length - 1);
-            $scope.activeItem = items[activeIndex];
-            return scrollIfNeeded(activeIndex);
-          };
-          scrollIfNeeded = function(activeIndex) {
-            var item, li, liHeight, ul, viewport;
-            ul = $element.find('ul')[0];
-            li = ul.querySelector('li.active');
-            if (!(ul && li)) {
-              return;
-            }
-            viewport = {
-              top: ul.scrollTop,
-              bottom: ul.scrollTop + innerHeightOf(ul)
-            };
-            li = ul.querySelector('li.active');
-            liHeight = innerHeightOf(li);
-            item = {
-              top: activeIndex * liHeight,
-              bottom: (activeIndex + 1) * liHeight
-            };
-            if (item.bottom > viewport.bottom) {
-              return ul.scrollTop += item.bottom - viewport.bottom;
-            } else if (item.top < viewport.top) {
-              return ul.scrollTop -= viewport.top - item.top;
-            }
-          };
+          var search;
           search = function(q) {
             $scope.shownItems = filter(q, $scope.items).slice(0, $scope.limit);
             if ($scope.shownItems.length === 0) {
@@ -53,17 +23,17 @@
             return $scope.prevSearch = q;
           };
           $scope.selection = function(item) {
-            if ((item != null) && item.length > 0 && $scope.selectedItems.indexOf(item) === -1) {
+            if ((item != null) && item.length > 0 && indexOf($scope.selectedItems, item) === -1) {
               $scope.selectedItems.push(item);
-              $scope.hideDropDown();
-              return $scope.search = '';
+              $scope.search = '';
             }
+            return $scope.hideDropDown();
           };
           $scope.deselect = function(item) {
             var index;
-            index = $scope.selectedItems.indexOf(item);
+            index = indexOf($scope.selectedItems, item);
             if (index > -1) {
-              return $scope.selectedItems.splice($scope.selectedItems.indexOf(item), 1);
+              return $scope.selectedItems.splice(index, 1);
             }
           };
           $scope.reset = function() {
@@ -71,54 +41,35 @@
             $scope.focus = true;
             return search('');
           };
-          $scope.onkeys = function(event) {
-            switch (event.keyCode) {
-              case 40:
-                return move(1);
-              case 38:
-                return move(-1);
-              case 13:
-                $scope.selection($scope.activeItem || $scope.search);
-                $scope.focus = true;
-                return event.preventDefault();
-              case 9:
-                return $scope.selection($scope.search || $scope.activeItem);
-              case 27:
-                $scope.hideDropDown();
-                return $scope.focus = true;
-              case 34:
-                return move(11);
-              case 33:
-                return move(-11);
+          $scope.activeKeys = function(event) {
+            if (event.keyCode === 13) {
+              return $scope.active = true;
             }
           };
           $scope.$watch('search', search);
-          $scope.$watch('active', function(value) {
-            if (value) {
-              return window.setTimeout((function() {
-                return scrollIfNeeded(getActiveIndex());
-              }), 0);
-            }
-          });
           $scope.hideDropDown = function() {
             return $scope.active = false;
-          };
-          getActiveIndex = function() {
-            return $scope.shownItems.indexOf($scope.activeItem) || 0;
           };
           $scope.selectedItems = [];
           return search('');
         },
         link: function(scope, element, attrs, ngModelCtrl, transcludeFn) {
+          var getActiveIndex, scroll, setViewValue;
           if (ngModelCtrl) {
-            scope.$watch('selectedItems', function() {
-              ngModelCtrl.$setViewValue(scope.selectedItems);
-              return scope.activeItem = scope.selectedItems;
-            });
+            setViewValue = function(newValue, oldValue) {
+              if (!angular.equals(newValue, oldValue)) {
+                return ngModelCtrl.$setViewValue(scope.selectedItems);
+              }
+            };
+            scope.$watch('selectedItems', setViewValue, true);
             ngModelCtrl.$render = function() {
               return scope.selectedItems = ngModelCtrl.$modelValue || [];
             };
+            addValidations(attrs, ngModelCtrl);
           }
+          attrs.$observe('disabled', function(value) {
+            return scope.disabled = value;
+          });
           scope.$watch('selectedItems', function() {
             var childScope;
             childScope = scope.$new();
@@ -131,7 +82,7 @@
               }
             });
           });
-          return $window.addEventListener('click', function(e) {
+          $window.addEventListener('click', function(e) {
             var parent;
             parent = $(e.target).parents('div.w-multi-select')[0];
             if (parent !== element[0]) {
@@ -141,6 +92,47 @@
               });
             }
           });
+          scope.onEnter = function(event) {
+            scope.selection(scope.activeItem || scope.search);
+            scope.focus = true;
+            return event.preventDefault();
+          };
+          scope.onPgup = function(event) {
+            scope.move(-11);
+            return event.preventDefault();
+          };
+          scope.onPgdown = function(event) {
+            scope.move(11);
+            return event.preventDefault();
+          };
+          scope.onTab = function() {
+            return scope.selection(scope.search || scope.activeItem);
+          };
+          scope.onEsc = function() {
+            scope.hideDropDown();
+            return scope.focus = true;
+          };
+          getActiveIndex = function() {
+            return indexOf(scope.shownItems, scope.activeItem) || 0;
+          };
+          scope.move = function(d) {
+            var activeIndex, items;
+            items = scope.shownItems;
+            activeIndex = getActiveIndex() + d;
+            activeIndex = Math.min(Math.max(activeIndex, 0), items.length - 1);
+            scope.activeItem = items[activeIndex];
+            return scroll();
+          };
+          return scroll = function() {
+            var delayedScrollFn;
+            delayedScrollFn = function() {
+              var li, ul;
+              ul = element.find('ul')[0];
+              li = ul.querySelector('li.active');
+              return scrollToTarget(ul, li);
+            };
+            return setTimeout(delayedScrollFn, 0);
+          };
         }
       };
     }

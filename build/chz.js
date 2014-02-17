@@ -4,6 +4,7 @@
       return {
         restrict: "A",
         scope: {
+          invalid: '=',
           items: '=',
           limit: '=',
           keyAttr: '@',
@@ -14,38 +15,7 @@
         transclude: true,
         templateUrl: "/templates/chz.html",
         controller: function($scope, $element, $attrs) {
-          var getActiveIndex, move, scrollIfNeeded, search;
-          move = function(d) {
-            var activeIndex, items;
-            items = $scope.shownItems;
-            activeIndex = getActiveIndex() + d;
-            activeIndex = Math.min(Math.max(activeIndex, 0), items.length - 1);
-            $scope.activeItem = items[activeIndex];
-            return scrollIfNeeded(activeIndex);
-          };
-          scrollIfNeeded = function(activeIndex) {
-            var item, li, liHeight, ul, viewport;
-            ul = $element.find('ul')[0];
-            li = ul.querySelector('li.active');
-            if (!(ul && li)) {
-              return;
-            }
-            viewport = {
-              top: ul.scrollTop,
-              bottom: ul.scrollTop + innerHeightOf(ul)
-            };
-            li = ul.querySelector('li.active');
-            liHeight = innerHeightOf(li);
-            item = {
-              top: activeIndex * liHeight,
-              bottom: (activeIndex + 1) * liHeight
-            };
-            if (item.bottom > viewport.bottom) {
-              return ul.scrollTop += item.bottom - viewport.bottom;
-            } else if (item.top < viewport.top) {
-              return ul.scrollTop -= viewport.top - item.top;
-            }
-          };
+          var search;
           search = function(q) {
             $scope.shownItems = filter(q, $scope.items, $scope.valueAttr).slice(0, $scope.limit);
             return $scope.activeItem = $scope.shownItems[0];
@@ -58,43 +28,15 @@
             $scope.selectedItem = null;
             return $scope.focus = true;
           };
-          $scope.onkeys = function(event) {
-            switch (event.keyCode) {
-              case 40:
-                return move(1);
-              case 38:
-                return move(-1);
-              case 13:
-                $scope.selection($scope.activeItem);
-                $scope.focus = true;
-                return event.preventDefault();
-              case 9:
-                return $scope.selection($scope.activeItem);
-              case 27:
-                $scope.hideDropDown();
-                return $scope.focus = true;
-              case 34:
-                return move(11);
-              case 33:
-                return move(-11);
-            }
-          };
           $scope.$watch('search', search);
           $scope.$watch('limit', function() {
             return search('');
           });
-          $scope.$watch('active', function(value) {
-            if (value) {
-              return window.setTimeout((function() {
-                return scrollIfNeeded(getActiveIndex());
-              }), 0);
-            }
-          });
           $scope.hideDropDown = function() {
             return $scope.active = false;
           };
-          getActiveIndex = function() {
-            return $scope.shownItems.indexOf($scope.activeItem) || 0;
+          $scope.isActive = function(item) {
+            return angular.equals(item, $scope.activeItem);
           };
           return search('');
         },
@@ -102,20 +44,19 @@
           tAttrs.keyAttr || (tAttrs.keyAttr = 'id');
           tAttrs.valueAttr || (tAttrs.valueAttr = 'label');
           return function(scope, element, attrs, ngModelCtrl, transcludeFn) {
+            var scroll;
             if (ngModelCtrl) {
-              scope.$watch('selectedItem', function() {
-                ngModelCtrl.$setViewValue(scope.selectedItem);
-                return scope.activeItem = scope.selectedItem;
+              scope.$watch('selectedItem', function(newValue, oldValue) {
+                if (newValue !== oldValue) {
+                  return ngModelCtrl.$setViewValue(scope.selectedItem);
+                }
               });
               ngModelCtrl.$render = function() {
-                return scope.selectedItem = ngModelCtrl.$modelValue;
+                return scope.selectedItem = ngModelCtrl.$viewValue;
               };
             }
             attrs.$observe('disabled', function(value) {
               return scope.disabled = value;
-            });
-            attrs.$observe('required', function(value) {
-              return scope.required = value;
             });
             scope.$watch('selectedItem', function() {
               var childScope;
@@ -129,11 +70,58 @@
                 }
               });
             });
-            return $window.addEventListener('click', function(e) {
+            $window.addEventListener('click', function(e) {
               var parent;
               parent = $(e.target).parents('div.w-chz')[0];
               if (parent !== element[0]) {
                 return scope.$apply(scope.hideDropDown);
+              }
+            });
+            scope.onEnter = function(event) {
+              scope.selection(scope.activeItem);
+              scope.focus = true;
+              return event.preventDefault();
+            };
+            scope.onPgup = function(event) {
+              scope.move(-11);
+              return event.preventDefault();
+            };
+            scope.onPgdown = function(event) {
+              scope.move(11);
+              return event.preventDefault();
+            };
+            scope.onTab = function() {
+              return scope.selection(scope.activeItem);
+            };
+            scope.onEsc = function() {
+              scope.hideDropDown();
+              return scope.focus = true;
+            };
+            scope.getActiveIndex = function() {
+              return indexOf(scope.shownItems, scope.activeItem) || 0;
+            };
+            scope.move = function(d) {
+              var activeIndex, items;
+              items = scope.shownItems;
+              activeIndex = getActiveIndex() + d;
+              activeIndex = Math.min(Math.max(activeIndex, 0), items.length - 1);
+              scope.activeItem = items[activeIndex];
+              return scroll();
+            };
+            scroll = function() {
+              var delayedScrollFn;
+              delayedScrollFn = function() {
+                var li, ul;
+                ul = element.find('ul')[0];
+                li = ul.querySelector('li.active');
+                return scrollToTarget(ul, li);
+              };
+              return setTimeout(delayedScrollFn, 0);
+            };
+            return scope.$watch('active', function(value) {
+              if (value) {
+                scope.activeItem = scope.selectedItem;
+                return scroll();
               }
             });
           };
