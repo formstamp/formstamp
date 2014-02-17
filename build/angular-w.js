@@ -210,7 +210,8 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "         w-focus='focus'\n" +
     "         ng-disabled=\"disabled\"\n" +
     "         ng-blur='focus=false'>\n" +
-    "          {{selectedItem[valueAttr] || 'none'}}\n" +
+    "         <span ng-show='selectedItem'>{{selectedItem[valueAttr]}}</span>\n" +
+    "         <span ng-hide='selectedItem'>none</span>\n" +
     "      </a>\n" +
     "      <button type=\"button\"\n" +
     "              class=\"btn btn-default\"\n" +
@@ -258,7 +259,8 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "         w-focus='focus'\n" +
     "         ng-disabled=\"disabled\"\n" +
     "         ng-blur='focus=false'>\n" +
-    "          {{selectedItem || 'none'}}\n" +
+    "         <span ng-show='selectedItem'>{{selectedItem}}</span>\n" +
+    "         <span ng-hide='selectedItem'>none</span>\n" +
     "      </a>\n" +
     "      <button type=\"button\"\n" +
     "              class=\"btn btn-default\"\n" +
@@ -1010,7 +1012,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
   angular.module('angular-w').directive('wDatepicker', [
     'wPopupManager', function(popupManager) {
       return {
-        restrict: 'E',
+        restrict: 'EA',
         require: '?ngModel',
         scope: {},
         templateUrl: '/templates/datepicker.html',

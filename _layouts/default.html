@@ -38,16 +38,9 @@
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-              <li><a href="index.html#Select">Select</a></li>
-              <li><a href="index.html#Multiselect">MultiSelect</a></li>
-              <li><a href="index.html#Combo">Combo</a></li>
-              <li><a href="index.html#Tags">Tags</a></li>
-              <li><a href="index.html#Radio">Radio</a></li>
-              <li><a href="index.html#Checkbox">Checkbox</a></li>
-              <li><a href="index.html#Calendar">Calendar</a></li>
-              <li><a href="index.html#Timepicker">Timepicker</a></li>
-              <li><a href="index.html#Datetime">Datetime</a></li>
-              <li><a href="index.html#Slider">Slider</a></li>
+              {% for widget in site.data.widgets %}
+              <li><a href="index.html#{{widget.name}}">{{ widget.name }}</a></li>
+              {% endfor %}
               <li><a href="formbuilder.html">FormBuilder</a></li>
               <li class="pull-right"><a href="#">by Health Samurai</a></li>
             </ul>

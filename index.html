@@ -14,6 +14,11 @@ title: angular-w
           <h5>Directive: <code>{{ widget.dir_name }}</code></h5>
           <p>{{ widget.description }}</p>
         </div>
+        {% if widget.alert %}
+          <div class="alert alert-warning">
+            {{ widget.alert }}
+          </div>
+        {% endif %}
       </div>
     </div>
     {% if widget.example_html %}

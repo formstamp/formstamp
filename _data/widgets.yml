@@ -6,6 +6,10 @@
     or none of them. Supports several angular directives: <code>ng-model</code>,
     <code>ng-disabled</code>, <code>ng-required</code>.
     In <code>ng-model</code> it holds full object, not only value.
+  alert: |
+    <strong>Warning!</strong>
+    You should never use this and next directives on <code>input</code> tag.
+    Use <code>div</code> instead.
   options:
     - name: items
       required: true
@@ -254,3 +258,18 @@
         {id: 'Y', label: 'Yosuga'}
       ];
     });
+- name: Datepicker
+  dir_name: w-datepicker
+  description: |
+    This is widget for selecting date.
+  example_html: |
+    <form role="form">
+      <div class="form-group">
+        <label>Birth date</label>
+        <div w-datepicker="true"
+             ng-model="ronin.birthDate">
+        </div>
+      </div>
+      He was born on {{ronin.birthDate | date}}
+    </form>
+

@@ -2,7 +2,7 @@
   angular.module('angular-w').directive('wDatepicker', [
     'wPopupManager', function(popupManager) {
       return {
-        restrict: 'E',
+        restrict: 'EA',
         require: '?ngModel',
         scope: {},
         templateUrl: '/templates/datepicker.html',
