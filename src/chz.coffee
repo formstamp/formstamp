@@ -90,7 +90,7 @@ angular
         scope.hideDropDown()
         scope.focus=true
 
-      scope.getActiveIndex = ->
+      getActiveIndex = ->
         indexOf(scope.shownItems, scope.activeItem) || 0
 
       scope.move = (d) ->
