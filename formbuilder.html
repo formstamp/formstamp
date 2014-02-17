@@ -4,7 +4,7 @@ title: angular-w
 ---
   <div class="container" ng-controller='FormBuilderCtrl'>
     <div class="page-header">
-      <h1>Form Builder <span class="pull-right wip">WIP</span></h1>
+      <h1>Form Builder</h1>
     </div>
     <div class="row">
       <div class="col-md-6">
@@ -19,10 +19,13 @@ title: angular-w
       </div>
     </div>
     <div class='row'>
-      <div class="col-md-6" ng-non-bindable>
+      <div class="col-md-5" ng-non-bindable>
         <h4>Example</h4>
         {% highlight html %}
-<form name='form' w-form-for='samurai' w-submit='send()'>
+<form name='form' 
+      w-form-for='samurai'
+      w-submit='send()'>
+      
   <div w-field='name'
        type='w-combo'
        items='names'
@@ -94,7 +97,7 @@ angular.module('angular-w-demo')
 });
         {% endhighlight %}
       </div>
-      <div class="col-md-6 demonstration">
+      <div class="col-md-7 demonstration" style='padding-left: 50px'>
         <h2>Demo</h2>
         <form name='form' w-form-for='samurai' w-submit='send()'>
           <div w-field='name'
