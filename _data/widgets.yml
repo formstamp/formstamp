@@ -36,6 +36,7 @@
         }
     - name: limit
       required: false
+      default: items.length
       description: |
         If it is set - limits number of items will be used.
       example_html: |
@@ -65,10 +66,9 @@
         }
     - name: key-attr, value-attr
       required: false
+      default: key-attr='id', value-attr='label'
       description: |
         Overrides default names of fields for id and label of item.
-        Default values: <code>key-attr = 'id'</code>,
-        <code>value-attr = 'label'</code>
       example_html: |
         <form role='form' ng-controller='ChzKeyValuesCtrl'>
           <div class='form-group'>
@@ -93,6 +93,7 @@
         }
     - name: Templating
       required: false
+      default: item[valueAttr]
       description: |
         If some inner html is provided for directive tag,
         then those html will be used for rendering selected value.

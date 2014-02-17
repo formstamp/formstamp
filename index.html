@@ -40,6 +40,9 @@ title: angular-w
           <div>
             <h3>Option <var>{{ option.name }}</var></h3>
             <h5>Required: <code>{{ option.required }}</code></h5>
+            {% if option.default %}
+              <h5>Default: <code>{{ option.default }}</code></h5>
+            {% endif %}
             <p>{{ option.description }}</p>
           </div>
         </div>
