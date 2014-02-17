@@ -770,7 +770,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
           tAttrs.keyAttr || (tAttrs.keyAttr = 'id');
           tAttrs.valueAttr || (tAttrs.valueAttr = 'label');
           return function(scope, element, attrs, ngModelCtrl, transcludeFn) {
-            var scroll;
+            var getActiveIndex, scroll;
             if (ngModelCtrl) {
               scope.$watch('selectedItem', function(newValue, oldValue) {
                 if (newValue !== oldValue) {
@@ -823,7 +823,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
               scope.hideDropDown();
               return scope.focus = true;
             };
-            scope.getActiveIndex = function() {
+            getActiveIndex = function() {
               return indexOf(scope.shownItems, scope.activeItem) || 0;
             };
             scope.move = function(d) {
