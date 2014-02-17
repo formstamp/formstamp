@@ -7,7 +7,8 @@
          w-focus='focus'
          ng-disabled="disabled"
          ng-blur='focus=false'>
-          {{selectedItem[valueAttr] || 'none'}}
+         <span ng-show='selectedItem'>{{selectedItem[valueAttr]}}</span>
+         <span ng-hide='selectedItem'>none</span>
       </a>
       <button type="button"
               class="btn btn-default"
