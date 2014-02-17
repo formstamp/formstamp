@@ -3,6 +3,7 @@ angular
 .directive "wRadio", ['$window', ($window) ->
     restrict: "A"
     scope:
+      errors: '='
       items: '='
       limit: '='
       inline: '='
@@ -15,7 +16,13 @@ angular
     controller: ($scope, $element, $attrs) ->
 
       $scope.selection = (item)->
-        $scope.selectedItem = item unless $scope.disabled
+        $scope.selectedItem = item
+
+      $scope.isSelected = (item) ->
+        angular.equals(item, $scope.selectedItem)
+
+      $scope.invalid = ->
+        $scope.errors? and $scope.errors.length > 0
 
       $scope.shownItems = $scope.items
 
@@ -27,13 +34,12 @@ angular
       (scope, element, attrs, ngModelCtrl, transcludeFn) ->
 
         if ngModelCtrl
-          scope.$watch 'selectedItem', ->
-            ngModelCtrl.$setViewValue(scope.selectedItem)
-            scope.activeItem = scope.selectedItem
+          scope.$watch 'selectedItem', (newValue, oldValue)->
+            unless newValue is oldValue
+              ngModelCtrl.$setViewValue(scope.selectedItem)
 
           ngModelCtrl.$render = ->
-            unless scope.disabled
-              scope.selectedItem = ngModelCtrl.$modelValue
+            scope.selectedItem = ngModelCtrl.$modelValue
 
         attrs.$observe 'disabled', (value) ->
           scope.disabled = value

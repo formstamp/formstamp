@@ -1,7 +1,7 @@
-<div class='w-chz'>
-  <input type='text' ng-model='selectedItem' style='display: none' ng-required='required' />
+<div class='w-combo'>
     <div ng-hide="active" ng-class="{'btn-group': selectedItem}">
-      <a class="btn btn-default w-chz-active"
+      <a class="btn btn-default w-combo-active"
+         ng-class='{"btn-danger": invalid}'
          href="javascript:void(0)"
          ng-click="active=true"
          w-focus='focus'
@@ -16,13 +16,19 @@
               ng-click='reset()'>&times;</button>
     </div>
   <div class="open" ng-show="active">
-    <input ng-keydown="onkeys($event)"
+    <input w-down='move(1)'
+           w-up='move(-1)'
+           w-pgup='onPgup($event)'
+           w-pgdown='onPgdown($event)'
+           w-enter='onEnter($event)'
+           w-tab='onTab()'
+           w-esc='onEsc()'
            w-focus="active"
            class="form-control"
            type="search"
            placeholder='Search'
            ng-model="search" />
-    <ul class="dropdown-menu w-chz-items-list-default w-chz-items-list"
+    <ul class="dropdown-menu w-combo-items-list-default w-combo-items-list"
         role="menu">
        <li ng-repeat="item in shownItems"
            ng-class="{true: 'active'}[item == activeItem]">
@@ -33,4 +39,5 @@
        </li>
     </ul>
   </div>
+  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>
 </div>

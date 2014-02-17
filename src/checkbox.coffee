@@ -3,6 +3,7 @@ angular
 .directive "wCheckbox", ['$window', ($window) ->
     restrict: "A"
     scope:
+      errors: '='
       items: '='
       limit: '='
       inline: '='
@@ -15,10 +16,16 @@ angular
     controller: ($scope, $element, $attrs) ->
 
       $scope.toggle = (item)->
-        if $scope.selectedItems.indexOf(item) == -1
+        if !$scope.hasItem(item)
           $scope.selectedItems.push(item)
         else
-          $scope.selectedItems.splice($scope.selectedItems.indexOf(item), 1)
+          $scope.selectedItems.splice(indexOf($scope.selectedItems, item), 1)
+
+      $scope.hasItem = (item) ->
+        indexOf($scope.selectedItems, item) > -1
+
+      $scope.invalid = ->
+        $scope.errors? and $scope.errors.length > 0
 
       $scope.selectedItems = []
       $scope.shownItems = $scope.items
@@ -33,13 +40,15 @@ angular
       (scope, element, attrs, ngModelCtrl, transcludeFn) ->
 
         if ngModelCtrl
-          scope.$watch 'selectedItem', ->
-            ngModelCtrl.$setViewValue(scope.selectedItem)
-            scope.activeItem = scope.selectedItem
+          setViewValue = (newValue, oldValue)->
+            unless angular.equals(newValue, oldValue)
+              ngModelCtrl.$setViewValue(scope.selectedItems)
+
+          scope.$watch 'selectedItems', setViewValue, true
 
           ngModelCtrl.$render = ->
             unless scope.disabled
-              scope.selectedItem = ngModelCtrl.$modelValue
+              scope.selectedItems = ngModelCtrl.$viewValue || []
 
         attrs.$observe 'disabled', (value) ->
           scope.disabled = value

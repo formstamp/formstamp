@@ -20,14 +20,14 @@ angular
     $scope.monthGroups = ($scope.months.slice(i * 4, i * 4 + 4) for i in [0..2])
 
     $scope.prevMonth = ->
-      month = $scope.months.indexOf($scope.selectedMonth) - 1
+      month = indexOf($scope.months, $scope.selectedMonth) - 1
       if month < 0
         month = $scope.months.length - 1
         $scope.selectedYear--
       $scope.selectedMonth = $scope.months[month]
 
     $scope.nextMonth = ->
-      month = $scope.months.indexOf($scope.selectedMonth) + 1
+      month = indexOf($scope.months, $scope.selectedMonth) + 1
       if month >= $scope.months.length
         month = 0
         $scope.selectedYear++
@@ -67,7 +67,7 @@ angular
       new Date(date.getFullYear(), date.getMonth(), date.getDate() + days)
 
     updateSelectionRanges = ->
-      monthIndex = $scope.months.indexOf($scope.selectedMonth)
+      monthIndex = indexOf($scope.months, $scope.selectedMonth)
       firstDayOfMonth = new Date($scope.selectedYear, monthIndex)
       dayOffset = $scope.firstDayOfWeek - firstDayOfMonth.getDay()
       dayOffset -= 7 if dayOffset > 0

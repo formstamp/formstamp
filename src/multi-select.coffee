@@ -12,6 +12,7 @@ angular
 .directive "wMultiSelect", ['$window', ($window) ->
     restrict: "A"
     scope:
+      invalid: '='
       items: '='
       limit: '='
       keyAttr: '@'
@@ -21,36 +22,6 @@ angular
     transclude: true
     templateUrl: "/templates/multi-select.html"
     controller: ($scope, $element, $attrs) ->
-
-      move = (d) ->
-        items = $scope.shownItems
-        activeIndex = getActiveIndex() + d
-        activeIndex = Math.min(Math.max(activeIndex,0), items.length - 1)
-        $scope.activeItem = items[activeIndex]
-        scrollIfNeeded(activeIndex)
-
-      scrollIfNeeded = (activeIndex) ->
-        ul = $element.find('ul')[0]
-        li = ul.querySelector('li.active')
-
-        return unless ul and li
-
-        viewport =
-          top: ul.scrollTop
-          bottom: ul.scrollTop + innerHeightOf(ul)
-
-        li = ul.querySelector('li.active')
-        liHeight = innerHeightOf(li)
-        item =
-          top: activeIndex * liHeight
-          bottom: (activeIndex + 1) * liHeight
-
-        # Scroll down
-        if item.bottom > viewport.bottom
-          ul.scrollTop += item.bottom - viewport.bottom
-          # Scroll up
-        else if item.top < viewport.top
-          ul.scrollTop -= viewport.top - item.top
 
       search = (q) ->
         $scope.shownItems = difference(
@@ -69,15 +40,15 @@ angular
 
       #TODO: why is this method's name a noun instead of a verb?
       $scope.selection = (item)->
-        if item? and $scope.selectedItems.indexOf(item) == -1
+        if item? and indexOf($scope.selectedItems, item) == -1
           $scope.selectedItems.push(item)
-          $scope.hideDropDown()
-          resetDropDown()
+        $scope.hideDropDown()
+        resetDropDown()
 
       $scope.deselect = (item)->
-        index = $scope.selectedItems.indexOf(item)
+        index = indexOf($scope.selectedItems, item)
         if index > -1
-          $scope.selectedItems.splice($scope.selectedItems.indexOf(item), 1)
+          $scope.selectedItems.splice(index, 1)
           resetDropDown()
 
       $scope.reset = ->
@@ -85,31 +56,16 @@ angular
         $scope.focus = true
         search('')
 
-      $scope.onkeys = (event)->
-        switch event.keyCode
-          when 40 then move(1)
-          when 38 then move(-1)
-          when 13
-            $scope.selection($scope.activeItem)
-            $scope.focus=true
-            event.preventDefault()
-          when  9 then $scope.selection($scope.activeItem)
-          when 27
-            $scope.hideDropDown()
-            $scope.focus=true
-          when 34 then move(11)
-          when 33 then move(-11)
-
       $scope.$watch 'search', search
-
-      $scope.$watch 'active', (value) ->
-        window.setTimeout((()-> scrollIfNeeded(getActiveIndex())) , 0) if value
 
       $scope.hideDropDown = ->
         $scope.active = false
 
+      $scope.showDropdown = ->
+        $scope.active = true
+
       getActiveIndex = ->
-        ($scope.shownItems.indexOf($scope.activeItem) || 0)
+        indexOf($scope.shownItems, $scope.activeItem) || 0
 
       # TODO move to init
       $scope.selectedItems = []
@@ -124,13 +80,17 @@ angular
       (scope, element, attrs, ngModelCtrl, transcludeFn) ->
 
         if ngModelCtrl
-          scope.$watch 'selectedItems', ->
-            ngModelCtrl.$setViewValue(scope.selectedItems)
-            #TODO: activeItem can't hold an array
-            scope.activeItem = scope.selectedItems
+          setViewValue = (newValue, oldValue)->
+            unless angular.equals(newValue, oldValue)
+              ngModelCtrl.$setViewValue(scope.selectedItems)
+
+          scope.$watch 'selectedItems', setViewValue, true
 
           ngModelCtrl.$render = ->
             scope.selectedItems = ngModelCtrl.$modelValue || []
+
+        attrs.$observe 'disabled', (value) ->
+          scope.disabled = value
 
         scope.$watch  'selectedItems', ->
           childScope = scope.$new()
@@ -145,4 +105,38 @@ angular
           parent = $(e.target).parents('div.w-multi-select')[0]
           if parent != element[0]
             scope.$apply(scope.hideDropDown)
+
+        scroll = ->
+          delayedScrollFn = ->
+            ul = element.find('ul')[0]
+            li = ul.querySelector('li.active')
+            scrollToTarget(ul, li)
+          setTimeout(delayedScrollFn, 0)
+
+        scope.move = (d) ->
+          items = scope.shownItems
+          activeIndex = getActiveIndex() + d
+          activeIndex = Math.min(Math.max(activeIndex,0), items.length - 1)
+          scope.activeItem = items[activeIndex]
+          scroll()
+
+        scope.onEnter = (event) ->
+          scope.selection(scope.activeItem)
+          scope.focus=true
+          event.preventDefault()
+
+        scope.onPgup = (event) ->
+          scope.move(-11)
+          event.preventDefault()
+
+        scope.onPgdown = (event) ->
+          scope.move(11)
+          event.preventDefault()
+
+        scope.onTab = ->
+          scope.selection(scope.activeItem)
+
+        scope.onEsc = ->
+          scope.hideDropDown()
+          scope.focus=true
   ]

@@ -7,10 +7,51 @@ Description
 ----------
 
 This library provides full pack of pure AngluarJS widgets.
-List of available widgets:
-  * Chosen
-  * MultiSelect
-  * Combo
+
+Form builder
+-----------
+Form bulider builds angular-compatible forms using widgets
+provided by this library. It supports errors and validations.
+
+### Using
+```
+    <form w-form-for='samurai' ng-submit='send()'>
+      <div w-field='name' label='Name' type='w-combo' items='names'></div>
+      <div w-field='age' label='Age' type='w-chz'  items='ages'></div>
+
+      <div w-submit-field>Save</div>
+    </form>
+```
+
+### Errors
+Objects errors are extracted from its model passed to wFormFor attribute.
+It should next format:
+```javascript
+  {
+    name: ..., /* this is custom field */
+    age: ..., /* this is custom field */
+    /* other custom attrs */,
+    $error: { /* this is special field */
+      name: ['Too bad!', 'Ugly!'],
+      age: ['Too young!']
+    }
+  }
+  
+
+### Submiting
+For form submitting use `w-submit`. It prevents for submiting if form is invalid.
+Function call submit handler SHOULD! update model passed to `w-form-for`.
+
+```
+
+Example of handler: 
+```javascript
+  $scope.send = function() {
+    $http.post('/').success(function(data) {
+      $scope.samurai = data;
+    });
+  }
+```
 
 Widgets
 -------
@@ -173,16 +214,12 @@ Then start watching changes:
 
     `npm bin`/grunt watch
 
-### Nginx
-
-Install the Nginx.
-
-Then configure:
-
-    sed -i 's|http {|http {\nserver {listen 55555; root /path/to/ng-w;}|' \
-        /path/to/nginx/nginx.conf
-
-Then restart nginx. Navigate your browser to http://localhost:55555/demo
+### Expressjs
+To run demo:
+    `node server.js`
+You can specify port as a second first argument:
+    `node server.js 3000`
+Default port is 17405.
 
 ### Troubleshooting
 

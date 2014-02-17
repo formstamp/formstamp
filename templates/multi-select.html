@@ -1,12 +1,14 @@
 <div class='w-multi-select'>
-  <input type='text' ng-model='selectedItem' style='display: none' ng-required='required' />
   <div ng-hide="active" ng-class="{'btn-group': selectedItems.length}">
     <div class="btn btn-default w-multi-select-active-items"
+       ng-class='{"has-error": invalid}'
        href="javascript:void(0)"
-       ng-click="active=true"
+       ng-click='showDropdown()'
        w-focus='focus'
        ng-disabled="disabled"
-       ng-blur='focus=false'>
+       tabindex='0'
+       ng-blur='focus=false'
+       w-enter='showDropdown()'>
       <span ng-hide='selectedItems.length'>none</span>
       <span ng-repeat='selectedItem in selectedItems' class="label label-primary w-multi-select-active-item">
         <span class="glyphicon glyphicon-remove" ng-click="deselect(selectedItem)"></span>
@@ -21,6 +23,13 @@
   </div>
   <div class="open" ng-show="active">
     <input ng-keydown="onkeys($event)"
+           w-down='move(1)'
+           w-up='move(-1)'
+           w-pgup='onPgup($event)'
+           w-pgdown='onPgdown($event)'
+           w-enter='onEnter($event)'
+           w-tab='onTab()'
+           w-esc='onEsc()'
            w-focus="active"
            class="form-control"
            type="search"
@@ -38,4 +47,5 @@
       </li>
     </ul>
   </div>
+  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>
 </div>
