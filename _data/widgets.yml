@@ -95,7 +95,14 @@
         <form role='form' ng-controller='ChzKeyValuesCtrl'>
           <div class='form-group'>
             <label>Select city of Japan:</label>
-            <div w-chz items='cities' key-attr='code' value-attr='name'></div>
+            <div w-chz items='cities' key-attr='code' value-attr='name'>
+              <div ng-show='item'>
+                <b>{{item.name}}</b>: {{item.code}}
+              </div>
+              <div ng-hide='item'>
+                Please, select a city.
+              </div>
+            </div>
           </div>
         </form>
       example_js: |
@@ -117,9 +124,7 @@
     <form role='form' ng-controller='MultiSelectCtrl'>
       <div class='form-group'>
         <label>Leisure Time:</label>
-        <div w-multi-select items='games'>
-          'none'
-        </div>
+        <div w-multi-select items='games'></div>
       </div>
     </form>
   example_js: |

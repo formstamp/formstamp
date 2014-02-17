@@ -18,7 +18,7 @@ title: angular-w
     </div>
     {% if widget.example_html %}
       <div class='row'>
-        <div class="col-md-6">
+        <div class="col-md-6" ng-non-bindable>
           <h4>Example</h4>
           {% highlight html %}{{ widget.example_html }}{% endhighlight %}
           {% highlight js %}{{ widget.example_js }}{% endhighlight %}
@@ -40,9 +40,9 @@ title: angular-w
         </div>
       </div>
       <div class='row'>
-        <div class="col-md-6">
+        <div class="col-md-6" ng-non-bindable>
           <h4>Example</h4>
-          {% highlight html %}{{ option.example_html }}{% endhighlight %}
+          {% highlight html %} {{ option.example_html }} {% endhighlight %}
           {% highlight js %}{{ option.example_js }}{% endhighlight %}
         </div>
         <div class="col-md-6 demonstration">
