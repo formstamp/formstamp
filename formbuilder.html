@@ -4,54 +4,145 @@ title: angular-w
 ---
 {% raw %}
   <div class="container" ng-controller='FormBuilderCtrl'>
-  <div class='row'>
-    <h1>Form builder</h1>
-    <div class='col-sm-8'>
-      <form name='form' w-form-for='samurai' w-submit='send()'>
-        <div w-field='name'
-             type='w-combo'
-             items='names'
-             label='Name'
-             ng-required='true'
-             ng-minlength='2'
-             ng-maxlength='4'
-             ng-pattern='/J/'></div>
-
-        <div w-field='age'
-             type='w-chz'
-             items='ages'
-             label='Age'
-             ng-disabled='true'></div>
-
-        <div w-field='gender'
-             type='w-radio'
-             items='genders'
-             label='Gender'></div>
-
-        <div w-field='likesToEat'
-             type='w-checkbox'
-             items='meals'
-             label='Likes to eat'></div>
-
-        <div w-field='foes'
-             type='w-multi-select'
-             items='warriors'
-             label='Foes'></div>
-
-        <div w-field='aspirations'
-             type='w-tags'
-             items='goals'
-             label='Aspirations'></div>
-
-        <div w-submit-field>Save</div>
-      </form>
+    <div class="page-header">
+      <h1>FormBuilder <span class="pull-right wip">WIP</span></h1>
     </div>
-    <div class='col-sm-4'>
-      <h4>Form object</h4>
-      <pre>{{ samurai | json }}</pre>
-      <h4>Object errors</h4>
-      <pre ng-bind="samurai.$errors | json"></pre>
+    <div class="row">
+      <div class="col-md-6">
+        <div>
+          <h2>Description</h2>
+          <h5>Directive: <code>w-form-for</code></h5>
+          <p> form builder description </p>
+        </div>
+      </div>
+    </div>
+    <div class='row'>
+      <div class="col-md-6" ng-non-bindable>
+        <h4>Example</h4>
+        <pre class='prettyprint' ng-non-bindable=''>
+&lt;form name='form' w-form-for='samurai' w-submit='send()'&gt;
+  &lt;div w-field='name'
+       type='w-combo'
+       items='names'
+       label='Name'
+       ng-required='true'
+       ng-minlength='2'
+       ng-maxlength='4'
+       ng-pattern='/J/'&gt;&lt;/div&gt;
+
+  &lt;div w-field='age'
+       type='w-chz'
+       items='ages'
+       label='Age'
+       ng-disabled='true'&gt;&lt;/div&gt;
+
+  &lt;div w-field='gender'
+       type='w-radio'
+       items='genders'
+       label='Gender'&gt;&lt;/div&gt;
+
+  &lt;div w-field='likesToEat'
+       type='w-checkbox'
+       items='meals'
+       label='Likes to eat'&gt;&lt;/div&gt;
+
+  &lt;div w-field='foes'
+       type='w-multi-select'
+       items='warriors'
+       label='Foes'&gt;&lt;/div&gt;
+
+  &lt;div w-field='aspirations'
+       type='w-tags'
+       items='goals'
+       label='Aspirations'&gt;&lt;/div&gt;
+
+  &lt;div w-submit-field&gt;Save&lt;/div&gt;
+&lt;/form&gt;
+        </pre>
+        <pre class='prettyprint' ng-non-bindable=''>
+angular.module('angular-w-demo')
+    .controller('FormBuilderCtrl', function($scope, $http) {
+  $scope.samurai = {};
+  $scope.stages = [
+    {id: 'S', label: 'Shu'},
+    {id: 'H', label: 'Ha'},
+    {id: 'R', label: 'Ri'}
+  ];
+  $scope.names = ["Joe", "Sue", "Sam"];
+  $scope.ages = []
+  for (var age = 0; age < 100; age++) {
+    $scope.ages.push({
+      id: age,
+      label: age
+    });
+  }
+
+  $scope.meals = [
+    {id: 'meat', label: 'meat'},
+    {id: 'milk', label: 'milk'},
+    {id: 'orange', label: 'orange'}
+  ];
+  $scope.weapons = [
+    {id: '1', label: 'Katana'},
+    {id: '2', label: 'Naginata'},
+    {id: '3', label: 'Yari'}
+  ];
+  $scope.weaponStyles = ['Kenjutsu', 'Naginatajutsu', 'Sōjutsu']
+
+  $scope.send = function() {
+    var res = $http.post('/').success(function(data) {
+      angular.copy(data, $scope.samurai);
+    });
+  }
+});
+
+        </pre>
+      </div>
+      <div class="col-md-6 demonstration">
+        <h2>Demo</h2>
+        <form name='form' w-form-for='samurai' w-submit='send()'>
+          <div w-field='name'
+               type='w-combo'
+               items='names'
+               label='Name'
+               ng-required='true'
+               ng-minlength='2'
+               ng-maxlength='4'
+               ng-pattern='/J/'></div>
+
+          <div w-field='age'
+               type='w-chz'
+               items='ages'
+               label='Age'
+               ng-disabled='true'></div>
+
+          <div w-field='stage'
+               type='w-radio'
+               items='stages'
+               label='Learning Stage'></div>
+
+          <div w-field='likesToEat'
+               type='w-checkbox'
+               items='meals'
+               label='Likes to eat'></div>
+
+          <div w-field='weapons'
+               type='w-multi-select'
+               items='weapons'
+               label='Weapons'></div>
+
+          <div w-field='Styles'
+               type='w-tags'
+               items='weaponStyles'
+               label='Styles'></div>
+
+          <div w-submit-field>Save</div>
+        </form>
+        <h4>Form object</h4>
+        <pre>{{ samurai | json }}</pre>
+        <h4>Object errors</h4>
+        <pre ng-bind="samurai.$errors | json"></pre>
+      </div>
     </div>
   </div>
-</div>
 {% endraw %}

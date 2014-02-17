@@ -1,11 +1,10 @@
 angular.module('angular-w-demo')
     .controller('FormBuilderCtrl', function($scope, $http) {
   $scope.samurai = {};
-  $scope.genders = [
-    {id: 'F', label: 'Female'},
-    {id: 'M', label: 'Male'},
-    {id: 'U', label: 'Unknown'},
-    {id: 'O', label: 'Other'}
+  $scope.stages = [
+    {id: 'S', label: 'Shu'},
+    {id: 'H', label: 'Ha'},
+    {id: 'R', label: 'Ri'}
   ];
   $scope.names = ["Joe", "Sue", "Sam"];
   $scope.ages = []
@@ -21,12 +20,12 @@ angular.module('angular-w-demo')
     {id: 'milk', label: 'milk'},
     {id: 'orange', label: 'orange'}
   ];
-  $scope.warriors = [
-    {id: 'Oda', label: 'Nobunaga'},
-    {id: 'Suzu', label: 'Hitomi'},
-    {id: 'Ruji', label: 'Takeda'}
+  $scope.weapons = [
+    {id: '1', label: 'Katana'},
+    {id: '2', label: 'Naginata'},
+    {id: '3', label: 'Yari'}
   ];
-  $scope.goals = ['Unite Japan', 'Conquer China']
+  $scope.weaponStyles = ['Kenjutsu', 'Naginatajutsu', 'Sōjutsu']
 
   $scope.send = function() {
     var res = $http.post('/').success(function(data) {
