@@ -108,6 +108,29 @@
             {code: 'JP NGO', name: 'Nagoya'}
           ];
         }
+- name: Multiselect
+  dir_name: 'w-multi-select'
+  description: |
+    MultiSelect allows to select multiple items from a predefined list of options.
+    Supported angular directives and options are similar to Select.
+  example_html: |
+    <form role='form' ng-controller='MultiSelectCtrl'>
+      <div class='form-group'>
+        <label>Leisure Time:</label>
+        <div w-multi-select items='games'>
+          'none'
+        </div>
+      </div>
+    </form>
+  example_js: |
+    angular.module('angular-w-demo')
+    .controller('MultiSelectCtrl', ['$scope', function($scope) {
+      $scope.games = [
+        {id: 0, label: 'Dragon Quest'},
+        {id: 1, label: 'Final Fantasy'},
+        {id: 2, label: 'Shin Megami Tensei'}
+      ];
+    }]);
 - name: Combo
   dir_name: 'w-combo'
   description: |
