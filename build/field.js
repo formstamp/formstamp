@@ -37,7 +37,7 @@
               'required': 'This field is required!',
               'pattern': 'This field should match pattern!',
               'minlength': 'This field should be longer!',
-              'mxxlength': 'This field should be shorter!'
+              'maxlength': 'This field should be shorter!'
             };
             scope.hasErrorFor = function(validityName) {
               return formCtrl[scope.field].$error[validityName];
