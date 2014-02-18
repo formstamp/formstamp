@@ -71,6 +71,8 @@ angular
       getActiveIndex = ->
         indexOf($scope.shownItems, $scope.activeItem) || 0
 
+      $scope.getActiveIndex = getActiveIndex
+
       # TODO move to init
       $scope.selectedItems = []
       # run
@@ -123,6 +125,9 @@ angular
           activeIndex = Math.min(Math.max(activeIndex,0), items.length - 1)
           scope.activeItem = items[activeIndex]
           scroll()
+
+        scope.deactivate = () ->
+          setTimeout((()-> scope.active = false),0)
 
         scope.onEnter = (event) ->
           scope.selection(scope.activeItem)
