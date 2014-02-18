@@ -9,7 +9,7 @@ angular
     require: '?ngModel'
     replace: true
     transclude: true
-    templateUrl: "/templates/tags.html"
+    templateUrl: "/templates/multi-select.html"
     controller: ($scope, $element, $attrs) ->
 
       search = (q) ->
@@ -18,6 +18,9 @@ angular
           $scope.shownItems.push(q)
         $scope.activeItem = $scope.shownItems[0]
         $scope.prevSearch = q
+
+      $scope.getItemLabel = (item)->
+        item
 
       #TODO: why is this method's name a noun instead of a verb?
       $scope.selection = (item)->
@@ -97,7 +100,7 @@ angular
         event.preventDefault()
 
       scope.onTab = ->
-        scope.selection(scope.search || scope.activeItem)
+        # scope.selection(scope.search || scope.activeItem)
 
       scope.onEsc = ->
         scope.hideDropDown()

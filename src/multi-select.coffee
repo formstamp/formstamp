@@ -31,12 +31,16 @@ angular
         $scope.activeItem = $scope.shownItems[0]
         $scope.prevSearch = q
 
+      $scope.getItemLabel = (item)->
+        item && item[$scope.valueAttr]
+
       resetDropDown = ->
         $scope.shownItems = difference(
           $scope.items.slice(0, $scope.limit),
           $scope.selectedItems
         )
         $scope.activeItem = $scope.shownItems[0]
+        $scope.active=true
 
       #TODO: why is this method's name a noun instead of a verb?
       $scope.selection = (item)->
@@ -134,7 +138,7 @@ angular
           event.preventDefault()
 
         scope.onTab = ->
-          scope.selection(scope.activeItem)
+          # scope.selection(scope.activeItem)
 
         scope.onEsc = ->
           scope.hideDropDown()
