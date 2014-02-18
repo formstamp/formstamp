@@ -16,12 +16,15 @@ angular
     controller: ($scope, $element, $attrs) ->
 
       $scope.toggle = (item)->
-        if !$scope.hasItem(item)
+        unless $scope.isSelected(item)
           $scope.selectedItems.push(item)
         else
           $scope.selectedItems.splice(indexOf($scope.selectedItems, item), 1)
 
       $scope.hasItem = (item) ->
+        indexOf($scope.selectedItems, item) > -1
+
+      $scope.isSelected = (item) ->
         indexOf($scope.selectedItems, item) > -1
 
       $scope.invalid = ->
