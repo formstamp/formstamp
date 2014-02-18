@@ -4,8 +4,8 @@
       <a href='javascript:void(0)' class='w-radio-item-container'>
         <span
           ng-disabled='disabled'
-          class="w-radio-item-container-sign glyphicon glyphicon-search"
-          ng-class="{'glyphicon-pushpin': isSelected(item)}"></span>
+          class="w-radio-item-container-sign w-radio-icon"
+          ng-class="{'w-radio-icon-checked': isSelected(item), 'w-radio-icon-unchecked': !isSelected(item)}"></span>
         {{item[valueAttr]}}
       </a>
     </label>
