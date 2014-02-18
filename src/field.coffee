@@ -42,7 +42,7 @@ angular.module('angular-w')
         'required':  'This field is required!'
         'pattern':  'This field should match pattern!'
         'minlength': 'This field should be longer!'
-        'mxxlength': 'This field should be shorter!'
+        'maxlength': 'This field should be shorter!'
 
       scope.hasErrorFor = (validityName) ->
         formCtrl[scope.field].$error[validityName]

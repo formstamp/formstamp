@@ -1,0 +1,143 @@
+.w-calendar {
+  user-select: none;
+  display: inline-block;
+}
+.w-calendar .w-calendar-header {
+  text-align: center;
+  vertical-align: middle;
+}
+.w-calendar .w-calendar-next,
+.w-calendar .w-calendar-prev,
+.w-calendar .w-calendar-title {
+  vertical-align: middle;
+  cursor: pointer;
+  display: inline-block;
+}
+.w-calendar .w-calendar-title {
+  font-size: 1.5em;
+  width: 10em;
+}
+.w-calendar .w-calendar-prev:before {
+  content: '\025C0';
+}
+.w-calendar .w-calendar-next:after {
+  content: '\025B6';
+}
+.w-calendar .month,
+.w-calendar .day,
+.w-calendar .year {
+  cursor: pointer;
+  text-align: center;
+}
+.w-calendar .day {
+  color: darkgray;
+  width: 2.5em;
+}
+.w-calendar .month,
+.w-calendar .year {
+  font-size: 1.5em;
+  width: 3.1em;
+}
+.w-calendar .day-in-selected-month {
+  color: black;
+}
+.w-calendar .day-current {
+  font-weight: bold;
+}
+.w-calendar .day.active,
+.w-calendar .month.active,
+.w-calendar .year.active {
+  font-weight: bold;
+  background-color: lightgray;
+}
+
+.w-checkbox {
+  position: relative;
+}
+.w-checkbox .w-checkbox-inline {
+  float: left;
+  padding-left: 20px;
+}
+.w-checkbox .w-checkbox-inline + .w-checkbox-inline {
+  margin-left: 10px;
+}
+.w-checkbox .w-checkbox-item-container {
+  text-decoration: none;
+  color: inherit;
+}
+.w-checkbox .w-checkbox-item-container .w-checkbox-item-container-sign {
+  margin-left: -20px;
+}
+.w-checkbox .w-checkbox-item-container .w-checkbox-item-container-sign[disabled] {
+  color: #ccc;
+  cursor: default;
+}
+
+.w-chz {
+  -webkit-box-flex: 1;
+  padding-left: 0;
+  padding-right: 0;
+  position: relative;
+}
+.w-chz .w-chz-sel {
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+}
+.w-chz .w-chz-active {
+  -webkit-box-flex: 1;
+  display: block;
+  text-align: left;
+}
+.w-chz .w-chz-clear-btn {
+  color: #a94442;
+}
+.w-chz .w-chz-items-list-default {
+  width: 100%;
+  overflow-y: auto;
+}
+
+.w-combo {
+  position: relative;
+}
+.w-combo .w-combo-items-list-default {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.w-multi-select {
+  position: relative;
+}
+.w-multi-select .w-multi-select-items-list-default {
+  max-height: 300px;
+  overflow-y: auto;
+}
+.w-multi-select .w-multi-select-active-items {
+  max-width: 280px;
+}
+.w-multi-select .w-multi-select-active-items .w-multi-select-active-item {
+  margin: 1px;
+  display: block;
+  float: left;
+}
+
+.w-radio {
+  position: relative;
+}
+.w-radio .w-radio-inline {
+  float: left;
+  padding-left: 20px;
+}
+.w-radio .w-radio-inline + .w-radio-inline {
+  margin-left: 10px;
+}
+.w-radio .w-radio-item-container {
+  text-decoration: none;
+  color: inherit;
+}
+.w-radio .w-radio-item-container .w-radio-item-container-sign {
+  margin-left: -20px;
+}
+.w-radio .w-radio-item-container .w-radio-item-container-sign[disabled] {
+  color: #ccc;
+  cursor: default;
+}

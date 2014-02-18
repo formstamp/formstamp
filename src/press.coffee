@@ -1,3 +1,4 @@
+# it should be one directive
 keyCodes =
   Tab:    9
   Enter:  13

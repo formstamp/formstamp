@@ -1,0 +1,22 @@
+.w-chz {
+  -webkit-box-flex: 1;
+  padding-left: 0;
+  padding-right: 0;
+  position: relative;
+}
+.w-chz .w-chz-sel {
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+}
+.w-chz .w-chz-active {
+  -webkit-box-flex: 1;
+  display: block;
+  text-align: left;
+}
+.w-chz .w-chz-clear-btn {
+  color: #a94442;
+}
+.w-chz .w-chz-items-list-default {
+  width: 100%;
+  overflow-y: auto;
+}

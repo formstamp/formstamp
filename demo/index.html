@@ -64,7 +64,7 @@
             <div w-submit-field>Save</div>
           </form>
         </div>
-        <div class='col-sm-4'> 
+        <div class='col-sm-4'>
           <h4>Form object</h4>
           <pre>{{ samurai | json }}</pre>
           <h4>Object errors</h4>
@@ -77,7 +77,8 @@
         <div class="form-group">
           <label class="col-sm-2 control-label">Chosen</label>
           <div class="col-sm-10">
-            <div w-chz="true"
+            <div class="col-xs-6"
+                 w-chz="true"
                  items="items"
                  limit='20'
                  key-attr='id'
@@ -90,7 +91,10 @@
         <div class="form-group">
           <label class="col-sm-2 control-label">Chosen with same ngModel</label>
           <div class="col-sm-10">
-            <div w-chz="true" items="items" ng-model="value">
+            <div w-chz="true"
+              items="items"
+              ng-model="value"
+              class="col-xs-4">
               <div ng-show='item'>
                 <b>{{item.label}}</b>: {{item.id}}
               </div>
@@ -150,7 +154,8 @@
         <div class="form-group">
           <label class="col-sm-2 control-label">Combo</label>
           <div class="col-sm-10">
-            <div w-combo="true"
+            <div class="col-xs-8"
+                 w-combo="true"
                  items="items"
                  limit='20'
                  ng-model="value"></div>
@@ -159,7 +164,8 @@
         <div class="form-group">
           <label class="col-sm-2 control-label">Combo</label>
           <div class="col-sm-10">
-            <div w-combo="true"
+            <div class="col-xs-4"
+                 w-combo="true"
                  items="items"
                  limit='20'
                  ng-model="value"></div>
@@ -269,11 +275,11 @@
 
 
     <!--
-      <div> 
+      <div>
           Form should:
-            1. 
-            2. 
-            3. 
+            1.
+            2.
+            3.
           Inputs should:
             1. Pass id and name to hidden input.
       </div>

@@ -1,0 +1,21 @@
+.w-checkbox {
+  position: relative;
+}
+.w-checkbox .w-checkbox-inline {
+  float: left;
+  padding-left: 20px;
+}
+.w-checkbox .w-checkbox-inline + .w-checkbox-inline {
+  margin-left: 10px;
+}
+.w-checkbox .w-checkbox-item-container {
+  text-decoration: none;
+  color: inherit;
+}
+.w-checkbox .w-checkbox-item-container .w-checkbox-item-container-sign {
+  margin-left: -20px;
+}
+.w-checkbox .w-checkbox-item-container .w-checkbox-item-container-sign[disabled] {
+  color: #ccc;
+  cursor: default;
+}

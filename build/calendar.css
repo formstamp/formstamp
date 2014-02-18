@@ -1,0 +1,52 @@
+.w-calendar {
+  user-select: none;
+  display: inline-block;
+}
+.w-calendar .w-calendar-header {
+  text-align: center;
+  vertical-align: middle;
+}
+.w-calendar .w-calendar-next,
+.w-calendar .w-calendar-prev,
+.w-calendar .w-calendar-title {
+  vertical-align: middle;
+  cursor: pointer;
+  display: inline-block;
+}
+.w-calendar .w-calendar-title {
+  font-size: 1.5em;
+  width: 10em;
+}
+.w-calendar .w-calendar-prev:before {
+  content: '\025C0';
+}
+.w-calendar .w-calendar-next:after {
+  content: '\025B6';
+}
+.w-calendar .month,
+.w-calendar .day,
+.w-calendar .year {
+  cursor: pointer;
+  text-align: center;
+}
+.w-calendar .day {
+  color: darkgray;
+  width: 2.5em;
+}
+.w-calendar .month,
+.w-calendar .year {
+  font-size: 1.5em;
+  width: 3.1em;
+}
+.w-calendar .day-in-selected-month {
+  color: black;
+}
+.w-calendar .day-current {
+  font-weight: bold;
+}
+.w-calendar .day.active,
+.w-calendar .month.active,
+.w-calendar .year.active {
+  font-weight: bold;
+  background-color: lightgray;
+}

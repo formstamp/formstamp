@@ -1,0 +1,21 @@
+.w-radio {
+  position: relative;
+}
+.w-radio .w-radio-inline {
+  float: left;
+  padding-left: 20px;
+}
+.w-radio .w-radio-inline + .w-radio-inline {
+  margin-left: 10px;
+}
+.w-radio .w-radio-item-container {
+  text-decoration: none;
+  color: inherit;
+}
+.w-radio .w-radio-item-container .w-radio-item-container-sign {
+  margin-left: -20px;
+}
+.w-radio .w-radio-item-container .w-radio-item-container-sign[disabled] {
+  color: #ccc;
+  cursor: default;
+}
