@@ -1,6 +1,18 @@
 .w-checkbox {
   position: relative;
 }
+.w-checkbox .w-checkbox-icon {
+  width: 21px;
+  height: 21px;
+  display: inline-block;
+  background-image: url("img/icons.png");
+}
+.w-checkbox .w-checkbox-icon-checked {
+  background-position: -90px -288px;
+}
+.w-checkbox .w-checkbox-icon-unchecked {
+  background-position: 0px -288px;
+}
 .w-checkbox .w-checkbox-inline {
   float: left;
   padding-left: 20px;

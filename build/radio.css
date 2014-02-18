@@ -1,6 +1,18 @@
 .w-radio {
   position: relative;
 }
+.w-radio .w-radio-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  background-image: url("img/icons.png");
+}
+.w-radio .w-radio-icon-checked {
+  background-position: -241px -289px;
+}
+.w-radio .w-radio-icon-unchecked {
+  background-position: -181px -289px;
+}
 .w-radio .w-radio-inline {
   float: left;
   padding-left: 20px;

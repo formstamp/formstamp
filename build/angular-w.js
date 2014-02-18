@@ -187,10 +187,9 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "  <div class='checkbox' ng-repeat='item in shownItems track by item.id' ng-class=\"{'w-checkbox-inline': inline}\">\n" +
     "    <label ng-click='toggle(item)'>\n" +
     "      <a href='javascript:void(0)' class='w-checkbox-item-container'>\n" +
-    "        <span\n" +
-    "                ng-disabled='disabled'\n" +
-    "                class=\"w-checkbox-item-container-sign glyphicon glyphicon-search\"\n" +
-    "                ng-class=\"{'glyphicon-pushpin': hasItem(item)}\"></span>\n" +
+    "        <span ng-disabled='disabled'\n" +
+    "              class=\"w-checkbox-item-container-sign w-checkbox-icon\"\n" +
+    "              ng-class=\"{'w-checkbox-icon-checked': hasItem(item), 'w-checkbox-icon-unchecked': !hasItem(item)}\">&nbsp;</span>\n" +
     "        {{item[valueAttr]}}\n" +
     "      </a>\n" +
     "    </label>\n" +
@@ -343,8 +342,8 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "      <a href='javascript:void(0)' class='w-radio-item-container'>\n" +
     "        <span\n" +
     "          ng-disabled='disabled'\n" +
-    "          class=\"w-radio-item-container-sign glyphicon glyphicon-search\"\n" +
-    "          ng-class=\"{'glyphicon-pushpin': isSelected(item)}\"></span>\n" +
+    "          class=\"w-radio-item-container-sign w-radio-icon\"\n" +
+    "          ng-class=\"{'w-radio-icon-checked': isSelected(item), 'w-radio-icon-unchecked': !isSelected(item)}\">&nbsp;</span>\n" +
     "        {{item[valueAttr]}}\n" +
     "      </a>\n" +
     "    </label>\n" +
