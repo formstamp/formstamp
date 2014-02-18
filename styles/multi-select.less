@@ -1,17 +1,33 @@
 .w-multi-select {
-  position: relative;
-  .w-multi-select-items-list-default {
-    max-height: 300px;
-    overflow-y: auto;
-  }
-
-  .w-multi-select-active-items {
-    max-width: 280px;
-
-    .w-multi-select-active-item {
-      margin:  1px;
-      display: block;
-      float:   left;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  .w-multi-options {
+    border-bottom: 1px solid #ccc;
+    .btn {
+      border-right: 1px solid #ccc;
+      border-radius: 0;
+      color: inherit;
+      &:hover .glyphicon {
+        color: rgb(169, 68, 66);
+      }
     }
   }
+  .form-control {
+    border: none;
+  }
+
+  // .w-multi-select-items-list-default {
+  //   max-height: 300px;
+  //   overflow-y: auto;
+  // }
+
+  // .w-multi-select-active-items {
+  //   max-width: 280px;
+
+  //   .w-multi-select-active-item {
+  //     margin:  1px;
+  //     display: block;
+  //     float:   left;
+  //   }
+  // }
 }

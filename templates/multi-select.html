@@ -1,43 +1,27 @@
 <div class='w-multi-select'>
-  <div ng-hide="active" ng-class="{'btn-group': selectedItems.length}">
-    <div class="btn btn-default w-multi-select-active-items"
-       ng-class='{"has-error": invalid}'
-       href="javascript:void(0)"
-       ng-click='showDropdown()'
-       w-focus='focus'
-       ng-disabled="disabled"
-       tabindex='0'
-       ng-blur='focus=false'
-       w-enter='showDropdown()'>
-      <span ng-hide='selectedItems.length'>none</span>
-      <span ng-repeat='selectedItem in selectedItems' class="label label-primary w-multi-select-active-item">
-        <span class="glyphicon glyphicon-remove" ng-click="deselect(selectedItem)"></span>
-        {{selectedItem[valueAttr]}}
-      </span>
-    </div>
-    <button type="button"
-            class="btn btn-default"
-            aria-hidden="true"
-            ng-show='selectedItems.length'
-            ng-click='reset()'>&times;</button>
+  <div class="w-multi-options" ng-if="selectedItems.length > 0">
+    <a ng-repeat='selectedItem in selectedItems' class="btn" ng-click="deselect(selectedItem)">
+      {{selectedItem[valueAttr]}}
+      <span class="glyphicon glyphicon-remove" ></span>
+    </a>
   </div>
-  <div class="open" ng-show="active">
-    <input ng-keydown="onkeys($event)"
-           w-down='move(1)'
-           w-up='move(-1)'
-           w-pgup='onPgup($event)'
-           w-pgdown='onPgdown($event)'
-           w-enter='onEnter($event)'
-           w-tab='onTab()'
-           w-esc='onEsc()'
-           w-focus="active"
-           class="form-control"
-           type="search"
-           placeholder='Search'
-           ng-model="search" />
+  <input ng-keydown="onkeys($event)"
+         ng-focus="active=true"
+         w-down='move(1)'
+         w-up='move(-1)'
+         w-pgup='onPgup($event)'
+         w-pgdown='onPgdown($event)'
+         w-enter='onEnter($event)'
+         w-tab='onTab()'
+         w-esc='onEsc()'
+         w-focus="active"
+         class="form-control"
+         type="text"
+         placeholder='Search'
+         ng-model="search" />
+  <div ng-if="active" class="open">
     <ul class="dropdown-menu w-multi-select-items-list-default w-multi-select-items-list"
-        role="menu"
-        ng-show="shownItems.length">
+        role="menu" >
       <li ng-repeat="item in shownItems"
           ng-class="{true: 'active'}[item == activeItem]">
         <a ng-click="selection(item)"

@@ -280,7 +280,7 @@ var chars = [
 ]
 
 app.controller('MultiSelectCtrl', function($scope) {
-  $scope.items = chars;
+  $scope.items = countries;
 });
 
 app.controller('ComboCtrl', function($scope) {
