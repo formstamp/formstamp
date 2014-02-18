@@ -2,10 +2,9 @@
   <div class='checkbox' ng-repeat='item in shownItems track by item.id' ng-class="{'w-checkbox-inline': inline}">
     <label ng-click='toggle(item)'>
       <a href='javascript:void(0)' class='w-checkbox-item-container'>
-        <span
-                ng-disabled='disabled'
-                class="w-checkbox-item-container-sign glyphicon glyphicon-search"
-                ng-class="{'glyphicon-pushpin': hasItem(item)}"></span>
+        <span ng-disabled='disabled'
+              class="w-checkbox-item-container-sign w-checkbox-icon"
+              ng-class="{'w-checkbox-icon-checked': hasItem(item), 'w-checkbox-icon-unchecked': !hasItem(item)}">&nbsp;</span>
         {{item[valueAttr]}}
       </a>
     </label>

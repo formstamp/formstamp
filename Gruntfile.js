@@ -6,6 +6,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-angular-templates');
 
   grunt.initConfig({
@@ -50,6 +51,12 @@ module.exports = function (grunt) {
         }
       }
     },
+    copy: {
+      main: {
+        src: 'img/*',
+        dest: 'build/'
+      }
+    },
     clean: ['build/**/*'],
     concat: {
       js: {
@@ -75,5 +82,5 @@ module.exports = function (grunt) {
       }
     }
   })
-  grunt.registerTask('build', ['clean', 'coffee', 'less', 'ngtemplates', 'concat:js', 'concat:css']);
+  grunt.registerTask('build', ['clean', 'coffee', 'less', 'ngtemplates', 'concat:js', 'concat:css', 'copy']);
 };
