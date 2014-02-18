@@ -202,7 +202,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
 
   $templateCache.put('/templates/chz.html',
     "<div class='w-chz'>\n" +
-    "    <div ng-hide=\"active\" ng-class=\"{'btn-group': selectedItem}\">\n" +
+    "  <div ng-hide=\"active\" class=\"w-chz-sel\" ng-class=\"{'btn-group': selectedItem}\">\n" +
     "      <a class=\"btn btn-default w-chz-active\"\n" +
     "         ng-class='{\"btn-danger\": invalid}'\n" +
     "         href=\"javascript:void(0)\"\n" +
@@ -210,17 +210,18 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "         w-focus='focus'\n" +
     "         ng-disabled=\"disabled\"\n" +
     "         ng-blur='focus=false'>\n" +
-    "         <span ng-show='selectedItem'>{{selectedItem[valueAttr]}}</span>\n" +
+    "         <span ng-show='selectedItem'>{{ getSelectedLabel() }}</span>\n" +
     "         <span ng-hide='selectedItem'>none</span>\n" +
     "      </a>\n" +
     "      <button type=\"button\"\n" +
-    "              class=\"btn btn-default\"\n" +
+    "              class=\"btn btn-default w-chz-clear-btn\"\n" +
     "              aria-hidden=\"true\"\n" +
     "              ng-show='selectedItem'\n" +
     "              ng-click='reset()'>&times;</button>\n" +
     "    </div>\n" +
     "  <div class=\"open\" ng-show=\"active\">\n" +
-    "    <input w-down='move(1)'\n" +
+    "    <input class=\"form-control\"\n" +
+    "           w-down='move(1)'\n" +
     "           w-up='move(-1)'\n" +
     "           w-pgup='onPgup($event)'\n" +
     "           w-pgdown='onPgdown($event)'\n" +
@@ -228,7 +229,6 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "           w-tab='onTab()'\n" +
     "           w-esc='onEsc()'\n" +
     "           w-focus=\"active\"\n" +
-    "           class=\"form-control\"\n" +
     "           type=\"search\"\n" +
     "           placeholder='Search'\n" +
     "           ng-model=\"search\" />\n" +
@@ -240,58 +240,11 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "         <a ng-click=\"selection(item)\"\n" +
     "            href=\"javascript:void(0)\"\n" +
     "            id='{{item[keyAttr]}}'\n" +
-    "            tabindex='-1'>{{ item[valueAttr] }}</a>\n" +
+    "            tabindex='-1'>{{ getItemLabel(item) }}</a>\n" +
     "       </li>\n" +
     "    </ul>\n" +
     "  </div>\n" +
-    "  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>\n" +
-    "</div>\n"
-  );
-
-
-  $templateCache.put('/templates/combo.html',
-    "<div class='w-combo'>\n" +
-    "    <div ng-hide=\"active\" ng-class=\"{'btn-group': selectedItem}\">\n" +
-    "      <a class=\"btn btn-default w-combo-active\"\n" +
-    "         ng-class='{\"btn-danger\": invalid}'\n" +
-    "         href=\"javascript:void(0)\"\n" +
-    "         ng-click=\"active=true\"\n" +
-    "         w-focus='focus'\n" +
-    "         ng-disabled=\"disabled\"\n" +
-    "         ng-blur='focus=false'>\n" +
-    "         <span ng-show='selectedItem'>{{selectedItem}}</span>\n" +
-    "         <span ng-hide='selectedItem'>none</span>\n" +
-    "      </a>\n" +
-    "      <button type=\"button\"\n" +
-    "              class=\"btn btn-default\"\n" +
-    "              aria-hidden=\"true\"\n" +
-    "              ng-show='selectedItem'\n" +
-    "              ng-click='reset()'>&times;</button>\n" +
-    "    </div>\n" +
-    "  <div class=\"open\" ng-show=\"active\">\n" +
-    "    <input w-down='move(1)'\n" +
-    "           w-up='move(-1)'\n" +
-    "           w-pgup='onPgup($event)'\n" +
-    "           w-pgdown='onPgdown($event)'\n" +
-    "           w-enter='onEnter($event)'\n" +
-    "           w-tab='onTab()'\n" +
-    "           w-esc='onEsc()'\n" +
-    "           w-focus=\"active\"\n" +
-    "           class=\"form-control\"\n" +
-    "           type=\"search\"\n" +
-    "           placeholder='Search'\n" +
-    "           ng-model=\"search\" />\n" +
-    "    <ul class=\"dropdown-menu w-combo-items-list-default w-combo-items-list\"\n" +
-    "        role=\"menu\">\n" +
-    "       <li ng-repeat=\"item in shownItems\"\n" +
-    "           ng-class=\"{true: 'active'}[item == activeItem]\">\n" +
-    "         <a ng-click=\"selection(item)\"\n" +
-    "            href=\"javascript:void(0)\"\n" +
-    "            id='{{item[keyAttr]}}'\n" +
-    "            tabindex='-1'>{{ item }}</a>\n" +
-    "       </li>\n" +
-    "    </ul>\n" +
-    "  </div>\n" +
+    "  <!-- FIXME: why errors here -->\n" +
     "  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>\n" +
     "</div>\n"
   );
@@ -734,7 +687,8 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
           items: '=',
           limit: '=',
           keyAttr: '@',
-          valueAttr: '@'
+          valueAttr: '@',
+          "class": '@'
         },
         require: '?ngModel',
         replace: true,
@@ -745,6 +699,12 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
           search = function(q) {
             $scope.shownItems = filter(q, $scope.items, $scope.valueAttr).slice(0, $scope.limit);
             return $scope.activeItem = $scope.shownItems[0];
+          };
+          $scope.getSelectedLabel = function() {
+            return $scope.getItemLabel($scope.selectedItem);
+          };
+          $scope.getItemLabel = function(item) {
+            return item && item[$scope.valueAttr];
           };
           $scope.selection = function(item) {
             $scope.selectedItem = item;
@@ -866,12 +826,13 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
         scope: {
           invalid: '=',
           items: '=',
-          limit: '='
+          limit: '=',
+          "class": '@'
         },
         require: '?ngModel',
         replace: true,
         transclude: true,
-        templateUrl: "/templates/combo.html",
+        templateUrl: "/templates/chz.html",
         controller: function($scope, $element, $attrs) {
           var search;
           search = function(q) {
@@ -880,6 +841,15 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
               $scope.shownItems.push(q);
             }
             return $scope.activeItem = $scope.shownItems[0];
+          };
+          $scope.getSelectedLabel = function() {
+            return $scope.getItemLabel($scope.selectedItem);
+          };
+          $scope.getItemLabel = function(item) {
+            return item;
+          };
+          $scope.isActive = function(item) {
+            return item === $scope.activeItem;
           };
           $scope.selection = function(item) {
             $scope.selectedItem = item;
@@ -923,14 +893,14 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
             return transcludeFn(childScope, function(clone) {
               var link;
               if (clone.text().trim() !== "") {
-                link = element[0].querySelector('a.w-combo-active');
+                link = element[0].querySelector('a.w-chz-active');
                 return angular.element(link).empty().append(clone);
               }
             });
           });
           $window.addEventListener('click', function(e) {
             var parent;
-            parent = $(e.target).parents('div.w-combo')[0];
+            parent = $(e.target).parents('div.w-chz')[0];
             if (parent !== element[0]) {
               return scope.$apply(function() {
                 scope.hideDropDown();

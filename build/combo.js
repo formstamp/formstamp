@@ -6,12 +6,13 @@
         scope: {
           invalid: '=',
           items: '=',
-          limit: '='
+          limit: '=',
+          "class": '@'
         },
         require: '?ngModel',
         replace: true,
         transclude: true,
-        templateUrl: "/templates/combo.html",
+        templateUrl: "/templates/chz.html",
         controller: function($scope, $element, $attrs) {
           var search;
           search = function(q) {
@@ -20,6 +21,15 @@
               $scope.shownItems.push(q);
             }
             return $scope.activeItem = $scope.shownItems[0];
+          };
+          $scope.getSelectedLabel = function() {
+            return $scope.getItemLabel($scope.selectedItem);
+          };
+          $scope.getItemLabel = function(item) {
+            return item;
+          };
+          $scope.isActive = function(item) {
+            return item === $scope.activeItem;
           };
           $scope.selection = function(item) {
             $scope.selectedItem = item;
@@ -63,14 +73,14 @@
             return transcludeFn(childScope, function(clone) {
               var link;
               if (clone.text().trim() !== "") {
-                link = element[0].querySelector('a.w-combo-active');
+                link = element[0].querySelector('a.w-chz-active');
                 return angular.element(link).empty().append(clone);
               }
             });
           });
           $window.addEventListener('click', function(e) {
             var parent;
-            parent = $(e.target).parents('div.w-combo')[0];
+            parent = $(e.target).parents('div.w-chz')[0];
             if (parent !== element[0]) {
               return scope.$apply(function() {
                 scope.hideDropDown();

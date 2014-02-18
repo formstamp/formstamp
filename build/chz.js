@@ -8,7 +8,8 @@
           items: '=',
           limit: '=',
           keyAttr: '@',
-          valueAttr: '@'
+          valueAttr: '@',
+          "class": '@'
         },
         require: '?ngModel',
         replace: true,
@@ -19,6 +20,12 @@
           search = function(q) {
             $scope.shownItems = filter(q, $scope.items, $scope.valueAttr).slice(0, $scope.limit);
             return $scope.activeItem = $scope.shownItems[0];
+          };
+          $scope.getSelectedLabel = function() {
+            return $scope.getItemLabel($scope.selectedItem);
+          };
+          $scope.getItemLabel = function(item) {
+            return item && item[$scope.valueAttr];
           };
           $scope.selection = function(item) {
             $scope.selectedItem = item;

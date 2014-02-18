@@ -6,10 +6,11 @@ angular
     invalid: '='
     items: '='
     limit: '='
+    class: '@'
   require: '?ngModel'
   replace: true
   transclude: true
-  templateUrl: "/templates/combo.html"
+  templateUrl: "/templates/chz.html"
   controller: ($scope, $element, $attrs) ->
 
     search = (q) ->
@@ -17,6 +18,15 @@ angular
       if $scope.shownItems.length == 0
         $scope.shownItems.push(q)
       $scope.activeItem = $scope.shownItems[0]
+
+    $scope.getSelectedLabel = ()->
+      $scope.getItemLabel($scope.selectedItem)
+
+    $scope.getItemLabel = (item)->
+      item
+
+    $scope.isActive = (item) ->
+      item == $scope.activeItem
 
     $scope.selection = (item)->
       $scope.selectedItem = item
@@ -37,7 +47,6 @@ angular
     search('')
 
   link: (scope, element, attrs, ngModelCtrl, transcludeFn) ->
-
     if ngModelCtrl
       scope.$watch 'selectedItem', (newValue, oldValue)->
         if newValue isnt oldValue
@@ -58,12 +67,12 @@ angular
       childScope.item = scope.selectedItem
       transcludeFn childScope, (clone) ->
         if clone.text().trim() isnt ""
-          link = element[0].querySelector('a.w-combo-active')
+          link = element[0].querySelector('a.w-chz-active')
           angular.element(link).empty().append(clone)
 
     # Hide drop down list on click elsewhere
     $window.addEventListener 'click', (e) ->
-      parent = $(e.target).parents('div.w-combo')[0]
+      parent = $(e.target).parents('div.w-chz')[0]
       if parent != element[0]
         scope.$apply ->
           scope.hideDropDown()

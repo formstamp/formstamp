@@ -8,6 +8,7 @@ angular
     limit: '='
     keyAttr: '@'
     valueAttr: '@'
+    class: '@'
   require: '?ngModel'
   replace: true
   transclude: true
@@ -18,6 +19,13 @@ angular
       $scope.shownItems = filter(q, $scope.items, $scope.valueAttr).slice(0, $scope.limit)
       $scope.activeItem = $scope.shownItems[0]
 
+    $scope.getSelectedLabel = ()->
+      $scope.getItemLabel($scope.selectedItem)
+
+    $scope.getItemLabel = (item)->
+      item && item[$scope.valueAttr]
+
+    # should be verb
     $scope.selection = (item)->
       $scope.selectedItem = item
       $scope.hideDropDown()
@@ -27,11 +35,15 @@ angular
       $scope.focus = true
 
     $scope.$watch 'search', search
+    # is it can change dynamicaly?
     $scope.$watch 'limit', -> search('')
 
+    # wrong name, why not model
+    # use focus attribute
     $scope.hideDropDown = ->
       $scope.active = false
 
+    # isItemActive? better selected
     $scope.isActive = (item) ->
       angular.equals(item, $scope.activeItem)
 
@@ -39,12 +51,12 @@ angular
     search('')
 
   compile: (tElement, tAttrs) ->
+    #FIXME: why not by scope attributes
     tAttrs.keyAttr ||= 'id'
     tAttrs.valueAttr ||= 'label'
 
     # Link function
     (scope, element, attrs, ngModelCtrl, transcludeFn) ->
-
       if ngModelCtrl
         scope.$watch 'selectedItem', (newValue, oldValue) ->
           if newValue isnt oldValue
@@ -56,6 +68,7 @@ angular
       attrs.$observe 'disabled', (value) ->
         scope.disabled = value
 
+      # second watch on selectedItem
       scope.$watch 'selectedItem', ->
         childScope = scope.$new()
         childScope.item = scope.selectedItem
