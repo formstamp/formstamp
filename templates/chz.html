@@ -16,7 +16,7 @@
               ng-show='selectedItem'
               ng-click='reset()'>&times;</button>
     </div>
-  <div class="open" ng-show="active">
+  <div class="open" ng-if="active">
     <input class="form-control"
            w-down='move(1)'
            w-up='move(-1)'

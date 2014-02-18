@@ -111,7 +111,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "              ng-show='selectedItem'\n" +
     "              ng-click='reset()'>&times;</button>\n" +
     "    </div>\n" +
-    "  <div class=\"open\" ng-show=\"active\">\n" +
+    "  <div class=\"open\" ng-if=\"active\">\n" +
     "    <input class=\"form-control\"\n" +
     "           w-down='move(1)'\n" +
     "           w-up='move(-1)'\n" +
@@ -230,16 +230,10 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
 
   $templateCache.put('/templates/radio.html',
     "<div class='w-radio'>\n" +
-    "  <div class='radio' ng-repeat='item in shownItems' ng-class=\"{'w-radio-inline': inline}\">\n" +
-    "    <label ng-click='selection(item)'>\n" +
-    "      <a href='javascript:void(0)' class='w-radio-item-container'>\n" +
-    "        <span\n" +
-    "          ng-disabled='disabled'\n" +
-    "          class=\"w-radio-item-container-sign glyphicon glyphicon-search\"\n" +
-    "          ng-class=\"{'glyphicon-pushpin': isSelected(item)}\"></span>\n" +
-    "        {{item[valueAttr]}}\n" +
-    "      </a>\n" +
-    "    </label>\n" +
+    "  <div ng-repeat='item in shownItems'>\n" +
+    "  <a class=\"w-radio-item\" ng-click=\"selection(item)\" href='javascript:void(0)' > <span class=\"w-radio-outer\"><span ng-show=\"isSelected(item)\" class=\"w-radio-inner\"></span></span>\n" +
+    "    {{item[valueAttr]}}\n" +
+    "  </a>\n" +
     "  </div>\n" +
     "  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>\n" +
     "</div>\n" +

@@ -1,14 +1,8 @@
 <div class='w-radio'>
-  <div class='radio' ng-repeat='item in shownItems' ng-class="{'w-radio-inline': inline}">
-    <label ng-click='selection(item)'>
-      <a href='javascript:void(0)' class='w-radio-item-container'>
-        <span
-          ng-disabled='disabled'
-          class="w-radio-item-container-sign glyphicon glyphicon-search"
-          ng-class="{'glyphicon-pushpin': isSelected(item)}"></span>
-        {{item[valueAttr]}}
-      </a>
-    </label>
+  <div ng-repeat='item in shownItems'>
+  <a class="w-radio-item" ng-click="selection(item)" href='javascript:void(0)' > <span class="w-radio-outer"><span ng-show="isSelected(item)" class="w-radio-inner"></span></span>
+    {{item[valueAttr]}}
+  </a>
   </div>
   <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>
 </div>
