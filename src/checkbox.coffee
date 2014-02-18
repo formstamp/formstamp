@@ -21,6 +21,10 @@ angular
         else
           $scope.selectedItems.splice(indexOf($scope.selectedItems, item), 1)
 
+      $scope.toggleOnSpace = (event, item) ->
+        $scope.toggle(item)
+        event.preventDefault()
+
       $scope.hasItem = (item) ->
         indexOf($scope.selectedItems, item) > -1
 
@@ -58,4 +62,5 @@ angular
 
         attrs.$observe 'required', (value) ->
           scope.required = value
+
 ]
