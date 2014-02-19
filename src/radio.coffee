@@ -15,6 +15,12 @@ angular
     templateUrl: "/templates/radio.html"
     controller: ($scope, $element, $attrs) ->
 
+      $scope.toggle = (item)->
+        if item != $scope.selectedItem
+          $scope.selection(item)
+        else
+          $scope.selectedItem = null
+
       $scope.selection = (item)->
         $scope.selectedItem = item
 
