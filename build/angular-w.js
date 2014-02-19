@@ -199,7 +199,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
 
 
   $templateCache.put('/templates/chz.html',
-    "<div class='w-chz'>\n" +
+    "<div class='w-chz w-wiget-root'>\n" +
     "  <div ng-hide=\"active\" class=\"w-chz-sel\" ng-class=\"{'btn-group': selectedItem}\">\n" +
     "      <a class=\"btn btn-default w-chz-active\"\n" +
     "         ng-class='{\"btn-danger\": invalid}'\n" +
@@ -287,7 +287,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
 
 
   $templateCache.put('/templates/multi-select.html',
-    "<div class='w-multi-select'>\n" +
+    "<div class='w-multi-select w-widget-root'>\n" +
     "  <div class=\"w-multi-options\" ng-if=\"selectedItems.length > 0\">\n" +
     "    <a ng-repeat='selectedItem in selectedItems' class=\"btn\" ng-click=\"deselect(selectedItem)\">\n" +
     "      {{ getItemLabel(selectedItem) }}\n" +
@@ -296,7 +296,8 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "  </div>\n" +
     "  <!-- FIXME: why not use existing control -->\n" +
     "  <input ng-keydown=\"onkeys($event)\"\n" +
-    "         ng-focus=\"active=true\"\n" +
+    "         w-hold-focus=\"active = true\"\n" +
+    "         w-hold-focus-blur=\"active=false\"\n" +
     "         w-down='move(1)'\n" +
     "         w-up='move(-1)'\n" +
     "         w-pgup='onPgup($event)'\n" +
@@ -304,8 +305,6 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "         w-enter='onEnter($event)'\n" +
     "         w-tab='onTab()'\n" +
     "         w-esc='onEsc()'\n" +
-    "         w-focus=\"active\"\n" +
-    "         ng-blur=\"deactivate()\"\n" +
     "         class=\"form-control\"\n" +
     "         type=\"text\"\n" +
     "         placeholder='Search'\n" +
@@ -317,7 +316,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "          ng-class=\"{true: 'active'}[item == activeItem]\">\n" +
     "        <a ng-click=\"selection(item)\"\n" +
     "           href=\"javascript:void(0)\"\n" +
-    "           id='{{item[keyAttr]}}'\n" +
+    "           id='{{item[keyAttr || 'id']}}'\n" +
     "           tabindex='-1'>{{ getItemLabel(item) }}</a>\n" +
     "      </li>\n" +
     "    </ul>\n" +
@@ -1023,7 +1022,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     return {
       link: function(scope, element, attrs) {
         return scope.$watch(attrs.wFocus, function(fcs) {
-          if (fcs) {
+          if (fcs != null) {
             return focuz(element[0]);
           }
         });
@@ -1068,6 +1067,40 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
 }).call(this);
 
 (function() {
+  angular.module("angular-w").directive("wHoldFocus", function($timeout) {
+    var widgetRoot;
+    widgetRoot = function(el) {
+      var currentEl;
+      currentEl = el;
+      while (currentEl && currentEl.className.indexOf("w-widget-root") < 0) {
+        currentEl = currentEl.parentNode;
+      }
+      return currentEl;
+    };
+    return {
+      link: function(scope, element, attrs) {
+        element.on('focus', function(event) {
+          return scope.$apply(attrs["wHoldFocus"]);
+        });
+        return element.on('blur', function(event) {
+          var newWidgetRoot, oldWidgetRoot;
+          oldWidgetRoot = widgetRoot(event.srcElement);
+          newWidgetRoot = widgetRoot(event.relatedTarget);
+          if (event.relatedTarget && newWidgetRoot !== null && oldWidgetRoot === newWidgetRoot) {
+            return setTimeout((function() {
+              return element[0].focus();
+            }), 0);
+          } else {
+            return scope.$apply(attrs["wHoldFocusBlur"]);
+          }
+        });
+      }
+    };
+  });
+
+}).call(this);
+
+(function() {
   var difference, hash_key;
 
   hash_key = function(item) {
@@ -1105,134 +1138,93 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
         transclude: true,
         templateUrl: "/templates/multi-select.html",
         controller: function($scope, $element, $attrs) {
-          var getActiveIndex, resetDropDown, search;
-          search = function(q) {
-            $scope.shownItems = difference(filter(q, $scope.items, $scope.valueAttr).slice(0, $scope.limit), $scope.selectedItems);
-            $scope.activeItem = $scope.shownItems[0];
-            return $scope.prevSearch = q;
-          };
+          var updateDropDown;
           $scope.getItemLabel = function(item) {
-            return item && item[$scope.valueAttr];
+            return item && item[$scope.valueAttr || 'label'];
           };
-          resetDropDown = function() {
-            $scope.shownItems = difference($scope.items.slice(0, $scope.limit), $scope.selectedItems);
-            $scope.activeItem = $scope.shownItems[0];
-            return $scope.active = true;
+          updateDropDown = function() {
+            $scope.shownItems = difference($scope.search ? filter($scope.search, $scope.items, $scope.valueAttr).slice(0, $scope.limit) : $scope.items.slice(0, $scope.limit), $scope.selectedItems);
+            return $scope.activeItem = $scope.shownItems[0];
           };
           $scope.selection = function(item) {
             if ((item != null) && indexOf($scope.selectedItems, item) === -1) {
               $scope.selectedItems.push(item);
             }
-            $scope.hideDropDown();
-            return resetDropDown();
+            $scope.search = "";
+            return updateDropDown();
           };
           $scope.deselect = function(item) {
             var index;
             index = indexOf($scope.selectedItems, item);
             if (index > -1) {
               $scope.selectedItems.splice(index, 1);
-              return resetDropDown();
+              return updateDropDown();
             }
           };
           $scope.reset = function() {
             $scope.selectedItems = [];
-            $scope.focus = true;
-            return search('');
+            return updateDropDown();
           };
-          $scope.$watch('search', search);
-          $scope.hideDropDown = function() {
-            return $scope.active = false;
-          };
+          $scope.$watch('search', updateDropDown);
           $scope.showDropdown = function() {
             return $scope.active = true;
           };
-          getActiveIndex = function() {
+          $scope.getActiveIndex = function() {
             return indexOf($scope.shownItems, $scope.activeItem) || 0;
           };
-          $scope.getActiveIndex = getActiveIndex;
           $scope.selectedItems = [];
-          return resetDropDown();
+          return $scope.active = false;
         },
-        compile: function(tElement, tAttrs) {
-          tAttrs.keyAttr || (tAttrs.keyAttr = 'id');
-          tAttrs.valueAttr || (tAttrs.valueAttr = 'label');
-          return function(scope, element, attrs, ngModelCtrl, transcludeFn) {
-            var scroll, setViewValue;
-            if (ngModelCtrl) {
-              setViewValue = function(newValue, oldValue) {
-                if (!angular.equals(newValue, oldValue)) {
-                  return ngModelCtrl.$setViewValue(scope.selectedItems);
-                }
-              };
-              scope.$watch('selectedItems', setViewValue, true);
-              ngModelCtrl.$render = function() {
-                return scope.selectedItems = ngModelCtrl.$modelValue || [];
-              };
-            }
-            attrs.$observe('disabled', function(value) {
-              return scope.disabled = value;
-            });
-            scope.$watch('selectedItems', function() {
-              var childScope;
-              childScope = scope.$new();
-              childScope.items = scope.selectedItems;
-              return transcludeFn(childScope, function(clone) {
-                var link;
-                if (clone.text().trim() !== "") {
-                  link = element[0].querySelector('a.w-multi-select-active');
-                  return angular.element(link).empty().append(clone);
-                }
-              });
-            });
-            $window.addEventListener('click', function(e) {
-              var parent;
-              parent = $(e.target).parents('div.w-multi-select')[0];
-              if (parent !== element[0]) {
-                return scope.$apply(scope.hideDropDown);
+        link: function(scope, element, attrs, ngModelCtrl, transcludeFn) {
+          var scroll, setViewValue;
+          console.log(attrs);
+          if (ngModelCtrl) {
+            setViewValue = function(newValue, oldValue) {
+              if (!angular.equals(newValue, oldValue)) {
+                return ngModelCtrl.$setViewValue(scope.selectedItems);
               }
-            });
-            scroll = function() {
-              var delayedScrollFn;
-              delayedScrollFn = function() {
-                var li, ul;
-                ul = element.find('ul')[0];
-                li = ul.querySelector('li.active');
-                return scrollToTarget(ul, li);
-              };
-              return setTimeout(delayedScrollFn, 0);
             };
-            scope.move = function(d) {
-              var activeIndex, items;
-              items = scope.shownItems;
-              activeIndex = getActiveIndex() + d;
-              activeIndex = Math.min(Math.max(activeIndex, 0), items.length - 1);
-              scope.activeItem = items[activeIndex];
-              return scroll();
+            scope.$watch('selectedItems', setViewValue, true);
+            ngModelCtrl.$render = function() {
+              return scope.selectedItems = ngModelCtrl.$modelValue || [];
             };
-            scope.deactivate = function() {
-              return setTimeout((function() {
-                return scope.active = false;
-              }), 0);
+          }
+          attrs.$observe('disabled', function(value) {
+            return scope.disabled = value;
+          });
+          scroll = function() {
+            var delayedScrollFn;
+            delayedScrollFn = function() {
+              var li, ul;
+              ul = element.find('ul')[0];
+              li = ul.querySelector('li.active');
+              return scrollToTarget(ul, li);
             };
-            scope.onEnter = function(event) {
-              scope.selection(scope.activeItem);
-              scope.focus = true;
-              return event.preventDefault();
-            };
-            scope.onPgup = function(event) {
-              scope.move(-11);
-              return event.preventDefault();
-            };
-            scope.onPgdown = function(event) {
-              scope.move(11);
-              return event.preventDefault();
-            };
-            scope.onTab = function() {};
-            return scope.onEsc = function() {
-              scope.hideDropDown();
-              return scope.focus = true;
-            };
+            return setTimeout(delayedScrollFn, 0);
           };
+          scope.move = function(d) {
+            var activeIndex, items;
+            items = scope.shownItems;
+            activeIndex = scope.getActiveIndex() + d;
+            activeIndex = Math.min(Math.max(activeIndex, 0), items.length - 1);
+            scope.activeItem = items[activeIndex];
+            return scroll();
+          };
+          scope.deactivate = function() {};
+          scope.onEnter = function(event) {
+            scope.selection(scope.activeItem);
+            return event.preventDefault();
+          };
+          scope.onPgup = function(event) {
+            scope.move(-11);
+            return event.preventDefault();
+          };
+          scope.onPgdown = function(event) {
+            scope.move(11);
+            return event.preventDefault();
+          };
+          scope.onTab = function() {};
+          return scope.onEsc = function() {};
         }
       };
     }

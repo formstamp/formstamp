@@ -91,7 +91,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
 
 
   $templateCache.put('/templates/chz.html',
-    "<div class='w-chz'>\n" +
+    "<div class='w-chz w-wiget-root'>\n" +
     "  <div ng-hide=\"active\" class=\"w-chz-sel\" ng-class=\"{'btn-group': selectedItem}\">\n" +
     "      <a class=\"btn btn-default w-chz-active\"\n" +
     "         ng-class='{\"btn-danger\": invalid}'\n" +
@@ -179,7 +179,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
 
 
   $templateCache.put('/templates/multi-select.html',
-    "<div class='w-multi-select'>\n" +
+    "<div class='w-multi-select w-widget-root'>\n" +
     "  <div class=\"w-multi-options\" ng-if=\"selectedItems.length > 0\">\n" +
     "    <a ng-repeat='selectedItem in selectedItems' class=\"btn\" ng-click=\"deselect(selectedItem)\">\n" +
     "      {{ getItemLabel(selectedItem) }}\n" +
@@ -188,7 +188,8 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "  </div>\n" +
     "  <!-- FIXME: why not use existing control -->\n" +
     "  <input ng-keydown=\"onkeys($event)\"\n" +
-    "         ng-focus=\"active=true\"\n" +
+    "         w-hold-focus=\"active = true\"\n" +
+    "         w-hold-focus-blur=\"active=false\"\n" +
     "         w-down='move(1)'\n" +
     "         w-up='move(-1)'\n" +
     "         w-pgup='onPgup($event)'\n" +
@@ -196,8 +197,6 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "         w-enter='onEnter($event)'\n" +
     "         w-tab='onTab()'\n" +
     "         w-esc='onEsc()'\n" +
-    "         w-focus=\"active\"\n" +
-    "         ng-blur=\"deactivate()\"\n" +
     "         class=\"form-control\"\n" +
     "         type=\"text\"\n" +
     "         placeholder='Search'\n" +
@@ -209,7 +208,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "          ng-class=\"{true: 'active'}[item == activeItem]\">\n" +
     "        <a ng-click=\"selection(item)\"\n" +
     "           href=\"javascript:void(0)\"\n" +
-    "           id='{{item[keyAttr]}}'\n" +
+    "           id='{{item[keyAttr || 'id']}}'\n" +
     "           tabindex='-1'>{{ getItemLabel(item) }}</a>\n" +
     "      </li>\n" +
     "    </ul>\n" +

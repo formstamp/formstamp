@@ -14,7 +14,7 @@ module.exports = function (grunt) {
       directives: {
           expand: true,
           cwd: 'src/',
-          src: ['*.coffee'],
+          src: ['*.coffee', '!.*#.coffee'],
           dest: 'build/',
           ext: '.js'
       },
@@ -24,7 +24,7 @@ module.exports = function (grunt) {
         },
         expand: true,
         cwd: 'src/utils',
-        src: ['*.coffee'],
+        src: ['*.coffee', '!.*#.coffee'],
         dest: 'build/utils/',
         ext: '.js'
       }
@@ -34,7 +34,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: 'styles',
-          src: ['*.less'],
+          src: ['*.less', '!.*#.less'],
           dest: 'build',
           ext: '.css'
         }]

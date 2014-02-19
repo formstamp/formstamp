@@ -1,4 +1,4 @@
-<div class='w-multi-select'>
+<div class='w-multi-select w-widget-root'>
   <div class="w-multi-options" ng-if="selectedItems.length > 0">
     <a ng-repeat='selectedItem in selectedItems' class="btn" ng-click="deselect(selectedItem)">
       {{ getItemLabel(selectedItem) }}
@@ -7,7 +7,8 @@
   </div>
   <!-- FIXME: why not use existing control -->
   <input ng-keydown="onkeys($event)"
-         ng-focus="active=true"
+         w-hold-focus="active = true"
+         w-hold-focus-blur="active=false"
          w-down='move(1)'
          w-up='move(-1)'
          w-pgup='onPgup($event)'
@@ -15,8 +16,6 @@
          w-enter='onEnter($event)'
          w-tab='onTab()'
          w-esc='onEsc()'
-         w-focus="active"
-         ng-blur="deactivate()"
          class="form-control"
          type="text"
          placeholder='Search'
@@ -28,7 +27,7 @@
           ng-class="{true: 'active'}[item == activeItem]">
         <a ng-click="selection(item)"
            href="javascript:void(0)"
-           id='{{item[keyAttr]}}'
+           id='{{item[keyAttr || 'id']}}'
            tabindex='-1'>{{ getItemLabel(item) }}</a>
       </li>
     </ul>
