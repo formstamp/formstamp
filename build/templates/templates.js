@@ -109,7 +109,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "              ng-show='selectedItem'\n" +
     "              ng-click='reset()'>&times;</button>\n" +
     "    </div>\n" +
-    "  <div class=\"open\" ng-if=\"active\">\n" +
+    "  <div class=\"open\" ng-show=\"active\">\n" +
     "    <input class=\"form-control\"\n" +
     "           w-down='move(1)'\n" +
     "           w-up='move(-1)'\n" +
@@ -122,9 +122,10 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "           type=\"search\"\n" +
     "           placeholder='Search'\n" +
     "           ng-model=\"search\" />\n" +
+    "\n" +
     "    <ul class=\"dropdown-menu w-chz-items-list-default w-chz-items-list\"\n" +
     "        role=\"menu\"\n" +
-    "        ng-show=\"shownItems.length\">\n" +
+    "        ng-if=\"active && shownItems.length\">\n" +
     "       <li ng-repeat=\"item in shownItems\"\n" +
     "           ng-class=\"{active: isActive(item)}\">\n" +
     "         <a ng-click=\"selection(item)\"\n" +
