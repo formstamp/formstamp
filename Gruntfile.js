@@ -33,7 +33,7 @@ module.exports = function (grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: 'styles',
+          cwd: 'demo/styles',
           src: ['*.less', '!.*#.less'],
           dest: 'build',
           ext: '.css'
