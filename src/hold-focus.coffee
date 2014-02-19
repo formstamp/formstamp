@@ -12,7 +12,7 @@ angular.module("angular-w").directive "wHoldFocus", ($timeout) ->
       scope.$apply(attrs["wHoldFocus"])
 
     element.on 'blur', (event) ->
-      oldWidgetRoot = widgetRoot(event.srcElement)
+      oldWidgetRoot = widgetRoot(event.srcElement || event.target)
       newWidgetRoot = widgetRoot(event.relatedTarget)
 
       if event.relatedTarget && newWidgetRoot != null && oldWidgetRoot == newWidgetRoot

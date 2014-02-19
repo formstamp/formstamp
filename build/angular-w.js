@@ -217,7 +217,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "              ng-show='selectedItem'\n" +
     "              ng-click='reset()'>&times;</button>\n" +
     "    </div>\n" +
-    "  <div class=\"open\" ng-if=\"active\">\n" +
+    "  <div class=\"open\" ng-show=\"active\">\n" +
     "    <input class=\"form-control\"\n" +
     "           w-down='move(1)'\n" +
     "           w-up='move(-1)'\n" +
@@ -230,9 +230,10 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "           type=\"search\"\n" +
     "           placeholder='Search'\n" +
     "           ng-model=\"search\" />\n" +
+    "\n" +
     "    <ul class=\"dropdown-menu w-chz-items-list-default w-chz-items-list\"\n" +
     "        role=\"menu\"\n" +
-    "        ng-show=\"shownItems.length\">\n" +
+    "        ng-if=\"active && shownItems.length\">\n" +
     "       <li ng-repeat=\"item in shownItems\"\n" +
     "           ng-class=\"{active: isActive(item)}\">\n" +
     "         <a ng-click=\"selection(item)\"\n" +
@@ -249,7 +250,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
 
 
   $templateCache.put('/templates/datepicker.html',
-    "<span>\n" +
+    "<div class=\"w-datepicker\">\n" +
     "  <input type=\"text\"\n" +
     "    class=\"form-control\"\n" +
     "    ng-focus=\"active=true\"\n" +
@@ -262,7 +263,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "        ng-change=\"console.log('here');active=false;\"/>\n" +
     "    </div>\n" +
     "  </div>\n" +
-    "</span>\n"
+    "</div>\n"
   );
 
 
@@ -289,7 +290,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
   $templateCache.put('/templates/multi-select.html',
     "<div class='w-multi-select w-widget-root'>\n" +
     "  <div class=\"w-multi-options\" ng-if=\"selectedItems.length > 0\">\n" +
-    "    <a ng-repeat='selectedItem in selectedItems' class=\"btn\" ng-click=\"deselect(selectedItem)\">\n" +
+    "    <a ng-repeat='selectedItem in selectedItems' class=\"btn\" ng-click=\"unselectItem(selectedItem)\">\n" +
     "      {{ getItemLabel(selectedItem) }}\n" +
     "      <span class=\"glyphicon glyphicon-remove\" ></span>\n" +
     "    </a>\n" +
@@ -303,8 +304,6 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "         w-pgup='onPgup($event)'\n" +
     "         w-pgdown='onPgdown($event)'\n" +
     "         w-enter='onEnter($event)'\n" +
-    "         w-tab='onTab()'\n" +
-    "         w-esc='onEsc()'\n" +
     "         class=\"form-control\"\n" +
     "         type=\"text\"\n" +
     "         placeholder='Search'\n" +
@@ -314,9 +313,9 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "        role=\"menu\" >\n" +
     "      <li ng-repeat=\"item in shownItems\"\n" +
     "          ng-class=\"{true: 'active'}[item == activeItem]\">\n" +
-    "        <a ng-click=\"selection(item)\"\n" +
+    "        <a ng-click=\"selectItem(item)\"\n" +
     "           href=\"javascript:void(0)\"\n" +
-    "           id='{{item[keyAttr || 'id']}}'\n" +
+    "           id='{{getItemValue(item)}}'\n" +
     "           tabindex='-1'>{{ getItemLabel(item) }}</a>\n" +
     "      </li>\n" +
     "    </ul>\n" +
@@ -1084,7 +1083,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
         });
         return element.on('blur', function(event) {
           var newWidgetRoot, oldWidgetRoot;
-          oldWidgetRoot = widgetRoot(event.srcElement);
+          oldWidgetRoot = widgetRoot(event.srcElement || event.target);
           newWidgetRoot = widgetRoot(event.relatedTarget);
           if (event.relatedTarget && newWidgetRoot !== null && oldWidgetRoot === newWidgetRoot) {
             return setTimeout((function() {
@@ -1131,29 +1130,45 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
           items: '=',
           limit: '=',
           keyAttr: '@',
-          valueAttr: '@'
+          valueAttr: '@',
+          disabled: '@'
         },
         require: '?ngModel',
         replace: true,
         transclude: true,
         templateUrl: "/templates/multi-select.html",
         controller: function($scope, $element, $attrs) {
-          var updateDropDown;
+          var keyAttr, updateDropDown, valueAttr;
+          valueAttr = function() {
+            return $scope.valueAttr || "label";
+          };
+          keyAttr = function() {
+            return $scope.valueAttr || "id";
+          };
           $scope.getItemLabel = function(item) {
-            return item && item[$scope.valueAttr || 'label'];
+            return item && item[valueAttr()];
+          };
+          $scope.getItemValue = function(item) {
+            return item && item[keyAttr()];
           };
           updateDropDown = function() {
-            $scope.shownItems = difference($scope.search ? filter($scope.search, $scope.items, $scope.valueAttr).slice(0, $scope.limit) : $scope.items.slice(0, $scope.limit), $scope.selectedItems);
+            var items;
+            if ($scope.search) {
+              items = filter($scope.search, $scope.items, valueAttr()).slice(0, $scope.limit);
+            } else {
+              items = $scope.items.slice(0, $scope.limit);
+            }
+            $scope.shownItems = difference(items, $scope.selectedItems);
             return $scope.activeItem = $scope.shownItems[0];
           };
-          $scope.selection = function(item) {
+          $scope.selectItem = function(item) {
             if ((item != null) && indexOf($scope.selectedItems, item) === -1) {
               $scope.selectedItems.push(item);
             }
             $scope.search = "";
             return updateDropDown();
           };
-          $scope.deselect = function(item) {
+          $scope.unselectItem = function(item) {
             var index;
             index = indexOf($scope.selectedItems, item);
             if (index > -1) {
@@ -1161,38 +1176,43 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
               return updateDropDown();
             }
           };
-          $scope.reset = function() {
-            $scope.selectedItems = [];
-            return updateDropDown();
+          $scope.move = function(d) {
+            var activeIndex, items;
+            items = $scope.shownItems;
+            activeIndex = (indexOf(items, $scope.activeItem) || 0) + d;
+            activeIndex = Math.min(Math.max(activeIndex, 0), items.length - 1);
+            return $scope.activeItem = items[activeIndex];
+          };
+          $scope.onEnter = function(event) {
+            $scope.selectItem($scope.activeItem);
+            return false;
+          };
+          $scope.onPgup = function(event) {
+            $scope.move(-11);
+            return false;
+          };
+          $scope.onPgdown = function(event) {
+            $scope.move(11);
+            return false;
           };
           $scope.$watch('search', updateDropDown);
-          $scope.showDropdown = function() {
-            return $scope.active = true;
-          };
-          $scope.getActiveIndex = function() {
-            return indexOf($scope.shownItems, $scope.activeItem) || 0;
-          };
           $scope.selectedItems = [];
           return $scope.active = false;
         },
-        link: function(scope, element, attrs, ngModelCtrl, transcludeFn) {
+        link: function($scope, element, attrs, ngModelCtrl, transcludeFn) {
           var scroll, setViewValue;
-          console.log(attrs);
           if (ngModelCtrl) {
             setViewValue = function(newValue, oldValue) {
               if (!angular.equals(newValue, oldValue)) {
-                return ngModelCtrl.$setViewValue(scope.selectedItems);
+                return ngModelCtrl.$setViewValue($scope.selectedItems);
               }
             };
-            scope.$watch('selectedItems', setViewValue, true);
+            $scope.$watch('selectedItems', setViewValue, true);
             ngModelCtrl.$render = function() {
-              return scope.selectedItems = ngModelCtrl.$modelValue || [];
+              return $scope.selectedItems = ngModelCtrl.$modelValue || [];
             };
           }
-          attrs.$observe('disabled', function(value) {
-            return scope.disabled = value;
-          });
-          scroll = function() {
+          return scroll = function() {
             var delayedScrollFn;
             delayedScrollFn = function() {
               var li, ul;
@@ -1202,29 +1222,6 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
             };
             return setTimeout(delayedScrollFn, 0);
           };
-          scope.move = function(d) {
-            var activeIndex, items;
-            items = scope.shownItems;
-            activeIndex = scope.getActiveIndex() + d;
-            activeIndex = Math.min(Math.max(activeIndex, 0), items.length - 1);
-            scope.activeItem = items[activeIndex];
-            return scroll();
-          };
-          scope.deactivate = function() {};
-          scope.onEnter = function(event) {
-            scope.selection(scope.activeItem);
-            return event.preventDefault();
-          };
-          scope.onPgup = function(event) {
-            scope.move(-11);
-            return event.preventDefault();
-          };
-          scope.onPgdown = function(event) {
-            scope.move(11);
-            return event.preventDefault();
-          };
-          scope.onTab = function() {};
-          return scope.onEsc = function() {};
         }
       };
     }
@@ -1322,11 +1319,13 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
             fn = $parse(attr[dirName]);
             return element.on('keydown', function(event) {
               if (event.keyCode === keyCode && event.shiftKey === shift) {
-                return scope.$apply(function() {
+                if (!scope.$apply(function() {
                   return fn(scope, {
                     $event: event
                   });
-                });
+                })) {
+                  return event.preventDefault();
+                }
               }
             });
           }
@@ -1476,7 +1475,8 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
         scope: {
           invalid: '=',
           items: '=',
-          limit: '='
+          limit: '=',
+          disabled: '@'
         },
         require: '?ngModel',
         replace: true,
@@ -1495,39 +1495,46 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
           $scope.getItemLabel = function(item) {
             return item;
           };
-          $scope.selection = function(item) {
+          $scope.getItemValue = function(item) {
+            return item;
+          };
+          $scope.selectItem = function(item) {
             if ((item != null) && item.length > 0 && indexOf($scope.selectedItems, item) === -1) {
               $scope.selectedItems.push(item);
-              $scope.search = '';
+              return $scope.search = '';
             }
-            return $scope.hideDropDown();
           };
-          $scope.deselect = function(item) {
+          $scope.unselectItem = function(item) {
             var index;
             index = indexOf($scope.selectedItems, item);
             if (index > -1) {
               return $scope.selectedItems.splice(index, 1);
             }
           };
-          $scope.reset = function() {
-            $scope.selectedItems = [];
-            $scope.focus = true;
-            return search('');
+          $scope.onEnter = function(event) {
+            $scope.selectItem($scope.activeItem || $scope.search);
+            return true;
           };
-          $scope.activeKeys = function(event) {
-            if (event.keyCode === 13) {
-              return $scope.active = true;
-            }
+          $scope.onPgup = function(event) {
+            $scope.move(-11);
+            return true;
+          };
+          $scope.onPgdown = function(event) {
+            $scope.move(11);
+            return true;
+          };
+          $scope.move = function(d) {
+            var activeIndex, items;
+            items = $scope.shownItems;
+            activeIndex = (indexOf($scope.shownItems, $scope.activeItem) || 0) + d;
+            activeIndex = Math.min(Math.max(activeIndex, 0), items.length - 1);
+            return $scope.activeItem = items[activeIndex];
           };
           $scope.$watch('search', search);
-          $scope.hideDropDown = function() {
-            return $scope.active = false;
-          };
-          $scope.selectedItems = [];
-          return search('');
+          return $scope.selectedItems = [];
         },
         link: function(scope, element, attrs, ngModelCtrl, transcludeFn) {
-          var getActiveIndex, scroll, setViewValue;
+          var scroll, setViewValue;
           if (ngModelCtrl) {
             setViewValue = function(newValue, oldValue) {
               if (!angular.equals(newValue, oldValue)) {
@@ -1540,60 +1547,6 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
             };
             addValidations(attrs, ngModelCtrl);
           }
-          attrs.$observe('disabled', function(value) {
-            return scope.disabled = value;
-          });
-          scope.$watch('selectedItems', function() {
-            var childScope;
-            childScope = scope.$new();
-            childScope.items = scope.selectedItems;
-            return transcludeFn(childScope, function(clone) {
-              var link;
-              if (clone.text().trim() !== "") {
-                link = element[0].querySelector('a.w-multi-select-active');
-                return angular.element(link).empty().append(clone);
-              }
-            });
-          });
-          $window.addEventListener('click', function(e) {
-            var parent;
-            parent = $(e.target).parents('div.w-multi-select')[0];
-            if (parent !== element[0]) {
-              return scope.$apply(function() {
-                scope.hideDropDown();
-                return scope.selection(scope.search);
-              });
-            }
-          });
-          scope.onEnter = function(event) {
-            scope.selection(scope.activeItem || scope.search);
-            scope.focus = true;
-            return event.preventDefault();
-          };
-          scope.onPgup = function(event) {
-            scope.move(-11);
-            return event.preventDefault();
-          };
-          scope.onPgdown = function(event) {
-            scope.move(11);
-            return event.preventDefault();
-          };
-          scope.onTab = function() {};
-          scope.onEsc = function() {
-            scope.hideDropDown();
-            return scope.focus = true;
-          };
-          getActiveIndex = function() {
-            return indexOf(scope.shownItems, scope.activeItem) || 0;
-          };
-          scope.move = function(d) {
-            var activeIndex, items;
-            items = scope.shownItems;
-            activeIndex = getActiveIndex() + d;
-            activeIndex = Math.min(Math.max(activeIndex, 0), items.length - 1);
-            scope.activeItem = items[activeIndex];
-            return scroll();
-          };
           return scroll = function() {
             var delayedScrollFn;
             delayedScrollFn = function() {

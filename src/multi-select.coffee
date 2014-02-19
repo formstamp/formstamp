@@ -17,110 +17,83 @@ angular
       limit: '='
       keyAttr: '@'
       valueAttr: '@'
+      disabled: '@'
     require: '?ngModel'
     replace: true
     transclude: true
     templateUrl: "/templates/multi-select.html"
     controller: ($scope, $element, $attrs) ->
-      # search = (q) ->
-      #   $scope.shownItems = difference(
-      #     filter(q, $scope.items, $scope.valueAttr).slice(0, $scope.limit),
-      #     $scope.selectedItems
-      #   )
-      #   $scope.activeItem = $scope.shownItems[0]
-      #   $scope.prevSearch = q
+      valueAttr = () -> $scope.valueAttr || "label"
+      keyAttr = () -> $scope.valueAttr || "id"
 
       $scope.getItemLabel = (item)->
-        item && item[$scope.valueAttr || 'label']
+        item && item[valueAttr()]
+
+      $scope.getItemValue = (item)->
+        item && item[keyAttr()]
 
       updateDropDown = ->
-        $scope.shownItems = difference(
-          if $scope.search
-            filter($scope.search, $scope.items, $scope.valueAttr).slice(0, $scope.limit)
-          else
-            $scope.items.slice(0, $scope.limit)
+        if $scope.search
+          items = filter($scope.search, $scope.items, valueAttr()).slice(0, $scope.limit)
+        else
+          items = $scope.items.slice(0, $scope.limit)
 
-          $scope.selectedItems
-        )
+        $scope.shownItems = difference(items, $scope.selectedItems)
         $scope.activeItem = $scope.shownItems[0]
 
-      #TODO: why is this method's name a noun instead of a verb?
-      $scope.selection = (item)->
+      $scope.selectItem = (item)->
         if item? and indexOf($scope.selectedItems, item) == -1
           $scope.selectedItems.push(item)
         $scope.search = ""
         updateDropDown()
 
-      $scope.deselect = (item)->
+      $scope.unselectItem = (item)->
         index = indexOf($scope.selectedItems, item)
         if index > -1
           $scope.selectedItems.splice(index, 1)
           updateDropDown()
 
-      $scope.reset = ->
-        $scope.selectedItems = []
-        updateDropDown()
+      $scope.move = (d) ->
+        items = $scope.shownItems
+        activeIndex = (indexOf(items, $scope.activeItem) || 0) + d
+        activeIndex = Math.min(Math.max(activeIndex,0), items.length - 1)
+        $scope.activeItem = items[activeIndex]
 
+      $scope.onEnter = (event) ->
+        $scope.selectItem($scope.activeItem)
+        false
+
+      $scope.onPgup = (event) ->
+        $scope.move(-11)
+        false
+
+      $scope.onPgdown = (event) ->
+        $scope.move(11)
+        false
+
+      # TODO: replace with custom angular filter
       $scope.$watch 'search', updateDropDown
-
-      $scope.showDropdown = ->
-        $scope.active = true
-
-      $scope.getActiveIndex = ->
-        indexOf($scope.shownItems, $scope.activeItem) || 0
 
       # TODO move to init
       $scope.selectedItems = []
       $scope.active = false
 
-    link: (scope, element, attrs, ngModelCtrl, transcludeFn) ->
-      console.log attrs
-
+    link: ($scope, element, attrs, ngModelCtrl, transcludeFn) ->
       if ngModelCtrl
         setViewValue = (newValue, oldValue)->
           unless angular.equals(newValue, oldValue)
-            ngModelCtrl.$setViewValue(scope.selectedItems)
+            ngModelCtrl.$setViewValue($scope.selectedItems)
 
-        scope.$watch 'selectedItems', setViewValue, true
+        $scope.$watch 'selectedItems', setViewValue, true
 
         ngModelCtrl.$render = ->
-          scope.selectedItems = ngModelCtrl.$modelValue || []
+          $scope.selectedItems = ngModelCtrl.$modelValue || []
 
-      attrs.$observe 'disabled', (value) ->
-        scope.disabled = value
-
+      # TODO: make this a separate directive
       scroll = ->
         delayedScrollFn = ->
           ul = element.find('ul')[0]
           li = ul.querySelector('li.active')
           scrollToTarget(ul, li)
         setTimeout(delayedScrollFn, 0)
-
-      scope.move = (d) ->
-        items = scope.shownItems
-        activeIndex = scope.getActiveIndex() + d
-        activeIndex = Math.min(Math.max(activeIndex,0), items.length - 1)
-        scope.activeItem = items[activeIndex]
-        scroll()
-
-      scope.deactivate = () ->
-        # setTimeout((()-> scope.active = false),0)
-
-      scope.onEnter = (event) ->
-        scope.selection(scope.activeItem)
-        event.preventDefault()
-
-      scope.onPgup = (event) ->
-        scope.move(-11)
-        event.preventDefault()
-
-      scope.onPgdown = (event) ->
-        scope.move(11)
-        event.preventDefault()
-
-      scope.onTab = ->
-        # scope.selection(scope.activeItem)
-
-      scope.onEsc = ->
-        # scope.hideDropDown()
   ]

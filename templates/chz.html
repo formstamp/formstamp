@@ -16,7 +16,7 @@
               ng-show='selectedItem'
               ng-click='reset()'>&times;</button>
     </div>
-  <div class="open" ng-if="active">
+  <div class="open" ng-show="active">
     <input class="form-control"
            w-down='move(1)'
            w-up='move(-1)'
@@ -29,9 +29,10 @@
            type="search"
            placeholder='Search'
            ng-model="search" />
+
     <ul class="dropdown-menu w-chz-items-list-default w-chz-items-list"
         role="menu"
-        ng-show="shownItems.length">
+        ng-if="active && shownItems.length">
        <li ng-repeat="item in shownItems"
            ng-class="{active: isActive(item)}">
          <a ng-click="selection(item)"
