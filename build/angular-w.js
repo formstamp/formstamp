@@ -277,7 +277,6 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "         invalid='validationErrors.length > 0'\n" +
     "         ng-model='object[field]'></div>\n" +
     "    <div>\n" +
-    "      {{validationErrors | json}}\n" +
     "    <p class='text-danger' ng-repeat='message in validationErrors'>\n" +
     "      <span>{{message}}</span>\n" +
     "    </p>\n" +

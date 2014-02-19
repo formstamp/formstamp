@@ -7,7 +7,6 @@
          invalid='validationErrors.length > 0'
          ng-model='object[field]'></div>
     <div>
-      {{validationErrors | json}}
     <p class='text-danger' ng-repeat='message in validationErrors'>
       <span>{{message}}</span>
     </p>
