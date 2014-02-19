@@ -1,0 +1,293 @@
+<div class="container" ng-controller='FormBuilderCtrl'>
+  <div class="page-header">
+    <h1>Form Builder</h1>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div>
+        <h2>Description</h2>
+        <h3>Directive: <code>w-form-for</code></h3>
+        <p>
+          Form Builder creates a form for the provided object using declarative style.
+          Input fields are created by <code>w-field</code> directive.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class='row'>
+    <div class="col-md-5" ng-non-bindable>
+      <h4>Example</h4>
+      <pre class="prettyprint">
+&lt;form name='form' 
+    w-form-for='samurai'
+    w-submit='send()'&gt;
+    
+&lt;div w-field='name'
+     type='w-combo'
+     items='names'
+     label='Name'&gt;&lt;/div&gt;
+
+&lt;div w-field='age'
+     type='w-chz'
+     items='ages'
+     label='Age'&gt;&lt;/div&gt;
+
+&lt;div w-field='stage'
+     type='w-radio'
+     items='stages'
+     label='Learning Stage'&gt;&lt;/div&gt;
+
+&lt;div w-field='likesToEat'
+     type='w-checkbox'
+     items='meals'
+     label='Likes to eat'&gt;&lt;/div&gt;
+
+&lt;div w-field='weapons'
+     type='w-multi-select'
+     items='weapons'
+     label='Weapons'&gt;&lt;/div&gt;
+
+&lt;div w-field='styles'
+     type='w-tags'
+     items='weaponStyles'
+     label='Styles'&gt;&lt;/div&gt;
+
+&lt;div w-submit-field&gt;Save&lt;/div&gt;
+&lt;/form&gt;
+      </pre>
+      <pre class="prettyprint">
+angular.module('angular-w-demo')
+  .controller('FormBuilderCtrl', function($scope, $http) {
+$scope.samurai = {};
+$scope.stages = [
+  {id: 'S', label: 'Shu'},
+  {id: 'H', label: 'Ha'},
+  {id: 'R', label: 'Ri'}
+];
+$scope.names = ["Joe", "Sue", "Sam"];
+$scope.ages = []
+for (var age = 0; age < 100; age++) {
+  $scope.ages.push({
+    id: age,
+    label: age
+  });
+}
+
+$scope.meals = [
+  {id: 'meat', label: 'meat'},
+  {id: 'milk', label: 'milk'},
+  {id: 'orange', label: 'orange'}
+];
+$scope.weapons = [
+  {id: '1', label: 'Katana'},
+  {id: '2', label: 'Naginata'},
+  {id: '3', label: 'Yari'}
+];
+$scope.weaponStyles = ['Kenjutsu', 'Naginatajutsu', 'Sōjutsu']
+
+$scope.send = function() {
+  var res = $http.post('/').success(function(data) {
+    angular.copy(data, $scope.samurai);
+  });
+}
+});
+      </pre>
+    </div>
+    <div class="col-md-7 demonstration" style='padding-left: 50px'>
+      <h2>Demo</h2>
+      <form name='form' w-form-for='samurai' w-submit='send()'>
+        <div w-field='name'
+             type='w-combo'
+             items='names'
+             label='Name'></div>
+
+        <div w-field='age'
+             type='w-chz'
+             items='ages'
+             label='Age'></div>
+
+        <div w-field='stage'
+             type='w-radio'
+             items='stages'
+             label='Learning Stage'></div>
+
+        <div w-field='likesToEat'
+             type='w-checkbox'
+             items='meals'
+             label='Likes to eat'></div>
+
+        <div w-field='weapons'
+             type='w-multi-select'
+             items='weapons'
+             label='Weapons'></div>
+
+        <div w-field='styles'
+             type='w-tags'
+             items='weaponStyles'
+             label='Styles'></div>
+
+        <div w-submit-field>Save</div>
+      </form>
+      <h4>Form object</h4>
+      <pre ng-bind="samurai | json"></pre>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div>
+        <h3>Directive: <code>w-field</code></h3>
+        <p>
+          <code>w-field</code> creates an input for the specified attribute of the
+          object passed to <code>w-form-for</code> and displays validation errors.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <h4>Option <var>type</var></h4>
+      Required: <code>true</code>
+      <div>
+        Specifies input type. Allowed values:
+        <code>w-chz</code>, <code>w-multiselect</code>, <code>w-combo</code>,
+        <code>w-multiselect</code>, <code>w-radio</code>, <code>w-checkbox</code>.
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <h4>Option <var>items</var></h4>
+      Required: <code>true</code>
+      <div>
+        Specifies items passed to input.
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <h4>Option <var>label</var></h4>
+      Required: <code>false</code>
+      <div>
+        Specifies label.
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <h4>Option <var>ng-disabled</var></h4>
+      Required: <code>false</code>
+      <div>
+        Disables input.
+      </div>
+      <h4>Example</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <pre class="prettyprint">
+&lt;form name='form' w-form-for='samurai' w-submit='send()'&gt;
+&lt;div w-field='province'
+     type='w-chz'
+     items='provinces'
+     label='Province'
+     ng-disabled='true'&gt;&lt;/div&gt;
+&lt;/form&gt;
+      </pre>
+    </div>
+    <div class="col-md-6">
+      <form name='form' w-form-for='samurai' w-submit='send()'>
+        <div w-field='province'
+             type='w-chz'
+             items='provinces'
+             label='Province'
+             ng-disabled='true'></div>
+      </form>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <h4>Validation options:</h4>
+      <div>
+        <code>ng-required</code> - sets required attribute if set to true.
+        Supported by all types of input.
+      </div>
+      <div>
+        <code>ng-minlength</code> - sets minlength validation error key if the value is shorter than minlength.
+        Supported by <code>combo</code> and <code>tags</code>.
+      </div>
+      <div>
+        <code>ng-maxlength</code> - sets maxlength validation error key if the value is longer than maxlength.
+        Supported by <code>combo</code> and <code>tags</code>.
+      </div>
+      <div>
+        <code>ng-pattern</code> - Sets pattern validation error key if the value does not match the RegExp pattern expression.
+        Expected value is /regexp/ for inline patterns or regexp for patterns defined as scope expressions.
+        Supported by <code>combo</code> and <code>tags</code>.
+      </div>
+    </div>
+  </div>
+  <div class='row'>
+    <div class="col-md-6" ng-non-bindable>
+      <h4>Example</h4>
+      <pre class="prettyprint">
+&lt;form name='form' w-form-for='ronin' w-submit='send()'&gt;
+&lt;div w-field='name'
+     type='w-combo'
+     items='names'
+     label='Name'
+     ng-pattern='/J/'&gt;&lt;/div&gt;
+&lt;div w-field='age'
+     type='w-chz'
+     items='ages'
+     label='Age'
+     ng-required='true'&gt;&lt;/div&gt;
+&lt;div w-field='style'
+     type='w-combo'
+     items='weaponStyles'
+     label='Style'
+     ng-minlength='3'
+     ng-maxlength='10'&gt;&lt;/div&gt;
+&lt;/form&gt;
+      </pre>
+    </div>
+    <div class="col-md-6 ">
+      <form name='form' w-form-for='ronin' w-submit='send()'>
+        <div w-field='name'
+             type='w-combo'
+             items='names'
+             label='Name'
+             ng-pattern='/J/'></div>
+        <div w-field='age'
+             type='w-chz'
+             items='ages'
+             label='Age'
+             ng-required='true'></div>
+        <div w-field='style'
+             type='w-combo'
+             items='weaponStyles'
+             label='Style'
+             ng-minlength='3'
+             ng-maxlength='10'></div>
+      </form>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div>
+        <h3>Directive: <code>w-submit-field</code></h3>
+        <p>
+          <code>w-submit-field</code> creates a form submit button. The form will not be submitted if it is invalid.
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
