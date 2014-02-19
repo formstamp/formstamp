@@ -1,0 +1,163 @@
+.w-datepicker {
+  position: relative;
+}
+.w-calendar {
+  user-select: none;
+  display: inline-block;
+}
+.w-calendar .w-calendar-header {
+  text-align: center;
+  vertical-align: middle;
+}
+.w-calendar .w-calendar-next,
+.w-calendar .w-calendar-prev,
+.w-calendar .w-calendar-title {
+  vertical-align: middle;
+  cursor: pointer;
+  display: inline-block;
+}
+.w-calendar .w-calendar-title {
+  font-size: 1.5em;
+  width: 10em;
+}
+.w-calendar .w-calendar-prev:before {
+  content: '\025C0';
+}
+.w-calendar .w-calendar-next:after {
+  content: '\025B6';
+}
+.w-calendar .month,
+.w-calendar .day,
+.w-calendar .year {
+  cursor: pointer;
+  text-align: center;
+}
+.w-calendar .day {
+  color: darkgray;
+  width: 2.5em;
+}
+.w-calendar .month,
+.w-calendar .year {
+  font-size: 1.5em;
+  width: 3.1em;
+}
+.w-calendar .day-in-selected-month {
+  color: black;
+}
+.w-calendar .day-current {
+  font-weight: bold;
+}
+.w-calendar .day.active,
+.w-calendar .month.active,
+.w-calendar .year.active {
+  font-weight: bold;
+  background-color: lightgray;
+}
+
+.w-chz {
+  -webkit-box-flex: 1;
+  padding-left: 0;
+  padding-right: 0;
+  position: relative;
+}
+.w-chz .w-chz-sel {
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+}
+.w-chz .w-chz-active {
+  -webkit-box-flex: 1;
+  display: block;
+  text-align: left;
+}
+.w-chz .w-chz-clear-btn {
+  color: #a94442;
+}
+.w-chz .w-chz-items-list-default {
+  width: 100%;
+  overflow-y: auto;
+}
+
+.w-multi-select {
+  position: relative;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.w-multi-select .w-multi-options {
+  border-bottom: 1px solid #ccc;
+}
+.w-multi-select .w-multi-options .btn {
+  border-right: 1px solid #ccc;
+  border-radius: 0;
+  color: inherit;
+}
+.w-multi-select .w-multi-options .btn:hover .glyphicon {
+  color: #a94442;
+}
+.w-multi-select .form-control {
+  border: none;
+}
+
+.w-racheck {
+  position: relative;
+  padding-top: 6px;
+  /* FIXME: refactor and compact */
+}
+.w-racheck .w-racheck-item {
+  display: inline-block;
+  padding: 3px 0;
+  text-decoration: none;
+  color: inherit;
+  opacity: 0.8;
+}
+.w-racheck .w-racheck-item .w-racheck-item-container-sign {
+  margin-left: -20px;
+}
+.w-racheck .w-racheck-item .w-racheck-item-container-sign[disabled] {
+  color: #ccc;
+  cursor: default;
+}
+.w-racheck .w-racheck-item:hover {
+  opacity: 1;
+}
+.w-racheck .w-racheck-item:hover .w-racheck-outer {
+  background: #ebebeb;
+}
+.w-racheck .w-radio-outer {
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+  border: 1px solid #aaa;
+  border-radius: 100%;
+  overflow: hidden;
+}
+.w-racheck .w-radio-outer .w-radio-inner {
+  width: 8px;
+  height: 8px;
+  margin: 0.15em auto;
+  display: block;
+  background: #444;
+  border-radius: 100%;
+}
+.w-racheck .w-check-outer {
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+  border: 1px solid #aaa;
+  border-radius: 1px;
+  overflow: hidden;
+}
+.w-racheck .w-check-outer .w-check-inner {
+  width: 8px;
+  height: 8px;
+  margin: 0.15em auto;
+  display: block;
+  background: #444;
+  border-radius: 1px;
+}
+.w-racheck .w-racheck-inline {
+  float: left;
+  padding-left: 20px;
+}
+.w-racheck .w-racheck-inline + .w-racheck-inline {
+  margin-left: 10px;
+}
