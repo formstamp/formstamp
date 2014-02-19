@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="/demo/styles/syntax.css"/>
     <link rel="stylesheet" href="/demo/styles/style.css"/>
     <link rel="stylesheet" href="/build/angular-w.css"/>
-    <link href="http://cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.css" type="text/css"/>
+    <link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/default.min.css">
+    <script src="http://yandex.st/highlightjs/8.0/highlight.min.js"></script></script>
     <style>
       .wip {
         color:red;
@@ -26,27 +27,58 @@
 
   <!-- Le navbar
   ================================================== -->
-
-    <div class="container">
-      <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
-        <div class="container">
-          <!-- Brand and toggle get grouped for better mobile display -->
-          <div class="navbar-header">
-            <a class='navbar-brand' href='#'>FormStamp</a>
-          </div>
-          <!-- Collect the nav links, forms, and other content for toggling -->
-          <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-              <li ng-repeat='widget in data'><a href="index.html#{{widget.name}}">{{ widget.name }}</a></li>
-              <li><a href="formbuilder.html">FormBuilder</a></li>
-              <li class="pull-right"><a href="#">by Health Samurai</a></li>
-            </ul>
-          </div>
-          <!-- /.navbar-collapse -->
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Formstamp</a>
         </div>
-      </nav>
-    </div>
 
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Link</a></li>
+            <li><a href="#">Link</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+                <li class="divider"></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+          </ul>
+          <form class="navbar-form navbar-left" role="search">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Search">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+          </form>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Link</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
 
     <header class="bs-header">
       <div class="container">
@@ -60,14 +92,13 @@
     <div class='container' ng-view>
     </div>
 
-    <script type='text/javascript' src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
     <script type='text/javascript' src='/bower_components/jquery/jquery.js'></script>
     <script type='text/javascript' src='/bower_components/angular/angular.js'></script>
     <script type='text/javascript' src='/bower_components/angular-route/angular-route.js'></script>
     <script type='text/javascript' src='/bower_components/angular-sanitize/angular-sanitize.js'></script>
     <script type='text/javascript' src='/build/angular-w.js'></script>
     <script type='text/javascript' src='/demo/scripts/app.js'></script>
-    <script type='text/javascript' src='/demo/scripts/data.js'></script>
+    <script type='text/javascript' src='/demo/scripts/root_controller.js'></script>
     <script type='text/javascript' src='/demo/scripts/form_builder_ctrl.js'></script>
     <script type='text/javascript' src='/demo/scripts/chz_ctrl.js'></script>
     <script type='text/javascript' src='/demo/scripts/multi_select_ctrl.js'></script>

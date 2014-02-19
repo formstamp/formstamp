@@ -15,8 +15,8 @@
   <div ng-if='widget.example_html' class='row'>
     <div class="col-md-6">
       <h4>Example</h4>
-        <pre>{{widget.example_html}}</pre>
-        <pre>{{widget.example_js}}</pre>
+        <pre ng-bind-html='widget.example_html | prettify'></pre>
+        <pre ng-bind-html='widget.example_js | prettify'></pre>
     </div>
     <div class="col-md-6 demonstration">
       <h2>Demo</h2>
@@ -37,8 +37,8 @@
     <div class='row'>
       <div class="col-md-6">
         <h4>Example</h4>
-        <pre class="prettyprint">{{option.example_html}}</pre>
-        <pre class="prettyprint">{{option.example_js}}</pre>
+        <pre ng-bind-html='option.example_html | prettify'></pre>
+        <pre ng-bind-html='option.example_js | prettify'></pre>
       </div>
       <div class="col-md-6 demonstration">
         <h4>Demo</h4>
