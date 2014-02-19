@@ -238,7 +238,6 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "      </a>\n" +
     "    </label>\n" +
     "  </div>\n" +
-    "  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>\n" +
     "</div>\n" +
     "\n" +
     "\n"

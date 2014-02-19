@@ -346,7 +346,6 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "      </a>\n" +
     "    </label>\n" +
     "  </div>\n" +
-    "  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>\n" +
     "</div>\n" +
     "\n" +
     "\n"
@@ -1321,7 +1320,9 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     Esc: 27,
     Pgup: 33,
     Pgdown: 34,
+    Left: 37,
     Up: 38,
+    Right: 39,
     Down: 40,
     Space: 32
   };
@@ -1335,7 +1336,6 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
             var fn;
             fn = $parse(attr[dirName]);
             return element.on('keydown', function(event) {
-              console.log(event.keyCode);
               if (event.keyCode === keyCode && event.shiftKey === shift) {
                 return scope.$apply(function() {
                   return fn(scope, {
@@ -1365,7 +1365,6 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
       return {
         restrict: "A",
         scope: {
-          errors: '=',
           items: '=',
           limit: '=',
           inline: '=',
@@ -1420,17 +1419,20 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
               return indexOf(scope.shownItems, scope.selectedItem);
             };
             scope.selectedIndex = 0;
-            return scope.move = function(event, d) {
+            scope.move = function(event, d) {
               scope.selectedIndex = scope.selectedIndex + d;
               if (scope.selectedIndex < 0) {
                 scope.selectedIndex = 0;
               } else if (scope.selectedIndex > scope.shownItems.length - 1) {
                 scope.selectedIndex = scope.shownItems.length - 1;
               } else {
-                console.log(scope.selectedIndex);
                 event.preventDefault();
               }
               return scope.selectedItem = scope.shownItems[scope.selectedIndex];
+            };
+            return scope.selectOnSpace = function(event, item) {
+              scope.selection(item);
+              return event.preventDefault();
             };
           };
         }
