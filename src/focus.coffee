@@ -4,4 +4,4 @@ angular.module("angular-w").directive "wFocus", ->
 
   link: (scope, element, attrs) ->
     scope.$watch attrs.wFocus, (fcs)->
-      focuz(element[0]) if fcs
+      focuz(element[0]) if fcs?

@@ -1,6 +1,9 @@
 <div class='w-racheck'>
   <div ng-repeat='item in shownItems track by item.id'>
-    <a class="w-racheck-item" ng-click="toggle(item)" href='javascript:void(0)' >
+    <a class="w-racheck-item"
+       ng-click="toggle(item)"
+       href='javascript:void(0)'
+       w-space='toggleOnSpace($event, item)'>
       <span class="w-check-outer"><span ng-show="isSelected(item)" class="w-check-inner"></span></span>
       {{item[valueAttr]}}
     </a>

@@ -1,11 +1,13 @@
 .w-racheck {
   position: relative;
   padding-top: 6px;
+
   .w-racheck-item {
     display: inline-block;
     padding: 3px 0;
     text-decoration: none;
     color: inherit;
+    opacity: 0.8;
 
     .w-racheck-item-container-sign {
       margin-left: -20px;
@@ -15,12 +17,14 @@
         cursor: default;
       }
     }
-    opacity: 0.8;
-    &:hover {
+
+    &:hover, &:focus {
       opacity: 1;
-      .w-racheck-outer {
+      .w-radio-outer, .w-check-outer {
         background: #ebebeb;
       }
+
+      outline: none;
     }
   }
 

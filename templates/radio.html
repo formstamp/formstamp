@@ -1,11 +1,14 @@
 <div class='w-racheck'>
   <div ng-repeat='item in shownItems'>
-  <a class="w-racheck-item" ng-click="toggle(item)" href='javascript:void(0)' >
+  <a class="w-racheck-item"
+     ng-click="selection(item)"
+     href='javascript:void(0)'
+     tabindex='{{ $first ? 0 : -1 }}'
+     w-down='move($event, +1)'
+     w-up='move($event, -1)'>
     <span class="w-radio-outer"><span ng-show="isSelected(item)" class="w-radio-inner"></span></span>
     {{item[valueAttr]}}
   </a>
   </div>
   <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>
 </div>
-
-

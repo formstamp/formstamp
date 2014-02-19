@@ -3,7 +3,6 @@ angular
 .directive "wRadio", ['$window', ($window) ->
     restrict: "A"
     scope:
-      errors: '='
       items: '='
       limit: '='
       inline: '='
@@ -38,7 +37,6 @@ angular
 
       # Link function
       (scope, element, attrs, ngModelCtrl, transcludeFn) ->
-
         if ngModelCtrl
           scope.$watch 'selectedItem', (newValue, oldValue)->
             unless newValue is oldValue
@@ -52,4 +50,22 @@ angular
 
         attrs.$observe 'required', (value) ->
           scope.required = value
+
+        getSelectedIndex = ->
+          indexOf(scope.shownItems, scope.selectedItem)
+
+        scope.selectedIndex = 0
+        scope.move = (event, d) ->
+          scope.selectedIndex = scope.selectedIndex + d
+          if scope.selectedIndex < 0
+            scope.selectedIndex = 0
+          else if scope.selectedIndex > scope.shownItems.length - 1
+            scope.selectedIndex = scope.shownItems.length - 1
+          else
+            event.preventDefault()
+          scope.selectedItem = scope.shownItems[scope.selectedIndex]
+
+        scope.selectOnSpace = (event, item) ->
+          scope.selection(item)
+          event.preventDefault()
 ]
