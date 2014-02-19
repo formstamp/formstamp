@@ -142,7 +142,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
 
 
   $templateCache.put('/templates/datepicker.html',
-    "<span>\n" +
+    "<div class=\"w-datepicker\">\n" +
     "  <input type=\"text\"\n" +
     "    class=\"form-control\"\n" +
     "    ng-focus=\"active=true\"\n" +
@@ -155,7 +155,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "        ng-change=\"console.log('here');active=false;\"/>\n" +
     "    </div>\n" +
     "  </div>\n" +
-    "</span>\n"
+    "</div>\n"
   );
 
 
