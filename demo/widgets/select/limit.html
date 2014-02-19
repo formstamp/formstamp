@@ -1,0 +1,10 @@
+<form role='form' ng-controller='ChzLimitsCtrl'>
+  <div class='form-group'>
+    <label>Select number of weapons:</label>
+    <div w-chz items='numbers' ng-model='numberOfWeapons'></div>
+  </div>
+  <div class='form-group'>
+    <label>Select weapon:</label>
+    <div w-chz items='weapons' limit='numberOfWeapons.id'></div>
+  </div>
+</form>

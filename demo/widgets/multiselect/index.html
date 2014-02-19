@@ -1,0 +1,17 @@
+<form role='form' ng-controller='MultiSelectCtrl'>
+  <div class='form-group'>
+    <label>Leisure Time:</label>
+    <div w-multi-select
+         ng-model='selectedGames'
+         items='games'>
+    </div>
+  </div>
+  <div>
+    You want to play
+    <ul>
+      <li ng-repeat='item in selectedGames'>
+        {{item.label}}
+      </li>
+    </ul>
+  </div>
+</form>

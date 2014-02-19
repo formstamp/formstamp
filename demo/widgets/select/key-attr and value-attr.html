@@ -1,0 +1,11 @@
+<form role='form' ng-controller='ChzKeyValuesCtrl'>
+  <div class='form-group'>
+    <label>Select city of Japan:</label>
+    <div w-chz items='cities'  ng-model='city'
+               key-attr='code' value-attr='name'>
+    </div>
+    Name: <b>{{city.name}}</b>
+    <br />
+    Code: <b>{{city.code}}</b>
+  </div>
+</form>

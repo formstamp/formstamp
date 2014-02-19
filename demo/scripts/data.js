@@ -23,7 +23,7 @@ angular.module('angular-w-demo')
           "example_js": "angular.module('angular-w-demo')\n.controller('ChzLimitsCtrl', function($scope) {\n  $scope.numbers = [\n    {id: 1, label: 1},\n    {id: 2, label: 2},\n    {id: 3, label: 3}\n  ];\n  $scope.weapons = [\n    {id: 'katana', label: 'Long sword Katana'},\n    {id: 'yuml', label: 'Longbow Yuml'},\n    {id: 'yari', label: 'Spear Yari'}\n  ];\n}\n"
         },
         {
-          "name": "key-attr, value-attr",
+          "name": "key-attr and value-attr",
           "required": false,
           "default": "key-attr='id', value-attr='label'",
           "description": "Overrides default names of fields for id and label of item.\n",
@@ -31,7 +31,7 @@ angular.module('angular-w-demo')
           "example_js": "angular.module('angular-w-demo')\n.controller('ChzKeyValuesCtrl', function($scope) {\n  $scope.cities = [\n    {code: 'JP SPK', name: 'Sapporo'},\n    {code: 'JP SDJ', name: 'Sendai'},\n    {code: 'JP TYO', name: 'Tokyo'},\n    {code: 'JP NGO', name: 'Nagoya'}\n  ];\n}\n"
         },
         {
-          "name": "Templating",
+          "name": "templating",
           "required": false,
           "default": "item[valueAttr]",
           "description": "If some inner html is provided for directive tag,\nthen those html will be used for rendering selected value.\nSelected item is accessible from templating by <code>item</code>\nvariable. By default <code>item['label']</code> will be rendered or if\n<code>value-attr</code> is provided, then <code>item[value-attr]</code> will\nbe used.\n",
@@ -44,7 +44,7 @@ angular.module('angular-w-demo')
       "name": "Multiselect",
       "dir_name": "w-multi-select",
       "description": "MultiSelect allows to select multiple items from a predefined list of options.\nSupported angular directives and options are similar to Select.\n",
-      "example_html": "<form role='form' ng-controller='MultiSelectCtrl'>\n  <div class='form-group'>\n    <label>Leisure Time:</label>\n    <div w-multi-select\n         ng-model='selectedGames'\n         items='games'>\n    </div>\n  </div>\n  <div>\n    You want to pay in\n    <ul>\n      <li ng-repeat='item in selectedGames'>\n        {{item.label}}\n      </li>\n    </ul>\n  </div>\n</form>\n",
+      "example_html": "<form role='form' ng-controller='MultiSelectCtrl'>\n  <div class='form-group'>\n    <label>Leisure Time:</label>\n    <div w-multi-select\n         ng-model='selectedGames'\n         items='games'>\n    </div>\n  </div>\n  <div>\n    You want to play\n    <ul>\n      <li ng-repeat='item in selectedGames'>\n        {{item.label}}\n      </li>\n    </ul>\n  </div>\n</form>\n",
       "example_js": "angular.module('angular-w-demo')\n.controller('MultiSelectCtrl', ['$scope', function($scope) {\n  $scope.games = [\n    {id: 0, label: 'Dragon Quest'},\n    {id: 1, label: 'Final Fantasy'},\n    {id: 2, label: 'Shin Megami Tensei'}\n  ];\n}]);\n"
     },
     {
@@ -58,7 +58,7 @@ angular.module('angular-w-demo')
       "name": "Tags",
       "dir_name": "w-tags",
       "description": "Tags allows to select multiple values from a predefined\nlist or to enter custom values. Only primitive types are\nsupported as predefined values. Supports several angular\ndirectives: <code>ng-model</code>, <code>ng-disabled</code>,\n<code>ng-required</code>. Available options are <code>items</code>\nand <code>limit</code>. Attributes: <code>items</code> and <code>limit</code>.\n",
-      "example_html": "<form role=\"form\" ng-controller='TagsCtrl'>\n  <div class=\"form-group\">\n    <label>Choose your element</label>\n    <div w-tags=\"true\"\n         items=\"items\"\n         limit='20'\n         ng-model=\"elements\">\n    </div>\n    Your elements is:\n    <ul>\n      <li ng-repeat='element in elements'>{{element}}</li>\n    </ul>\n  </div>\n</form>\n",
+      "example_html": "<form role=\"form\" ng-controller='TagsCtrl'>\n  <div class=\"form-group\">\n    <label>Choose your element</label>\n    <div w-tags=\"true\"\n         items=\"items\"\n         limit='20'\n         ng-model=\"elements\">\n    </div>\n    Your elements are:\n    <ul>\n      <li ng-repeat='element in elements'>{{element}}</li>\n    </ul>\n  </div>\n</form>\n",
       "example_js": "angular.module('angular-w-demo')\n.controller('TagsCtrl', function($scope) {\n  $scope.items = [ 'earth', 'water', 'fire', 'wind', 'void' ];\n});\n"
     },
     {

@@ -20,7 +20,7 @@
     </div>
     <div class="col-md-6 demonstration">
       <h2>Demo</h2>
-      <div ng-bind-html='option.example_html'></div>
+      <div ng-include src='"demo/widgets/" + widget.name.toLowerCase() + "/index.html"'></div>
     </div>
   </div>
   <div ng-repeat='option in widget.options'>
@@ -37,8 +37,8 @@
     <div class='row'>
       <div class="col-md-6">
         <h4>Example</h4>
-        <pre>{{option.example_html}}</pre>
-        <pre>{{option.example_js}}</pre>
+        <pre class="prettyprint">{{option.example_html}}</pre>
+        <pre class="prettyprint">{{option.example_js}}</pre>
       </div>
       <div class="col-md-6 demonstration">
         <h4>Demo</h4>
