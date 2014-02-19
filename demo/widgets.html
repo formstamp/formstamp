@@ -1,0 +1,59 @@
+{% for widget in site.data.widgets %}
+  <div id="{{widget.name}}">
+    <div class="page-header">
+      <h1>{{ widget.name }}</h1>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div>
+          <h2>Description</h2>
+          <h5>Directive: <code>{{ widget.dir_name }}</code></h5>
+          <p>{{ widget.description }}</p>
+        </div>
+        {% if widget.alert %}
+          <div class="alert alert-warning">
+            {{ widget.alert }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    {% if widget.example_html %}
+      <div class='row'>
+        <div class="col-md-6" ng-non-bindable>
+          <h4>Example</h4>
+          {% highlight html %}{{ widget.example_html }}{% endhighlight %}
+          {% highlight js %}{{ widget.example_js }}{% endhighlight %}
+        </div>
+        <div class="col-md-6 demonstration">
+          <h2>Demo</h2>
+          {{ widget.example_html }}
+        </div>
+      </div>
+    {% endif %}
+    {% for option in widget.options %}
+      <div class="row">
+        <div class="col-md-6">
+          <div>
+            <h3>Option <var>{{ option.name }}</var></h3>
+            <h5>Required: <code>{{ option.required }}</code></h5>
+            {% if option.default %}
+              <h5>Default: <code>{{ option.default }}</code></h5>
+            {% endif %}
+            <p>{{ option.description }}</p>
+          </div>
+        </div>
+      </div>
+      <div class='row'>
+        <div class="col-md-6" ng-non-bindable>
+          <h4>Example</h4>
+          {% highlight html %} {{ option.example_html }} {% endhighlight %}
+          {% highlight js %}{{ option.example_js }}{% endhighlight %}
+        </div>
+        <div class="col-md-6 demonstration">
+          <h4>Demo</h4>
+          {{ option.example_html }}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endfor %}

@@ -1,63 +1,80 @@
----
-layout: default
-title: angular-w
----
-{% for widget in site.data.widgets %}
-  <div id="{{widget.name}}">
-    <div class="page-header">
-      <h1>{{ widget.name }}</h1>
-    </div>
-    <div class="row">
-      <div class="col-md-6">
-        <div>
-          <h2>Description</h2>
-          <h5>Directive: <code>{{ widget.dir_name }}</code></h5>
-          <p>{{ widget.description }}</p>
-        </div>
-        {% if widget.alert %}
-          <div class="alert alert-warning">
-            {{ widget.alert }}
+<!DOCTYPE html>
+<html lang="en" ng-app="angular-w-demo">
+  <head>
+    <meta charset="utf-8">
+
+    <title>angular-w</title>
+
+    <link rel="stylesheet" href="bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="styles/syntax.css"/>
+    <link rel="stylesheet" href="styles/style.css"/>
+    <link rel="stylesheet" href="angular-w.css"/>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.css" type="text/css"/>
+    <style>
+      .wip {
+        color:red;
+      }
+      .page-header {
+        padding-top: 40px;
+      }
+      .demonstration {
+        padding-left: 200px;
+      }
+    </style>
+  </head>
+  <body>
+
+  <!-- Le navbar
+  ================================================== -->
+
+    <div class="container">
+      <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
+        <div class="container">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <a class='navbar-brand' href='#'>Angular-w</a>
           </div>
-        {% endif %}
-      </div>
-    </div>
-    {% if widget.example_html %}
-      <div class='row'>
-        <div class="col-md-6" ng-non-bindable>
-          <h4>Example</h4>
-          {% highlight html %}{{ widget.example_html }}{% endhighlight %}
-          {% highlight js %}{{ widget.example_js }}{% endhighlight %}
-        </div>
-        <div class="col-md-6 demonstration">
-          <h2>Demo</h2>
-          {{ widget.example_html }}
-        </div>
-      </div>
-    {% endif %}
-    {% for option in widget.options %}
-      <div class="row">
-        <div class="col-md-6">
-          <div>
-            <h3>Option <var>{{ option.name }}</var></h3>
-            <h5>Required: <code>{{ option.required }}</code></h5>
-            {% if option.default %}
-              <h5>Default: <code>{{ option.default }}</code></h5>
-            {% endif %}
-            <p>{{ option.description }}</p>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              {% for widget in site.data.widgets %}
+              <li><a href="index.html#{{widget.name}}">{{ widget.name }}</a></li>
+              {% endfor %}
+              <li><a href="formbuilder.html">FormBuilder</a></li>
+              <li class="pull-right"><a href="#">by Health Samurai</a></li>
+            </ul>
           </div>
+          <!-- /.navbar-collapse -->
         </div>
+      </nav>
+    </div>
+
+
+    <header class="bs-header">
+      <div class="container">
+
+        <h1>Angular-w</h1>
+
+        <p>Pure AngularJS widgets library.</p>
       </div>
-      <div class='row'>
-        <div class="col-md-6" ng-non-bindable>
-          <h4>Example</h4>
-          {% highlight html %} {{ option.example_html }} {% endhighlight %}
-          {% highlight js %}{{ option.example_js }}{% endhighlight %}
-        </div>
-        <div class="col-md-6 demonstration">
-          <h4>Demo</h4>
-          {{ option.example_html }}
-        </div>
-      </div>
-    {% endfor %}
-  </div>
-{% endfor %}
+    </header>
+
+    <div class='container' ng-view>
+    </div>
+
+    <script type='text/javascript' src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+    <script type='text/javascript' src='jquery/jquery.js'></script>
+    <script type='text/javascript' src='angular/angular.js'></script>
+    <script type='text/javascript' src='angular-route/angular-route.js'></script>
+    <script type='text/javascript' src='angular-w.js'></script>
+    <script type='text/javascript' src='scripts/app.js'></script>
+    <script type='text/javascript' src='scripts/form_builder_ctrl.js'></script>
+    <script type='text/javascript' src='scripts/chz_ctrl.js'></script>
+    <script type='text/javascript' src='scripts/multi_select_ctrl.js'></script>
+    <script type='text/javascript' src='scripts/combo_ctrl.js'></script>
+    <script type='text/javascript' src='scripts/tags_ctrl.js'></script>
+    <script type='text/javascript' src='scripts/radio_ctrl.js'></script>
+    <script type='text/javascript' src='scripts/checkbox_ctrl.js'></script>
+  </body>
+</html>
