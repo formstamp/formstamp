@@ -3,7 +3,6 @@ angular
 .directive "wRadio", ['$window', ($window) ->
     restrict: "A"
     scope:
-      errors: '='
       items: '='
       limit: '='
       inline: '='
@@ -63,8 +62,10 @@ angular
           else if scope.selectedIndex > scope.shownItems.length - 1
             scope.selectedIndex = scope.shownItems.length - 1
           else
-            console.log scope.selectedIndex
             event.preventDefault()
-
           scope.selectedItem = scope.shownItems[scope.selectedIndex]
+
+        scope.selectOnSpace = (event, item) ->
+          scope.selection(item)
+          event.preventDefault()
 ]

@@ -4,7 +4,6 @@
       return {
         restrict: "A",
         scope: {
-          errors: '=',
           items: '=',
           limit: '=',
           inline: '=',
@@ -59,17 +58,20 @@
               return indexOf(scope.shownItems, scope.selectedItem);
             };
             scope.selectedIndex = 0;
-            return scope.move = function(event, d) {
+            scope.move = function(event, d) {
               scope.selectedIndex = scope.selectedIndex + d;
               if (scope.selectedIndex < 0) {
                 scope.selectedIndex = 0;
               } else if (scope.selectedIndex > scope.shownItems.length - 1) {
                 scope.selectedIndex = scope.shownItems.length - 1;
               } else {
-                console.log(scope.selectedIndex);
                 event.preventDefault();
               }
               return scope.selectedItem = scope.shownItems[scope.selectedIndex];
+            };
+            return scope.selectOnSpace = function(event, item) {
+              scope.selection(item);
+              return event.preventDefault();
             };
           };
         }

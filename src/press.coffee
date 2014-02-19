@@ -6,7 +6,9 @@ keyCodes =
   Esc:      27
   Pgup:     33
   Pgdown:   34
+  Left:     37
   Up:       38
+  Right:    39
   Down:     40
   Space:    32
 
@@ -16,7 +18,6 @@ directiveFactory = (keyCode, dirName, shift) ->
     link: (scope, element, attr) ->
       fn = $parse(attr[dirName])
       element.on 'keydown', (event) ->
-        console.log event.keyCode
         if event.keyCode == keyCode and event.shiftKey == shift
           scope.$apply ->
             fn(scope, $event: event)

@@ -8,7 +8,9 @@
     Esc: 27,
     Pgup: 33,
     Pgdown: 34,
+    Left: 37,
     Up: 38,
+    Right: 39,
     Down: 40,
     Space: 32
   };
@@ -22,7 +24,6 @@
             var fn;
             fn = $parse(attr[dirName]);
             return element.on('keydown', function(event) {
-              console.log(event.keyCode);
               if (event.keyCode === keyCode && event.shiftKey === shift) {
                 return scope.$apply(function() {
                   return fn(scope, {

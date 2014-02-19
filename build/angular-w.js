@@ -340,31 +340,13 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
 
 
   $templateCache.put('/templates/radio.html',
-    "<<<<<<< HEAD\n" +
     "<div class='w-racheck'>\n" +
     "  <div ng-repeat='item in shownItems'>\n" +
     "  <a class=\"w-racheck-item\" ng-click=\"toggle(item)\" href='javascript:void(0)' >\n" +
     "    <span class=\"w-radio-outer\"><span ng-show=\"isSelected(item)\" class=\"w-radio-inner\"></span></span>\n" +
     "    {{item[valueAttr]}}\n" +
     "  </a>\n" +
-    "=======\n" +
-    "<div class='w-radio'>\n" +
-    "  <div class='radio' ng-repeat='item in shownItems' ng-class=\"{'w-radio-inline': inline}\">\n" +
-    "    <label ng-click='selection(item)'>\n" +
-    "      <a href='javascript:void(0)'\n" +
-    "         tabindex='{{ $first ? 0 : -1 }}'\n" +
-    "         class='w-radio-item-container'\n" +
-    "         w-down='move($event, +1)'\n" +
-    "         w-up='move($event, -1)'>\n" +
-    "        <span ng-disabled='disabled'\n" +
-    "              class=\"w-radio-item-container-sign w-radio-icon\"\n" +
-    "              ng-class=\"{'w-radio-icon-checked': isSelected(item), 'w-radio-icon-unchecked': !isSelected(item)}\">&nbsp;</span>\n" +
-    "        {{item[valueAttr]}}\n" +
-    "      </a>\n" +
-    "    </label>\n" +
-    ">>>>>>> fix focus for checkbox and radio; keyboard\n" +
     "  </div>\n" +
-    "  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>\n" +
     "</div>\n" +
     "\n" +
     "\n"
@@ -1339,7 +1321,9 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     Esc: 27,
     Pgup: 33,
     Pgdown: 34,
+    Left: 37,
     Up: 38,
+    Right: 39,
     Down: 40,
     Space: 32
   };
@@ -1353,7 +1337,6 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
             var fn;
             fn = $parse(attr[dirName]);
             return element.on('keydown', function(event) {
-              console.log(event.keyCode);
               if (event.keyCode === keyCode && event.shiftKey === shift) {
                 return scope.$apply(function() {
                   return fn(scope, {
@@ -1383,7 +1366,6 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
       return {
         restrict: "A",
         scope: {
-          errors: '=',
           items: '=',
           limit: '=',
           inline: '=',
@@ -1438,17 +1420,20 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
               return indexOf(scope.shownItems, scope.selectedItem);
             };
             scope.selectedIndex = 0;
-            return scope.move = function(event, d) {
+            scope.move = function(event, d) {
               scope.selectedIndex = scope.selectedIndex + d;
               if (scope.selectedIndex < 0) {
                 scope.selectedIndex = 0;
               } else if (scope.selectedIndex > scope.shownItems.length - 1) {
                 scope.selectedIndex = scope.shownItems.length - 1;
               } else {
-                console.log(scope.selectedIndex);
                 event.preventDefault();
               }
               return scope.selectedItem = scope.shownItems[scope.selectedIndex];
+            };
+            return scope.selectOnSpace = function(event, item) {
+              scope.selection(item);
+              return event.preventDefault();
             };
           };
         }

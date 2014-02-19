@@ -232,31 +232,13 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
 
 
   $templateCache.put('/templates/radio.html',
-    "<<<<<<< HEAD\n" +
     "<div class='w-racheck'>\n" +
     "  <div ng-repeat='item in shownItems'>\n" +
     "  <a class=\"w-racheck-item\" ng-click=\"toggle(item)\" href='javascript:void(0)' >\n" +
     "    <span class=\"w-radio-outer\"><span ng-show=\"isSelected(item)\" class=\"w-radio-inner\"></span></span>\n" +
     "    {{item[valueAttr]}}\n" +
     "  </a>\n" +
-    "=======\n" +
-    "<div class='w-radio'>\n" +
-    "  <div class='radio' ng-repeat='item in shownItems' ng-class=\"{'w-radio-inline': inline}\">\n" +
-    "    <label ng-click='selection(item)'>\n" +
-    "      <a href='javascript:void(0)'\n" +
-    "         tabindex='{{ $first ? 0 : -1 }}'\n" +
-    "         class='w-radio-item-container'\n" +
-    "         w-down='move($event, +1)'\n" +
-    "         w-up='move($event, -1)'>\n" +
-    "        <span ng-disabled='disabled'\n" +
-    "              class=\"w-radio-item-container-sign w-radio-icon\"\n" +
-    "              ng-class=\"{'w-radio-icon-checked': isSelected(item), 'w-radio-icon-unchecked': !isSelected(item)}\">&nbsp;</span>\n" +
-    "        {{item[valueAttr]}}\n" +
-    "      </a>\n" +
-    "    </label>\n" +
-    ">>>>>>> fix focus for checkbox and radio; keyboard\n" +
     "  </div>\n" +
-    "  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>\n" +
     "</div>\n" +
     "\n" +
     "\n"
