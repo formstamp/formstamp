@@ -1,14 +1,42 @@
 <div class='container'>
-  <script>
-    angular.module('angular-w-demo').controller('')
-  </script>
   <div>
     <h1>Example</h1>
-    <form w-form-for='someObject'>
-      <div w-field='someField'
-           items='[1, 2, 3]'
+    <form w-form-for='samurai' w-submit='send()'>
+      <div w-field='name'
+           items='names'
            type='w-combo'
-           label='Some Field'></div>
+           label='Name'></div>
+
+      <div w-field='birthDate'
+           type='w-datepicker'
+           label='Birth Date'></div>
+
+      <div w-field='gender'
+           items='genders'
+           type='w-radio'
+           label='Gender'></div>
+
+      <div w-field='province'
+           items='provinces'
+           type='w-chz'
+           label='Province'></div>
+
+      <div w-field='favoriteWeapons'
+           items='weapons'
+           type='w-checkbox'
+           label='Favorite Weapons'></div>
+
+      <div w-field='martialArts'
+           items='martialArts'
+           type='w-multi-select'
+           label='Martial Arts'></div>
+
+      <div w-field='teachers'
+           items='teachers'
+           type='w-tags'
+           label='Teachers'></div>
+
+      <div w-submit-field>Send and Validate!</div>
     </form>
   </div>
 </div>

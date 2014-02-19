@@ -56,5 +56,6 @@ angular.module('angular-w')
             scope.validationErrors.push(value)
         if scope.object.$error && (errs = scope.object.$error[scope.field])
           scope.validationErrors = scope.validationErrors.concat(errs)
+        console.log scope.validationErrors
         return
 ]
