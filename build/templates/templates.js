@@ -75,18 +75,15 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
 
 
   $templateCache.put('/templates/checkbox.html',
-    "<div class='w-checkbox'>\n" +
-    "  <div class='checkbox' ng-repeat='item in shownItems track by item.id' ng-class=\"{'w-checkbox-inline': inline}\">\n" +
-    "    <label ng-click='toggle(item)'>\n" +
-    "      <a href='javascript:void(0)'\n" +
-    "         class='w-checkbox-item-container'\n" +
-    "         w-space='toggleOnSpace($event, item)'>\n" +
-    "        <span ng-disabled='disabled'\n" +
-    "              class=\"w-checkbox-item-container-sign w-checkbox-icon\"\n" +
-    "              ng-class=\"{'w-checkbox-icon-checked': hasItem(item), 'w-checkbox-icon-unchecked': !hasItem(item)}\">&nbsp;</span>\n" +
-    "        {{item[valueAttr]}}\n" +
-    "      </a>\n" +
-    "    </label>\n" +
+    "<div class='w-racheck'>\n" +
+    "  <div ng-repeat='item in shownItems track by item.id'>\n" +
+    "    <a class=\"w-racheck-item\"\n" +
+    "       ng-click=\"toggle(item)\"\n" +
+    "       href='javascript:void(0)'\n" +
+    "       w-space='toggleOnSpace($event, item)'>\n" +
+    "      <span class=\"w-check-outer\"><span ng-show=\"isSelected(item)\" class=\"w-check-inner\"></span></span>\n" +
+    "      {{item[valueAttr]}}\n" +
+    "    </a>\n" +
     "  </div>\n" +
     "  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>\n" +
     "</div>\n"
@@ -223,24 +220,20 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
 
 
   $templateCache.put('/templates/radio.html',
-    "<div class='w-radio'>\n" +
-    "  <div class='radio' ng-repeat='item in shownItems' ng-class=\"{'w-radio-inline': inline}\">\n" +
-    "    <label ng-click='selection(item)'>\n" +
-    "      <a href='javascript:void(0)'\n" +
-    "         tabindex='{{ $first ? 0 : -1 }}'\n" +
-    "         class='w-radio-item-container'\n" +
-    "         w-down='move($event, +1)'\n" +
-    "         w-up='move($event, -1)'>\n" +
-    "        <span ng-disabled='disabled'\n" +
-    "              class=\"w-radio-item-container-sign w-radio-icon\"\n" +
-    "              ng-class=\"{'w-radio-icon-checked': isSelected(item), 'w-radio-icon-unchecked': !isSelected(item)}\">&nbsp;</span>\n" +
-    "        {{item[valueAttr]}}\n" +
-    "      </a>\n" +
-    "    </label>\n" +
+    "<div class='w-racheck'>\n" +
+    "  <div ng-repeat='item in shownItems'>\n" +
+    "  <a class=\"w-racheck-item\"\n" +
+    "     ng-click=\"selection(item)\"\n" +
+    "     href='javascript:void(0)'\n" +
+    "     tabindex='{{ $first ? 0 : -1 }}'\n" +
+    "     w-down='move($event, +1)'\n" +
+    "     w-up='move($event, -1)'>\n" +
+    "    <span class=\"w-radio-outer\"><span ng-show=\"isSelected(item)\" class=\"w-radio-inner\"></span></span>\n" +
+    "    {{item[valueAttr]}}\n" +
+    "  </a>\n" +
     "  </div>\n" +
-    "</div>\n" +
-    "\n" +
-    "\n"
+    "  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>\n" +
+    "</div>\n"
   );
 
 
