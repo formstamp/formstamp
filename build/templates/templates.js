@@ -181,7 +181,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
   $templateCache.put('/templates/multi-select.html',
     "<div class='w-multi-select w-widget-root'>\n" +
     "  <div class=\"w-multi-options\" ng-if=\"selectedItems.length > 0\">\n" +
-    "    <a ng-repeat='selectedItem in selectedItems' class=\"btn\" ng-click=\"deselect(selectedItem)\">\n" +
+    "    <a ng-repeat='selectedItem in selectedItems' class=\"btn\" ng-click=\"unselectItem(selectedItem)\">\n" +
     "      {{ getItemLabel(selectedItem) }}\n" +
     "      <span class=\"glyphicon glyphicon-remove\" ></span>\n" +
     "    </a>\n" +
@@ -195,8 +195,6 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "         w-pgup='onPgup($event)'\n" +
     "         w-pgdown='onPgdown($event)'\n" +
     "         w-enter='onEnter($event)'\n" +
-    "         w-tab='onTab()'\n" +
-    "         w-esc='onEsc()'\n" +
     "         class=\"form-control\"\n" +
     "         type=\"text\"\n" +
     "         placeholder='Search'\n" +
@@ -206,9 +204,9 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "        role=\"menu\" >\n" +
     "      <li ng-repeat=\"item in shownItems\"\n" +
     "          ng-class=\"{true: 'active'}[item == activeItem]\">\n" +
-    "        <a ng-click=\"selection(item)\"\n" +
+    "        <a ng-click=\"selectItem(item)\"\n" +
     "           href=\"javascript:void(0)\"\n" +
-    "           id='{{item[keyAttr || 'id']}}'\n" +
+    "           id='{{getItemValue(item)}}'\n" +
     "           tabindex='-1'>{{ getItemLabel(item) }}</a>\n" +
     "      </li>\n" +
     "    </ul>\n" +

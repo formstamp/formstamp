@@ -25,11 +25,13 @@
             fn = $parse(attr[dirName]);
             return element.on('keydown', function(event) {
               if (event.keyCode === keyCode && event.shiftKey === shift) {
-                return scope.$apply(function() {
+                if (!scope.$apply(function() {
                   return fn(scope, {
                     $event: event
                   });
-                });
+                })) {
+                  return event.preventDefault();
+                }
               }
             });
           }

@@ -289,7 +289,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
   $templateCache.put('/templates/multi-select.html',
     "<div class='w-multi-select w-widget-root'>\n" +
     "  <div class=\"w-multi-options\" ng-if=\"selectedItems.length > 0\">\n" +
-    "    <a ng-repeat='selectedItem in selectedItems' class=\"btn\" ng-click=\"deselect(selectedItem)\">\n" +
+    "    <a ng-repeat='selectedItem in selectedItems' class=\"btn\" ng-click=\"unselectItem(selectedItem)\">\n" +
     "      {{ getItemLabel(selectedItem) }}\n" +
     "      <span class=\"glyphicon glyphicon-remove\" ></span>\n" +
     "    </a>\n" +
@@ -303,8 +303,6 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "         w-pgup='onPgup($event)'\n" +
     "         w-pgdown='onPgdown($event)'\n" +
     "         w-enter='onEnter($event)'\n" +
-    "         w-tab='onTab()'\n" +
-    "         w-esc='onEsc()'\n" +
     "         class=\"form-control\"\n" +
     "         type=\"text\"\n" +
     "         placeholder='Search'\n" +
@@ -314,9 +312,9 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "        role=\"menu\" >\n" +
     "      <li ng-repeat=\"item in shownItems\"\n" +
     "          ng-class=\"{true: 'active'}[item == activeItem]\">\n" +
-    "        <a ng-click=\"selection(item)\"\n" +
+    "        <a ng-click=\"selectItem(item)\"\n" +
     "           href=\"javascript:void(0)\"\n" +
-    "           id='{{item[keyAttr || 'id']}}'\n" +
+    "           id='{{getItemValue(item)}}'\n" +
     "           tabindex='-1'>{{ getItemLabel(item) }}</a>\n" +
     "      </li>\n" +
     "    </ul>\n" +
@@ -1131,29 +1129,45 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
           items: '=',
           limit: '=',
           keyAttr: '@',
-          valueAttr: '@'
+          valueAttr: '@',
+          disabled: '@'
         },
         require: '?ngModel',
         replace: true,
         transclude: true,
         templateUrl: "/templates/multi-select.html",
         controller: function($scope, $element, $attrs) {
-          var updateDropDown;
+          var keyAttr, updateDropDown, valueAttr;
+          valueAttr = function() {
+            return $scope.valueAttr || "label";
+          };
+          keyAttr = function() {
+            return $scope.valueAttr || "id";
+          };
           $scope.getItemLabel = function(item) {
-            return item && item[$scope.valueAttr || 'label'];
+            return item && item[valueAttr()];
+          };
+          $scope.getItemValue = function(item) {
+            return item && item[keyAttr()];
           };
           updateDropDown = function() {
-            $scope.shownItems = difference($scope.search ? filter($scope.search, $scope.items, $scope.valueAttr).slice(0, $scope.limit) : $scope.items.slice(0, $scope.limit), $scope.selectedItems);
+            var items;
+            if ($scope.search) {
+              items = filter($scope.search, $scope.items, valueAttr()).slice(0, $scope.limit);
+            } else {
+              items = $scope.items.slice(0, $scope.limit);
+            }
+            $scope.shownItems = difference(items, $scope.selectedItems);
             return $scope.activeItem = $scope.shownItems[0];
           };
-          $scope.selection = function(item) {
+          $scope.selectItem = function(item) {
             if ((item != null) && indexOf($scope.selectedItems, item) === -1) {
               $scope.selectedItems.push(item);
             }
             $scope.search = "";
             return updateDropDown();
           };
-          $scope.deselect = function(item) {
+          $scope.unselectItem = function(item) {
             var index;
             index = indexOf($scope.selectedItems, item);
             if (index > -1) {
@@ -1161,38 +1175,43 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
               return updateDropDown();
             }
           };
-          $scope.reset = function() {
-            $scope.selectedItems = [];
-            return updateDropDown();
+          $scope.move = function(d) {
+            var activeIndex, items;
+            items = $scope.shownItems;
+            activeIndex = (indexOf(items, $scope.activeItem) || 0) + d;
+            activeIndex = Math.min(Math.max(activeIndex, 0), items.length - 1);
+            return $scope.activeItem = items[activeIndex];
+          };
+          $scope.onEnter = function(event) {
+            $scope.selectItem($scope.activeItem);
+            return false;
+          };
+          $scope.onPgup = function(event) {
+            $scope.move(-11);
+            return false;
+          };
+          $scope.onPgdown = function(event) {
+            $scope.move(11);
+            return false;
           };
           $scope.$watch('search', updateDropDown);
-          $scope.showDropdown = function() {
-            return $scope.active = true;
-          };
-          $scope.getActiveIndex = function() {
-            return indexOf($scope.shownItems, $scope.activeItem) || 0;
-          };
           $scope.selectedItems = [];
           return $scope.active = false;
         },
-        link: function(scope, element, attrs, ngModelCtrl, transcludeFn) {
+        link: function($scope, element, attrs, ngModelCtrl, transcludeFn) {
           var scroll, setViewValue;
-          console.log(attrs);
           if (ngModelCtrl) {
             setViewValue = function(newValue, oldValue) {
               if (!angular.equals(newValue, oldValue)) {
-                return ngModelCtrl.$setViewValue(scope.selectedItems);
+                return ngModelCtrl.$setViewValue($scope.selectedItems);
               }
             };
-            scope.$watch('selectedItems', setViewValue, true);
+            $scope.$watch('selectedItems', setViewValue, true);
             ngModelCtrl.$render = function() {
-              return scope.selectedItems = ngModelCtrl.$modelValue || [];
+              return $scope.selectedItems = ngModelCtrl.$modelValue || [];
             };
           }
-          attrs.$observe('disabled', function(value) {
-            return scope.disabled = value;
-          });
-          scroll = function() {
+          return scroll = function() {
             var delayedScrollFn;
             delayedScrollFn = function() {
               var li, ul;
@@ -1202,29 +1221,6 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
             };
             return setTimeout(delayedScrollFn, 0);
           };
-          scope.move = function(d) {
-            var activeIndex, items;
-            items = scope.shownItems;
-            activeIndex = scope.getActiveIndex() + d;
-            activeIndex = Math.min(Math.max(activeIndex, 0), items.length - 1);
-            scope.activeItem = items[activeIndex];
-            return scroll();
-          };
-          scope.deactivate = function() {};
-          scope.onEnter = function(event) {
-            scope.selection(scope.activeItem);
-            return event.preventDefault();
-          };
-          scope.onPgup = function(event) {
-            scope.move(-11);
-            return event.preventDefault();
-          };
-          scope.onPgdown = function(event) {
-            scope.move(11);
-            return event.preventDefault();
-          };
-          scope.onTab = function() {};
-          return scope.onEsc = function() {};
         }
       };
     }
@@ -1322,11 +1318,13 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
             fn = $parse(attr[dirName]);
             return element.on('keydown', function(event) {
               if (event.keyCode === keyCode && event.shiftKey === shift) {
-                return scope.$apply(function() {
+                if (!scope.$apply(function() {
                   return fn(scope, {
                     $event: event
                   });
-                });
+                })) {
+                  return event.preventDefault();
+                }
               }
             });
           }

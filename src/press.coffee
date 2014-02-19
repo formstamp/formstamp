@@ -17,10 +17,10 @@ directiveFactory = (keyCode, dirName, shift) ->
     restrict: 'A'
     link: (scope, element, attr) ->
       fn = $parse(attr[dirName])
+
       element.on 'keydown', (event) ->
         if event.keyCode == keyCode and event.shiftKey == shift
-          scope.$apply ->
-            fn(scope, $event: event)
+          event.preventDefault() unless scope.$apply(-> fn(scope, $event: event))
   ]
 
 angular.forEach keyCodes, (keyCode, keyName) ->
