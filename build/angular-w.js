@@ -310,11 +310,11 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "         placeholder='Search'\n" +
     "         ng-model=\"search\" />\n" +
     "\n" +
-    "  <div ng-if=\"active && (filteredItems = (items | exclude:selectedItems | filter:search)).length > 0\" class=\"open\">\n" +
+    "  <div ng-if=\"active && (filteredItems = dropdownItems()).length > 0\" class=\"open\">\n" +
     "    <ul class=\"dropdown-menu w-multi-select-items-list-default w-multi-select-items-list\"\n" +
     "        role=\"menu\" >\n" +
     "      <li ng-repeat=\"item in filteredItems\"\n" +
-    "          ng-class=\"{true: 'active'}[$index == (highlightIndex % filteredItems.length)]\">\n" +
+    "          ng-class=\"{true: 'active'}[$index == highlightIndex]\">\n" +
     "        <a ng-click=\"selectItem(item)\"\n" +
     "           href=\"javascript:void(0)\"\n" +
     "           id='{{getItemValue(item)}}'\n" +
@@ -1147,9 +1147,23 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
         replace: true,
         transclude: true,
         templateUrl: "/templates/multi-select.html",
-        controller: function($scope, $element, $attrs) {
+        controller: function($scope, $element, $attrs, $filter) {
           var keyAttr, valueAttr;
-          if (!$scope.freetext) {
+          if ($scope.freetext) {
+            $scope.getItemLabel = function(item) {
+              return item;
+            };
+            $scope.getItemValue = function(item) {
+              return item;
+            };
+            $scope.dynamicItems = function() {
+              if ($scope.search) {
+                return [$scope.search];
+              } else {
+                return [];
+              }
+            };
+          } else {
             valueAttr = function() {
               return $scope.valueAttr || "label";
             };
@@ -1162,22 +1176,26 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
             $scope.getItemValue = function(item) {
               return item && item[keyAttr()];
             };
-          } else {
-            $scope.getItemLabel = function(item) {
-              return item;
-            };
-            $scope.getItemValue = function(item) {
-              return item;
+            $scope.dynamicItems = function() {
+              return [];
             };
           }
+          $scope.dropdownItems = function() {
+            var allItems, excludeFilter, searchFilter;
+            searchFilter = $filter('filter');
+            excludeFilter = $filter('exclude');
+            allItems = $scope.dynamicItems().concat($scope.items);
+            return searchFilter(excludeFilter(allItems, $scope.selectedItems), $scope.search);
+          };
           $scope.getHighlightedItem = function() {
-            return $scope.filteredItems[$scope.highlightIndex % $scope.filteredItems.length];
+            return $scope.dropdownItems()[$scope.highlightIndex];
           };
           $scope.selectItem = function(item) {
             if ((item != null) && indexOf($scope.selectedItems, item) === -1) {
               $scope.selectedItems.push(item);
             }
-            return $scope.search = "";
+            $scope.search = "";
+            return $scope.highlightIndex = 0;
           };
           $scope.unselectItem = function(item) {
             var index;
@@ -1187,7 +1205,15 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
             }
           };
           $scope.move = function(d) {
-            return $scope.highlightIndex = Math.abs($scope.highlightIndex + d);
+            var filteredItems;
+            filteredItems = $scope.dropdownItems();
+            $scope.highlightIndex += d;
+            if ($scope.highlightIndex === -1) {
+              $scope.highlightIndex = filteredItems.length - 1;
+            }
+            if ($scope.highlightIndex >= filteredItems.length) {
+              return $scope.highlightIndex = 0;
+            }
           };
           $scope.onEnter = function(event) {
             $scope.selectItem($scope.getHighlightedItem());
@@ -1201,12 +1227,15 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
             $scope.move(11);
             return false;
           };
+          $scope.$watch('search', function() {
+            return $scope.highlightIndex = 0;
+          });
           $scope.selectedItems = [];
           $scope.active = false;
           return $scope.highlightIndex = 0;
         },
         link: function($scope, element, attrs, ngModelCtrl, transcludeFn) {
-          var scroll, setViewValue;
+          var setViewValue;
           if (ngModelCtrl) {
             setViewValue = function(newValue, oldValue) {
               if (!angular.equals(newValue, oldValue)) {
@@ -1214,20 +1243,10 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
               }
             };
             $scope.$watch('selectedItems', setViewValue, true);
-            ngModelCtrl.$render = function() {
+            return ngModelCtrl.$render = function() {
               return $scope.selectedItems = ngModelCtrl.$modelValue || [];
             };
           }
-          return scroll = function() {
-            var delayedScrollFn;
-            delayedScrollFn = function() {
-              var li, ul;
-              ul = element.find('ul')[0];
-              li = ul.querySelector('li.active');
-              return scrollToTarget(ul, li);
-            };
-            return setTimeout(delayedScrollFn, 0);
-          };
         }
       };
     }

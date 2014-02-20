@@ -26,24 +26,35 @@ angular.module("angular-w")
     replace: true
     transclude: true
     templateUrl: "/templates/multi-select.html"
-    controller: ($scope, $element, $attrs) ->
-      unless $scope.freetext
+    controller: ($scope, $element, $attrs, $filter) ->
+      if $scope.freetext
+        $scope.getItemLabel = (item)-> item
+        $scope.getItemValue = (item)-> item
+        $scope.dynamicItems = ->
+          if $scope.search then [$scope.search] else []
+      else
         valueAttr = () -> $scope.valueAttr || "label"
         keyAttr = () -> $scope.valueAttr || "id"
 
         $scope.getItemLabel = (item)-> item && item[valueAttr()]
         $scope.getItemValue = (item)-> item && item[keyAttr()]
-      else
-        $scope.getItemLabel = (item)-> item
-        $scope.getItemValue = (item)-> item
+        $scope.dynamicItems = -> []
+
+      $scope.dropdownItems = () ->
+        searchFilter = $filter('filter')
+        excludeFilter = $filter('exclude')
+        allItems = $scope.dynamicItems().concat($scope.items)
+
+        searchFilter(excludeFilter(allItems, $scope.selectedItems), $scope.search)
 
       $scope.getHighlightedItem = ->
-        $scope.filteredItems[$scope.highlightIndex % $scope.filteredItems.length]
+        $scope.dropdownItems()[$scope.highlightIndex]
 
       $scope.selectItem = (item)->
         if item? and indexOf($scope.selectedItems, item) == -1
           $scope.selectedItems.push(item)
         $scope.search = ""
+        $scope.highlightIndex = 0
 
       $scope.unselectItem = (item)->
         index = indexOf($scope.selectedItems, item)
@@ -51,7 +62,11 @@ angular.module("angular-w")
           $scope.selectedItems.splice(index, 1)
 
       $scope.move = (d) ->
-        $scope.highlightIndex = Math.abs($scope.highlightIndex + d)
+        filteredItems = $scope.dropdownItems()
+
+        $scope.highlightIndex += d
+        $scope.highlightIndex = filteredItems.length - 1 if $scope.highlightIndex == -1
+        $scope.highlightIndex = 0 if $scope.highlightIndex >= filteredItems.length
 
       $scope.onEnter = (event) ->
         $scope.selectItem($scope.getHighlightedItem())
@@ -64,6 +79,9 @@ angular.module("angular-w")
       $scope.onPgdown = (event) ->
         $scope.move(11)
         false
+
+      $scope.$watch 'search', ->
+        $scope.highlightIndex = 0
 
       # TODO move to init
       $scope.selectedItems = []
@@ -80,12 +98,4 @@ angular.module("angular-w")
 
         ngModelCtrl.$render = ->
           $scope.selectedItems = ngModelCtrl.$modelValue || []
-
-      # TODO: make this a separate directive
-      scroll = ->
-        delayedScrollFn = ->
-          ul = element.find('ul')[0]
-          li = ul.querySelector('li.active')
-          scrollToTarget(ul, li)
-        setTimeout(delayedScrollFn, 0)
   ]

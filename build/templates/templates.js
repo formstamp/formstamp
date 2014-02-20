@@ -202,11 +202,11 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "         placeholder='Search'\n" +
     "         ng-model=\"search\" />\n" +
     "\n" +
-    "  <div ng-if=\"active && (filteredItems = (items | exclude:selectedItems | filter:search)).length > 0\" class=\"open\">\n" +
+    "  <div ng-if=\"active && (filteredItems = dropdownItems()).length > 0\" class=\"open\">\n" +
     "    <ul class=\"dropdown-menu w-multi-select-items-list-default w-multi-select-items-list\"\n" +
     "        role=\"menu\" >\n" +
     "      <li ng-repeat=\"item in filteredItems\"\n" +
-    "          ng-class=\"{true: 'active'}[$index == (highlightIndex % filteredItems.length)]\">\n" +
+    "          ng-class=\"{true: 'active'}[$index == highlightIndex]\">\n" +
     "        <a ng-click=\"selectItem(item)\"\n" +
     "           href=\"javascript:void(0)\"\n" +
     "           id='{{getItemValue(item)}}'\n" +
