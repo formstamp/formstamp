@@ -187,6 +187,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "      <span class=\"glyphicon glyphicon-remove\" ></span>\n" +
     "    </a>\n" +
     "  </div>\n" +
+    "\n" +
     "  <!-- FIXME: why not use existing control -->\n" +
     "  <input ng-keydown=\"onkeys($event)\"\n" +
     "         w-hold-focus=\"active = true\"\n" +
@@ -200,11 +201,12 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "         type=\"text\"\n" +
     "         placeholder='Search'\n" +
     "         ng-model=\"search\" />\n" +
-    "  <div ng-if=\"active && shownItems.length > 0\" class=\"open\">\n" +
+    "\n" +
+    "  <div ng-if=\"active && (filteredItems = (items | exclude:selectedItems | filter:search)).length > 0\" class=\"open\">\n" +
     "    <ul class=\"dropdown-menu w-multi-select-items-list-default w-multi-select-items-list\"\n" +
     "        role=\"menu\" >\n" +
-    "      <li ng-repeat=\"item in shownItems\"\n" +
-    "          ng-class=\"{true: 'active'}[item == activeItem]\">\n" +
+    "      <li ng-repeat=\"item in filteredItems\"\n" +
+    "          ng-class=\"{true: 'active'}[$index == (highlightIndex % filteredItems.length)]\">\n" +
     "        <a ng-click=\"selectItem(item)\"\n" +
     "           href=\"javascript:void(0)\"\n" +
     "           id='{{getItemValue(item)}}'\n" +
@@ -212,7 +214,6 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "      </li>\n" +
     "    </ul>\n" +
     "  </div>\n" +
-    "  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>\n" +
     "</div>\n"
   );
 

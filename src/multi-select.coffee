@@ -7,43 +7,57 @@ difference = (a, b)->
   hash[hash_key(b_element)] = true for b_element in b
   a.filter ((a_element)-> not hash[hash_key(a_element)])
 
-angular
-.module("angular-w")
+angular.module('angular-w').filter 'exclude', ->
+  (input, selected) ->
+    input.filter (item)->
+      selected.indexOf(item) < 0
+
+angular.module("angular-w")
 .directive "wMultiSelect", ['$window', ($window) ->
     restrict: "A"
     scope:
       invalid: '='
       items: '='
-      limit: '='
       keyAttr: '@'
       valueAttr: '@'
       disabled: '@'
+      freetext: '@'
     require: '?ngModel'
     replace: true
     transclude: true
     templateUrl: "/templates/multi-select.html"
     controller: ($scope, $element, $attrs) ->
-      valueAttr = () -> $scope.valueAttr || "label"
-      keyAttr = () -> $scope.valueAttr || "id"
+      unless $scope.freetext
+        valueAttr = () -> $scope.valueAttr || "label"
+        keyAttr = () -> $scope.valueAttr || "id"
 
-      $scope.getItemLabel = (item)->
-        item && item[valueAttr()]
+        $scope.getItemLabel = (item)-> item && item[valueAttr()]
+        $scope.getItemValue = (item)-> item && item[keyAttr()]
 
-      $scope.getItemValue = (item)->
-        item && item[keyAttr()]
+        updateDropDown = ->
+          if $scope.search
+            items = filter($scope.search, $scope.items, valueAttr())
+          else
+            items = $scope.items
 
-      updateDropDown = ->
-        if $scope.search
-          items = filter($scope.search, $scope.items, valueAttr()).slice(0, $scope.limit)
-        else
-          items = $scope.items.slice(0, $scope.limit)
+          $scope.shownItems = difference(items, $scope.selectedItems)
+          $scope.activeItem = $scope.shownItems[0]
+      else
+        $scope.getItemLabel = (item)-> item
+        $scope.getItemValue = (item)-> item
 
-        $scope.shownItems = difference(items, $scope.selectedItems)
-        $scope.activeItem = $scope.shownItems[0]
+        updateDropDown = ->
+          $scope.shownItems = filter($scope.search, $scope.items)
+
+          if $scope.shownItems.indexOf($scope.search) < 0
+            $scope.shownItems.push($scope.search)
+
+          $scope.activeItem = $scope.shownItems[0]
 
       $scope.selectItem = (item)->
         if item? and indexOf($scope.selectedItems, item) == -1
           $scope.selectedItems.push(item)
+
         $scope.search = ""
         updateDropDown()
 
@@ -54,10 +68,7 @@ angular
           updateDropDown()
 
       $scope.move = (d) ->
-        items = $scope.shownItems
-        activeIndex = (indexOf(items, $scope.activeItem) || 0) + d
-        activeIndex = Math.min(Math.max(activeIndex,0), items.length - 1)
-        $scope.activeItem = items[activeIndex]
+        $scope.highlightIndex = Math.abs($scope.highlightIndex + d)
 
       $scope.onEnter = (event) ->
         $scope.selectItem($scope.activeItem)
@@ -71,12 +82,10 @@ angular
         $scope.move(11)
         false
 
-      # TODO: replace with custom angular filter
-      $scope.$watch 'search', updateDropDown
-
       # TODO move to init
       $scope.selectedItems = []
       $scope.active = false
+      $scope.highlightIndex = 0
 
     link: ($scope, element, attrs, ngModelCtrl, transcludeFn) ->
       if ngModelCtrl

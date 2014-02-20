@@ -5,6 +5,7 @@
       <span class="glyphicon glyphicon-remove" ></span>
     </a>
   </div>
+
   <!-- FIXME: why not use existing control -->
   <input ng-keydown="onkeys($event)"
          w-hold-focus="active = true"
@@ -18,11 +19,12 @@
          type="text"
          placeholder='Search'
          ng-model="search" />
-  <div ng-if="active && shownItems.length > 0" class="open">
+
+  <div ng-if="active && (filteredItems = (items | exclude:selectedItems | filter:search)).length > 0" class="open">
     <ul class="dropdown-menu w-multi-select-items-list-default w-multi-select-items-list"
         role="menu" >
-      <li ng-repeat="item in shownItems"
-          ng-class="{true: 'active'}[item == activeItem]">
+      <li ng-repeat="item in filteredItems"
+          ng-class="{true: 'active'}[$index == (highlightIndex % filteredItems.length)]">
         <a ng-click="selectItem(item)"
            href="javascript:void(0)"
            id='{{getItemValue(item)}}'
@@ -30,5 +32,4 @@
       </li>
     </ul>
   </div>
-  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>
 </div>

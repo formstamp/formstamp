@@ -25,7 +25,6 @@ angular
       $scope.getItemValue = (item)->
         item
 
-      #TODO: why is this method's name a noun instead of a verb?
       $scope.selectItem = (item)->
         if item? and item.length > 0 and indexOf($scope.selectedItems, item) == -1
           $scope.selectedItems.push(item)
@@ -54,10 +53,7 @@ angular
         activeIndex = Math.min(Math.max(activeIndex,0), items.length - 1)
         $scope.activeItem = items[activeIndex]
 
-
       $scope.$watch 'search', search
-
-      # run
       $scope.selectedItems = []
 
     link: (scope, element, attrs, ngModelCtrl, transcludeFn) ->

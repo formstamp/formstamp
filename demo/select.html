@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+  <head>
+    <meta charset="utf-8">
+
+    <title>angular-w</title>
+
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/demo/styles/syntax.css"/>
+    <link rel="stylesheet" href="/demo/styles/style.css"/>
+    <link rel="stylesheet" href="/build/angular-w.css"/>
+    <link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/default.min.css">
+    <script src="http://yandex.st/highlightjs/8.0/highlight.min.js"></script></script>
+    <style>
+      .wip {
+        color:red;
+      }
+      .page-header {
+        padding-top: 40px;
+      }
+      .demonstration {
+        padding-left: 200px;
+      }
+    </style>
+  </head>
+  <body>
+
+  <!-- Le navbar
+  ================================================== -->
+    <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
+      <div class='container'>
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">FormStamp</a>
+          </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+              <li><a href="/formbuilder">Form Builder</a></li>
+              <li class="dropdown">
+                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+                  Widgets <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li ng-repeat='widget in data'>
+                    <a href="/widgets#{{ widget.name }}">{{ widget.name }}</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="#">by Health Samurai</a></li>
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </div>
+    </nav>
+
+    <div class='container' autoscroll='true' ng-controller="SelectsCtrl" style="padding-top: 60px;">
+      <div w-multi-select ng-model='selectedGames' items='games'></div>
+
+      <div class='well' style="margin-top: 10px;">
+        {{ selectedGames | json }}
+      </div>
+
+      <div w-multi-select ng-model='selectedGamesWithFreetext' items='gameNames' freetext='true'></div>
+
+      <div class='well' style="margin-top: 10px;">
+        {{ selectedGamesWithFreetext | json }}
+      </div>
+    </div>
+
+    <script type='text/javascript' src='/bower_components/jquery/jquery.js'></script>
+    <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type='text/javascript' src='/bower_components/angular/angular.js'></script>
+    <script type='text/javascript' src='/bower_components/angular-route/angular-route.js'></script>
+    <script type='text/javascript' src='/bower_components/angular-sanitize/angular-sanitize.js'></script>
+    <script type='text/javascript' src='/build/angular-w.js'></script>
+
+    <script type="text/javascript">
+      angular.module('app', ['angular-w'], function() { });
+
+      function SelectsCtrl($scope) {
+        $scope.games = [
+          {id: 0, label: 'Dragon Quest'},
+          {id: 1, label: 'Final Fantasy'},
+          {id: 2, label: 'Shin Megami Tensei'}
+        ];
+
+        $scope.gameNames = $scope.games.map(function(item) {
+          return item.label;
+        });
+      }
+    </script>
+  </body>
+</html>

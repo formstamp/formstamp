@@ -1,5 +1,5 @@
 comp = (a, b)->
-  a.toString().toLowerCase()
+  "#{a}".toLowerCase()
     .indexOf(b.toString().toLowerCase()) > -1
 
 filter = (x, xs, valueAttr) ->
