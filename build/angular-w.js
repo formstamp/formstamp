@@ -1148,7 +1148,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
         transclude: true,
         templateUrl: "/templates/multi-select.html",
         controller: function($scope, $element, $attrs) {
-          var keyAttr, updateDropDown, valueAttr;
+          var keyAttr, valueAttr;
           if (!$scope.freetext) {
             valueAttr = function() {
               return $scope.valueAttr || "label";
@@ -1162,16 +1162,6 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
             $scope.getItemValue = function(item) {
               return item && item[keyAttr()];
             };
-            updateDropDown = function() {
-              var items;
-              if ($scope.search) {
-                items = filter($scope.search, $scope.items, valueAttr());
-              } else {
-                items = $scope.items;
-              }
-              $scope.shownItems = difference(items, $scope.selectedItems);
-              return $scope.activeItem = $scope.shownItems[0];
-            };
           } else {
             $scope.getItemLabel = function(item) {
               return item;
@@ -1179,34 +1169,28 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
             $scope.getItemValue = function(item) {
               return item;
             };
-            updateDropDown = function() {
-              $scope.shownItems = filter($scope.search, $scope.items);
-              if ($scope.shownItems.indexOf($scope.search) < 0) {
-                $scope.shownItems.push($scope.search);
-              }
-              return $scope.activeItem = $scope.shownItems[0];
-            };
           }
+          $scope.getHighlightedItem = function() {
+            return $scope.filteredItems[$scope.highlightIndex % $scope.filteredItems.length];
+          };
           $scope.selectItem = function(item) {
             if ((item != null) && indexOf($scope.selectedItems, item) === -1) {
               $scope.selectedItems.push(item);
             }
-            $scope.search = "";
-            return updateDropDown();
+            return $scope.search = "";
           };
           $scope.unselectItem = function(item) {
             var index;
             index = indexOf($scope.selectedItems, item);
             if (index > -1) {
-              $scope.selectedItems.splice(index, 1);
-              return updateDropDown();
+              return $scope.selectedItems.splice(index, 1);
             }
           };
           $scope.move = function(d) {
             return $scope.highlightIndex = Math.abs($scope.highlightIndex + d);
           };
           $scope.onEnter = function(event) {
-            $scope.selectItem($scope.activeItem);
+            $scope.selectItem($scope.getHighlightedItem());
             return false;
           };
           $scope.onPgup = function(event) {

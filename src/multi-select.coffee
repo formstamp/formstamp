@@ -33,45 +33,28 @@ angular.module("angular-w")
 
         $scope.getItemLabel = (item)-> item && item[valueAttr()]
         $scope.getItemValue = (item)-> item && item[keyAttr()]
-
-        updateDropDown = ->
-          if $scope.search
-            items = filter($scope.search, $scope.items, valueAttr())
-          else
-            items = $scope.items
-
-          $scope.shownItems = difference(items, $scope.selectedItems)
-          $scope.activeItem = $scope.shownItems[0]
       else
         $scope.getItemLabel = (item)-> item
         $scope.getItemValue = (item)-> item
 
-        updateDropDown = ->
-          $scope.shownItems = filter($scope.search, $scope.items)
-
-          if $scope.shownItems.indexOf($scope.search) < 0
-            $scope.shownItems.push($scope.search)
-
-          $scope.activeItem = $scope.shownItems[0]
+      $scope.getHighlightedItem = ->
+        $scope.filteredItems[$scope.highlightIndex % $scope.filteredItems.length]
 
       $scope.selectItem = (item)->
         if item? and indexOf($scope.selectedItems, item) == -1
           $scope.selectedItems.push(item)
-
         $scope.search = ""
-        updateDropDown()
 
       $scope.unselectItem = (item)->
         index = indexOf($scope.selectedItems, item)
         if index > -1
           $scope.selectedItems.splice(index, 1)
-          updateDropDown()
 
       $scope.move = (d) ->
         $scope.highlightIndex = Math.abs($scope.highlightIndex + d)
 
       $scope.onEnter = (event) ->
-        $scope.selectItem($scope.activeItem)
+        $scope.selectItem($scope.getHighlightedItem())
         false
 
       $scope.onPgup = (event) ->
