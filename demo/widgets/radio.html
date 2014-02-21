@@ -1,0 +1,55 @@
+<div>
+  <div class="page-header">
+    <h1>Radio</h1>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div>
+        <h2>Description</h2>
+        <h5>Directive: <code>w-radio</code></h5>
+        <p>
+          Provides default radio-like behaviour. Supports several
+          angular directives: <code>ng-model</code>, <code>ng-disabled</code>,
+          <code>ng-required</code>. Available option is <code>items</code>.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class='row'>
+    <div class="col-md-6">
+      <h4>Example</h4>
+      <pre>
+&lt;form role="form" ng-controller='RadioCtrl'&gt;
+  &lt;div class="form-group"&gt;
+    &lt;label&gt;Choose your katawari&lt;/label&gt;
+    &lt;div w-radio="true"
+         items="items"
+         ng-model="value"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/form&gt;</pre>
+      <pre>
+angular.module('angular-w-demo')
+.controller('RadioCtrl', function($scope) {
+  $scope.items = [
+    {id: 'S', label: 'Shijima'},
+    {id: 'M', label: 'Musubi'},
+    {id: 'Y', label: 'Yosuga'}
+  ];
+});</pre>
+    </div>
+    <div class="col-md-6 demonstration">
+      <h2>Demo</h2>
+      <div>
+        <form role="form" ng-controller='RadioCtrl'>
+          <div class="form-group">
+            <label>Choose your katawari</label>
+            <div w-radio="true"
+                 items="items"
+                 ng-model="value"></div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

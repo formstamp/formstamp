@@ -23,7 +23,7 @@
       }
     </style>
   </head>
-  <body ng-controller='RootController'>
+  <body>
 
   <!-- Le navbar
   ================================================== -->
@@ -49,8 +49,8 @@
                   Widgets <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">
-                  <li ng-repeat='widget in data'>
-                    <a href="/widgets#{{ widget.name }}">{{ widget.name }}</a>
+                  <li ng-repeat='widget in widgets'>
+                    <a href="/widgets/{{ widget.toLowerCase() }}">{{ widget }}</a>
                   </li>
                 </ul>
               </li>
