@@ -7,121 +7,74 @@ angular
     items: '='
     limit: '='
     keyAttr: '@'
+    disabled: '@'
+    freetext: '@'
     valueAttr: '@'
     class: '@'
   require: '?ngModel'
   replace: true
   transclude: true
   templateUrl: "/templates/chz.html"
-  controller: ($scope, $element, $attrs) ->
+  controller: ($scope, $element, $attrs, $filter) ->
+    if $scope.freetext
+      $scope.getItemLabel = (item)-> item
+      $scope.getItemValue = (item)-> item
+      $scope.dynamicItems = ->
+        if $scope.search then [$scope.search] else []
+    else
+      valueAttr = () -> $scope.valueAttr || "label"
+      keyAttr = () -> $scope.valueAttr || "id"
 
-    search = (q) ->
-      $scope.shownItems = filter(q, $scope.items, $scope.valueAttr).slice(0, $scope.limit)
-      $scope.activeItem = $scope.shownItems[0]
+      $scope.getItemLabel = (item)-> item && item[valueAttr()]
+      $scope.getItemValue = (item)-> item && item[keyAttr()]
+      $scope.dynamicItems = -> []
 
-    $scope.getSelectedLabel = ()->
-      $scope.getItemLabel($scope.selectedItem)
+    $scope.dropdownItems = () ->
+      searchFilter = $filter('filter')
+      allItems = $scope.items.concat($scope.dynamicItems())
+      searchFilter(allItems, $scope.search)
 
-    $scope.getItemLabel = (item)->
-      item && item[$scope.valueAttr]
-
-    # should be verb
-    $scope.selection = (item)->
+    $scope.selectItem = (item)->
       $scope.selectedItem = item
-      $scope.hideDropDown()
-
-    $scope.reset = ->
-      $scope.selectedItem = null
-      $scope.focus = true
-
-    $scope.$watch 'search', search
-    # is it can change dynamicaly?
-    $scope.$watch 'limit', -> search('')
-
-    # wrong name, why not model
-    # use focus attribute
-    $scope.hideDropDown = ->
+      $scope.search = ""
+      $scope.highlightIndex = 0
       $scope.active = false
 
-    # isItemActive? better selected
-    $scope.isActive = (item) ->
-      angular.equals(item, $scope.activeItem)
+    $scope.unselectItem = (item)->
+      $scope.selectedItem = null
 
-    # run
-    search('')
+    $scope.move = (d) ->
+      filteredItems = $scope.dropdownItems()
 
-  compile: (tElement, tAttrs) ->
-    #FIXME: why not by scope attributes
-    tAttrs.keyAttr ||= 'id'
-    tAttrs.valueAttr ||= 'label'
+      $scope.highlightIndex += d
+      $scope.highlightIndex = filteredItems.length - 1 if $scope.highlightIndex == -1
+      $scope.highlightIndex = 0 if $scope.highlightIndex >= filteredItems.length
 
-    # Link function
-    (scope, element, attrs, ngModelCtrl, transcludeFn) ->
-      if ngModelCtrl
-        scope.$watch 'selectedItem', (newValue, oldValue) ->
-          if newValue isnt oldValue
-            ngModelCtrl.$setViewValue(scope.selectedItem)
+    $scope.onEnter = (event) ->
+      hItem = $scope.dropdownItems()[$scope.highlightIndex]
+      $scope.selectItem(hItem)
+      false
 
-        ngModelCtrl.$render = ->
-          scope.selectedItem = ngModelCtrl.$viewValue
+    $scope.onPgup = (event) ->
+      $scope.move(-11)
+      false
 
-      attrs.$observe 'disabled', (value) ->
-        scope.disabled = value
+    $scope.onPgdown = (event) ->
+      $scope.move(11)
+      false
 
-      # second watch on selectedItem
-      scope.$watch 'selectedItem', ->
-        childScope = scope.$new()
-        childScope.item = scope.selectedItem
-        transcludeFn childScope, (clone) ->
-          if clone.text().trim() isnt ""
-            link = element[0].querySelector('a.w-chz-active')
-            angular.element(link).empty().append(clone)
+    $scope.$watch 'search', ->
+      $scope.highlightIndex = 0
 
-      # Hide drop down list on click elsewhere
-      $window.addEventListener 'click', (e) ->
-        parent = $(e.target).parents('div.w-chz')[0]
-        if parent != element[0]
-          scope.$apply(scope.hideDropDown)
+    $scope.active = false
+    $scope.highlightIndex = 0
 
-      scope.onEnter = (event) ->
-        scope.selection(scope.activeItem)
-        scope.focus=true
-        event.preventDefault()
+  link: (scope, element, attrs, ngModelCtrl, transcludeFn) ->
+    if ngModelCtrl
+      scope.$watch 'selectedItem', (newValue, oldValue) ->
+        if newValue isnt oldValue
+          ngModelCtrl.$setViewValue(scope.selectedItem)
 
-      scope.onPgup = (event) ->
-        scope.move(-11)
-        event.preventDefault()
-
-      scope.onPgdown = (event) ->
-        scope.move(11)
-        event.preventDefault()
-
-      scope.onTab = ->
-        scope.selection(scope.activeItem)
-
-      scope.onEsc = ->
-        scope.hideDropDown()
-        scope.focus=true
-
-      getActiveIndex = ->
-        indexOf(scope.shownItems, scope.activeItem) || 0
-
-      scope.move = (d) ->
-        items = scope.shownItems
-        activeIndex = getActiveIndex() + d
-        activeIndex = Math.min(Math.max(activeIndex,0), items.length - 1)
-        scope.activeItem = items[activeIndex]
-        scroll()
-
-      scroll = ->
-        delayedScrollFn = ->
-          ul = element.find('ul')[0]
-          li = ul.querySelector('li.active')
-          scrollToTarget(ul, li)
-        setTimeout(delayedScrollFn, 0)
-
-      scope.$watch 'active', (value) ->
-        if value
-          scope.activeItem = scope.selectedItem
-          scroll()
+      ngModelCtrl.$render = ->
+        scope.selectedItem = ngModelCtrl.$viewValue
 ]

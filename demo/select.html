@@ -64,16 +64,32 @@
     </nav>
 
     <div class='container' autoscroll='true' ng-controller="SelectsCtrl" style="padding-top: 60px;">
+      <h3> Multi Select</h3>
       <div w-multi-select ng-model='selectedGames' items='games'></div>
 
       <div class='well' style="margin-top: 10px;">
-        {{ selectedGames | json }}
+        Value: {{ selectedGames | json }}
       </div>
 
+      <h3> Tags</h3>
       <div w-multi-select ng-model='selectedGamesWithFreetext' items='gameNames' freetext='true'></div>
 
       <div class='well' style="margin-top: 10px;">
         {{ selectedGamesWithFreetext | json }}
+      </div>
+
+      <h3> Select</h3>
+      <div w-chz ng-model='selectValue' items='games'></div>
+
+      <div class='well' style="margin-top: 10px;">
+        {{ selectValue | json }}
+      </div>
+
+      <h3> Combo</h3>
+      <div w-chz freetext="true" ng-model='comboValue' items='gameNames'></div>
+
+      <div class='well' style="margin-top: 10px;">
+        {{ comboValue | json }}
       </div>
     </div>
 

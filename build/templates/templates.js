@@ -100,14 +100,14 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "         w-focus='focus'\n" +
     "         ng-disabled=\"disabled\"\n" +
     "         ng-blur='focus=false'>\n" +
-    "         <span ng-show='selectedItem'>{{ getSelectedLabel() }}</span>\n" +
+    "         <span ng-show='selectedItem'>{{ getItemLabel(selectedItem) }}</span>\n" +
     "         <span ng-hide='selectedItem'>none</span>\n" +
     "      </a>\n" +
     "      <button type=\"button\"\n" +
     "              class=\"btn btn-default w-chz-clear-btn\"\n" +
     "              aria-hidden=\"true\"\n" +
     "              ng-show='selectedItem'\n" +
-    "              ng-click='reset()'>&times;</button>\n" +
+    "              ng-click='unselectItem()'>&times;</button>\n" +
     "    </div>\n" +
     "  <div class=\"open\" ng-show=\"active\">\n" +
     "    <input class=\"form-control\"\n" +
@@ -123,17 +123,29 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "           placeholder='Search'\n" +
     "           ng-model=\"search\" />\n" +
     "\n" +
-    "    <ul class=\"dropdown-menu w-chz-items-list-default w-chz-items-list\"\n" +
-    "        role=\"menu\"\n" +
-    "        ng-if=\"active && shownItems.length\">\n" +
-    "       <li ng-repeat=\"item in shownItems\"\n" +
-    "           ng-class=\"{active: isActive(item)}\">\n" +
-    "         <a ng-click=\"selection(item)\"\n" +
-    "            href=\"javascript:void(0)\"\n" +
-    "            id='{{item[keyAttr]}}'\n" +
-    "            tabindex='-1'>{{ getItemLabel(item) }}</a>\n" +
-    "       </li>\n" +
+    "    <!-- <ul class=\"dropdown-menu w-chz-items-list-default w-chz-items-list\" -->\n" +
+    "    <!--     role=\"menu\" -->\n" +
+    "    <!--     ng-if=\"active && shownItems.length\"> -->\n" +
+    "    <!--    <li ng-repeat=\"item in shownItems\" -->\n" +
+    "    <!--        ng-class=\"{active: isActive(item)}\"> -->\n" +
+    "    <!--      <a ng-click=\"selection(item)\" -->\n" +
+    "    <!--         href=\"javascript:void(0)\" -->\n" +
+    "    <!--         id='{{item[keyAttr]}}' -->\n" +
+    "    <!--         tabindex='-1'>{{ getItemLabel(item) }}</a> -->\n" +
+    "    <!--    </li> -->\n" +
+    "    <!-- </ul> -->\n" +
+    "  <div ng-if=\"active && (filteredItems = dropdownItems()).length > 0\" class=\"open\">\n" +
+    "    <ul class=\"dropdown-menu w-multi-select-items-list-default w-multi-select-items-list\"\n" +
+    "        role=\"menu\" >\n" +
+    "      <li ng-repeat=\"item in filteredItems\"\n" +
+    "          ng-class=\"{true: 'active'}[$index == highlightIndex]\">\n" +
+    "        <a ng-click=\"selectItem(item)\"\n" +
+    "           href=\"javascript:void(0)\"\n" +
+    "           id='{{getItemValue(item)}}'\n" +
+    "           tabindex='-1'>{{ getItemLabel(item) }}</a>\n" +
+    "      </li>\n" +
     "    </ul>\n" +
+    "  </div>\n" +
     "  </div>\n" +
     "  <!-- FIXME: why errors here -->\n" +
     "  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>\n" +

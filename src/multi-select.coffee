@@ -22,6 +22,7 @@ angular.module("angular-w")
       valueAttr: '@'
       disabled: '@'
       freetext: '@'
+      class: '@'
     require: '?ngModel'
     replace: true
     transclude: true
@@ -43,12 +44,10 @@ angular.module("angular-w")
       $scope.dropdownItems = () ->
         searchFilter = $filter('filter')
         excludeFilter = $filter('exclude')
-        allItems = $scope.dynamicItems().concat($scope.items)
+        allItems = $scope.items.concat($scope.dynamicItems())
 
         searchFilter(excludeFilter(allItems, $scope.selectedItems), $scope.search)
 
-      $scope.getHighlightedItem = ->
-        $scope.dropdownItems()[$scope.highlightIndex]
 
       $scope.selectItem = (item)->
         if item? and indexOf($scope.selectedItems, item) == -1
@@ -68,8 +67,11 @@ angular.module("angular-w")
         $scope.highlightIndex = filteredItems.length - 1 if $scope.highlightIndex == -1
         $scope.highlightIndex = 0 if $scope.highlightIndex >= filteredItems.length
 
+      $scope.getHighlightedItem = ->
+
       $scope.onEnter = (event) ->
-        $scope.selectItem($scope.getHighlightedItem())
+        highlightedItem = $scope.dropdownItems()[$scope.highlightIndex]
+        $scope.selectItem($scope.highlightedItem)
         false
 
       $scope.onPgup = (event) ->
