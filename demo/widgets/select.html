@@ -38,14 +38,14 @@
     <div class='row'>
       <div class="col-md-6">
         <h4>Example</h4>
-        <pre ng-non-bindable>
+        <pre highlight='xml'>
 &lt;form role='form' ng-controller='ChzItemsCtrl'&gt;
   &lt;div class='form-group'&gt;
     &lt;label&gt;Select weapon:&lt;/label&gt;
     &lt;div w-chz items='weapons'&gt;&lt;/div&gt;
   &lt;/div&gt;
 &lt;/form&gt;</pre>
-        <pre ng-non-bindable>
+        <pre highlight='javascript'>
 angular.module('angular-w-demo')
 .controller('ChzItemsCtrl', function($scope) {
   $scope.weapons = [
@@ -82,7 +82,7 @@ angular.module('angular-w-demo')
     <div class='row'>
       <div class="col-md-6">
         <h4>Example</h4>
-        <pre ng-non-bindable>
+        <pre highlight='xml'>
 &lt;form role='form' ng-controller='ChzLimitsCtrl'&gt;
   &lt;div class='form-group'&gt;
     &lt;label&gt;Select number of weapons:&lt;/label&gt;
@@ -93,7 +93,7 @@ angular.module('angular-w-demo')
     &lt;div w-chz items='weapons' limit='numberOfWeapons.id'&gt;&lt;/div&gt;
   &lt;/div&gt;
 &lt;/form&gt;</pre>
-        <pre ng-non-bindable>
+        <pre highlight='javascript'>
 angular.module('angular-w-demo')
 .controller('ChzLimitsCtrl', function($scope) {
   $scope.numbers = [
@@ -139,7 +139,7 @@ angular.module('angular-w-demo')
     <div class='row'>
       <div class="col-md-6">
         <h4>Example</h4>
-        <pre ng-non-bindable>
+        <pre highlight='xml'>
 &lt;form role='form' ng-controller='ChzKeyValuesCtrl'&gt;
   &lt;div class='form-group'&gt;
     &lt;label&gt;Select city of Japan:&lt;/label&gt;
@@ -151,7 +151,7 @@ angular.module('angular-w-demo')
     Code: &lt;b&gt;{{city.code}}&lt;/b&gt;
   &lt;/div&gt;
 &lt;/form&gt;</pre>
-        <pre ng-non-bindable>
+        <pre highlight='javascript'>
 angular.module('angular-w-demo')
 .controller('ChzKeyValuesCtrl', function($scope) {
   $scope.cities = [
@@ -201,7 +201,7 @@ angular.module('angular-w-demo')
     <div class='row'>
       <div class="col-md-6">
         <h4>Example</h4>
-        <pre ng-non-bindable>
+        <pre highlight='xml'>
 &lt;form role='form' ng-controller='ChzKeyValuesCtrl'&gt;
   &lt;div class='form-group'&gt;
     &lt;label&gt;Select city of Japan:&lt;/label&gt;
@@ -215,7 +215,7 @@ angular.module('angular-w-demo')
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/form&gt;</pre>
-        <pre ng-non-bindable>
+        <pre highlight='javascript'>
 angular.module('angular-w-demo')
 .controller('ChzKeyValuesCtrl', function($scope) {
   $scope.cities = [
