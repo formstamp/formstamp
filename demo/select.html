@@ -93,6 +93,15 @@
         </div>
       </div>
 
+      <h3> Multi Select</h3>
+        <div w-multi-select ng-model='selectedGames' items='gameNames'
+        freetext="true"></div>
+        <div class='well' style="margin-top: 10px;">
+          {{ selectValue | json }}
+        </div>
+      </div>
+
+
       <!-- <div class='well' style="margin-top: 10px;"> -->
       <!--   {{ comboValue | json }} -->
       <!-- </div> -->

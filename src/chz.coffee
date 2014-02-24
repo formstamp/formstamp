@@ -13,7 +13,6 @@ angular
     class: '@'
   require: '?ngModel'
   replace: true
-  # transclude: true
   template: (el)->
     itemTpl = el.html()
     template = """
@@ -23,9 +22,9 @@ angular
          ng-class='{"btn-danger": invalid}'
          href="javascript:void(0)"
          ng-click="active = true"
-         ng-disabled="disabled" >
-         <span ng-show='item'>#{itemTpl}</span>
-         <span ng-hide='item'>none</span>
+         ng-disabled="disabled">
+           <span ng-show='item'>#{itemTpl}</span>
+           <span ng-hide='item'>none</span>
       </a>
       <button type="button"
               class="btn btn-default w-chz-clear-btn"
@@ -35,9 +34,11 @@ angular
     </div>
   <div class="open" ng-show="active">
     <input class="form-control"
-           w-hold-focus
-           w-hold-focus-when='active'
-           w-hold-focus-blur='active = false'
+           w-input='123'
+           w-focus-when='active'
+           w-on-blur='active = false'
+           w-hold-focus=''
+
            w-down='move(1)'
            w-up='move(-1)'
            w-pgup='move(-11)'
@@ -119,15 +120,20 @@ angular
   replace: true
   templateUrl: "/templates/list.html"
   controller: ($scope, $element, $attrs, $filter) ->
+    updateSelectedItem = (hlIdx) ->
+      if $scope.$parent.listInterface?
+        $scope.$parent.listInterface.selectedItem = $scope.items[hlIdx]
+
     $scope.highlightItem = (item) ->
       $scope.highlightIndex = $scope.items.indexOf(item)
       $scope.$parent.listInterface.onSelect(item)
 
-    $scope.$watch 'items', (idx)-> $scope.highlightIndex = 0
+    $scope.$watch 'items', (newItems)->
+      $scope.highlightIndex = 0
+      updateSelectedItem(0)
 
     $scope.$watch 'highlightIndex', (idx) ->
-      if $scope.$parent.listInterface?
-        $scope.$parent.listInterface.selectedItem = $scope.items[idx]
+      updateSelectedItem(idx)
 
     $scope.move = (d) ->
       filteredItems = $scope.items

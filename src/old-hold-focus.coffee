@@ -1,4 +1,4 @@
-angular.module("angular-w").directive "wHoldFocus", ($timeout) ->
+angular.module("angular-w").directive "wOldHoldFocus", ($timeout) ->
   widgetRoot = (el) ->
     currentEl = el
 
