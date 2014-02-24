@@ -6,15 +6,25 @@
   </p>
   <hr/>
   <sample>
-    <div ng-controller="ListCtrl" style="postion: relative;">
-      <button ng-click="move(1)">Down</button>
-      <button ng-click="move(-1)">Up</button>
-      <div w-list items='games' class="no-popup">
-        <img src="http://png-1.findicons.com/files/icons/282/flags/48/united_states_of_america_usa.png"/> {{item.label}}
+    <div ng-controller="ListDemoCtrl" style="postion: relative;" class="row">
+      <div class="col-xs-7">
+        <input w-input w-up='move(-1)' w-down='move(1)' w-enter='select()' ng-model='search' />
+        <div w-list items='filteredItems' class="no-popup">
+          <img src="http://png-1.findicons.com/files/icons/282/flags/48/united_states_of_america_usa.png"/> {{item.label}}
+        </div>
+      </div>
+      <div class="col-xs-5">
+        <pre>Selected Item: {{ selectedItem | json }}</pre>
       </div>
     </div>
     <script>
-      function ListCtrl($scope) {
+      function ListDemoCtrl($scope, $filter) {
+        var filterFn = $filter('filter');
+
+        $scope.$watch('search', function () {
+          $scope.filteredItems = filterFn($scope.games, $scope.search);
+        });
+
         $scope.games = [
           {id: 0, label: 'Dragon Quest'},
           {id: 1, label: 'Final Fantasy'},
@@ -31,6 +41,10 @@
             console.log("list selection changed", arguments)
           },
           move: function(d) {}
+        };
+
+        $scope.select = function() {
+          $scope.selectedItem = $scope.listInterface.selectedItem;
         };
       }
     </script>
