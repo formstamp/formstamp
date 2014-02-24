@@ -302,10 +302,11 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "    </a>\n" +
     "  </div>\n" +
     "\n" +
-    "  <!-- FIXME: why not use existing control -->\n" +
     "  <input ng-keydown=\"onkeys($event)\"\n" +
-    "         w-hold-focus=\"active = true\"\n" +
-    "         w-hold-focus-blur=\"active=false\"\n" +
+    "         w-input\n" +
+    "         w-hold-focus\n" +
+    "         w-on-focus=\"active = true\"\n" +
+    "         w-on-blur=\"active = false\"\n" +
     "         w-down='move(1)'\n" +
     "         w-up='move(-1)'\n" +
     "         w-pgup='onPgup($event)'\n" +
@@ -313,7 +314,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "         w-enter='onEnter($event)'\n" +
     "         class=\"form-control\"\n" +
     "         type=\"text\"\n" +
-    "         placeholder='Search'\n" +
+    "         placeholder='Select something'\n" +
     "         ng-model=\"search\" />\n" +
     "\n" +
     "  <div ng-if=\"active && (filteredItems = dropdownItems()).length > 0\" class=\"open\">\n" +
@@ -644,7 +645,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
         template: function(el) {
           var itemTpl, template;
           itemTpl = el.html();
-          return template = "<div class='w-chz w-widget-root'>\n  <div ng-hide=\"active\" class=\"w-chz-sel\" ng-class=\"{'btn-group': item}\">\n      <a class=\"btn btn-default w-chz-active\"\n         ng-class='{\"btn-danger\": invalid}'\n         href=\"javascript:void(0)\"\n         ng-click=\"active = true\"\n         ng-disabled=\"disabled\" >\n         <span ng-show='item'>" + itemTpl + "</span>\n         <span ng-hide='item'>none</span>\n      </a>\n      <button type=\"button\"\n              class=\"btn btn-default w-chz-clear-btn\"\n              aria-hidden=\"true\"\n              ng-show='item'\n              ng-click='unselectItem()'>&times;</button>\n    </div>\n  <div class=\"open\" ng-show=\"active\">\n    <input class=\"form-control\"\n           w-hold-focus\n           w-hold-focus-when='active'\n           w-hold-focus-blur='active = false'\n           w-down='move(1)'\n           w-up='move(-1)'\n           w-pgup='move(-11)'\n           w-pgdown='move(11)'\n           w-enter='onEnter($event)'\n           type=\"search\"\n           placeholder='Search'\n           ng-model=\"search\" />\n    <div ng-if=\"active && dropdownItems.length > 0\">\n      <div w-list items=\"dropdownItems\" on-highlight=\"highlight\">\n       " + itemTpl + "\n      </div>\n    </div>\n  </div>\n</div>";
+          return template = "<div class='w-chz w-widget-root'>\n  <div ng-hide=\"active\" class=\"w-chz-sel\" ng-class=\"{'btn-group': item}\">\n      <a class=\"btn btn-default w-chz-active\"\n         ng-class='{\"btn-danger\": invalid}'\n         href=\"javascript:void(0)\"\n         ng-click=\"active = true\"\n         ng-disabled=\"disabled\">\n           <span ng-show='item'>" + itemTpl + "</span>\n           <span ng-hide='item'>none</span>\n      </a>\n      <button type=\"button\"\n              class=\"btn btn-default w-chz-clear-btn\"\n              aria-hidden=\"true\"\n              ng-show='item'\n              ng-click='unselectItem()'>&times;</button>\n    </div>\n  <div class=\"open\" ng-show=\"active\">\n    <input class=\"form-control\"\n           w-input='123'\n           w-focus-when='active'\n           w-on-blur='active = false'\n           w-hold-focus=''\n\n           w-down='move(1)'\n           w-up='move(-1)'\n           w-pgup='move(-11)'\n           w-pgdown='move(11)'\n           w-enter='onEnter($event)'\n           type=\"search\"\n           placeholder='Search'\n           ng-model=\"search\" />\n    <div ng-if=\"active && dropdownItems.length > 0\">\n      <div w-list items=\"dropdownItems\" on-highlight=\"highlight\">\n       " + itemTpl + "\n      </div>\n    </div>\n  </div>\n</div>";
         },
         controller: function($scope, $element, $attrs, $filter, $timeout) {
           var keyAttr, valueAttr;
@@ -738,17 +739,22 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
       replace: true,
       templateUrl: "/templates/list.html",
       controller: function($scope, $element, $attrs, $filter) {
+        var updateSelectedItem;
+        updateSelectedItem = function(hlIdx) {
+          if ($scope.$parent.listInterface != null) {
+            return $scope.$parent.listInterface.selectedItem = $scope.items[hlIdx];
+          }
+        };
         $scope.highlightItem = function(item) {
           $scope.highlightIndex = $scope.items.indexOf(item);
           return $scope.$parent.listInterface.onSelect(item);
         };
-        $scope.$watch('items', function(idx) {
-          return $scope.highlightIndex = 0;
+        $scope.$watch('items', function(newItems) {
+          $scope.highlightIndex = 0;
+          return updateSelectedItem(0);
         });
         $scope.$watch('highlightIndex', function(idx) {
-          if ($scope.$parent.listInterface != null) {
-            return $scope.$parent.listInterface.selectedItem = $scope.items[idx];
-          }
+          return updateSelectedItem(idx);
         });
         $scope.move = function(d) {
           var filteredItems;
@@ -888,27 +894,6 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
 }).call(this);
 
 (function() {
-  angular.module("angular-w").directive("wFocus", function() {
-    var focuz;
-    focuz = function(el) {
-      return window.setTimeout((function() {
-        return el.focus();
-      }), 0);
-    };
-    return {
-      link: function(scope, element, attrs) {
-        return scope.$watch(attrs.wFocus, function(fcs) {
-          if (fcs != null) {
-            return focuz(element[0]);
-          }
-        });
-      }
-    };
-  });
-
-}).call(this);
-
-(function() {
   angular.module('angular-w').directive('wFormFor', [
     '$window', function($window) {
       return {
@@ -943,47 +928,67 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
 }).call(this);
 
 (function() {
-  angular.module("angular-w").directive("wHoldFocus", function($timeout) {
-    var widgetRoot;
-    widgetRoot = function(el) {
-      var currentEl;
-      currentEl = el;
-      while (currentEl && (currentEl.className != null) && currentEl.className.indexOf("w-widget-root") < 0) {
-        currentEl = currentEl.parentNode;
-      }
-      return currentEl;
-    };
-    return {
-      link: function(scope, element, attrs) {
-        var focusElement;
-        focusElement = function() {
-          return setTimeout((function() {
-            return element[0].focus();
-          }), 0);
-        };
-        if (attrs["wHoldFocusWhen"] != null) {
-          scope.$watch(attrs["wHoldFocusWhen"], function(newValue) {
-            if (newValue) {
-              return focusElement();
-            }
-          });
-        }
-        element.on('focus', function(event) {
-          return scope.$apply(attrs["wHoldFocus"]);
-        });
-        return element.on('blur', function(event) {
-          var newWidgetRoot, oldWidgetRoot;
-          oldWidgetRoot = widgetRoot(event.srcElement || event.target);
-          newWidgetRoot = widgetRoot(event.relatedTarget);
-          if (event.relatedTarget && newWidgetRoot !== null && oldWidgetRoot === newWidgetRoot) {
-            return focusElement();
-          } else {
-            return scope.$apply(attrs["wHoldFocusBlur"]);
+  var widgetRoot;
+
+  widgetRoot = function(el) {
+    var currentEl;
+    currentEl = el;
+    while (currentEl && (currentEl.className != null) && currentEl.className.indexOf("w-widget-root") < 0) {
+      currentEl = currentEl.parentNode;
+    }
+    return currentEl;
+  };
+
+  angular.module("angular-w").directive("wInput", [
+    '$window', '$timeout', function($window, $timeout) {
+      return {
+        restrict: "A",
+        link: function(scope, element, attrs) {
+          var focusElement, wRoot;
+          focusElement = function() {
+            return setTimeout((function() {
+              return element[0].focus();
+            }), 0);
+          };
+          if (attrs["wFocusWhen"] != null) {
+            scope.$watch(attrs["wFocusWhen"], function(newValue) {
+              if (newValue) {
+                return focusElement();
+              }
+            });
           }
-        });
-      }
-    };
-  });
+          if (attrs["wBlurWhen"] != null) {
+            scope.$watch(attrs["wBlurWhen"], function(newValue) {
+              if (newValue) {
+                return focusElement();
+              }
+            });
+          }
+          if (attrs["wOnFocus"] != null) {
+            element.on('focus', function(event) {
+              return scope.$apply(attrs["wOnFocus"]);
+            });
+          }
+          if (attrs["wOnBlur"] != null) {
+            element.on('blur', function(event) {
+              return scope.$apply(attrs["wOnBlur"]);
+            });
+          }
+          if (attrs["wHoldFocus"] != null) {
+            wRoot = $(element).parents(".w-widget-root").first();
+            return wRoot.on("mousedown", function(event) {
+              if (event.target !== element.get(0)) {
+                event.preventDefault();
+                return false;
+              } else {
+                return true;
+              }
+            });
+          }
+        }
+      };
+    }
+  ]);
 
 }).call(this);
 
@@ -1138,6 +1143,72 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
       };
     }
   ]);
+
+}).call(this);
+
+(function() {
+  angular.module("angular-w").directive("wOldFocus", function() {
+    var focuz;
+    focuz = function(el) {
+      return window.setTimeout((function() {
+        return el.focus();
+      }), 0);
+    };
+    return {
+      link: function(scope, element, attrs) {
+        return scope.$watch(attrs.wFocus, function(fcs) {
+          if (fcs != null) {
+            return focuz(element[0]);
+          }
+        });
+      }
+    };
+  });
+
+}).call(this);
+
+(function() {
+  angular.module("angular-w").directive("wOldHoldFocus", function($timeout) {
+    var widgetRoot;
+    widgetRoot = function(el) {
+      var currentEl;
+      currentEl = el;
+      while (currentEl && (currentEl.className != null) && currentEl.className.indexOf("w-widget-root") < 0) {
+        currentEl = currentEl.parentNode;
+      }
+      return currentEl;
+    };
+    return {
+      link: function(scope, element, attrs) {
+        var focusElement;
+        focusElement = function() {
+          return setTimeout((function() {
+            return element[0].focus();
+          }), 0);
+        };
+        if (attrs["wHoldFocusWhen"] != null) {
+          scope.$watch(attrs["wHoldFocusWhen"], function(newValue) {
+            if (newValue) {
+              return focusElement();
+            }
+          });
+        }
+        element.on('focus', function(event) {
+          return scope.$apply(attrs["wHoldFocus"]);
+        });
+        return element.on('blur', function(event) {
+          var newWidgetRoot, oldWidgetRoot;
+          oldWidgetRoot = widgetRoot(event.srcElement || event.target);
+          newWidgetRoot = widgetRoot(event.relatedTarget);
+          if (event.relatedTarget && newWidgetRoot !== null && oldWidgetRoot === newWidgetRoot) {
+            return focusElement();
+          } else {
+            return scope.$apply(attrs["wHoldFocusBlur"]);
+          }
+        });
+      }
+    };
+  });
 
 }).call(this);
 

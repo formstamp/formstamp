@@ -6,10 +6,11 @@
     </a>
   </div>
 
-  <!-- FIXME: why not use existing control -->
   <input ng-keydown="onkeys($event)"
-         w-hold-focus="active = true"
-         w-hold-focus-blur="active=false"
+         w-input
+         w-hold-focus
+         w-on-focus="active = true"
+         w-on-blur="active = false"
          w-down='move(1)'
          w-up='move(-1)'
          w-pgup='onPgup($event)'
@@ -17,7 +18,7 @@
          w-enter='onEnter($event)'
          class="form-control"
          type="text"
-         placeholder='Search'
+         placeholder='Select something'
          ng-model="search" />
 
   <div ng-if="active && (filteredItems = dropdownItems()).length > 0" class="open">

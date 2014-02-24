@@ -194,10 +194,11 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "    </a>\n" +
     "  </div>\n" +
     "\n" +
-    "  <!-- FIXME: why not use existing control -->\n" +
     "  <input ng-keydown=\"onkeys($event)\"\n" +
-    "         w-hold-focus=\"active = true\"\n" +
-    "         w-hold-focus-blur=\"active=false\"\n" +
+    "         w-input\n" +
+    "         w-hold-focus\n" +
+    "         w-on-focus=\"active = true\"\n" +
+    "         w-on-blur=\"active = false\"\n" +
     "         w-down='move(1)'\n" +
     "         w-up='move(-1)'\n" +
     "         w-pgup='onPgup($event)'\n" +
@@ -205,7 +206,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "         w-enter='onEnter($event)'\n" +
     "         class=\"form-control\"\n" +
     "         type=\"text\"\n" +
-    "         placeholder='Search'\n" +
+    "         placeholder='Select something'\n" +
     "         ng-model=\"search\" />\n" +
     "\n" +
     "  <div ng-if=\"active && (filteredItems = dropdownItems()).length > 0\" class=\"open\">\n" +
