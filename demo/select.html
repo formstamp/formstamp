@@ -81,7 +81,16 @@
 
       <h3> Combo</h3>
       <div w-chz freetext="true" ng-model='comboValue' items='gameNames'>
-        --{{item}}
+        <span>{{item}}</span>
+      </div>
+
+      <h3> List</h3>
+      <div ng-controller="ListCtrl" style="postion: relative;">
+        <button ng-click="move(1)">Down</button>
+        <button ng-click="move(-1)">Up</button>
+        <div w-list items='games' class="no-popup">
+          <img src="http://png-1.findicons.com/files/icons/282/flags/48/united_states_of_america_usa.png"/> {{item.label}}
+        </div>
       </div>
 
       <!-- <div class='well' style="margin-top: 10px;"> -->
@@ -141,28 +150,18 @@
           return item.label;
         });
       }
+
       function ListCtrl($scope) {
-        function register(){
-          var cbs = []
+        $scope.move = function (d) {
+          $scope.listInterface.move(d);
+        };
 
-          function _call() {
-            var arg = arguments
-            cbs.forEach(function(cb){
-               return cb.apply(null,arg)})}
-
-          function _register(cb){
-            cbs.push(cb)}
-
-          return {
-            register: _register,
-            call: _call }
-        }
-
-        var reg = register()
-        $scope._moveRegister = reg.register
-
-        $scope.move = function(d){
-          reg.call(d) };
+        $scope.listInterface = {
+          onSelect: function () {
+            console.log("list selection changed", arguments)
+          },
+          move: function(d) {}
+        };
       }
     </script>
   </body>

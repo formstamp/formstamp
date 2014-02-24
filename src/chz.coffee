@@ -17,12 +17,12 @@ angular
   template: (el)->
     itemTpl = el.html()
     template = """
-<div class='w-chz w-wiget-root'>
+<div class='w-chz w-widget-root'>
   <div ng-hide="active" class="w-chz-sel" ng-class="{'btn-group': item}">
       <a class="btn btn-default w-chz-active"
          ng-class='{"btn-danger": invalid}'
          href="javascript:void(0)"
-         ng-click="active=true"
+         ng-click="active = true"
          ng-disabled="disabled" >
          <span ng-show='item'>#{itemTpl}</span>
          <span ng-hide='item'>none</span>
@@ -35,7 +35,9 @@ angular
     </div>
   <div class="open" ng-show="active">
     <input class="form-control"
-           w-focus="active"
+           w-hold-focus
+           w-hold-focus-when='active'
+           w-hold-focus-blur='active = false'
            w-down='move(1)'
            w-up='move(-1)'
            w-pgup='move(-11)'
@@ -50,12 +52,10 @@ angular
       </div>
     </div>
   </div>
-  <!-- FIXME: why errors here -->
-  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>
 </div>
     """
 
-  controller: ($scope, $element, $attrs, $filter) ->
+  controller: ($scope, $element, $attrs, $filter, $timeout) ->
     $scope.active = false
 
     if $scope.freetext
@@ -82,16 +82,21 @@ angular
     $scope.unselectItem = (item)->
       $scope.item = null
 
+    $scope.onBlur = () ->
+      $timeout((-> $scope.active = false), 0, true)
+
     $scope.move = (d) ->
-      $scope._list.move && $scope._list.move(d)
+      $scope.listInterface.move && $scope.listInterface.move(d)
 
     $scope.onEnter = (event) ->
-      $scope._list.item && $scope.selectItem($scope._list.item)
+      $scope.selectItem($scope.listInterface.selectedItem)
 
-    # HACK: for comunicate with child directives
-    # see https://github.com/angular/angular.js/wiki/Understanding-Scopes
-    $scope._list = { onselection: $scope.onEnter }
+    $scope.listInterface =
+      onSelect: (selectedItem) ->
+        $scope.selectItem(selectedItem)
 
+      move: () ->
+        console.log "not-implemented listInterface.move() function"
 
   link: (scope, element, attrs, ngModelCtrl, transcludeFn) ->
     if ngModelCtrl
@@ -109,25 +114,22 @@ angular
   restrict: "A"
   scope:
     items: '='
-    move:'@'
-    labelAttr: '@'
+    class: '@'
   transclude: true
   replace: true
   templateUrl: "/templates/list.html"
   controller: ($scope, $element, $attrs, $filter) ->
-
     $scope.highlightItem = (item) ->
       $scope.highlightIndex = $scope.items.indexOf(item)
-      $scope.$parent._list.item = item
-      $scope.$parent._list.onselection()
+      $scope.$parent.listInterface.onSelect(item)
 
     $scope.$watch 'items', (idx)-> $scope.highlightIndex = 0
 
-    $scope.$watch 'highlightIndex', (idx)->
-      return unless $scope.$parent._list
-      $scope.$parent._list.item = $scope.items[idx]
+    $scope.$watch 'highlightIndex', (idx) ->
+      if $scope.$parent.listInterface?
+        $scope.$parent.listInterface.selectedItem = $scope.items[idx]
 
-    $scope.domove = (d) ->
+    $scope.move = (d) ->
       filteredItems = $scope.items
 
       $scope.highlightIndex += d
@@ -136,5 +138,6 @@ angular
 
     $scope.highlightIndex = 0
 
-    if $scope.$parent._list
-      $scope.$parent._list.move = (d)-> $scope.domove(d)
+    if $scope.$parent.listInterface?
+      $scope.$parent.listInterface.move = (delta) ->
+        $scope.move(delta)
