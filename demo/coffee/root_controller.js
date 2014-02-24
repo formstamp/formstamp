@@ -9,6 +9,15 @@ angular.module('angular-w-demo')
 });
 angular.module('angular-w-demo')
 .controller('RootController', function($scope) {
+  $scope.widgets = [
+    {name: 'combo'},
+    {name: 'select'},
+    {name: 'multiselect'},
+    {name: 'tags'},
+    {name: 'radio'},
+    {name: 'checkbox'}
+  ]
+
   $scope.data = [
     {
       "name": "Select",
