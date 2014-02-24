@@ -1,0 +1,38 @@
+<div class="container">
+  <h1>wList</h1>
+  <h5>Directive: <code class="ng-binding">w-list</code></h5>
+  <p>
+    TODO: document me
+  </p>
+  <hr/>
+  <sample>
+    <div ng-controller="ListCtrl" style="postion: relative;">
+      <button ng-click="move(1)">Down</button>
+      <button ng-click="move(-1)">Up</button>
+      <div w-list items='games' class="no-popup">
+        <img src="http://png-1.findicons.com/files/icons/282/flags/48/united_states_of_america_usa.png"/> {{item.label}}
+      </div>
+    </div>
+    <script>
+      function ListCtrl($scope) {
+        $scope.games = [
+          {id: 0, label: 'Dragon Quest'},
+          {id: 1, label: 'Final Fantasy'},
+          {id: 2, label: 'Shin Megami Tensei'},
+          {id: 3, label: 'Non duplicate'}
+        ];
+
+        $scope.move = function (d) {
+          $scope.listInterface.move(d);
+        };
+
+        $scope.listInterface = {
+          onSelect: function () {
+            console.log("list selection changed", arguments)
+          },
+          move: function(d) {}
+        };
+      }
+    </script>
+  </sample>
+</div>

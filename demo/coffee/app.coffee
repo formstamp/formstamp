@@ -5,6 +5,7 @@ widgets  = [
     {name: 'tags'},
     {name: 'radio'},
     {name: 'checkbox'}
+    {name: 'list'}
 ]
 app = angular.module 'angular-w-demo',
  ['angular-w', 'ngRoute', 'ngSanitize'],
