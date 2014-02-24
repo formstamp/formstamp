@@ -644,7 +644,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
         template: function(el) {
           var itemTpl, template;
           itemTpl = el.html();
-          return template = "<div class='w-chz w-wiget-root'>\n  <div ng-hide=\"active\" class=\"w-chz-sel\" ng-class=\"{'btn-group': item}\">\n      <a class=\"btn btn-default w-chz-active\"\n         ng-class='{\"btn-danger\": invalid}'\n         href=\"javascript:void(0)\"\n         ng-click=\"active=true\"\n         ng-disabled=\"disabled\" >\n         <span ng-show='item'>" + itemTpl + "</span>\n         <span ng-hide='item'>none</span>\n      </a>\n      <button type=\"button\"\n              class=\"btn btn-default w-chz-clear-btn\"\n              aria-hidden=\"true\"\n              ng-show='item'\n              ng-click='unselectItem()'>&times;</button>\n    </div>\n  <div class=\"open\" ng-show=\"active\">\n    <input class=\"form-control\"\n           w-focus=\"active\"\n           w-down='move(1)'\n           w-up='move(-1)'\n           w-pgup='move(-11)'\n           w-pgdown='move(11)'\n           w-enter='onEnter($event)'\n           type=\"search\"\n           placeholder='Search'\n           ng-model=\"search\" />\n    <div ng-if=\"active && dropdownItems.length > 0\">\n      <div w-list items=\"dropdownItems\" on-highlight=\"highlight\">\n       " + itemTpl + "\n      </div>\n    </div>\n  </div>\n</div>";
+          return template = "<div class='w-chz w-widget-root'>\n  <div ng-hide=\"active\" class=\"w-chz-sel\" ng-class=\"{'btn-group': item}\">\n      <a class=\"btn btn-default w-chz-active\"\n         ng-class='{\"btn-danger\": invalid}'\n         href=\"javascript:void(0)\"\n         ng-click=\"active=true\"\n         ng-disabled=\"disabled\" >\n         <span ng-show='item'>" + itemTpl + "</span>\n         <span ng-hide='item'>none</span>\n      </a>\n      <button type=\"button\"\n              class=\"btn btn-default w-chz-clear-btn\"\n              aria-hidden=\"true\"\n              ng-show='item'\n              ng-click='unselectItem()'>&times;</button>\n    </div>\n  <div class=\"open\" ng-show=\"active\">\n    <input class=\"form-control\"\n           w-focus=\"active\"\n           w-down='move(1)'\n           w-up='move(-1)'\n           w-pgup='move(-11)'\n           w-pgdown='move(11)'\n           w-enter='onEnter($event)'\n           type=\"search\"\n           placeholder='Search'\n           ng-blur=\"active = false\"\n           ng-model=\"search\" />\n    <div ng-if=\"active && dropdownItems.length > 0\">\n      <div w-list items=\"dropdownItems\" on-highlight=\"highlight\">\n       " + itemTpl + "\n      </div>\n    </div>\n  </div>\n</div>";
         },
         controller: function($scope, $element, $attrs, $filter) {
           var keyAttr, valueAttr;
@@ -943,7 +943,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     widgetRoot = function(el) {
       var currentEl;
       currentEl = el;
-      while (currentEl && currentEl.className.indexOf("w-widget-root") < 0) {
+      while (currentEl && (currentEl.className != null) && currentEl.className.indexOf("w-widget-root") < 0) {
         currentEl = currentEl.parentNode;
       }
       return currentEl;

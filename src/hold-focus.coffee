@@ -2,7 +2,7 @@ angular.module("angular-w").directive "wHoldFocus", ($timeout) ->
   widgetRoot = (el) ->
     currentEl = el
 
-    while (currentEl && currentEl.className.indexOf("w-widget-root") < 0)
+    while (currentEl && currentEl.className? && currentEl.className.indexOf("w-widget-root") < 0)
       currentEl = currentEl.parentNode
 
     return currentEl

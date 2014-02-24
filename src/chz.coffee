@@ -17,7 +17,7 @@ angular
   template: (el)->
     itemTpl = el.html()
     template = """
-<div class='w-chz w-wiget-root'>
+<div class='w-chz w-widget-root'>
   <div ng-hide="active" class="w-chz-sel" ng-class="{'btn-group': item}">
       <a class="btn btn-default w-chz-active"
          ng-class='{"btn-danger": invalid}'
@@ -43,6 +43,7 @@ angular
            w-enter='onEnter($event)'
            type="search"
            placeholder='Search'
+           ng-blur="active = false"
            ng-model="search" />
     <div ng-if="active && dropdownItems.length > 0">
       <div w-list items="dropdownItems" on-highlight="highlight">
