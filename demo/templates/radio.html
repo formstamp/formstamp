@@ -1,4 +1,10 @@
-<form role="form" ng-controller='RadioCtrl'>
+<div class="container">
+  <h1>Radio Group</h1>
+  <div class="alert alert-warning">
+  </div>
+  <h5>Directive: <code class="ng-binding">w-chz</code> with option <code>freetext</code></h5>
+  <sample>
+<form class="well" role="form" ng-controller='RadioCtrl'>
   <div class="form-group">
     <label>Choose your katawari</label>
     <div w-radio="true"
@@ -6,3 +12,15 @@
          ng-model="value"></div>
   </div>
 </form>
+<script>
+   function RadioCtrl($scope) {
+     $scope.items = [
+        {id: 'S', label: 'Shijima'},
+        {id: 'M', label: 'Musubi'},
+        {id: 'Y', label: 'Yosuga'}
+     ]
+   }
+</script>
+  </sample>
+</div>
+
