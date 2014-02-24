@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/default.min.css">
     <script src="http://yandex.st/highlightjs/8.0/highlight.min.js"></script></script>
     <style>
+      .hl {
+        background: #ebebeb;
+      }
       .wip {
         color:red;
       }
@@ -64,33 +67,56 @@
     </nav>
 
     <div class='container' autoscroll='true' ng-controller="SelectsCtrl" style="padding-top: 60px;">
-      <h3> Multi Select</h3>
-      <div w-multi-select ng-model='selectedGames' items='games'></div>
-
-      <div class='well' style="margin-top: 10px;">
-        Value: {{ selectedGames | json }}
-      </div>
-
-      <h3> Tags</h3>
-      <div w-multi-select ng-model='selectedGamesWithFreetext' items='gameNames' freetext='true'></div>
-
-      <div class='well' style="margin-top: 10px;">
-        {{ selectedGamesWithFreetext | json }}
-      </div>
-
       <h3> Select</h3>
-      <div w-chz ng-model='selectValue' items='games'></div>
+      <div w-chz ng-model='selectValue' items='games'>
+        <span>
+          <img src="http://png-1.findicons.com/files/icons/282/flags/48/united_states_of_america_usa.png"/>
+          <b>{{item.id}}</b> {{item.label}}
+        </span>
+      </div>
 
       <div class='well' style="margin-top: 10px;">
         {{ selectValue | json }}
       </div>
 
       <h3> Combo</h3>
-      <div w-chz freetext="true" ng-model='comboValue' items='gameNames'></div>
-
-      <div class='well' style="margin-top: 10px;">
-        {{ comboValue | json }}
+      <div w-chz freetext="true" ng-model='comboValue' items='gameNames'>
+        --{{item}}
       </div>
+
+      <!-- <div class='well' style="margin-top: 10px;"> -->
+      <!--   {{ comboValue | json }} -->
+      <!-- </div> -->
+      <!-- <h3> List</h3> -->
+      <!-- <div ng-controller="ListCtrl" style="postion: relative;"> -->
+      <!--   <button ng-click="move(1)">Down</button> -->
+      <!--   <button ng-click="move(-1)">Up</button> -->
+      <!--   <div w-list items='games'> -->
+      <!--     <img src="http://png-1.findicons.com/files/icons/282/flags/48/united_states_of_america_usa.png"/> {{item.label}}</span> -->
+      <!--   </div> -->
+
+      <!--   <div w-list items='games' label="item.label"> -->
+      <!--     {{item.label}} -->
+      <!--   </div> -->
+      <!-- </div> -->
+      <!-- <div> -->
+      <!-- <h3> Multi Select</h3> -->
+      <!--   <div w-multi-select ng-model='selectedGames' items='games'></div> -->
+      <!-- </div> -->
+
+      <!-- <div class='well' style="margin-top: 10px;"> -->
+      <!--   Value: {{ selectedGames | json }} -->
+      <!-- </div> -->
+
+      <!-- <h3> Tags</h3> -->
+      <!-- <div w-multi-select ng-model='selectedGamesWithFreetext' items='gameNames' freetext='true'></div> -->
+
+      <!-- <div class='well' style="margin-top: 10px;"> -->
+      <!--   {{ selectedGamesWithFreetext | json }} -->
+      <!-- </div> -->
+
+
+      <hr/>
     </div>
 
     <script type='text/javascript' src='/bower_components/jquery/jquery.js'></script>
@@ -107,12 +133,36 @@
         $scope.games = [
           {id: 0, label: 'Dragon Quest'},
           {id: 1, label: 'Final Fantasy'},
-          {id: 2, label: 'Shin Megami Tensei'}
+          {id: 2, label: 'Shin Megami Tensei'},
+          {id: 3, label: 'Non duplicate'}
         ];
 
         $scope.gameNames = $scope.games.map(function(item) {
           return item.label;
         });
+      }
+      function ListCtrl($scope) {
+        function register(){
+          var cbs = []
+
+          function _call() {
+            var arg = arguments
+            cbs.forEach(function(cb){
+               return cb.apply(null,arg)})}
+
+          function _register(cb){
+            cbs.push(cb)}
+
+          return {
+            register: _register,
+            call: _call }
+        }
+
+        var reg = register()
+        $scope._moveRegister = reg.register
+
+        $scope.move = function(d){
+          reg.call(d) };
       }
     </script>
   </body>

@@ -97,9 +97,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "         ng-class='{\"btn-danger\": invalid}'\n" +
     "         href=\"javascript:void(0)\"\n" +
     "         ng-click=\"active=true\"\n" +
-    "         w-focus='focus'\n" +
-    "         ng-disabled=\"disabled\"\n" +
-    "         ng-blur='focus=false'>\n" +
+    "         ng-disabled=\"disabled\" >\n" +
     "         <span ng-show='selectedItem'>{{ getItemLabel(selectedItem) }}</span>\n" +
     "         <span ng-hide='selectedItem'>none</span>\n" +
     "      </a>\n" +
@@ -111,41 +109,20 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "    </div>\n" +
     "  <div class=\"open\" ng-show=\"active\">\n" +
     "    <input class=\"form-control\"\n" +
+    "           w-focus=\"active\"\n" +
     "           w-down='move(1)'\n" +
     "           w-up='move(-1)'\n" +
-    "           w-pgup='onPgup($event)'\n" +
-    "           w-pgdown='onPgdown($event)'\n" +
+    "           w-pgup='move(-11)'\n" +
+    "           w-pgdown='move(11)'\n" +
     "           w-enter='onEnter($event)'\n" +
-    "           w-tab='onTab()'\n" +
-    "           w-esc='onEsc()'\n" +
-    "           w-focus=\"active\"\n" +
     "           type=\"search\"\n" +
     "           placeholder='Search'\n" +
     "           ng-model=\"search\" />\n" +
-    "\n" +
-    "    <!-- <ul class=\"dropdown-menu w-chz-items-list-default w-chz-items-list\" -->\n" +
-    "    <!--     role=\"menu\" -->\n" +
-    "    <!--     ng-if=\"active && shownItems.length\"> -->\n" +
-    "    <!--    <li ng-repeat=\"item in shownItems\" -->\n" +
-    "    <!--        ng-class=\"{active: isActive(item)}\"> -->\n" +
-    "    <!--      <a ng-click=\"selection(item)\" -->\n" +
-    "    <!--         href=\"javascript:void(0)\" -->\n" +
-    "    <!--         id='{{item[keyAttr]}}' -->\n" +
-    "    <!--         tabindex='-1'>{{ getItemLabel(item) }}</a> -->\n" +
-    "    <!--    </li> -->\n" +
-    "    <!-- </ul> -->\n" +
-    "  <div ng-if=\"active && (filteredItems = dropdownItems()).length > 0\" class=\"open\">\n" +
-    "    <ul class=\"dropdown-menu w-multi-select-items-list-default w-multi-select-items-list\"\n" +
-    "        role=\"menu\" >\n" +
-    "      <li ng-repeat=\"item in filteredItems\"\n" +
-    "          ng-class=\"{true: 'active'}[$index == highlightIndex]\">\n" +
-    "        <a ng-click=\"selectItem(item)\"\n" +
-    "           href=\"javascript:void(0)\"\n" +
-    "           id='{{getItemValue(item)}}'\n" +
-    "           tabindex='-1'>{{ getItemLabel(item) }}</a>\n" +
-    "      </li>\n" +
-    "    </ul>\n" +
-    "  </div>\n" +
+    "    <div ng-if=\"active && dropdownItems.length > 0\">\n" +
+    "      <div w-list items=\"dropdownItems\" on-highlight=\"highlight\">\n" +
+    "        <span class=\"item-expressin\"></span>\n" +
+    "      </div>\n" +
+    "    </div>\n" +
     "  </div>\n" +
     "  <!-- FIXME: why errors here -->\n" +
     "  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>\n" +
@@ -191,6 +168,23 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
   );
 
 
+  $templateCache.put('/templates/list.html',
+    "<div class=\"dropdown open no-popup\">\n" +
+    "  <ul class=\"dropdown-menu w-multi-select-items-list-default w-multi-select-items-list\"\n" +
+    "      role=\"menu\" >\n" +
+    "    <li ng-repeat=\"item in items\"\n" +
+    "        ng-class=\"{true: 'active'}[$index == highlightIndex]\">\n" +
+    "      <a ng-click=\"highlightItem(item)\"\n" +
+    "         href=\"javascript:void(0)\"\n" +
+    "         tabindex='-1'>\n" +
+    "         <span ng-transclude></span>\n" +
+    "       </a>\n" +
+    "    </li>\n" +
+    "  </ul>\n" +
+    "</div>\n"
+  );
+
+
   $templateCache.put('/templates/multi-select.html',
     "<div class='w-multi-select w-widget-root'>\n" +
     "  <div class=\"w-multi-options\" ng-if=\"selectedItems.length > 0\">\n" +
@@ -221,7 +215,6 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "          ng-class=\"{true: 'active'}[$index == highlightIndex]\">\n" +
     "        <a ng-click=\"selectItem(item)\"\n" +
     "           href=\"javascript:void(0)\"\n" +
-    "           id='{{getItemValue(item)}}'\n" +
     "           tabindex='-1'>{{ getItemLabel(item) }}</a>\n" +
     "      </li>\n" +
     "    </ul>\n" +

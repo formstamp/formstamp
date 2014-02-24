@@ -205,9 +205,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "         ng-class='{\"btn-danger\": invalid}'\n" +
     "         href=\"javascript:void(0)\"\n" +
     "         ng-click=\"active=true\"\n" +
-    "         w-focus='focus'\n" +
-    "         ng-disabled=\"disabled\"\n" +
-    "         ng-blur='focus=false'>\n" +
+    "         ng-disabled=\"disabled\" >\n" +
     "         <span ng-show='selectedItem'>{{ getItemLabel(selectedItem) }}</span>\n" +
     "         <span ng-hide='selectedItem'>none</span>\n" +
     "      </a>\n" +
@@ -219,41 +217,20 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "    </div>\n" +
     "  <div class=\"open\" ng-show=\"active\">\n" +
     "    <input class=\"form-control\"\n" +
+    "           w-focus=\"active\"\n" +
     "           w-down='move(1)'\n" +
     "           w-up='move(-1)'\n" +
-    "           w-pgup='onPgup($event)'\n" +
-    "           w-pgdown='onPgdown($event)'\n" +
+    "           w-pgup='move(-11)'\n" +
+    "           w-pgdown='move(11)'\n" +
     "           w-enter='onEnter($event)'\n" +
-    "           w-tab='onTab()'\n" +
-    "           w-esc='onEsc()'\n" +
-    "           w-focus=\"active\"\n" +
     "           type=\"search\"\n" +
     "           placeholder='Search'\n" +
     "           ng-model=\"search\" />\n" +
-    "\n" +
-    "    <!-- <ul class=\"dropdown-menu w-chz-items-list-default w-chz-items-list\" -->\n" +
-    "    <!--     role=\"menu\" -->\n" +
-    "    <!--     ng-if=\"active && shownItems.length\"> -->\n" +
-    "    <!--    <li ng-repeat=\"item in shownItems\" -->\n" +
-    "    <!--        ng-class=\"{active: isActive(item)}\"> -->\n" +
-    "    <!--      <a ng-click=\"selection(item)\" -->\n" +
-    "    <!--         href=\"javascript:void(0)\" -->\n" +
-    "    <!--         id='{{item[keyAttr]}}' -->\n" +
-    "    <!--         tabindex='-1'>{{ getItemLabel(item) }}</a> -->\n" +
-    "    <!--    </li> -->\n" +
-    "    <!-- </ul> -->\n" +
-    "  <div ng-if=\"active && (filteredItems = dropdownItems()).length > 0\" class=\"open\">\n" +
-    "    <ul class=\"dropdown-menu w-multi-select-items-list-default w-multi-select-items-list\"\n" +
-    "        role=\"menu\" >\n" +
-    "      <li ng-repeat=\"item in filteredItems\"\n" +
-    "          ng-class=\"{true: 'active'}[$index == highlightIndex]\">\n" +
-    "        <a ng-click=\"selectItem(item)\"\n" +
-    "           href=\"javascript:void(0)\"\n" +
-    "           id='{{getItemValue(item)}}'\n" +
-    "           tabindex='-1'>{{ getItemLabel(item) }}</a>\n" +
-    "      </li>\n" +
-    "    </ul>\n" +
-    "  </div>\n" +
+    "    <div ng-if=\"active && dropdownItems.length > 0\">\n" +
+    "      <div w-list items=\"dropdownItems\" on-highlight=\"highlight\">\n" +
+    "        <span class=\"item-expressin\"></span>\n" +
+    "      </div>\n" +
+    "    </div>\n" +
     "  </div>\n" +
     "  <!-- FIXME: why errors here -->\n" +
     "  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>\n" +
@@ -299,6 +276,23 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
   );
 
 
+  $templateCache.put('/templates/list.html',
+    "<div class=\"dropdown open no-popup\">\n" +
+    "  <ul class=\"dropdown-menu w-multi-select-items-list-default w-multi-select-items-list\"\n" +
+    "      role=\"menu\" >\n" +
+    "    <li ng-repeat=\"item in items\"\n" +
+    "        ng-class=\"{true: 'active'}[$index == highlightIndex]\">\n" +
+    "      <a ng-click=\"highlightItem(item)\"\n" +
+    "         href=\"javascript:void(0)\"\n" +
+    "         tabindex='-1'>\n" +
+    "         <span ng-transclude></span>\n" +
+    "       </a>\n" +
+    "    </li>\n" +
+    "  </ul>\n" +
+    "</div>\n"
+  );
+
+
   $templateCache.put('/templates/multi-select.html',
     "<div class='w-multi-select w-widget-root'>\n" +
     "  <div class=\"w-multi-options\" ng-if=\"selectedItems.length > 0\">\n" +
@@ -329,7 +323,6 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     "          ng-class=\"{true: 'active'}[$index == highlightIndex]\">\n" +
     "        <a ng-click=\"selectItem(item)\"\n" +
     "           href=\"javascript:void(0)\"\n" +
-    "           id='{{getItemValue(item)}}'\n" +
     "           tabindex='-1'>{{ getItemLabel(item) }}</a>\n" +
     "      </li>\n" +
     "    </ul>\n" +
@@ -633,7 +626,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
 
 (function() {
   angular.module("angular-w").directive("wChz", [
-    '$window', function($window) {
+    '$compile', function($compile) {
       return {
         restrict: "A",
         scope: {
@@ -648,10 +641,14 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
         },
         require: '?ngModel',
         replace: true,
-        transclude: true,
-        templateUrl: "/templates/chz.html",
+        template: function(el) {
+          var itemTpl, template;
+          itemTpl = el.html();
+          return template = "<div class='w-chz w-wiget-root'>\n  <div ng-hide=\"active\" class=\"w-chz-sel\" ng-class=\"{'btn-group': item}\">\n      <a class=\"btn btn-default w-chz-active\"\n         ng-class='{\"btn-danger\": invalid}'\n         href=\"javascript:void(0)\"\n         ng-click=\"active=true\"\n         ng-disabled=\"disabled\" >\n         <span ng-show='item'>" + itemTpl + "</span>\n         <span ng-hide='item'>none</span>\n      </a>\n      <button type=\"button\"\n              class=\"btn btn-default w-chz-clear-btn\"\n              aria-hidden=\"true\"\n              ng-show='item'\n              ng-click='unselectItem()'>&times;</button>\n    </div>\n  <div class=\"open\" ng-show=\"active\">\n    <input class=\"form-control\"\n           w-focus=\"active\"\n           w-down='move(1)'\n           w-up='move(-1)'\n           w-pgup='move(-11)'\n           w-pgdown='move(11)'\n           w-enter='onEnter($event)'\n           type=\"search\"\n           placeholder='Search'\n           ng-model=\"search\" />\n    <div ng-if=\"active && dropdownItems.length > 0\">\n      <div w-list items=\"dropdownItems\" on-highlight=\"highlight\">\n       " + itemTpl + "\n      </div>\n    </div>\n  </div>\n  <!-- FIXME: why errors here -->\n  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>\n</div>";
+        },
         controller: function($scope, $element, $attrs, $filter) {
           var keyAttr, valueAttr;
+          $scope.active = false;
           if ($scope.freetext) {
             $scope.getItemLabel = function(item) {
               return item;
@@ -683,67 +680,89 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
               return [];
             };
           }
-          $scope.dropdownItems = function() {
-            var allItems, searchFilter;
-            searchFilter = $filter('filter');
-            allItems = $scope.items.concat($scope.dynamicItems());
-            return searchFilter(allItems, $scope.search);
-          };
+          $scope.$watch('search', function(q) {
+            return $scope.dropdownItems = $filter('filter')($scope.items, $scope.search).concat($scope.dynamicItems());
+          });
           $scope.selectItem = function(item) {
-            $scope.selectedItem = item;
+            $scope.item = item;
             $scope.search = "";
-            $scope.highlightIndex = 0;
             return $scope.active = false;
           };
           $scope.unselectItem = function(item) {
-            return $scope.selectedItem = null;
+            return $scope.item = null;
           };
           $scope.move = function(d) {
-            var filteredItems;
-            filteredItems = $scope.dropdownItems();
-            $scope.highlightIndex += d;
-            if ($scope.highlightIndex === -1) {
-              $scope.highlightIndex = filteredItems.length - 1;
-            }
-            if ($scope.highlightIndex >= filteredItems.length) {
-              return $scope.highlightIndex = 0;
-            }
+            return $scope._list.move && $scope._list.move(d);
           };
           $scope.onEnter = function(event) {
-            var hItem;
-            hItem = $scope.dropdownItems()[$scope.highlightIndex];
-            $scope.selectItem(hItem);
-            return false;
+            return $scope._list.item && $scope.selectItem($scope._list.item);
           };
-          $scope.onPgup = function(event) {
-            $scope.move(-11);
-            return false;
+          return $scope._list = {
+            onselection: $scope.onEnter
           };
-          $scope.onPgdown = function(event) {
-            $scope.move(11);
-            return false;
-          };
-          $scope.$watch('search', function() {
-            return $scope.highlightIndex = 0;
-          });
-          $scope.active = false;
-          return $scope.highlightIndex = 0;
         },
         link: function(scope, element, attrs, ngModelCtrl, transcludeFn) {
           if (ngModelCtrl) {
-            scope.$watch('selectedItem', function(newValue, oldValue) {
+            scope.$watch('item', function(newValue, oldValue) {
               if (newValue !== oldValue) {
-                return ngModelCtrl.$setViewValue(scope.selectedItem);
+                return ngModelCtrl.$setViewValue(scope.item);
               }
             });
             return ngModelCtrl.$render = function() {
-              return scope.selectedItem = ngModelCtrl.$viewValue;
+              return scope.item = ngModelCtrl.$viewValue;
             };
           }
         }
       };
     }
   ]);
+
+  angular.module("angular-w").directive("wList", function() {
+    return {
+      restrict: "A",
+      scope: {
+        items: '=',
+        move: '@',
+        labelAttr: '@'
+      },
+      transclude: true,
+      replace: true,
+      templateUrl: "/templates/list.html",
+      controller: function($scope, $element, $attrs, $filter) {
+        $scope.highlightItem = function(item) {
+          $scope.highlightIndex = $scope.items.indexOf(item);
+          $scope.$parent._list.item = item;
+          return $scope.$parent._list.onselection();
+        };
+        $scope.$watch('items', function(idx) {
+          return $scope.highlightIndex = 0;
+        });
+        $scope.$watch('highlightIndex', function(idx) {
+          if (!$scope.$parent._list) {
+            return;
+          }
+          return $scope.$parent._list.item = $scope.items[idx];
+        });
+        $scope.domove = function(d) {
+          var filteredItems;
+          filteredItems = $scope.items;
+          $scope.highlightIndex += d;
+          if ($scope.highlightIndex === -1) {
+            $scope.highlightIndex = filteredItems.length - 1;
+          }
+          if ($scope.highlightIndex >= filteredItems.length) {
+            return $scope.highlightIndex = 0;
+          }
+        };
+        $scope.highlightIndex = 0;
+        if ($scope.$parent._list) {
+          return $scope.$parent._list.move = function(d) {
+            return $scope.domove(d);
+          };
+        }
+      }
+    };
+  });
 
 }).call(this);
 
