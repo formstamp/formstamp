@@ -50,8 +50,6 @@ angular
       </div>
     </div>
   </div>
-  <!-- FIXME: why errors here -->
-  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>
 </div>
     """
 
@@ -83,15 +81,19 @@ angular
       $scope.item = null
 
     $scope.move = (d) ->
-      $scope._list.move && $scope._list.move(d)
+      $scope.listInterface.move && $scope.listInterface.move(d)
 
     $scope.onEnter = (event) ->
-      $scope._list.item && $scope.selectItem($scope._list.item)
+      $scope.selectItem($scope.listInterface.selectedItem)
 
     # HACK: for comunicate with child directives
     # see https://github.com/angular/angular.js/wiki/Understanding-Scopes
-    $scope._list = { onselection: $scope.onEnter }
+    $scope.listInterface =
+      onSelect: (selectedItem) ->
+        $scope.selectItem(selectedItem)
 
+      move: () ->
+        console.log "not-implemented listInterface.move() function"
 
   link: (scope, element, attrs, ngModelCtrl, transcludeFn) ->
     if ngModelCtrl
@@ -109,25 +111,22 @@ angular
   restrict: "A"
   scope:
     items: '='
-    move:'@'
-    labelAttr: '@'
+    class: '@'
   transclude: true
   replace: true
   templateUrl: "/templates/list.html"
   controller: ($scope, $element, $attrs, $filter) ->
-
     $scope.highlightItem = (item) ->
       $scope.highlightIndex = $scope.items.indexOf(item)
-      $scope.$parent._list.item = item
-      $scope.$parent._list.onselection()
+      $scope.$parent.listInterface.onSelect(item)
 
     $scope.$watch 'items', (idx)-> $scope.highlightIndex = 0
 
-    $scope.$watch 'highlightIndex', (idx)->
-      return unless $scope.$parent._list
-      $scope.$parent._list.item = $scope.items[idx]
+    $scope.$watch 'highlightIndex', (idx) ->
+      if $scope.$parent.listInterface?
+        $scope.$parent.listInterface.selectedItem = $scope.items[idx]
 
-    $scope.domove = (d) ->
+    $scope.move = (d) ->
       filteredItems = $scope.items
 
       $scope.highlightIndex += d
@@ -136,5 +135,6 @@ angular
 
     $scope.highlightIndex = 0
 
-    if $scope.$parent._list
-      $scope.$parent._list.move = (d)-> $scope.domove(d)
+    if $scope.$parent.listInterface?
+      $scope.$parent.listInterface.move = (delta) ->
+        $scope.move(delta)

@@ -169,7 +169,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
 
 
   $templateCache.put('/templates/list.html',
-    "<div class=\"dropdown open no-popup\">\n" +
+    "<div class=\"dropdown open\">\n" +
     "  <ul class=\"dropdown-menu w-multi-select-items-list-default w-multi-select-items-list\"\n" +
     "      role=\"menu\" >\n" +
     "    <li ng-repeat=\"item in items\"\n" +
