@@ -84,8 +84,8 @@
       replace: true,
       link: function($scope, $element, $attrs) {
         return $scope.$watch('track', function(track) {
-          console.log(track);
-          return $element.attr('src', track.stream_url + "?client_id=8399f2e0577e0acb4eee4d65d6c6cce6");
+          $element.attr('src', track.stream_url + "?client_id=8399f2e0577e0acb4eee4d65d6c6cce6");
+          return $element.get(0).play();
         });
       }
     };
