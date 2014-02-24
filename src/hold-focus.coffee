@@ -8,6 +8,12 @@ angular.module("angular-w").directive "wHoldFocus", ($timeout) ->
     return currentEl
 
   link: (scope, element, attrs) ->
+    focusElement = () -> setTimeout((-> element[0].focus()), 0)
+
+    if attrs["wHoldFocusWhen"]?
+      scope.$watch attrs["wHoldFocusWhen"], (newValue) ->
+        focusElement() if newValue
+
     element.on 'focus', (event) ->
       scope.$apply(attrs["wHoldFocus"])
 
@@ -16,6 +22,6 @@ angular.module("angular-w").directive "wHoldFocus", ($timeout) ->
       newWidgetRoot = widgetRoot(event.relatedTarget)
 
       if event.relatedTarget && newWidgetRoot != null && oldWidgetRoot == newWidgetRoot
-        setTimeout((-> element[0].focus()), 0)
+        focusElement()
       else
         scope.$apply(attrs["wHoldFocusBlur"])

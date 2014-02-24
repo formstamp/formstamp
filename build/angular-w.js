@@ -644,9 +644,9 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
         template: function(el) {
           var itemTpl, template;
           itemTpl = el.html();
-          return template = "<div class='w-chz w-widget-root'>\n  <div ng-hide=\"active\" class=\"w-chz-sel\" ng-class=\"{'btn-group': item}\">\n      <a class=\"btn btn-default w-chz-active\"\n         ng-class='{\"btn-danger\": invalid}'\n         href=\"javascript:void(0)\"\n         ng-click=\"active=true\"\n         ng-disabled=\"disabled\" >\n         <span ng-show='item'>" + itemTpl + "</span>\n         <span ng-hide='item'>none</span>\n      </a>\n      <button type=\"button\"\n              class=\"btn btn-default w-chz-clear-btn\"\n              aria-hidden=\"true\"\n              ng-show='item'\n              ng-click='unselectItem()'>&times;</button>\n    </div>\n  <div class=\"open\" ng-show=\"active\">\n    <input class=\"form-control\"\n           w-focus=\"active\"\n           w-down='move(1)'\n           w-up='move(-1)'\n           w-pgup='move(-11)'\n           w-pgdown='move(11)'\n           w-enter='onEnter($event)'\n           type=\"search\"\n           placeholder='Search'\n           ng-blur=\"active = false\"\n           ng-model=\"search\" />\n    <div ng-if=\"active && dropdownItems.length > 0\">\n      <div w-list items=\"dropdownItems\" on-highlight=\"highlight\">\n       " + itemTpl + "\n      </div>\n    </div>\n  </div>\n</div>";
+          return template = "<div class='w-chz w-widget-root'>\n  <div ng-hide=\"active\" class=\"w-chz-sel\" ng-class=\"{'btn-group': item}\">\n      <a class=\"btn btn-default w-chz-active\"\n         ng-class='{\"btn-danger\": invalid}'\n         href=\"javascript:void(0)\"\n         ng-click=\"active = true\"\n         ng-disabled=\"disabled\" >\n         <span ng-show='item'>" + itemTpl + "</span>\n         <span ng-hide='item'>none</span>\n      </a>\n      <button type=\"button\"\n              class=\"btn btn-default w-chz-clear-btn\"\n              aria-hidden=\"true\"\n              ng-show='item'\n              ng-click='unselectItem()'>&times;</button>\n    </div>\n  <div class=\"open\" ng-show=\"active\">\n    <input class=\"form-control\"\n           w-hold-focus\n           w-hold-focus-when='active'\n           w-hold-focus-blur='active = false'\n           w-down='move(1)'\n           w-up='move(-1)'\n           w-pgup='move(-11)'\n           w-pgdown='move(11)'\n           w-enter='onEnter($event)'\n           type=\"search\"\n           placeholder='Search'\n           ng-model=\"search\" />\n    <div ng-if=\"active && dropdownItems.length > 0\">\n      <div w-list items=\"dropdownItems\" on-highlight=\"highlight\">\n       " + itemTpl + "\n      </div>\n    </div>\n  </div>\n</div>";
         },
-        controller: function($scope, $element, $attrs, $filter) {
+        controller: function($scope, $element, $attrs, $filter, $timeout) {
           var keyAttr, valueAttr;
           $scope.active = false;
           if ($scope.freetext) {
@@ -690,6 +690,11 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
           };
           $scope.unselectItem = function(item) {
             return $scope.item = null;
+          };
+          $scope.onBlur = function() {
+            return $timeout((function() {
+              return $scope.active = false;
+            }), 0, true);
           };
           $scope.move = function(d) {
             return $scope.listInterface.move && $scope.listInterface.move(d);
@@ -950,6 +955,19 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
     };
     return {
       link: function(scope, element, attrs) {
+        var focusElement;
+        focusElement = function() {
+          return setTimeout((function() {
+            return element[0].focus();
+          }), 0);
+        };
+        if (attrs["wHoldFocusWhen"] != null) {
+          scope.$watch(attrs["wHoldFocusWhen"], function(newValue) {
+            if (newValue) {
+              return focusElement();
+            }
+          });
+        }
         element.on('focus', function(event) {
           return scope.$apply(attrs["wHoldFocus"]);
         });
@@ -958,9 +976,7 @@ angular.module('angular-w', []).run(['$templateCache', function($templateCache) 
           oldWidgetRoot = widgetRoot(event.srcElement || event.target);
           newWidgetRoot = widgetRoot(event.relatedTarget);
           if (event.relatedTarget && newWidgetRoot !== null && oldWidgetRoot === newWidgetRoot) {
-            return setTimeout((function() {
-              return element[0].focus();
-            }), 0);
+            return focusElement();
           } else {
             return scope.$apply(attrs["wHoldFocusBlur"]);
           }

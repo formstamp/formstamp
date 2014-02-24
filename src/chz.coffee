@@ -22,7 +22,7 @@ angular
       <a class="btn btn-default w-chz-active"
          ng-class='{"btn-danger": invalid}'
          href="javascript:void(0)"
-         ng-click="active=true"
+         ng-click="active = true"
          ng-disabled="disabled" >
          <span ng-show='item'>#{itemTpl}</span>
          <span ng-hide='item'>none</span>
@@ -35,7 +35,9 @@ angular
     </div>
   <div class="open" ng-show="active">
     <input class="form-control"
-           w-focus="active"
+           w-hold-focus
+           w-hold-focus-when='active'
+           w-hold-focus-blur='active = false'
            w-down='move(1)'
            w-up='move(-1)'
            w-pgup='move(-11)'
@@ -43,7 +45,6 @@ angular
            w-enter='onEnter($event)'
            type="search"
            placeholder='Search'
-           ng-blur="active = false"
            ng-model="search" />
     <div ng-if="active && dropdownItems.length > 0">
       <div w-list items="dropdownItems" on-highlight="highlight">
@@ -54,7 +55,7 @@ angular
 </div>
     """
 
-  controller: ($scope, $element, $attrs, $filter) ->
+  controller: ($scope, $element, $attrs, $filter, $timeout) ->
     $scope.active = false
 
     if $scope.freetext
@@ -81,14 +82,15 @@ angular
     $scope.unselectItem = (item)->
       $scope.item = null
 
+    $scope.onBlur = () ->
+      $timeout((-> $scope.active = false), 0, true)
+
     $scope.move = (d) ->
       $scope.listInterface.move && $scope.listInterface.move(d)
 
     $scope.onEnter = (event) ->
       $scope.selectItem($scope.listInterface.selectedItem)
 
-    # HACK: for comunicate with child directives
-    # see https://github.com/angular/angular.js/wiki/Understanding-Scopes
     $scope.listInterface =
       onSelect: (selectedItem) ->
         $scope.selectItem(selectedItem)
