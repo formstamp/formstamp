@@ -1,6 +1,37 @@
-<form role='form' ng-controller='ChzItemsCtrl'>
-  <div class='form-group'>
-    <label>Select weapon:</label>
-    <div w-chz items='weapons'></div>
+<div class="container">
+  <h1>Select</h1>
+  <div class="alert alert-warning">
+    <strong>Warning!</strong> You should never use this and next directives on <code>input</code> tag.
+    Use <code>div</code> instead.
   </div>
+  <h5>Directive: <code class="ng-binding">w-chz</code></h5>
+  <p>
+    This input provides default select-like behavior.It allows to select only one item from predefined list
+    or none of them. Supports several angular directives: <code>ng-model</code>,
+    <code>ng-disabled</code>, <code>ng-required</code>.
+    In <code>ng-model</code> it holds full object, not only value.
+  </p>
+  <hr/>
+  <sample>
+<form class="well" role="form" ng-controller="SelectCtrl">
+  <div class='form-group row'>
+    <label class="col-xs-2">Select weapon:</label>
+    <div class="col-xs-4" w-chz items='items' ng-model="svalue"> <b>{{item.id}}</b> {{item.label}}</div>
+    <div class="col-xs-4 col-xs-offset-1" w-chz items='items' ng-model="svalue">{{item.label}}</div>
+  </div>
+  <pre>
+    Your element is: {{ svalue }}
+  </pre>
 </form>
+<script>
+   function SelectCtrl($scope) {
+     $scope.items = [
+        {id: 'S', label: 'Shijima'},
+        {id: 'M', label: 'Musubi'},
+        {id: 'Y', label: 'Yosuga'}
+     ]
+   }
+</script>
+</sample>
+</div>
+

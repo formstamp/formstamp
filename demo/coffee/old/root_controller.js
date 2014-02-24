@@ -22,7 +22,8 @@ angular.module('angular-w-demo')
     {
       "name": "Select",
       "dir_name": "w-chz",
-      "description": "This input provides default select-like behavior.It allows to select only one item from predefined list \
+      "description":
+        "This input provides default select-like behavior.It allows to select only one item from predefined list \
 or none of them. Supports several angular directives: <code>ng-model</code>, \
 <code>ng-disabled</code>, <code>ng-required</code>. \
 In <code>ng-model</code> it holds full object, not only value. \

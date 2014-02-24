@@ -20,19 +20,22 @@ app = angular.module 'angular-w-demo',
 
    for w in widgets
      do (w)->
-       console.log(w.name)
-       $routeProvider.when "/widgets/#{w.name}", templateUrl: "demo/templates/#{w.name}.html"
+       $routeProvider.when "/widgets/#{w.name}", templateUrl: "demo/templates/#{w.name}.html", controller: 'WidgetCtrl'
 
 app.filter 'prettify', ()->
   return (code)->
     if code
       hljs.highlightAuto(code).value
 
-app.run ($rootScope)->
+app.run ($rootScope, $location)->
   $rootScope.widgets = widgets
+  $rootScope.$on "$routeChangeStart" ,
+    (event, next, current) ->
+      parts = $location.path().split('/')
+      $rootScope.currentWidget = parts[parts.length - 1]
 
-app.controller 'WidgetCtrl', ($routeParams)->
-  console.log($routeParams)
+app.controller 'WidgetCtrl', ($scope, $location)->
+  #
 
 app.directive 'sample', ()->
   restrict: 'E'

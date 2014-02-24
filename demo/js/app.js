@@ -29,9 +29,9 @@
     for (_i = 0, _len = widgets.length; _i < _len; _i++) {
       w = widgets[_i];
       _results.push((function(w) {
-        console.log(w.name);
         return $routeProvider.when("/widgets/" + w.name, {
-          templateUrl: "demo/templates/" + w.name + ".html"
+          templateUrl: "demo/templates/" + w.name + ".html",
+          controller: 'WidgetCtrl'
         });
       })(w));
     }
@@ -46,13 +46,16 @@
     };
   });
 
-  app.run(function($rootScope) {
-    return $rootScope.widgets = widgets;
+  app.run(function($rootScope, $location) {
+    $rootScope.widgets = widgets;
+    return $rootScope.$on("$routeChangeStart", function(event, next, current) {
+      var parts;
+      parts = $location.path().split('/');
+      return $rootScope.currentWidget = parts[parts.length - 1];
+    });
   });
 
-  app.controller('WidgetCtrl', function($routeParams) {
-    return console.log($routeParams);
-  });
+  app.controller('WidgetCtrl', function($scope, $location) {});
 
   app.directive('sample', function() {
     return {

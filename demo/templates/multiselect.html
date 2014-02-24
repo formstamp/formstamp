@@ -1,17 +1,47 @@
-<form role='form' ng-controller='MultiSelectCtrl'>
-  <div class='form-group'>
-    <label>Leisure Time:</label>
+<div class="container">
+  <h1>Multi Select</h1>
+  <div class="alert alert-warning">
+    <strong>Warning!</strong> You should never use this and next directives on <code>input</code> tag.
+    Use <code>div</code> instead.
+  </div>
+  <h5>Directive: <code class="ng-binding">w-chz</code></h5>
+  <p>
+    This input provides default select-like behavior.It allows to select only one item from predefined list
+    or none of them. Supports several angular directives: <code>ng-model</code>,
+    <code>ng-disabled</code>, <code>ng-required</code>.
+    In <code>ng-model</code> it holds full object, not only value.
+  </p>
+  <hr/>
+
+
+  <sample>
+<form class="well" role="form" ng-controller="MultiSelectCtrl">
+  <div class='form-group row'>
+    <label class="col-xs-2">Select weapon:</label>
+
     <div w-multi-select
-         ng-model='selectedGames'
-         items='games'>
+         ng-model='mvalue'
+         items='items'
+         class="col-xs-5">
     </div>
   </div>
-  <div>
-    You want to play
-    <ul>
-      <li ng-repeat='item in selectedGames'>
-        {{item.label}}
-      </li>
-    </ul>
+  <div class='form-group row'>
+    <div class="col-xs-5 col-xs-offset-2">
+      You want to play
+      <ul>
+        <li ng-repeat='item in mvalue'> {{item.label}} </li>
+      </ul>
+    </div>
   </div>
 </form>
+<script>
+   function MultiSelectCtrl($scope) {
+     $scope.items = [
+        {id: 'S', label: 'Shijima'},
+        {id: 'M', label: 'Musubi'},
+        {id: 'Y', label: 'Yosuga'}
+     ]
+   }
+</script>
+</sample>
+</div>
