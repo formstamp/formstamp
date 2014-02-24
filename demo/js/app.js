@@ -74,4 +74,21 @@
     };
   });
 
+  app.directive("demoAudio", function() {
+    return {
+      restrict: "E",
+      scope: {
+        track: '='
+      },
+      template: "<audio controls />",
+      replace: true,
+      link: function($scope, $element, $attrs) {
+        return $scope.$watch('track', function(track) {
+          console.log(track);
+          return $element.attr('src', track.stream_url + "?client_id=8399f2e0577e0acb4eee4d65d6c6cce6");
+        });
+      }
+    };
+  });
+
 }).call(this);

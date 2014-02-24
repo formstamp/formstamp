@@ -60,3 +60,14 @@ app.directive 'sample', ()->
         <div ng-show="current=='js'"><pre>#{js}</pre> </div>
       </div>
     """
+
+app.directive "demoAudio", () ->
+  restrict: "E",
+  scope: { track: '=' },
+  template: "<audio controls />",
+  replace: true,
+  link: ($scope, $element, $attrs) ->
+    $scope.$watch 'track', (track) ->
+      console.log track
+      $element.attr('src', track.stream_url + "?client_id=8399f2e0577e0acb4eee4d65d6c6cce6")
+
