@@ -1,6 +1,6 @@
-<div class='w-chz w-wiget-root'>
-  <div ng-hide="active" class="w-chz-sel" ng-class="{'btn-group': selectedItem}">
-      <a class="btn btn-default w-chz-active"
+<div class='fs-select fs-wiget-root'>
+  <div ng-hide="active" class="fs-select-sel" ng-class="{'btn-group': selectedItem}">
+      <a class="btn btn-default fs-select-active"
          ng-class='{"btn-danger": invalid}'
          href="javascript:void(0)"
          ng-click="active=true"
@@ -9,24 +9,24 @@
          <span ng-hide='selectedItem'>none</span>
       </a>
       <button type="button"
-              class="btn btn-default w-chz-clear-btn"
+              class="btn btn-default fs-select-clear-btn"
               aria-hidden="true"
               ng-show='selectedItem'
               ng-click='unselectItem()'>&times;</button>
     </div>
   <div class="open" ng-show="active">
     <input class="form-control"
-           w-focus="active"
-           w-down='move(1)'
-           w-up='move(-1)'
-           w-pgup='move(-11)'
-           w-pgdown='move(11)'
-           w-enter='onEnter($event)'
+           fs-focus="active"
+           fs-down='move(1)'
+           fs-up='move(-1)'
+           fs-pgup='move(-11)'
+           fs-pgdown='move(11)'
+           fs-enter='onEnter($event)'
            type="search"
            placeholder='Search'
            ng-model="search" />
     <div ng-if="active && dropdownItems.length > 0">
-      <div w-list items="dropdownItems" on-highlight="highlight">
+      <div fs-list items="dropdownItems" on-highlight="highlight">
         <span class="item-expressin"></span>
       </div>
     </div>

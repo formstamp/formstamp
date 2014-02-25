@@ -51,7 +51,7 @@ module.exports = function (grunt) {
         src: 'templates/*.html',
         dest: 'build/templates/templates.js',
         options: {
-          module: 'angular-w',
+          module: 'formstamp',
           prefix: '/',
           standalone: true
         }
@@ -67,11 +67,11 @@ module.exports = function (grunt) {
     concat: {
       js: {
         src: ['build/utils/*.js', '<%= ngtemplates.app.dest %>', 'build/*.js'],
-        dest: 'build/angular-w.js'
+        dest: 'build/formstamp.js'
       },
       css: {
         src: ['build/*.css'],
-        dest: 'build/angular-w.css'
+        dest: 'build/formstamp.css'
       }
     },
     watch: {

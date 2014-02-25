@@ -44,7 +44,7 @@
     var dirName, shift;
     dirName = 'w' + keyName;
     shift = keyName.indexOf('Shift') !== -1;
-    return angular.module('angular-w').directive(dirName, directiveFactory(keyCode, dirName, shift));
+    return angular.module('formstamp').directive(dirName, directiveFactory(keyCode, dirName, shift));
   });
 
 }).call(this);

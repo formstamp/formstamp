@@ -1,38 +1,42 @@
 <div class='container'>
   <div>
     <h1>Example</h1>
-    <form w-form-for='samurai' w-submit='send()'>
-      <div w-field='name'
+    <form fs-form-for='samurai' fs-submit='send()'>
+      <div fs-field='name'
            items='names'
-           type='w-combo'
+           type='fs-combo'
            label='Name'></div>
 
-      <div w-field='gender'
+      <div fs-field='birthDate'
+           type='fs-datepicker'
+           label='Birth Date'></div>
+
+      <div fs-field='gender'
            items='genders'
-           type='w-radio'
+           type='fs-radio'
            label='Gender'></div>
 
-      <div w-field='province'
+      <div fs-field='province'
            items='provinces'
-           type='w-chz'
+           type='fs-select'
            label='Province'></div>
 
-      <div w-field='favoriteWeapons'
+      <div fs-field='favoriteWeapons'
            items='weapons'
-           type='w-checkbox'
+           type='fs-checkbox'
            label='Favorite Weapons'></div>
 
-      <div w-field='martialArts'
+      <div fs-field='martialArts'
            items='martialArts'
-           type='w-multi-select'
+           type='fs-multiselect'
            label='Martial Arts'></div>
 
-      <div w-field='teachers'
+      <div fs-field='teachers'
            items='teachers'
-           type='w-tags'
+           type='fs-tags'
            label='Teachers'></div>
 
-      <div w-submit-field>Send and Validate!</div>
+      <div fs-submit-field>Send and Validate!</div>
     </form>
   </div>
 </div>

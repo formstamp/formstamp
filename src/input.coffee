@@ -1,37 +1,37 @@
 widgetRoot = (el) ->
   currentEl = el
 
-  while (currentEl && currentEl.className? && currentEl.className.indexOf("w-widget-root") < 0)
+  while (currentEl && currentEl.className? && currentEl.className.indexOf("fs-widget-root") < 0)
     currentEl = currentEl.parentNode
 
   return currentEl
 
 angular
-.module("angular-w")
-.directive "wInput", ['$window', '$timeout', ($window, $timeout) ->
+.module("formstamp")
+.directive "fsInput", ['$window', '$timeout', ($window, $timeout) ->
     restrict: "A"
     link: (scope, element, attrs) ->
       focusElement = () -> setTimeout((-> element[0].focus()), 0)
 
-      if attrs["wFocusWhen"]?
-        scope.$watch attrs["wFocusWhen"], (newValue) ->
+      if attrs["fsFocusWhen"]?
+        scope.$watch attrs["fsFocusWhen"], (newValue) ->
           focusElement() if newValue
 
-      if attrs["wBlurWhen"]?
-        scope.$watch attrs["wBlurWhen"], (newValue) ->
+      if attrs["fsBlurWhen"]?
+        scope.$watch attrs["fsBlurWhen"], (newValue) ->
           focusElement() if newValue
 
-      if attrs["wOnFocus"]?
+      if attrs["fsOnFocus"]?
         element.on 'focus', (event) ->
-          scope.$apply(attrs["wOnFocus"])
+          scope.$apply(attrs["fsOnFocus"])
 
-      if attrs["wOnBlur"]?
+      if attrs["fsOnBlur"]?
         element.on 'blur', (event) ->
-          scope.$apply(attrs["wOnBlur"])
+          scope.$apply(attrs["fsOnBlur"])
 
-      if attrs["wHoldFocus"]?
-        wRoot = $(element).parents(".w-widget-root").first()
-        wRoot.on "mousedown", (event) ->
+      if attrs["fsHoldFocus"]?
+        fsRoot = $(element).parents(".fs-widget-root").first()
+        fsRoot.on "mousedown", (event) ->
           if event.target != element.get(0)
             event.preventDefault()
             false

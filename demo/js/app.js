@@ -3,6 +3,8 @@
 
   widgets = [
     {
+      name: 'form_for'
+    }, {
       name: 'combo'
     }, {
       name: 'select'
@@ -19,7 +21,7 @@
     }
   ];
 
-  app = angular.module('angular-w-demo', ['angular-w', 'ngRoute', 'ngSanitize'], function($routeProvider, $locationProvider) {
+  app = angular.module('formstamp-demo', ['formstamp', 'ngRoute', 'ngSanitize'], function($routeProvider, $locationProvider) {
     var w, _i, _len, _results;
     $routeProvider.when('/', {
       templateUrl: 'demo/templates/welcome.html'
@@ -84,8 +86,8 @@
       replace: true,
       link: function($scope, $element, $attrs) {
         return $scope.$watch('track', function(track) {
-          console.log(track);
-          return $element.attr('src', track.stream_url + "?client_id=8399f2e0577e0acb4eee4d65d6c6cce6");
+          $element.attr('src', track.stream_url + "?client_id=8399f2e0577e0acb4eee4d65d6c6cce6");
+          return $element.get(0).play();
         });
       }
     };

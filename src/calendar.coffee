@@ -3,7 +3,7 @@ shiftWeekDays = (weekDays, firstDayOfWeek)->
   weekDaysHead.concat(weekDays.slice(0, firstDayOfWeek))
 
 angular
-.module('angular-w').directive 'wCalendar', ['$locale', ($locale)->
+.module('formstamp').directive 'fsCalendar', ['$locale', ($locale)->
   restrict: 'E'
   templateUrl: '/templates/calendar.html'
   replace: true

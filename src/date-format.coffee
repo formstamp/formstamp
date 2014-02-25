@@ -1,5 +1,5 @@
 angular
-.module('angular-w')
+.module('formstamp')
 .directive('dateFormat', ['dateFilter', (dateFilter)->
     restrict: 'A'
     require: 'ngModel'

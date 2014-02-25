@@ -3,12 +3,12 @@
   <head>
     <meta charset="utf-8">
 
-    <title>angular-w</title>
+    <title>formstamp</title>
 
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/demo/styles/syntax.css"/>
     <link rel="stylesheet" href="/demo/styles/style.css"/>
-    <link rel="stylesheet" href="/build/angular-w.css"/>
+    <link rel="stylesheet" href="/build/formstamp.css"/>
     <link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/default.min.css">
     <script src="http://yandex.st/highlightjs/8.0/highlight.min.js"></script></script>
     <style>
@@ -67,13 +67,13 @@
     </nav>
 
     <div class='container' autoscroll='true' style="padding-top: 60px;">
-      <h3>wInput Directive</h3>
-      <div class='w-widget-root' ng-controller="InputDirectiveCtrl" ng-mousedown="foo($event)" >
+      <h3>fsInput Directive</h3>
+      <div class='fs-widget-root' ng-controller="InputDirectiveCtrl" ng-mousedown="foo($event)" >
         <input type="text" id="foo"
-               w-input="123"
-               w-focus-when='active'
-               w-hold-focus='true'
-               w-on-blur='active = false'
+               fs-input="123"
+               fs-focus-when='active'
+               fs-hold-focus='true'
+               fs-on-blur='active = false'
                ng-model='inputValue' />
 
         <button ng-click="setInputValue()" tabindex='-1'>Set input value</button>
@@ -93,16 +93,16 @@ Input value: {{ inputValue }}
     <script type='text/javascript' src='/bower_components/angular/angular.js'></script>
     <script type='text/javascript' src='/bower_components/angular-route/angular-route.js'></script>
     <script type='text/javascript' src='/bower_components/angular-sanitize/angular-sanitize.js'></script>
-    <script type='text/javascript' src='/build/angular-w.js'></script>
+    <script type='text/javascript' src='/build/formstamp.js'></script>
 
     <script type="text/javascript">
-      angular.module('app', ['angular-w'], function() { });
+      angular.module('app', ['formstamp'], function() { });
 
       function InputDirectiveCtrl($scope) {
         $scope.active = false;
 
         $scope.foo = function(e) {
-          if (!$(e.target).attr('w-input')) {
+          if (!$(e.target).attr('fs-input')) {
             e.preventDefault();
             return false;
           }

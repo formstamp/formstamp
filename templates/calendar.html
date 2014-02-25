@@ -1,11 +1,11 @@
-<div class="w-calendar" data-ng-switch="selectionMode">
+<div class="fs-calendar" data-ng-switch="selectionMode">
   <div data-ng-switch-when="year">
-    <div class="w-calendar-header">
-      <span class="w-calendar-prev" data-ng-click="prevYearRange()"></span>
-      <span class="w-calendar-title" data-ng-click="switchSelectionMode()">
+    <div class="fs-calendar-header">
+      <span class="fs-calendar-prev" data-ng-click="prevYearRange()"></span>
+      <span class="fs-calendar-title" data-ng-click="switchSelectionMode()">
         {{years[0]}}-{{years[years.length-1]}}
       </span>
-      <span class="w-calendar-next" data-ng-click="nextYearRange()"></span>
+      <span class="fs-calendar-next" data-ng-click="nextYearRange()"></span>
     </div>
     <table class="table-condensed">
       <tr data-ng-repeat="yearGroup in yearGroups">
@@ -19,12 +19,12 @@
     </table>
   </div>
   <div data-ng-switch-when="month">
-    <div class="w-calendar-header">
-      <span class="w-calendar-prev" data-ng-click="prevYear()"></span>
-      <span class="w-calendar-title" data-ng-click="switchSelectionMode()">
+    <div class="fs-calendar-header">
+      <span class="fs-calendar-prev" data-ng-click="prevYear()"></span>
+      <span class="fs-calendar-title" data-ng-click="switchSelectionMode()">
         {{selectedYear}}
       </span>
-      <span class="w-calendar-next" data-ng-click="nextYear()"></span>
+      <span class="fs-calendar-next" data-ng-click="nextYear()"></span>
     </div>
     <table class="table-condensed">
       <tr data-ng-repeat="monthGroup in monthGroups">
@@ -38,12 +38,12 @@
     </table>
   </div>
   <div data-ng-switch-default>
-    <div class="w-calendar-header">
-      <span class="w-calendar-prev" data-ng-click="prevMonth()"></span>
-      <span class="w-calendar-title" data-ng-click="switchSelectionMode()">
+    <div class="fs-calendar-header">
+      <span class="fs-calendar-prev" data-ng-click="prevMonth()"></span>
+      <span class="fs-calendar-title" data-ng-click="switchSelectionMode()">
         {{selectedMonth + ', ' + selectedYear}}
       </span>
-      <span class="w-calendar-next" data-ng-click="nextMonth()"></span>
+      <span class="fs-calendar-next" data-ng-click="nextMonth()"></span>
     </div>
     <table class="table-condensed">
       <thead>

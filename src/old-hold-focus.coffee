@@ -1,8 +1,8 @@
-angular.module("angular-w").directive "wOldHoldFocus", ($timeout) ->
+angular.module("formstamp").directive "fsOldHoldFocus", ($timeout) ->
   widgetRoot = (el) ->
     currentEl = el
 
-    while (currentEl && currentEl.className? && currentEl.className.indexOf("w-widget-root") < 0)
+    while (currentEl && currentEl.className? && currentEl.className.indexOf("fs-widget-root") < 0)
       currentEl = currentEl.parentNode
 
     return currentEl
@@ -10,12 +10,12 @@ angular.module("angular-w").directive "wOldHoldFocus", ($timeout) ->
   link: (scope, element, attrs) ->
     focusElement = () -> setTimeout((-> element[0].focus()), 0)
 
-    if attrs["wHoldFocusWhen"]?
-      scope.$watch attrs["wHoldFocusWhen"], (newValue) ->
+    if attrs["fsHoldFocusWhen"]?
+      scope.$watch attrs["fsHoldFocusWhen"], (newValue) ->
         focusElement() if newValue
 
     element.on 'focus', (event) ->
-      scope.$apply(attrs["wHoldFocus"])
+      scope.$apply(attrs["fsHoldFocus"])
 
     element.on 'blur', (event) ->
       oldWidgetRoot = widgetRoot(event.srcElement || event.target)
@@ -24,4 +24,4 @@ angular.module("angular-w").directive "wOldHoldFocus", ($timeout) ->
       if event.relatedTarget && newWidgetRoot != null && oldWidgetRoot == newWidgetRoot
         focusElement()
       else
-        scope.$apply(attrs["wHoldFocusBlur"])
+        scope.$apply(attrs["fsHoldFocusBlur"])

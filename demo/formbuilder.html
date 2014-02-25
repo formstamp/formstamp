@@ -7,10 +7,10 @@
     <div class="col-md-6">
       <div>
         <h2>Description</h2>
-        <h3>Directive: <code>w-form-for</code></h3>
+        <h3>Directive: <code>fs-form-for</code></h3>
         <p>
           Form Builder creates a form for the provided object using declarative style.
-          Input fields are created by <code>w-field</code> directive.
+          Input fields are created by <code>fs-field</code> directive.
         </p>
       </div>
     </div>
@@ -19,45 +19,45 @@
     <div class="col-md-5" ng-non-bindable>
       <h4>Example</h4>
       <pre class="prettyprint">
-&lt;form name='form' 
-    w-form-for='samurai'
-    w-submit='send()'&gt;
-    
-&lt;div w-field='name'
-     type='w-combo'
+&lt;form name='form'
+    fs-form-for='samurai'
+    fs-submit='send()'&gt;
+
+&lt;div fs-field='name'
+     type='fs-combo'
      items='names'
      label='Name'&gt;&lt;/div&gt;
 
-&lt;div w-field='age'
-     type='w-chz'
+&lt;div fs-field='age'
+     type='fs-select'
      items='ages'
      label='Age'&gt;&lt;/div&gt;
 
-&lt;div w-field='stage'
-     type='w-radio'
+&lt;div fs-field='stage'
+     type='fs-radio'
      items='stages'
      label='Learning Stage'&gt;&lt;/div&gt;
 
-&lt;div w-field='likesToEat'
-     type='w-checkbox'
+&lt;div fs-field='likesToEat'
+     type='fs-checkbox'
      items='meals'
      label='Likes to eat'&gt;&lt;/div&gt;
 
-&lt;div w-field='weapons'
-     type='w-multi-select'
+&lt;div fs-field='weapons'
+     type='fs-multiselect'
      items='weapons'
      label='Weapons'&gt;&lt;/div&gt;
 
-&lt;div w-field='styles'
-     type='w-tags'
+&lt;div fs-field='styles'
+     type='fs-tags'
      items='weaponStyles'
      label='Styles'&gt;&lt;/div&gt;
 
-&lt;div w-submit-field&gt;Save&lt;/div&gt;
+&lt;div fs-submit-field&gt;Save&lt;/div&gt;
 &lt;/form&gt;
       </pre>
       <pre class="prettyprint">
-angular.module('angular-w-demo')
+angular.module('formstamp-demo')
   .controller('FormBuilderCtrl', function($scope, $http) {
 $scope.samurai = {};
 $scope.stages = [
@@ -96,38 +96,38 @@ $scope.send = function() {
     </div>
     <div class="col-md-7 demonstration" style='padding-left: 50px'>
       <h2>Demo</h2>
-      <form name='form' w-form-for='samurai' w-submit='send()'>
-        <div w-field='name'
-             type='w-combo'
+      <form name='form' fs-form-for='samurai' fs-submit='send()'>
+        <div fs-field='name'
+             type='fs-combo'
              items='names'
              label='Name'></div>
 
-        <div w-field='age'
-             type='w-chz'
+        <div fs-field='age'
+             type='fs-select'
              items='ages'
              label='Age'></div>
 
-        <div w-field='stage'
-             type='w-radio'
+        <div fs-field='stage'
+             type='fs-radio'
              items='stages'
              label='Learning Stage'></div>
 
-        <div w-field='likesToEat'
-             type='w-checkbox'
+        <div fs-field='likesToEat'
+             type='fs-checkbox'
              items='meals'
              label='Likes to eat'></div>
 
-        <div w-field='weapons'
-             type='w-multi-select'
+        <div fs-field='weapons'
+             type='fs-multiselect'
              items='weapons'
              label='Weapons'></div>
 
-        <div w-field='styles'
-             type='w-tags'
+        <div fs-field='styles'
+             type='fs-tags'
              items='weaponStyles'
              label='Styles'></div>
 
-        <div w-submit-field>Save</div>
+        <div fs-submit-field>Save</div>
       </form>
       <h4>Form object</h4>
       <pre ng-bind="samurai | json"></pre>
@@ -137,10 +137,10 @@ $scope.send = function() {
   <div class="row">
     <div class="col-md-6">
       <div>
-        <h3>Directive: <code>w-field</code></h3>
+        <h3>Directive: <code>fs-field</code></h3>
         <p>
-          <code>w-field</code> creates an input for the specified attribute of the
-          object passed to <code>w-form-for</code> and displays validation errors.
+          <code>fs-field</code> creates an input for the specified attribute of the
+          object passed to <code>fs-form-for</code> and displays validation errors.
         </p>
       </div>
     </div>
@@ -152,8 +152,8 @@ $scope.send = function() {
       Required: <code>true</code>
       <div>
         Specifies input type. Allowed values:
-        <code>w-chz</code>, <code>w-multiselect</code>, <code>w-combo</code>,
-        <code>w-multiselect</code>, <code>w-radio</code>, <code>w-checkbox</code>.
+        <code>fs-select</code>, <code>fs-multiselect</code>, <code>fs-combo</code>,
+        <code>fs-multiselect</code>, <code>fs-radio</code>, <code>fs-checkbox</code>.
       </div>
     </div>
   </div>
@@ -191,9 +191,9 @@ $scope.send = function() {
   <div class="row">
     <div class="col-md-6">
       <pre class="prettyprint">
-&lt;form name='form' w-form-for='samurai' w-submit='send()'&gt;
-&lt;div w-field='province'
-     type='w-chz'
+&lt;form name='form' fs-form-for='samurai' fs-submit='send()'&gt;
+&lt;div fs-field='province'
+     type='fs-select'
      items='provinces'
      label='Province'
      ng-disabled='true'&gt;&lt;/div&gt;
@@ -201,9 +201,9 @@ $scope.send = function() {
       </pre>
     </div>
     <div class="col-md-6">
-      <form name='form' w-form-for='samurai' w-submit='send()'>
-        <div w-field='province'
-             type='w-chz'
+      <form name='form' fs-form-for='samurai' fs-submit='send()'>
+        <div fs-field='province'
+             type='fs-select'
              items='provinces'
              label='Province'
              ng-disabled='true'></div>
@@ -237,19 +237,19 @@ $scope.send = function() {
     <div class="col-md-6" ng-non-bindable>
       <h4>Example</h4>
       <pre class="prettyprint">
-&lt;form name='form' w-form-for='ronin' w-submit='send()'&gt;
-&lt;div w-field='name'
-     type='w-combo'
+&lt;form name='form' fs-form-for='ronin' fs-submit='send()'&gt;
+&lt;div fs-field='name'
+     type='fs-combo'
      items='names'
      label='Name'
      ng-pattern='/J/'&gt;&lt;/div&gt;
-&lt;div w-field='age'
-     type='w-chz'
+&lt;div fs-field='age'
+     type='fs-select'
      items='ages'
      label='Age'
      ng-required='true'&gt;&lt;/div&gt;
-&lt;div w-field='style'
-     type='w-combo'
+&lt;div fs-field='style'
+     type='fs-combo'
      items='weaponStyles'
      label='Style'
      ng-minlength='3'
@@ -258,19 +258,19 @@ $scope.send = function() {
       </pre>
     </div>
     <div class="col-md-6 ">
-      <form name='form' w-form-for='ronin' w-submit='send()'>
-        <div w-field='name'
-             type='w-combo'
+      <form name='form' fs-form-for='ronin' fs-submit='send()'>
+        <div fs-field='name'
+             type='fs-combo'
              items='names'
              label='Name'
              ng-pattern='/J/'></div>
-        <div w-field='age'
-             type='w-chz'
+        <div fs-field='age'
+             type='fs-select'
              items='ages'
              label='Age'
              ng-required='true'></div>
-        <div w-field='style'
-             type='w-combo'
+        <div fs-field='style'
+             type='fs-combo'
              items='weaponStyles'
              label='Style'
              ng-minlength='3'
@@ -282,9 +282,9 @@ $scope.send = function() {
   <div class="row">
     <div class="col-md-6">
       <div>
-        <h3>Directive: <code>w-submit-field</code></h3>
+        <h3>Directive: <code>fs-submit-field</code></h3>
         <p>
-          <code>w-submit-field</code> creates a form submit button. The form will not be submitted if it is invalid.
+          <code>fs-submit-field</code> creates a form submit button. The form will not be submitted if it is invalid.
         </p>
       </div>
     </div>

@@ -1,6 +1,6 @@
 angular
-.module("angular-w")
-.directive "wTags", ['$window', ($window) ->
+.module("formstamp")
+.directive "fsTags", ['$window', ($window) ->
     restrict: "A"
     scope:
       invalid: '='
@@ -10,7 +10,7 @@ angular
     require: '?ngModel'
     replace: true
     transclude: true
-    templateUrl: "/templates/multi-select.html"
+    templateUrl: "/templates/multiselect.html"
     controller: ($scope, $element, $attrs) ->
       search = (q) ->
         $scope.shownItems = filter(q, $scope.items).slice(0, $scope.limit)

@@ -1,9 +1,27 @@
-<form role="form" ng-controller='CheckboxCtrl'>
+<div class="container">
+  <h1>Checkbox Group</h1>
+  <div class="alert alert-warning">
+  </div>
+  <h5>Directive: <code class="ng-binding">fs-select</code> with option <code>freetext</code></h5>
+  <sample>
+<form class="well" role="form" ng-controller='RadioCtrl'>
   <div class="form-group">
-    <label>What would you like to drink?</label>
-    <div w-checkbox="true"
+    <label>Choose your katawari</label>
+    <div fs-checkbox="true"
          items="items"
          limit='20'
          ng-model="value"></div>
   </div>
 </form>
+<script>
+   function RadioCtrl($scope) {
+     $scope.items = [
+        {id: 'S', label: 'Shijima'},
+        {id: 'M', label: 'Musubi'},
+        {id: 'Y', label: 'Yosuga'}
+     ]
+   }
+</script>
+  </sample>
+</div>
+

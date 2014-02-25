@@ -1,6 +1,6 @@
 <div class="container">
-  <h1>wList</h1>
-  <h5>Directive: <code class="ng-binding">w-list</code></h5>
+  <h1>fsList</h1>
+  <h5>Directive: <code class="ng-binding">fs-list</code></h5>
   <p>
     TODO: document me
   </p>
@@ -8,8 +8,8 @@
   <sample>
     <div ng-controller="ListDemoCtrl" style="postion: relative;" class="row">
       <div class="col-xs-7">
-        <input class='form-control' autofocus="1" w-input w-up='move(-1)' w-down='move(1)' w-enter='select()' ng-model='search' />
-        <div w-list items='tracks' class="no-popup">
+        <input class='form-control' autofocus="1" fs-input fs-up='move(-1)' fs-down='move(1)' fs-enter='select()' ng-model='search' />
+        <div fs-list items='tracks' class="no-popup">
           <img src="{{ item.artwork_url }}" width="30" height="30" />
           {{item.title}} <small class="text-muted">{{item.genre}}</small>
         </div>
@@ -22,7 +22,7 @@
     </div>
 
     <script>
-      angular.module("angular-w");
+      angular.module("formstamp");
 
       function ListDemoCtrl($scope) {
         SC.initialize({

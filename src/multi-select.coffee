@@ -7,13 +7,13 @@ difference = (a, b)->
   hash[hash_key(b_element)] = true for b_element in b
   a.filter ((a_element)-> not hash[hash_key(a_element)])
 
-angular.module('angular-w').filter 'exclude', ->
+angular.module('formstamp').filter 'exclude', ->
   (input, selected) ->
     input.filter (item)->
       selected.indexOf(item) < 0
 
-angular.module("angular-w")
-.directive "wMultiSelect", ['$window', ($window) ->
+angular.module("formstamp")
+.directive "fsMultiselect", ['$window', ($window) ->
     restrict: "A"
     scope:
       invalid: '='
@@ -26,7 +26,7 @@ angular.module("angular-w")
     require: '?ngModel'
     replace: true
     transclude: true
-    templateUrl: "/templates/multi-select.html"
+    templateUrl: "/templates/multiselect.html"
     controller: ($scope, $element, $attrs, $filter) ->
       if $scope.freetext
         $scope.getItemLabel = (item)-> item
