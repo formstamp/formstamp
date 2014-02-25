@@ -3,13 +3,9 @@ angular
 .directive "fsSelect", ['$compile', ($compile) ->
   restrict: "A"
   scope:
-    invalid: '='
     items: '='
-    limit: '='
-    keyAttr: '@'
     disabled: '@'
     freetext: '@'
-    valueAttr: '@'
     class: '@'
   require: '?ngModel'
   replace: true
@@ -72,8 +68,12 @@ angular
       $scope.getItemValue = (item)-> item && item[keyAttr()]
       $scope.dynamicItems = -> []
 
-    $scope.$watch 'search', (q)->
+    updateDropdown = () ->
       $scope.dropdownItems = $filter('filter')($scope.items, $scope.search).concat($scope.dynamicItems())
+
+
+    $scope.$watch 'active', (q)-> updateDropdown()
+    $scope.$watch 'search', (q)-> updateDropdown()
 
     $scope.selectItem = (item)->
       $scope.item = item

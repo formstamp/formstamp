@@ -39,7 +39,7 @@
       <label class="col-xs-2">Select country:</label>
       <div class="col-xs-4" fs-select items='countries'
            ng-model="country">
-        <img src="http://www.translatorscafe.com/cafe/images/flags/{{item['alpha-2']}}.gif" width="18" height="12" /> {{item.name}}
+        <div class="flag flag-{{ item['alpha-2'].toLowerCase() }}"></div> {{item.name}}
       </div>
     </div>
     <pre>
