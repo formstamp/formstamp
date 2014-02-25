@@ -18,6 +18,8 @@
       name: 'checkbox'
     }, {
       name: 'list'
+    }, {
+      name: 'input'
     }
   ];
 

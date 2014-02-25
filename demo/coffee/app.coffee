@@ -1,12 +1,13 @@
 widgets  = [
-    {name: 'form_for'},
-    {name: 'combo'},
-    {name: 'select'},
-    {name: 'multiselect'},
-    {name: 'tags'},
-    {name: 'radio'},
+    {name: 'form_for'}
+    {name: 'combo'}
+    {name: 'select'}
+    {name: 'multiselect'}
+    {name: 'tags'}
+    {name: 'radio'}
     {name: 'checkbox'}
     {name: 'list'}
+    {name: 'input'}
 ]
 app = angular.module 'formstamp-demo',
  ['formstamp', 'ngRoute', 'ngSanitize'],
