@@ -145,41 +145,6 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
   );
 
 
-  $templateCache.put('/templates/multiselect.html',
-    "<div class='fs-multiselect fs-widget-root' ng-class='{ \"fs-with-selected-items\": selectedItems.length > 0 }'>\n" +
-    "  <div class='fs-multiselect-wrapper'>\n" +
-    "    <div class=\"fs-multiselect-selected-items\" ng-if=\"selectedItems.length > 0\">\n" +
-    "      <a ng-repeat='selectedItem in selectedItems' class=\"btn\" ng-click=\"unselectItem(selectedItem)\">\n" +
-    "        {{ getItemLabel(selectedItem) }}\n" +
-    "        <span class=\"glyphicon glyphicon-remove\" ></span>\n" +
-    "      </a>\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <input ng-keydown=\"onkeys($event)\"\n" +
-    "           fs-input\n" +
-    "           fs-hold-focus\n" +
-    "           fs-on-focus=\"active = true\"\n" +
-    "           fs-on-blur=\"active = false\"\n" +
-    "           fs-down='listInterface.move(1)'\n" +
-    "           fs-up='listInterface.move(-1)'\n" +
-    "           fs-pgup='listInterface.move(-11)'\n" +
-    "           fs-pgdown='listInterface.move(11)'\n" +
-    "           fs-enter='selectItem(listInterface.selectedItem)'\n" +
-    "           class=\"form-control\"\n" +
-    "           type=\"text\"\n" +
-    "           placeholder='Select something'\n" +
-    "           ng-model=\"search\" />\n" +
-    "\n" +
-    "    <div ng-if=\"active && dropdownItems.length > 0\" class=\"open\">\n" +
-    "      <div fs-list items=\"dropdownItems\">\n" +
-    "        {{ item | json }}\n" +
-    "      </div>\n" +
-    "    </div>\n" +
-    "  </div>\n" +
-    "</div>\n"
-  );
-
-
   $templateCache.put('/templates/radio.html',
     "<div class='fs-racheck'>\n" +
     "  <div ng-repeat='item in shownItems'>\n" +

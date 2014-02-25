@@ -18,10 +18,9 @@
       <div class='form-group row'>
         <label class="col-xs-2">Select weapon:</label>
 
-        <div fs-multiselect
-             ng-model='mvalue'
-             items='items'
+        <div fs-multiselect ng-model='mvalue' items='items'
              class="col-xs-5">
+          <strong>{{item.id}}</strong> {{item.label}}
         </div>
       </div>
       <div class='form-group row'>

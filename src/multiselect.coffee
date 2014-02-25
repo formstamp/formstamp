@@ -1,12 +1,3 @@
-hash_key = (item)->
-  angular.toJson(item)
-
-difference = (a, b)->
-  return a unless b && a
-  hash = {}
-  hash[hash_key(b_element)] = true for b_element in b
-  a.filter ((a_element)-> not hash[hash_key(a_element)])
-
 angular.module('formstamp').filter 'exclude', ->
   (input, selected) ->
     return input unless selected?
@@ -20,27 +11,51 @@ angular.module("formstamp")
     scope:
       invalid: '='
       items: '='
-      keyAttr: '@'
-      valueAttr: '@'
       disabled: '@'
       freetext: '@'
       class: '@'
     require: '?ngModel'
     replace: true
-    transclude: true
-    templateUrl: "/templates/multiselect.html"
+    template: (el) ->
+      itemTpl = el.html() || "{{ item | json }}"
+      """
+<div class='fs-multiselect fs-widget-root' ng-class='{ "fs-with-selected-items": selectedItems.length > 0 }'>
+  <div class='fs-multiselect-wrapper'>
+    <div class="fs-multiselect-selected-items" ng-if="selectedItems.length > 0">
+      <a ng-repeat='item in selectedItems' class="btn" ng-click="unselectItem(item)">
+        #{itemTpl}
+        <span class="glyphicon glyphicon-remove" ></span>
+      </a>
+    </div>
+
+    <input ng-keydown="onkeys($event)"
+           fs-input
+           fs-hold-focus
+           fs-on-focus="active = true"
+           fs-on-blur="active = false"
+           fs-down='listInterface.move(1)'
+           fs-up='listInterface.move(-1)'
+           fs-pgup='listInterface.move(-11)'
+           fs-pgdown='listInterface.move(11)'
+           fs-enter='selectItem(listInterface.selectedItem)'
+           class="form-control"
+           type="text"
+           placeholder='Select something'
+           ng-model="search" />
+
+    <div ng-if="active && dropdownItems.length > 0" class="open">
+      <div fs-list items="dropdownItems">
+        #{itemTpl}
+      </div>
+    </div>
+  </div>
+</div>
+    """
     controller: ($scope, $element, $attrs, $filter) ->
       if $scope.freetext
-        $scope.getItemLabel = (item)-> item
-        $scope.getItemValue = (item)-> item
         $scope.dynamicItems = ->
           if $scope.search then [$scope.search] else []
       else
-        valueAttr = () -> $scope.valueAttr || "label"
-        keyAttr = () -> $scope.valueAttr || "id"
-
-        $scope.getItemLabel = (item)-> item && item[valueAttr()]
-        $scope.getItemValue = (item)-> item && item[keyAttr()]
         $scope.dynamicItems = -> []
 
       $scope.updateDropdownItems = () ->
