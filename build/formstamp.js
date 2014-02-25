@@ -778,29 +778,14 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
 }).call(this);
 
 (function() {
-  var difference, hash_key;
-
-  hash_key = function(item) {
-    return angular.toJson(item);
-  };
-
-  difference = function(a, b) {
-    var b_element, hash, _i, _len;
-    if (!(b && a)) {
-      return a;
-    }
-    hash = {};
-    for (_i = 0, _len = b.length; _i < _len; _i++) {
-      b_element = b[_i];
-      hash[hash_key(b_element)] = true;
-    }
-    return a.filter((function(a_element) {
-      return !hash[hash_key(a_element)];
-    }));
-  };
-
   angular.module('formstamp').filter('exclude', function() {
     return function(input, selected) {
+      if (selected == null) {
+        return input;
+      }
+      if (input == null) {
+        return [];
+      }
       return input.filter(function(item) {
         return selected.indexOf(item) < 0;
       });
@@ -812,27 +797,25 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
       return {
         restrict: "A",
         scope: {
-          invalid: '=',
           items: '=',
-          keyAttr: '@',
-          valueAttr: '@',
           disabled: '@',
           freetext: '@',
           "class": '@'
         },
         require: '?ngModel',
         replace: true,
-        transclude: true,
-        templateUrl: "/templates/multiselect.html",
+        template: function(el, attributes) {
+          var defaultItemTpl, itemTpl;
+          if (attributes['freetext'] != null) {
+            defaultItemTpl = "{{ item }}";
+          } else {
+            defaultItemTpl = "{{ item | json }}";
+          }
+          itemTpl = el.html() || defaultItemTpl;
+          return "<div class='fs-multiselect fs-widget-root' ng-class='{ \"fs-with-selected-items\": selectedItems.length > 0 }'>\n  <div class='fs-multiselect-wrapper'>\n    <div class=\"fs-multiselect-selected-items\" ng-if=\"selectedItems.length > 0\">\n      <a ng-repeat='item in selectedItems' class=\"btn\" ng-click=\"unselectItem(item)\">\n        " + itemTpl + "\n        <span class=\"glyphicon glyphicon-remove\" ></span>\n      </a>\n    </div>\n\n    <input ng-keydown=\"onkeys($event)\"\n           fs-input\n           fs-hold-focus\n           fs-on-focus=\"active = true\"\n           fs-on-blur=\"active = false\"\n           fs-down='listInterface.move(1)'\n           fs-up='listInterface.move(-1)'\n           fs-pgup='listInterface.move(-11)'\n           fs-pgdown='listInterface.move(11)'\n           fs-enter='selectItem(listInterface.selectedItem)'\n           class=\"form-control\"\n           type=\"text\"\n           placeholder='Select something'\n           ng-model=\"search\" />\n\n    <div ng-if=\"active && dropdownItems.length > 0\" class=\"open\">\n      <div fs-list items=\"dropdownItems\">\n        " + itemTpl + "\n      </div>\n    </div>\n  </div>\n</div>";
+        },
         controller: function($scope, $element, $attrs, $filter) {
-          var keyAttr, valueAttr;
           if ($scope.freetext) {
-            $scope.getItemLabel = function(item) {
-              return item;
-            };
-            $scope.getItemValue = function(item) {
-              return item;
-            };
             $scope.dynamicItems = function() {
               if ($scope.search) {
                 return [$scope.search];
@@ -841,35 +824,22 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
               }
             };
           } else {
-            valueAttr = function() {
-              return $scope.valueAttr || "label";
-            };
-            keyAttr = function() {
-              return $scope.valueAttr || "id";
-            };
-            $scope.getItemLabel = function(item) {
-              return item && item[valueAttr()];
-            };
-            $scope.getItemValue = function(item) {
-              return item && item[keyAttr()];
-            };
             $scope.dynamicItems = function() {
               return [];
             };
           }
-          $scope.dropdownItems = function() {
+          $scope.updateDropdownItems = function() {
             var allItems, excludeFilter, searchFilter;
             searchFilter = $filter('filter');
             excludeFilter = $filter('exclude');
             allItems = $scope.items.concat($scope.dynamicItems());
-            return searchFilter(excludeFilter(allItems, $scope.selectedItems), $scope.search);
+            return $scope.dropdownItems = searchFilter(excludeFilter(allItems, $scope.selectedItems), $scope.search);
           };
           $scope.selectItem = function(item) {
             if ((item != null) && indexOf($scope.selectedItems, item) === -1) {
-              $scope.selectedItems.push(item);
+              $scope.selectedItems = $scope.selectedItems.concat([item]);
             }
-            $scope.search = "";
-            return $scope.highlightIndex = 0;
+            return $scope.search = '';
           };
           $scope.unselectItem = function(item) {
             var index;
@@ -878,45 +848,33 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
               return $scope.selectedItems.splice(index, 1);
             }
           };
-          $scope.move = function(d) {
-            var filteredItems;
-            filteredItems = $scope.dropdownItems();
-            $scope.highlightIndex += d;
-            if ($scope.highlightIndex === -1) {
-              $scope.highlightIndex = filteredItems.length - 1;
-            }
-            if ($scope.highlightIndex >= filteredItems.length) {
-              return $scope.highlightIndex = 0;
+          $scope.listInterface = {
+            onSelect: function(selectedItem) {
+              return $scope.selectItem(selectedItem);
+            },
+            move: function() {
+              return console.log("not-implemented listInterface.move() function");
             }
           };
-          $scope.getHighlightedItem = function() {};
-          $scope.onEnter = function(event) {
-            var highlightedItem;
-            highlightedItem = $scope.dropdownItems()[$scope.highlightIndex];
-            $scope.selectItem($scope.highlightedItem);
-            return false;
-          };
-          $scope.onPgup = function(event) {
-            $scope.move(-11);
-            return false;
-          };
-          $scope.onPgdown = function(event) {
-            $scope.move(11);
-            return false;
-          };
-          $scope.$watch('search', function() {
-            return $scope.highlightIndex = 0;
-          });
-          $scope.selectedItems = [];
+          $scope.dropdownItems = [];
           $scope.active = false;
-          return $scope.highlightIndex = 0;
+          $scope.$watchCollection('selectedItems', function() {
+            return $scope.updateDropdownItems();
+          });
+          $scope.$watchCollection('items', function() {
+            return $scope.updateDropdownItems();
+          });
+          $scope.$watch('search', function() {
+            return $scope.updateDropdownItems();
+          });
+          return $scope.updateDropdownItems();
         },
         link: function($scope, element, attrs, ngModelCtrl, transcludeFn) {
           var setViewValue;
           if (ngModelCtrl) {
             setViewValue = function(newValue, oldValue) {
               if (!angular.equals(newValue, oldValue)) {
-                return ngModelCtrl.$setViewValue($scope.selectedItems);
+                return ngModelCtrl.$setViewValue(newValue);
               }
             };
             $scope.$watch('selectedItems', setViewValue, true);
