@@ -1,6 +1,6 @@
-<div class='fs-chz fs-wiget-root'>
-  <div ng-hide="active" class="fs-chz-sel" ng-class="{'btn-group': selectedItem}">
-      <a class="btn btn-default fs-chz-active"
+<div class='fs-select fs-wiget-root'>
+  <div ng-hide="active" class="fs-select-sel" ng-class="{'btn-group': selectedItem}">
+      <a class="btn btn-default fs-select-active"
          ng-class='{"btn-danger": invalid}'
          href="javascript:void(0)"
          ng-click="active=true"
@@ -9,7 +9,7 @@
          <span ng-hide='selectedItem'>none</span>
       </a>
       <button type="button"
-              class="btn btn-default fs-chz-clear-btn"
+              class="btn btn-default fs-select-clear-btn"
               aria-hidden="true"
               ng-show='selectedItem'
               ng-click='unselectItem()'>&times;</button>

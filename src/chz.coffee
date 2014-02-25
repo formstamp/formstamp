@@ -1,6 +1,6 @@
 angular
 .module("formstamp")
-.directive "fsChz", ['$compile', ($compile) ->
+.directive "fsSelect", ['$compile', ($compile) ->
   restrict: "A"
   scope:
     invalid: '='
@@ -16,9 +16,9 @@ angular
   template: (el)->
     itemTpl = el.html()
     template = """
-<div class='fs-chz fs-widget-root'>
-  <div ng-hide="active" class="fs-chz-sel" ng-class="{'btn-group': item}">
-      <a class="btn btn-default fs-chz-active"
+<div class='fs-select fs-widget-root'>
+  <div ng-hide="active" class="fs-select-sel" ng-class="{'btn-group': item}">
+      <a class="btn btn-default fs-select-active"
          ng-class='{"btn-danger": invalid}'
          href="javascript:void(0)"
          ng-click="active = true"
@@ -27,7 +27,7 @@ angular
            <span ng-hide='item'>none</span>
       </a>
       <button type="button"
-              class="btn btn-default fs-chz-clear-btn"
+              class="btn btn-default fs-select-clear-btn"
               aria-hidden="true"
               ng-show='item'
               ng-click='unselectItem()'>&times;</button>

@@ -68,7 +68,7 @@
 
     <div class='container' autoscroll='true' ng-controller="SelectsCtrl" style="padding-top: 60px;">
       <h3> Select</h3>
-      <div fs-chz ng-model='selectValue' items='games'>
+      <div fs-select ng-model='selectValue' items='games'>
         <span>
           <img src="http://png-1.findicons.com/files/icons/282/flags/48/united_states_of_america_usa.png"/>
           <b>{{item.id}}</b> {{item.label}}
@@ -80,7 +80,7 @@
       </div>
 
       <h3> Combo</h3>
-      <div fs-chz freetext="true" ng-model='comboValue' items='gameNames'>
+      <div fs-select freetext="true" ng-model='comboValue' items='gameNames'>
         <span>{{item}}</span>
       </div>
 

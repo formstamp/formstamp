@@ -91,9 +91,9 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
 
 
   $templateCache.put('/templates/chz.html',
-    "<div class='fs-chz fs-wiget-root'>\n" +
-    "  <div ng-hide=\"active\" class=\"fs-chz-sel\" ng-class=\"{'btn-group': selectedItem}\">\n" +
-    "      <a class=\"btn btn-default fs-chz-active\"\n" +
+    "<div class='fs-select fs-wiget-root'>\n" +
+    "  <div ng-hide=\"active\" class=\"fs-select-sel\" ng-class=\"{'btn-group': selectedItem}\">\n" +
+    "      <a class=\"btn btn-default fs-select-active\"\n" +
     "         ng-class='{\"btn-danger\": invalid}'\n" +
     "         href=\"javascript:void(0)\"\n" +
     "         ng-click=\"active=true\"\n" +
@@ -102,7 +102,7 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
     "         <span ng-hide='selectedItem'>none</span>\n" +
     "      </a>\n" +
     "      <button type=\"button\"\n" +
-    "              class=\"btn btn-default fs-chz-clear-btn\"\n" +
+    "              class=\"btn btn-default fs-select-clear-btn\"\n" +
     "              aria-hidden=\"true\"\n" +
     "              ng-show='selectedItem'\n" +
     "              ng-click='unselectItem()'>&times;</button>\n" +

@@ -4,7 +4,7 @@
     <strong>Warning!</strong> You should never use this and next directives on <code>input</code> tag.
     Use <code>div</code> instead.
   </div>
-  <h5>Directive: <code class="ng-binding">fs-chz</code></h5>
+  <h5>Directive: <code class="ng-binding">fs-select</code></h5>
   <p>
     This input provides default select-like behavior.It allows to select only one item from predefined list
     or none of them. Supports several angular directives: <code>ng-model</code>,
@@ -16,8 +16,8 @@
 <form class="well" role="form" ng-controller="SelectCtrl">
   <div class='form-group row'>
     <label class="col-xs-2">Select weapon:</label>
-    <div class="col-xs-4" fs-chz items='items' ng-model="svalue"> <b>{{item.id}}</b> {{item.label}}</div>
-    <div class="col-xs-4 col-xs-offset-1" fs-chz items='items' ng-model="svalue">{{item.label}}</div>
+    <div class="col-xs-4" fs-select items='items' ng-model="svalue"> <b>{{item.id}}</b> {{item.label}}</div>
+    <div class="col-xs-4 col-xs-offset-1" fs-select items='items' ng-model="svalue">{{item.label}}</div>
   </div>
   <pre>
     Your element is: {{ svalue }}
