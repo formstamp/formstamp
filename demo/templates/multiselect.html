@@ -15,11 +15,11 @@
 
 
   <sample>
-<form class="well" role="form" ng-controller="MultiSelectCtrl">
+<form class="well" role="form" ng-controller="MultiselectCtrl">
   <div class='form-group row'>
     <label class="col-xs-2">Select weapon:</label>
 
-    <div fs-multi-select
+    <div fs-multiselect
          ng-model='mvalue'
          items='items'
          class="col-xs-5">
@@ -35,7 +35,7 @@
   </div>
 </form>
 <script>
-   function MultiSelectCtrl($scope) {
+   function MultiselectCtrl($scope) {
      $scope.items = [
         {id: 'S', label: 'Shijima'},
         {id: 'M', label: 'Musubi'},

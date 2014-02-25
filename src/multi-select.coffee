@@ -13,7 +13,7 @@ angular.module('formstamp').filter 'exclude', ->
       selected.indexOf(item) < 0
 
 angular.module("formstamp")
-.directive "fsMultiSelect", ['$window', ($window) ->
+.directive "fsMultiselect", ['$window', ($window) ->
     restrict: "A"
     scope:
       invalid: '='
@@ -26,7 +26,7 @@ angular.module("formstamp")
     require: '?ngModel'
     replace: true
     transclude: true
-    templateUrl: "/templates/multi-select.html"
+    templateUrl: "/templates/multiselect.html"
     controller: ($scope, $element, $attrs, $filter) ->
       if $scope.freetext
         $scope.getItemLabel = (item)-> item

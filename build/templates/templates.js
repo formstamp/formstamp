@@ -170,7 +170,7 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
 
   $templateCache.put('/templates/list.html',
     "<div class=\"dropdown open\">\n" +
-    "  <ul class=\"dropdown-menu fs-multi-select-items-list-default fs-multi-select-items-list\"\n" +
+    "  <ul class=\"dropdown-menu fs-multiselect-items-list-default fs-multiselect-items-list\"\n" +
     "      role=\"menu\" >\n" +
     "    <li ng-repeat=\"item in items\"\n" +
     "        ng-class=\"{true: 'active'}[$index == highlightIndex]\">\n" +
@@ -185,8 +185,8 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
   );
 
 
-  $templateCache.put('/templates/multi-select.html',
-    "<div class='fs-multi-select fs-widget-root'>\n" +
+  $templateCache.put('/templates/multiselect.html',
+    "<div class='fs-multiselect fs-widget-root'>\n" +
     "  <div class=\"fs-multi-options\" ng-if=\"selectedItems.length > 0\">\n" +
     "    <a ng-repeat='selectedItem in selectedItems' class=\"btn\" ng-click=\"unselectItem(selectedItem)\">\n" +
     "      {{ getItemLabel(selectedItem) }}\n" +
@@ -210,7 +210,7 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
     "         ng-model=\"search\" />\n" +
     "\n" +
     "  <div ng-if=\"active && (filteredItems = dropdownItems()).length > 0\" class=\"open\">\n" +
-    "    <ul class=\"dropdown-menu fs-multi-select-items-list-default fs-multi-select-items-list\"\n" +
+    "    <ul class=\"dropdown-menu fs-multiselect-items-list-default fs-multiselect-items-list\"\n" +
     "        role=\"menu\" >\n" +
     "      <li ng-repeat=\"item in filteredItems\"\n" +
     "          ng-class=\"{true: 'active'}[$index == highlightIndex]\">\n" +

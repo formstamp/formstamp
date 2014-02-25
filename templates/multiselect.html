@@ -1,4 +1,4 @@
-<div class='fs-multi-select fs-widget-root'>
+<div class='fs-multiselect fs-widget-root'>
   <div class="fs-multi-options" ng-if="selectedItems.length > 0">
     <a ng-repeat='selectedItem in selectedItems' class="btn" ng-click="unselectItem(selectedItem)">
       {{ getItemLabel(selectedItem) }}
@@ -22,7 +22,7 @@
          ng-model="search" />
 
   <div ng-if="active && (filteredItems = dropdownItems()).length > 0" class="open">
-    <ul class="dropdown-menu fs-multi-select-items-list-default fs-multi-select-items-list"
+    <ul class="dropdown-menu fs-multiselect-items-list-default fs-multiselect-items-list"
         role="menu" >
       <li ng-repeat="item in filteredItems"
           ng-class="{true: 'active'}[$index == highlightIndex]">
