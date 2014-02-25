@@ -13,25 +13,50 @@
   </p>
   <hr/>
   <sample>
-<form class="well" role="form" ng-controller="SelectCtrl">
-  <div class='form-group row'>
-    <label class="col-xs-2">Select weapon:</label>
-    <div class="col-xs-4" fs-select items='items' ng-model="svalue"> <b>{{item.id}}</b> {{item.label}}</div>
-    <div class="col-xs-4 col-xs-offset-1" fs-select items='items' ng-model="svalue">{{item.label}}</div>
-  </div>
-  <pre>
-    Your element is: {{ svalue }}
-  </pre>
-</form>
-<script>
-   function SelectCtrl($scope) {
-     $scope.items = [
-        {id: 'S', label: 'Shijima'},
-        {id: 'M', label: 'Musubi'},
-        {id: 'Y', label: 'Yosuga'}
-     ]
-   }
-</script>
+    <form class="well" role="form" ng-controller="SelectCtrl">
+      <div class='form-group row'>
+        <label class="col-xs-2">Select weapon:</label>
+        <div class="col-xs-4" fs-select items='items' ng-model="svalue"> <b>{{item.id}}</b> {{item.label}}</div>
+        <div class="col-xs-4 col-xs-offset-1" fs-select items='items' ng-model="svalue">{{item.label}}</div>
+      </div>
+      <pre>
+        Your element is: {{ svalue }}
+      </pre>
+    </form>
+    <script>
+      function SelectCtrl($scope) {
+      $scope.items = [
+      {id: 'S', label: 'Shijima'},
+      {id: 'M', label: 'Musubi'},
+      {id: 'Y', label: 'Yosuga'}
+      ]
+      }
+    </script>
+</sample>
+<sample>
+  <form class="well" role="form" ng-controller="SelectCountryCtrl">
+    <div class='form-group row'>
+      <label class="col-xs-2">Select country:</label>
+      <div class="col-xs-4" fs-select items='countries'
+           ng-model="country">
+        <img src="http://www.translatorscafe.com/cafe/images/flags/{{item['alpha-2']}}.gif" width="18" height="12" /> {{item.name}}
+      </div>
+    </div>
+    <pre>
+      Selected country is: {{ country }}
+    </pre>
+  </form>
+  <script>
+    function SelectCountryCtrl($scope, $http) {
+      $scope.countries = [];
+
+      $http({method: 'GET', url: '/demo/data/countries.json'})
+        .success(function(data) {
+          console.log(data);
+          $scope.countries = data;
+        });
+    }
+  </script>
 </sample>
 </div>
 
