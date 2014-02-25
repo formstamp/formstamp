@@ -130,7 +130,7 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
 
   $templateCache.put('/templates/list.html',
     "<div class=\"dropdown open\">\n" +
-    "  <ul class=\"dropdown-menu fs-multiselect-items-list-default fs-multiselect-items-list\"\n" +
+    "  <ul class=\"dropdown-menu\"\n" +
     "      role=\"menu\" >\n" +
     "    <li ng-repeat=\"item in items\"\n" +
     "        ng-class=\"{true: 'active'}[$index == highlightIndex]\">\n" +

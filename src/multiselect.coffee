@@ -9,7 +9,6 @@ angular.module("formstamp")
 .directive "fsMultiselect", ['$window', ($window) ->
     restrict: "A"
     scope:
-      invalid: '='
       items: '='
       disabled: '@'
       freetext: '@'

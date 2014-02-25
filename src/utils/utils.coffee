@@ -35,6 +35,7 @@ scrollToTarget = (container, target) ->
   # Scroll down
   if item.bottom > viewport.bottom
     container.scrollTop += item.bottom - viewport.bottom
+
   # Scroll up
   else if item.top < viewport.top
     container.scrollTop -= viewport.top - item.top
