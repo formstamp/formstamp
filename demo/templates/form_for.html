@@ -4,45 +4,45 @@
     <strong>Warning!</strong> You should never use this and next directives on <code>input</code> tag.
     Use <code>div</code> instead.
   </div>
-  <h5>Directive: <code class="ng-binding">w-chz</code></h5>
+  <h5>Directive: <code class="ng-binding">fs-chz</code></h5>
   <p>
   </p>
   <hr/>
   <sample>
-<form name='form' ng-controller="FormBuilderCtrl" w-form-for='samurai' w-submit='send()'>
-  <div w-field='name'
-       type='w-chz'
+<form name='form' ng-controller="FormBuilderCtrl" fs-form-for='samurai' fs-submit='send()'>
+  <div fs-field='name'
+       type='fs-chz'
        freetext
        items='names'
        label='Name'></div>
 
-  <div w-field='age'
-       type='w-chz'
+  <div fs-field='age'
+       type='fs-chz'
        items='ages'
        label='Age'></div>
 
-  <div w-field='stage'
-       type='w-radio'
+  <div fs-field='stage'
+       type='fs-radio'
        items='stages'
        label='Learning Stage'></div>
 
-  <div w-field='likesToEat'
-       type='w-checkbox'
+  <div fs-field='likesToEat'
+       type='fs-checkbox'
        items='meals'
        label='Likes to eat'></div>
 
-  <div w-field='weapons'
-       type='w-multi-select'
+  <div fs-field='weapons'
+       type='fs-multi-select'
        items='weapons'
        label='Weapons'></div>
 
-  <div w-field='styles'
-       type='w-multi-select'
+  <div fs-field='styles'
+       type='fs-multi-select'
        freetext
        items='weaponStyles'
        label='Styles'></div>
 
-  <div w-submit-field>Save</div>
+  <div fs-submit-field>Save</div>
 </form>
 <script>
 function FormBuilderCtrl($scope){

@@ -13,7 +13,7 @@ angular.module('formstamp').filter 'exclude', ->
       selected.indexOf(item) < 0
 
 angular.module("formstamp")
-.directive "wMultiSelect", ['$window', ($window) ->
+.directive "fsMultiSelect", ['$window', ($window) ->
     restrict: "A"
     scope:
       invalid: '='

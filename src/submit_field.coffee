@@ -1,5 +1,5 @@
 angular.module('formstamp')
-.directive 'wSubmitField', [->
+.directive 'fsSubmitField', [->
   restrict: 'A'
   replace: true
   transclude: true

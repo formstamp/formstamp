@@ -1,6 +1,6 @@
 angular
 .module("formstamp")
-.directive "wChz", ['$compile', ($compile) ->
+.directive "fsChz", ['$compile', ($compile) ->
   restrict: "A"
   scope:
     invalid: '='
@@ -16,9 +16,9 @@ angular
   template: (el)->
     itemTpl = el.html()
     template = """
-<div class='w-chz w-widget-root'>
-  <div ng-hide="active" class="w-chz-sel" ng-class="{'btn-group': item}">
-      <a class="btn btn-default w-chz-active"
+<div class='fs-chz fs-widget-root'>
+  <div ng-hide="active" class="fs-chz-sel" ng-class="{'btn-group': item}">
+      <a class="btn btn-default fs-chz-active"
          ng-class='{"btn-danger": invalid}'
          href="javascript:void(0)"
          ng-click="active = true"
@@ -27,28 +27,28 @@ angular
            <span ng-hide='item'>none</span>
       </a>
       <button type="button"
-              class="btn btn-default w-chz-clear-btn"
+              class="btn btn-default fs-chz-clear-btn"
               aria-hidden="true"
               ng-show='item'
               ng-click='unselectItem()'>&times;</button>
     </div>
   <div class="open" ng-show="active">
     <input class="form-control"
-           w-input='123'
-           w-focus-when='active'
-           w-on-blur='active = false'
-           w-hold-focus=''
+           fs-input='123'
+           fs-focus-when='active'
+           fs-on-blur='active = false'
+           fs-hold-focus=''
 
-           w-down='move(1)'
-           w-up='move(-1)'
-           w-pgup='move(-11)'
-           w-pgdown='move(11)'
-           w-enter='onEnter($event)'
+           fs-down='move(1)'
+           fs-up='move(-1)'
+           fs-pgup='move(-11)'
+           fs-pgdown='move(11)'
+           fs-enter='onEnter($event)'
            type="search"
            placeholder='Search'
            ng-model="search" />
     <div ng-if="active && dropdownItems.length > 0">
-      <div w-list items="dropdownItems" on-highlight="highlight">
+      <div fs-list items="dropdownItems" on-highlight="highlight">
        #{itemTpl}
       </div>
     </div>
@@ -111,7 +111,7 @@ angular
 
 angular
 .module("formstamp")
-.directive "wList", () ->
+.directive "fsList", () ->
   restrict: "A"
   scope:
     items: '='

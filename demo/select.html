@@ -68,7 +68,7 @@
 
     <div class='container' autoscroll='true' ng-controller="SelectsCtrl" style="padding-top: 60px;">
       <h3> Select</h3>
-      <div w-chz ng-model='selectValue' items='games'>
+      <div fs-chz ng-model='selectValue' items='games'>
         <span>
           <img src="http://png-1.findicons.com/files/icons/282/flags/48/united_states_of_america_usa.png"/>
           <b>{{item.id}}</b> {{item.label}}
@@ -80,14 +80,14 @@
       </div>
 
       <h3> Combo</h3>
-      <div w-chz freetext="true" ng-model='comboValue' items='gameNames'>
+      <div fs-chz freetext="true" ng-model='comboValue' items='gameNames'>
         <span>{{item}}</span>
       </div>
 
       <h3> List</h3>
 
       <h3> Multi Select</h3>
-        <div w-multi-select ng-model='selectedGames' items='gameNames'
+        <div fs-multi-select ng-model='selectedGames' items='gameNames'
         freetext="true"></div>
         <div class='well' style="margin-top: 10px;">
           {{ selectValue | json }}
@@ -102,17 +102,17 @@
       <!-- <div ng-controller="ListCtrl" style="postion: relative;"> -->
       <!--   <button ng-click="move(1)">Down</button> -->
       <!--   <button ng-click="move(-1)">Up</button> -->
-      <!--   <div w-list items='games'> -->
+      <!--   <div fs-list items='games'> -->
       <!--     <img src="http://png-1.findicons.com/files/icons/282/flags/48/united_states_of_america_usa.png"/> {{item.label}}</span> -->
       <!--   </div> -->
 
-      <!--   <div w-list items='games' label="item.label"> -->
+      <!--   <div fs-list items='games' label="item.label"> -->
       <!--     {{item.label}} -->
       <!--   </div> -->
       <!-- </div> -->
       <!-- <div> -->
       <!-- <h3> Multi Select</h3> -->
-      <!--   <div w-multi-select ng-model='selectedGames' items='games'></div> -->
+      <!--   <div fs-multi-select ng-model='selectedGames' items='games'></div> -->
       <!-- </div> -->
 
       <!-- <div class='well' style="margin-top: 10px;"> -->
@@ -120,7 +120,7 @@
       <!-- </div> -->
 
       <!-- <h3> Tags</h3> -->
-      <!-- <div w-multi-select ng-model='selectedGamesWithFreetext' items='gameNames' freetext='true'></div> -->
+      <!-- <div fs-multi-select ng-model='selectedGamesWithFreetext' items='gameNames' freetext='true'></div> -->
 
       <!-- <div class='well' style="margin-top: 10px;"> -->
       <!--   {{ selectedGamesWithFreetext | json }} -->

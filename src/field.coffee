@@ -1,5 +1,5 @@
 angular.module('formstamp')
-.directive 'wField', [->
+.directive 'fsField', [->
 
   VALIDATION_DIRECTIVES = [
     'ngRequired', 'ngMinlength',
@@ -8,16 +8,16 @@ angular.module('formstamp')
 
   restrict: 'A'
   replace: true
-  require: ['^wFormFor', '^form']
+  require: ['^fsFormFor', '^form']
   scope:
     items: '='
-    field: '@wField'
+    field: '@fsField'
     type: '@'
     label: '@'
   templateUrl: '/templates/field.html'
   compile: (tElement, tAttrs) ->
     type = tAttrs.type
-    inputDivRaw = tElement[0].querySelector('.w-field-input')
+    inputDivRaw = tElement[0].querySelector('.fs-field-input')
     inputDiv = angular.element(inputDivRaw)
     angular.element(inputDiv).attr(type, '')
 
@@ -27,7 +27,7 @@ angular.module('formstamp')
 
     # We need this because ngModel don't interpolate
     # name attr when registering it in the form controller
-    inputDiv.attr('name', tAttrs.wField)
+    inputDiv.attr('name', tAttrs.fsField)
 
     (scope, element, attrs, ctrls) ->
       formForCtrl = ctrls[0]

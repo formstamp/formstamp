@@ -4,7 +4,7 @@
     <strong>Warning!</strong> You should never use this and next directives on <code>input</code> tag.
     Use <code>div</code> instead.
   </div>
-  <h5>Directive: <code class="ng-binding">w-chz</code> with option <code>freetext</code></h5>
+  <h5>Directive: <code class="ng-binding">fs-chz</code> with option <code>freetext</code></h5>
   <p>
   This input provides default select-like behavior.
   It allows to select only one item from predefined list or none of them.
@@ -18,7 +18,7 @@
 <form class="well" role="form" ng-controller="ComboCtrl">
   <div class="form-group">
     <label>Choose your element</label>
-    <div w-chz
+    <div fs-chz
       freetext="true"
       items="items"
       ng-model="element">
@@ -27,7 +27,7 @@
   </div>
   <div class="form-group">
     <label>Choose your element</label>
-    <div w-chz
+    <div fs-chz
       freetext="true"
       items="items"
       ng-model="element">

@@ -1,12 +1,12 @@
 angular
 .module('formstamp')
-.directive('wPopup', ['$rootScope', "$compile", 'wPopupManager', ($rootScope, $compile, popupManager)->
+.directive('fsPopup', ['$rootScope', "$compile", 'fsPopupManager', ($rootScope, $compile, popupManager)->
   restrict: 'E'
   compile: (tElement, tAttrs)->
     content = "#{tElement.html().trim()}"
     tElement.remove()
     popupManager.add tAttrs.name, content
-]).factory('wPopupManager', ['$document', '$compile', '$rootScope', ($document, $compile, $rootScope)->
+]).factory('fsPopupManager', ['$document', '$compile', '$rootScope', ($document, $compile, $rootScope)->
   attachTo = undefined
   currentPopup = undefined
   documentClickBind = (event)->

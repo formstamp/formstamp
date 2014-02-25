@@ -1,9 +1,9 @@
 angular
-.module('formstamp').directive 'wFormFor', ['$window', ($window)->
+.module('formstamp').directive 'fsFormFor', ['$window', ($window)->
   restrict: 'A'
   require: '?form'
   scope:
-    object: '=wFormFor'
+    object: '=fsFormFor'
   compile: (tElement, tAttrs) ->
     tElement.attr('class', 'form-horizontal')
     tElement.attr('role', 'form')
@@ -20,7 +20,7 @@ angular
       $scope.object
 
     @getObjectName = ->
-      $attrs.wFormFor
+      $attrs.fsFormFor
 
     return
 ]

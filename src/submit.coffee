@@ -1,10 +1,10 @@
 angular
 .module("formstamp")
-.directive "wSubmit", ['$parse', ($parse) ->
+.directive "fsSubmit", ['$parse', ($parse) ->
   restrict: "A"
   require: '?form'
   link: (scope, element, attr, controller) ->
-    fn = $parse(attr.wSubmit)
+    fn = $parse(attr.fsSubmit)
     element.bind 'submit', (event) ->
       scope.$apply ->
         if !controller or controller.$valid

@@ -1,6 +1,6 @@
 angular
 .module('formstamp')
-.directive('wDatepicker', ['wPopupManager', (popupManager)->
+.directive('fsDatepicker', ['fsPopupManager', (popupManager)->
     restrict: 'EA'
     require: '?ngModel'
     scope: {}

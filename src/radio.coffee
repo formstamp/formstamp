@@ -1,6 +1,6 @@
 angular
 .module("formstamp")
-.directive "wRadio", ['$window', ($window) ->
+.directive "fsRadio", ['$window', ($window) ->
     restrict: "A"
     scope:
       items: '='

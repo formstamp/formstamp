@@ -1,6 +1,6 @@
 angular
 .module("formstamp")
-.directive "wCheckbox", ['$window', ($window) ->
+.directive "fsCheckbox", ['$window', ($window) ->
     restrict: "A"
     scope:
       errors: '='

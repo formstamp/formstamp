@@ -1,6 +1,6 @@
 angular
 .module("formstamp")
-.directive "wTags", ['$window', ($window) ->
+.directive "fsTags", ['$window', ($window) ->
     restrict: "A"
     scope:
       invalid: '='

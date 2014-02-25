@@ -15,16 +15,16 @@ provided by this library. It supports errors and validations.
 
 ### Using
 ```
-    <form w-form-for='samurai' ng-submit='send()'>
-      <div w-field='name' label='Name' type='w-combo' items='names'></div>
-      <div w-field='age' label='Age' type='w-chz'  items='ages'></div>
+    <form fs-form-for='samurai' ng-submit='send()'>
+      <div fs-field='name' label='Name' type='fs-combo' items='names'></div>
+      <div fs-field='age' label='Age' type='fs-chz'  items='ages'></div>
 
-      <div w-submit-field>Save</div>
+      <div fs-submit-field>Save</div>
     </form>
 ```
 
 ### Errors
-Objects errors are extracted from its model passed to wFormFor attribute.
+Objects errors are extracted from its model passed to fsFormFor attribute.
 It should next format:
 ```javascript
   {
@@ -36,15 +36,15 @@ It should next format:
       age: ['Too young!']
     }
   }
-  
+
 
 ### Submiting
-For form submitting use `w-submit`. It prevents for submiting if form is invalid.
-Function call submit handler SHOULD! update model passed to `w-form-for`.
+For form submitting use `fs-submit`. It prevents for submiting if form is invalid.
+Function call submit handler SHOULD! update model passed to `fs-form-for`.
 
 ```
 
-Example of handler: 
+Example of handler:
 ```javascript
   $scope.send = function() {
     $http.post('/').success(function(data) {
@@ -83,7 +83,7 @@ Chosen provides templating for selected object by passing html
 template inside directive.  You can reference current object by
 `item` and access all object's attributes.
 ```html
-  <div w-chz>
+  <div fs-chz>
     <b>{{item.name}}</b>: {{item.code}}
   </div>
 ```
@@ -91,16 +91,16 @@ template inside directive.  You can reference current object by
 ### Customizing styles
 For style customization library provides class
 for user extention. For styling list define css
-class `.w-chz .w-chz-items-list` with your own properties.
+class `.fs-chz .fs-chz-items-list` with your own properties.
 
 #### Example usage
 ```html
   <div ng-controller='CountriesCtrl'>
-    <form role="form" class='form-horizontal'> 
+    <form role="form" class='form-horizontal'>
       <div class="form-group">
         <label class="col-sm-2 control-label">Chosen</label>
         <div class="col-sm-10">
-          <div w-chz
+          <div fs-chz
                items="countries"
                limit='30'
                key-attr='code'
@@ -151,7 +151,7 @@ Combo provides templating for selected object by passing html
 template inside directive.  You can reference current object by
 `item`.
 ```html
-  <div w-combo>
+  <div fs-combo>
     <b>{{item}}</b>
   </div>
 ```

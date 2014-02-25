@@ -1,4 +1,4 @@
-<div class="w-datepicker">
+<div class="fs-datepicker">
   <input type="text"
     class="form-control"
     ng-focus="active=true"
@@ -7,7 +7,7 @@
     data-date-format="shortDate">
   <div ng-if="active" class="open">
     <div class="dropdown-menu">
-      <w-calendar ng-model="date"
+      <fs-calendar ng-model="date"
         ng-change="console.log('here');active=false;"/>
     </div>
   </div>

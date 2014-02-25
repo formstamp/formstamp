@@ -4,7 +4,7 @@
     <strong>Warning!</strong> You should never use this and next directives on <code>input</code> tag.
     Use <code>div</code> instead.
   </div>
-  <h5>Directive: <code class="ng-binding">w-multiselect</code> with option <code>freetext</code></h5>
+  <h5>Directive: <code class="ng-binding">fs-multiselect</code> with option <code>freetext</code></h5>
   <p>
           Tags allows to select multiple values from a predefinedn
     list or to enter custom values. Only primitive types aren
@@ -18,7 +18,7 @@
 <form class="well" role="form" ng-controller="TagsCtrl">
   <div class="form-group">
     <label>Choose your element</label>
-    <div w-tags="true"
+    <div fs-tags="true"
          items="items"
          ng-model="tags">
          {{item}}
