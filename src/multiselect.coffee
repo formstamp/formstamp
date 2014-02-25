@@ -16,8 +16,13 @@ angular.module("formstamp")
       class: '@'
     require: '?ngModel'
     replace: true
-    template: (el) ->
-      itemTpl = el.html() || "{{ item | json }}"
+    template: (el, attributes) ->
+      if attributes['freetext']?
+        defaultItemTpl = "{{ item }}"
+      else
+        defaultItemTpl = "{{ item | json }}"
+
+      itemTpl = el.html() || defaultItemTpl
       """
 <div class='fs-multiselect fs-widget-root' ng-class='{ "fs-with-selected-items": selectedItems.length > 0 }'>
   <div class='fs-multiselect-wrapper'>
@@ -94,7 +99,7 @@ angular.module("formstamp")
       if ngModelCtrl
         setViewValue = (newValue, oldValue)->
           unless angular.equals(newValue, oldValue)
-            ngModelCtrl.$setViewValue($scope.selectedItems)
+            ngModelCtrl.$setViewValue(newValue)
 
         $scope.$watch 'selectedItems', setViewValue, true
 

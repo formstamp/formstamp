@@ -15,23 +15,23 @@
   </p>
   <hr/>
   <sample>
-<form class="well" role="form" ng-controller="TagsCtrl">
-  <div class="form-group">
-    <label>Choose your element</label>
-    <div fs-tags="true"
-         items="items"
-         ng-model="tags">
-         {{item}}
-    </div>
-  </div>
-</form>
-<pre>
-  Your element is: {{ tags || 'none' }}
-</pre>
-<script>
-   function TagsCtrl($scope) {
-     $scope.items = [ 'Shijima','Musubi','Yosuga' ]
-   }
-</script>
+    <form class="well" role="form" ng-controller="TagsCtrl">
+      <div class="form-group">
+        <label>Choose your element</label>
+        <div fs-multiselect
+             items="items"
+             freetext="true"
+             ng-model="tags"></div>
+      </div>
+
+      <pre>
+Your element is: {{ (tags || 'none') | json }}
+      </pre>
+    </form>
+    <script>
+      function TagsCtrl($scope) {
+        $scope.items = [ 'Shijima', 'Musubi', 'Yosuga' ];
+      }
+    </script>
   </sample>
 </div>
