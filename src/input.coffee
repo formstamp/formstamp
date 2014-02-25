@@ -7,7 +7,7 @@ widgetRoot = (el) ->
   return currentEl
 
 angular
-.module("angular-w")
+.module("formstamp")
 .directive "wInput", ['$window', '$timeout', ($window, $timeout) ->
     restrict: "A"
     link: (scope, element, attrs) ->

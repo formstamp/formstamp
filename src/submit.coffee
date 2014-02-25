@@ -1,5 +1,5 @@
 angular
-.module("angular-w")
+.module("formstamp")
 .directive "wSubmit", ['$parse', ($parse) ->
   restrict: "A"
   require: '?form'

@@ -1,4 +1,5 @@
 widgets  = [
+    {name: 'form_for'},
     {name: 'combo'},
     {name: 'select'},
     {name: 'multiselect'},
@@ -7,8 +8,8 @@ widgets  = [
     {name: 'checkbox'}
     {name: 'list'}
 ]
-app = angular.module 'angular-w-demo',
- ['angular-w', 'ngRoute', 'ngSanitize'],
+app = angular.module 'formstamp-demo',
+ ['formstamp', 'ngRoute', 'ngSanitize'],
 
  ($routeProvider, $locationProvider) ->
    $routeProvider

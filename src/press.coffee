@@ -26,4 +26,4 @@ directiveFactory = (keyCode, dirName, shift) ->
 angular.forEach keyCodes, (keyCode, keyName) ->
   dirName = 'w' + keyName
   shift = keyName.indexOf('Shift') != -1
-  angular.module('angular-w').directive(dirName, directiveFactory(keyCode, dirName, shift))
+  angular.module('formstamp').directive(dirName, directiveFactory(keyCode, dirName, shift))

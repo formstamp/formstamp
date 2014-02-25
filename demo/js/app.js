@@ -3,6 +3,8 @@
 
   widgets = [
     {
+      name: 'form_for'
+    }, {
       name: 'combo'
     }, {
       name: 'select'
@@ -19,7 +21,7 @@
     }
   ];
 
-  app = angular.module('angular-w-demo', ['angular-w', 'ngRoute', 'ngSanitize'], function($routeProvider, $locationProvider) {
+  app = angular.module('formstamp-demo', ['formstamp', 'ngRoute', 'ngSanitize'], function($routeProvider, $locationProvider) {
     var w, _i, _len, _results;
     $routeProvider.when('/', {
       templateUrl: 'demo/templates/welcome.html'

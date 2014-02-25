@@ -1,5 +1,5 @@
 angular
-.module("angular-w")
+.module("formstamp")
 .directive "wTags", ['$window', ($window) ->
     restrict: "A"
     scope:

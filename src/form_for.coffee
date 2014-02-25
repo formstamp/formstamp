@@ -1,5 +1,5 @@
 angular
-.module('angular-w').directive 'wFormFor', ['$window', ($window)->
+.module('formstamp').directive 'wFormFor', ['$window', ($window)->
   restrict: 'A'
   require: '?form'
   scope:

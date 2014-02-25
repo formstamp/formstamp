@@ -1,4 +1,4 @@
-angular.module("angular-w").directive "wOldHoldFocus", ($timeout) ->
+angular.module("formstamp").directive "wOldHoldFocus", ($timeout) ->
   widgetRoot = (el) ->
     currentEl = el
 

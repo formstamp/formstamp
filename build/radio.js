@@ -1,5 +1,5 @@
 (function() {
-  angular.module("angular-w").directive("wRadio", [
+  angular.module("formstamp").directive("wRadio", [
     '$window', function($window) {
       return {
         restrict: "A",

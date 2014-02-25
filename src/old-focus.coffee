@@ -1,4 +1,4 @@
-angular.module("angular-w").directive "wOldFocus", ->
+angular.module("formstamp").directive "wOldFocus", ->
   focuz = (el)->
     window.setTimeout((()-> el.focus()) , 0)
 

@@ -1,0 +1,92 @@
+<div class="container">
+  <h1>Form Builder</h1>
+  <div class="alert alert-warning">
+    <strong>Warning!</strong> You should never use this and next directives on <code>input</code> tag.
+    Use <code>div</code> instead.
+  </div>
+  <h5>Directive: <code class="ng-binding">w-chz</code></h5>
+  <p>
+  </p>
+  <hr/>
+  <sample>
+<form name='form' ng-controller="FormBuilderCtrl" w-form-for='samurai' w-submit='send()'>
+  <div w-field='name'
+       type='w-chz'
+       freetext
+       items='names'
+       label='Name'></div>
+
+  <div w-field='age'
+       type='w-chz'
+       items='ages'
+       label='Age'></div>
+
+  <div w-field='stage'
+       type='w-radio'
+       items='stages'
+       label='Learning Stage'></div>
+
+  <div w-field='likesToEat'
+       type='w-checkbox'
+       items='meals'
+       label='Likes to eat'></div>
+
+  <div w-field='weapons'
+       type='w-multi-select'
+       items='weapons'
+       label='Weapons'></div>
+
+  <div w-field='styles'
+       type='w-multi-select'
+       freetext
+       items='weaponStyles'
+       label='Styles'></div>
+
+  <div w-submit-field>Save</div>
+</form>
+<script>
+function FormBuilderCtrl($scope){
+  $scope.samurai = {};
+  $scope.ronin = {};
+  $scope.stages = [
+    {id: 'S', label: 'Shu'},
+    {id: 'H', label: 'Ha'},
+    {id: 'R', label: 'Ri'}
+  ];
+  $scope.names = ["Joe", "Sue", "Sam"];
+  $scope.ages = []
+  for (var age = 0; age < 100; age++) {
+    $scope.ages.push({
+      id: age,
+      label: age
+    });
+  }
+
+  $scope.meals = [
+    {id: 'meat', label: 'meat'},
+    {id: 'milk', label: 'milk'},
+    {id: 'orange', label: 'orange'}
+  ];
+  $scope.weapons = [
+    {id: '1', label: 'Katana'},
+    {id: '2', label: 'Naginata'},
+    {id: '3', label: 'Yari'}
+  ];
+
+  $scope.weaponStyles = ['Kenjutsu', 'Naginatajutsu', 'Sōjutsu'];
+
+  $scope.provinces = [
+    {id: 1, label: 'Yamashiro'},
+    {id: 2, label: 'Yamato'},
+    {id: 3, label: 'Kowachi'}
+  ];
+
+  $scope.send = function() {
+    var res = $http.post('/').success(function(data) {
+      angular.copy(data, $scope.samurai);
+    });
+  }
+}
+</script>
+</sample>
+</div>

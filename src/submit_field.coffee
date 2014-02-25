@@ -1,4 +1,4 @@
-angular.module('angular-w')
+angular.module('formstamp')
 .directive 'wSubmitField', [->
   restrict: 'A'
   replace: true

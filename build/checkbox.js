@@ -1,5 +1,5 @@
 (function() {
-  angular.module("angular-w").directive("wCheckbox", [
+  angular.module("formstamp").directive("wCheckbox", [
     '$window', function($window) {
       return {
         restrict: "A",

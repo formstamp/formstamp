@@ -19,10 +19,10 @@
     <div class="col-md-5" ng-non-bindable>
       <h4>Example</h4>
       <pre class="prettyprint">
-&lt;form name='form' 
+&lt;form name='form'
     w-form-for='samurai'
     w-submit='send()'&gt;
-    
+
 &lt;div w-field='name'
      type='w-combo'
      items='names'
@@ -57,7 +57,7 @@
 &lt;/form&gt;
       </pre>
       <pre class="prettyprint">
-angular.module('angular-w-demo')
+angular.module('formstamp-demo')
   .controller('FormBuilderCtrl', function($scope, $http) {
 $scope.samurai = {};
 $scope.stages = [

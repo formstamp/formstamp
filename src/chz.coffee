@@ -1,5 +1,5 @@
 angular
-.module("angular-w")
+.module("formstamp")
 .directive "wChz", ['$compile', ($compile) ->
   restrict: "A"
   scope:
@@ -110,7 +110,7 @@ angular
 ]
 
 angular
-.module("angular-w")
+.module("formstamp")
 .directive "wList", () ->
   restrict: "A"
   scope:

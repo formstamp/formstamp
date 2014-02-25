@@ -1,5 +1,5 @@
 angular
-.module('angular-w')
+.module('formstamp')
 .directive('wDatepicker', ['wPopupManager', (popupManager)->
     restrict: 'EA'
     require: '?ngModel'

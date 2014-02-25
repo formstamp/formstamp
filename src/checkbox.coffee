@@ -1,5 +1,5 @@
 angular
-.module("angular-w")
+.module("formstamp")
 .directive "wCheckbox", ['$window', ($window) ->
     restrict: "A"
     scope:

@@ -7,12 +7,12 @@ difference = (a, b)->
   hash[hash_key(b_element)] = true for b_element in b
   a.filter ((a_element)-> not hash[hash_key(a_element)])
 
-angular.module('angular-w').filter 'exclude', ->
+angular.module('formstamp').filter 'exclude', ->
   (input, selected) ->
     input.filter (item)->
       selected.indexOf(item) < 0
 
-angular.module("angular-w")
+angular.module("formstamp")
 .directive "wMultiSelect", ['$window', ($window) ->
     restrict: "A"
     scope:

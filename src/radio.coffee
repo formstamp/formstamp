@@ -1,5 +1,5 @@
 angular
-.module("angular-w")
+.module("formstamp")
 .directive "wRadio", ['$window', ($window) ->
     restrict: "A"
     scope:

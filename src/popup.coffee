@@ -1,5 +1,5 @@
 angular
-.module('angular-w')
+.module('formstamp')
 .directive('wPopup', ['$rootScope', "$compile", 'wPopupManager', ($rootScope, $compile, popupManager)->
   restrict: 'E'
   compile: (tElement, tAttrs)->
