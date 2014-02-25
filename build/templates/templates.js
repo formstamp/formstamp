@@ -90,46 +90,6 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
   );
 
 
-  $templateCache.put('/templates/chz.html',
-    "<div class='fs-select fs-wiget-root'>\n" +
-    "  <div ng-hide=\"active\" class=\"fs-select-sel\" ng-class=\"{'btn-group': selectedItem}\">\n" +
-    "      <a class=\"btn btn-default fs-select-active\"\n" +
-    "         ng-class='{\"btn-danger\": invalid}'\n" +
-    "         href=\"javascript:void(0)\"\n" +
-    "         ng-click=\"active=true\"\n" +
-    "         ng-disabled=\"disabled\" >\n" +
-    "         <span ng-show='selectedItem'>{{ getItemLabel(selectedItem) }}</span>\n" +
-    "         <span ng-hide='selectedItem'>none</span>\n" +
-    "      </a>\n" +
-    "      <button type=\"button\"\n" +
-    "              class=\"btn btn-default fs-select-clear-btn\"\n" +
-    "              aria-hidden=\"true\"\n" +
-    "              ng-show='selectedItem'\n" +
-    "              ng-click='unselectItem()'>&times;</button>\n" +
-    "    </div>\n" +
-    "  <div class=\"open\" ng-show=\"active\">\n" +
-    "    <input class=\"form-control\"\n" +
-    "           fs-focus=\"active\"\n" +
-    "           fs-down='move(1)'\n" +
-    "           fs-up='move(-1)'\n" +
-    "           fs-pgup='move(-11)'\n" +
-    "           fs-pgdown='move(11)'\n" +
-    "           fs-enter='onEnter($event)'\n" +
-    "           type=\"search\"\n" +
-    "           placeholder='Search'\n" +
-    "           ng-model=\"search\" />\n" +
-    "    <div ng-if=\"active && dropdownItems.length > 0\">\n" +
-    "      <div fs-list items=\"dropdownItems\" on-highlight=\"highlight\">\n" +
-    "        <span class=\"item-expressin\"></span>\n" +
-    "      </div>\n" +
-    "    </div>\n" +
-    "  </div>\n" +
-    "  <!-- FIXME: why errors here -->\n" +
-    "  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>\n" +
-    "</div>\n"
-  );
-
-
   $templateCache.put('/templates/datepicker.html',
     "<div class=\"fs-datepicker\">\n" +
     "  <input type=\"text\"\n" +
@@ -188,7 +148,7 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
   $templateCache.put('/templates/multiselect.html',
     "<div class='fs-multiselect fs-widget-root' ng-class='{ \"fs-with-selected-items\": selectedItems.length > 0 }'>\n" +
     "  <div class='fs-multiselect-wrapper'>\n" +
-    "    <div class=\"fs-multi-options\" ng-if=\"selectedItems.length > 0\">\n" +
+    "    <div class=\"fs-multiselect-selected-items\" ng-if=\"selectedItems.length > 0\">\n" +
     "      <a ng-repeat='selectedItem in selectedItems' class=\"btn\" ng-click=\"unselectItem(selectedItem)\">\n" +
     "        {{ getItemLabel(selectedItem) }}\n" +
     "        <span class=\"glyphicon glyphicon-remove\" ></span>\n" +
@@ -200,26 +160,20 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
     "           fs-hold-focus\n" +
     "           fs-on-focus=\"active = true\"\n" +
     "           fs-on-blur=\"active = false\"\n" +
-    "           fs-down='move(1)'\n" +
-    "           fs-up='move(-1)'\n" +
-    "           fs-pgup='onPgup($event)'\n" +
-    "           fs-pgdown='onPgdown($event)'\n" +
-    "           fs-enter='onEnter($event)'\n" +
+    "           fs-down='listInterface.move(1)'\n" +
+    "           fs-up='listInterface.move(-1)'\n" +
+    "           fs-pgup='listInterface.move(-11)'\n" +
+    "           fs-pgdown='listInterface.move(11)'\n" +
+    "           fs-enter='selectItem(listInterface.selectedItem)'\n" +
     "           class=\"form-control\"\n" +
     "           type=\"text\"\n" +
     "           placeholder='Select something'\n" +
     "           ng-model=\"search\" />\n" +
     "\n" +
-    "    <div ng-if=\"active && (filteredItems = dropdownItems()).length > 0\" class=\"open\">\n" +
-    "      <ul class=\"dropdown-menu fs-multiselect-items-list-default fs-multiselect-items-list\"\n" +
-    "          role=\"menu\" >\n" +
-    "        <li ng-repeat=\"item in filteredItems\"\n" +
-    "            ng-class=\"{true: 'active'}[$index == highlightIndex]\">\n" +
-    "          <a ng-click=\"selectItem(item)\"\n" +
-    "             href=\"javascript:void(0)\"\n" +
-    "             tabindex='-1'>{{ getItemLabel(item) }}</a>\n" +
-    "        </li>\n" +
-    "      </ul>\n" +
+    "    <div ng-if=\"active && dropdownItems.length > 0\" class=\"open\">\n" +
+    "      <div fs-list items=\"dropdownItems\">\n" +
+    "        {{ item | json }}\n" +
+    "      </div>\n" +
     "    </div>\n" +
     "  </div>\n" +
     "</div>\n"

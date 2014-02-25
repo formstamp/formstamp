@@ -42,7 +42,7 @@
 
   angular.forEach(keyCodes, function(keyCode, keyName) {
     var dirName, shift;
-    dirName = 'w' + keyName;
+    dirName = 'fs' + keyName;
     shift = keyName.indexOf('Shift') !== -1;
     return angular.module('formstamp').directive(dirName, directiveFactory(keyCode, dirName, shift));
   });

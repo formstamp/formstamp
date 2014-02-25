@@ -9,8 +9,10 @@ difference = (a, b)->
 
 angular.module('formstamp').filter 'exclude', ->
   (input, selected) ->
-    input.filter (item)->
-      selected.indexOf(item) < 0
+    return input unless selected?
+    return [] unless input?
+
+    input.filter (item) -> selected.indexOf(item) < 0
 
 angular.module("formstamp")
 .directive "fsMultiselect", ['$window', ($window) ->
@@ -41,54 +43,37 @@ angular.module("formstamp")
         $scope.getItemValue = (item)-> item && item[keyAttr()]
         $scope.dynamicItems = -> []
 
-      $scope.dropdownItems = () ->
+      $scope.updateDropdownItems = () ->
         searchFilter = $filter('filter')
         excludeFilter = $filter('exclude')
         allItems = $scope.items.concat($scope.dynamicItems())
 
-        searchFilter(excludeFilter(allItems, $scope.selectedItems), $scope.search)
-
+        $scope.dropdownItems = searchFilter(excludeFilter(allItems, $scope.selectedItems), $scope.search)
 
       $scope.selectItem = (item)->
         if item? and indexOf($scope.selectedItems, item) == -1
-          $scope.selectedItems.push(item)
-        $scope.search = ""
-        $scope.highlightIndex = 0
+          $scope.selectedItems = $scope.selectedItems.concat([item])
+        $scope.search = ''
 
       $scope.unselectItem = (item)->
         index = indexOf($scope.selectedItems, item)
         if index > -1
           $scope.selectedItems.splice(index, 1)
 
-      $scope.move = (d) ->
-        filteredItems = $scope.dropdownItems()
+      $scope.listInterface =
+        onSelect: (selectedItem) ->
+          $scope.selectItem(selectedItem)
 
-        $scope.highlightIndex += d
-        $scope.highlightIndex = filteredItems.length - 1 if $scope.highlightIndex == -1
-        $scope.highlightIndex = 0 if $scope.highlightIndex >= filteredItems.length
+        move: () ->
+          console.log "not-implemented listInterface.move() function"
 
-      $scope.getHighlightedItem = ->
-
-      $scope.onEnter = (event) ->
-        highlightedItem = $scope.dropdownItems()[$scope.highlightIndex]
-        $scope.selectItem($scope.highlightedItem)
-        false
-
-      $scope.onPgup = (event) ->
-        $scope.move(-11)
-        false
-
-      $scope.onPgdown = (event) ->
-        $scope.move(11)
-        false
-
-      $scope.$watch 'search', ->
-        $scope.highlightIndex = 0
-
-      # TODO move to init
-      $scope.selectedItems = []
+      $scope.dropdownItems = []
       $scope.active = false
-      $scope.highlightIndex = 0
+
+      $scope.$watchCollection 'selectedItems', -> $scope.updateDropdownItems()
+      $scope.$watchCollection 'items', -> $scope.updateDropdownItems()
+      $scope.$watch 'search', -> $scope.updateDropdownItems()
+      $scope.updateDropdownItems()
 
     link: ($scope, element, attrs, ngModelCtrl, transcludeFn) ->
       if ngModelCtrl

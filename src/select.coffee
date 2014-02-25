@@ -48,7 +48,7 @@ angular
            placeholder='Search'
            ng-model="search" />
     <div ng-if="active && dropdownItems.length > 0">
-      <div fs-list items="dropdownItems" on-highlight="highlight">
+      <div fs-list items="dropdownItems">
        #{itemTpl}
       </div>
     </div>

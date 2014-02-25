@@ -1,7 +1,5 @@
 .fs-multiselect {
   &.fs-with-selected-items {
-    /* border: 1px solid #ccc; */
-
     input.form-control {
       border-top-left-radius: 0;
       border-top-right-radius: 0;
@@ -15,7 +13,7 @@
   .fs-multiselect-wrapper {
     position: relative;
 
-    .fs-multi-options {
+    .fs-multiselect-selected-items {
       border: 1px solid #ccc;
       border-bottom: none;
       border-top-left-radius: 4px;
@@ -23,6 +21,7 @@
       margin-bottom: -1px;
       display: -webkit-flex;
       -webkit-flex-flow: row wrap;
+      overflow: hidden;
 
       .btn {
         -webkit-flex: auto;
