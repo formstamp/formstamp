@@ -1,35 +1,37 @@
-<div class='fs-multiselect fs-widget-root'>
-  <div class="fs-multi-options" ng-if="selectedItems.length > 0">
-    <a ng-repeat='selectedItem in selectedItems' class="btn" ng-click="unselectItem(selectedItem)">
-      {{ getItemLabel(selectedItem) }}
-      <span class="glyphicon glyphicon-remove" ></span>
-    </a>
-  </div>
+<div class='fs-multiselect fs-widget-root' ng-class='{ "fs-with-selected-items": selectedItems.length > 0 }'>
+  <div class='fs-multiselect-wrapper'>
+    <div class="fs-multi-options" ng-if="selectedItems.length > 0">
+      <a ng-repeat='selectedItem in selectedItems' class="btn" ng-click="unselectItem(selectedItem)">
+        {{ getItemLabel(selectedItem) }}
+        <span class="glyphicon glyphicon-remove" ></span>
+      </a>
+    </div>
 
-  <input ng-keydown="onkeys($event)"
-         fs-input
-         fs-hold-focus
-         fs-on-focus="active = true"
-         fs-on-blur="active = false"
-         fs-down='move(1)'
-         fs-up='move(-1)'
-         fs-pgup='onPgup($event)'
-         fs-pgdown='onPgdown($event)'
-         fs-enter='onEnter($event)'
-         class="form-control"
-         type="text"
-         placeholder='Select something'
-         ng-model="search" />
+    <input ng-keydown="onkeys($event)"
+           fs-input
+           fs-hold-focus
+           fs-on-focus="active = true"
+           fs-on-blur="active = false"
+           fs-down='move(1)'
+           fs-up='move(-1)'
+           fs-pgup='onPgup($event)'
+           fs-pgdown='onPgdown($event)'
+           fs-enter='onEnter($event)'
+           class="form-control"
+           type="text"
+           placeholder='Select something'
+           ng-model="search" />
 
-  <div ng-if="active && (filteredItems = dropdownItems()).length > 0" class="open">
-    <ul class="dropdown-menu fs-multiselect-items-list-default fs-multiselect-items-list"
-        role="menu" >
-      <li ng-repeat="item in filteredItems"
-          ng-class="{true: 'active'}[$index == highlightIndex]">
-        <a ng-click="selectItem(item)"
-           href="javascript:void(0)"
-           tabindex='-1'>{{ getItemLabel(item) }}</a>
-      </li>
-    </ul>
+    <div ng-if="active && (filteredItems = dropdownItems()).length > 0" class="open">
+      <ul class="dropdown-menu fs-multiselect-items-list-default fs-multiselect-items-list"
+          role="menu" >
+        <li ng-repeat="item in filteredItems"
+            ng-class="{true: 'active'}[$index == highlightIndex]">
+          <a ng-click="selectItem(item)"
+             href="javascript:void(0)"
+             tabindex='-1'>{{ getItemLabel(item) }}</a>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>

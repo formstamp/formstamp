@@ -186,39 +186,41 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
 
 
   $templateCache.put('/templates/multiselect.html',
-    "<div class='fs-multiselect fs-widget-root'>\n" +
-    "  <div class=\"fs-multi-options\" ng-if=\"selectedItems.length > 0\">\n" +
-    "    <a ng-repeat='selectedItem in selectedItems' class=\"btn\" ng-click=\"unselectItem(selectedItem)\">\n" +
-    "      {{ getItemLabel(selectedItem) }}\n" +
-    "      <span class=\"glyphicon glyphicon-remove\" ></span>\n" +
-    "    </a>\n" +
-    "  </div>\n" +
+    "<div class='fs-multiselect fs-widget-root' ng-class='{ \"fs-with-selected-items\": selectedItems.length > 0 }'>\n" +
+    "  <div class='fs-multiselect-wrapper'>\n" +
+    "    <div class=\"fs-multi-options\" ng-if=\"selectedItems.length > 0\">\n" +
+    "      <a ng-repeat='selectedItem in selectedItems' class=\"btn\" ng-click=\"unselectItem(selectedItem)\">\n" +
+    "        {{ getItemLabel(selectedItem) }}\n" +
+    "        <span class=\"glyphicon glyphicon-remove\" ></span>\n" +
+    "      </a>\n" +
+    "    </div>\n" +
     "\n" +
-    "  <input ng-keydown=\"onkeys($event)\"\n" +
-    "         fs-input\n" +
-    "         fs-hold-focus\n" +
-    "         fs-on-focus=\"active = true\"\n" +
-    "         fs-on-blur=\"active = false\"\n" +
-    "         fs-down='move(1)'\n" +
-    "         fs-up='move(-1)'\n" +
-    "         fs-pgup='onPgup($event)'\n" +
-    "         fs-pgdown='onPgdown($event)'\n" +
-    "         fs-enter='onEnter($event)'\n" +
-    "         class=\"form-control\"\n" +
-    "         type=\"text\"\n" +
-    "         placeholder='Select something'\n" +
-    "         ng-model=\"search\" />\n" +
+    "    <input ng-keydown=\"onkeys($event)\"\n" +
+    "           fs-input\n" +
+    "           fs-hold-focus\n" +
+    "           fs-on-focus=\"active = true\"\n" +
+    "           fs-on-blur=\"active = false\"\n" +
+    "           fs-down='move(1)'\n" +
+    "           fs-up='move(-1)'\n" +
+    "           fs-pgup='onPgup($event)'\n" +
+    "           fs-pgdown='onPgdown($event)'\n" +
+    "           fs-enter='onEnter($event)'\n" +
+    "           class=\"form-control\"\n" +
+    "           type=\"text\"\n" +
+    "           placeholder='Select something'\n" +
+    "           ng-model=\"search\" />\n" +
     "\n" +
-    "  <div ng-if=\"active && (filteredItems = dropdownItems()).length > 0\" class=\"open\">\n" +
-    "    <ul class=\"dropdown-menu fs-multiselect-items-list-default fs-multiselect-items-list\"\n" +
-    "        role=\"menu\" >\n" +
-    "      <li ng-repeat=\"item in filteredItems\"\n" +
-    "          ng-class=\"{true: 'active'}[$index == highlightIndex]\">\n" +
-    "        <a ng-click=\"selectItem(item)\"\n" +
-    "           href=\"javascript:void(0)\"\n" +
-    "           tabindex='-1'>{{ getItemLabel(item) }}</a>\n" +
-    "      </li>\n" +
-    "    </ul>\n" +
+    "    <div ng-if=\"active && (filteredItems = dropdownItems()).length > 0\" class=\"open\">\n" +
+    "      <ul class=\"dropdown-menu fs-multiselect-items-list-default fs-multiselect-items-list\"\n" +
+    "          role=\"menu\" >\n" +
+    "        <li ng-repeat=\"item in filteredItems\"\n" +
+    "            ng-class=\"{true: 'active'}[$index == highlightIndex]\">\n" +
+    "          <a ng-click=\"selectItem(item)\"\n" +
+    "             href=\"javascript:void(0)\"\n" +
+    "             tabindex='-1'>{{ getItemLabel(item) }}</a>\n" +
+    "        </li>\n" +
+    "      </ul>\n" +
+    "    </div>\n" +
     "  </div>\n" +
     "</div>\n"
   );
