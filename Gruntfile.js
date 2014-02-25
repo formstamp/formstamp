@@ -12,11 +12,17 @@ module.exports = function (grunt) {
   grunt.initConfig({
     coffee: {
       directives: {
-          expand: true,
-          cwd: 'src/',
-          src: ['*.coffee', '!.*#.coffee'],
-          dest: 'build/',
-          ext: '.js'
+        expand: true,
+        cwd: 'src/',
+        src: ['*.coffee', '!.*#.coffee'],
+        dest: 'build/',
+        ext: '.js'
+      },
+      demo: {
+        options: { join: true },
+        files: {
+          'demo/js/app.js': 'demo/coffee/*.coffee'
+        }
       },
       utils: {
         options: {
@@ -73,7 +79,7 @@ module.exports = function (grunt) {
         nospawn: true
       },
       sources: {
-        files: ['src/**/*.coffee', 'styles/**/*.less', 'templates/**/*.html'],
+        files: ['src/**/*.coffee', 'styles/**/*.less', 'templates/**/*.html', 'demo/coffee/*.coffee'],
         tasks: ['build'],
         options: {
           events: ['changed', 'added'],
@@ -82,5 +88,12 @@ module.exports = function (grunt) {
       }
     }
   })
-  grunt.registerTask('build', ['clean', 'coffee', 'less', 'ngtemplates', 'concat:js', 'concat:css', 'copy']);
+  grunt.registerTask('build',
+                     ['clean',
+                      'coffee',
+                      'less',
+                      'ngtemplates',
+                      'concat:js',
+                      'concat:css',
+                      'copy']);
 };

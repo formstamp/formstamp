@@ -76,6 +76,12 @@
   width: 100%;
   overflow-y: auto;
 }
+.dropdown.no-popup .dropdown-menu {
+  position: static;
+  display: block;
+  margin-bottom: 5px;
+  float: none;
+}
 
 .w-multi-select {
   position: relative;

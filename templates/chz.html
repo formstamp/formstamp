@@ -4,43 +4,32 @@
          ng-class='{"btn-danger": invalid}'
          href="javascript:void(0)"
          ng-click="active=true"
-         w-focus='focus'
-         ng-disabled="disabled"
-         ng-blur='focus=false'>
-         <span ng-show='selectedItem'>{{ getSelectedLabel() }}</span>
+         ng-disabled="disabled" >
+         <span ng-show='selectedItem'>{{ getItemLabel(selectedItem) }}</span>
          <span ng-hide='selectedItem'>none</span>
       </a>
       <button type="button"
               class="btn btn-default w-chz-clear-btn"
               aria-hidden="true"
               ng-show='selectedItem'
-              ng-click='reset()'>&times;</button>
+              ng-click='unselectItem()'>&times;</button>
     </div>
   <div class="open" ng-show="active">
     <input class="form-control"
+           w-focus="active"
            w-down='move(1)'
            w-up='move(-1)'
-           w-pgup='onPgup($event)'
-           w-pgdown='onPgdown($event)'
+           w-pgup='move(-11)'
+           w-pgdown='move(11)'
            w-enter='onEnter($event)'
-           w-tab='onTab()'
-           w-esc='onEsc()'
-           w-focus="active"
            type="search"
            placeholder='Search'
            ng-model="search" />
-
-    <ul class="dropdown-menu w-chz-items-list-default w-chz-items-list"
-        role="menu"
-        ng-if="active && shownItems.length">
-       <li ng-repeat="item in shownItems"
-           ng-class="{active: isActive(item)}">
-         <a ng-click="selection(item)"
-            href="javascript:void(0)"
-            id='{{item[keyAttr]}}'
-            tabindex='-1'>{{ getItemLabel(item) }}</a>
-       </li>
-    </ul>
+    <div ng-if="active && dropdownItems.length > 0">
+      <div w-list items="dropdownItems" on-highlight="highlight">
+        <span class="item-expressin"></span>
+      </div>
+    </div>
   </div>
   <!-- FIXME: why errors here -->
   <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>

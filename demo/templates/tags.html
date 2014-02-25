@@ -1,0 +1,37 @@
+<div class="container">
+  <h1>Tags</h1>
+  <div class="alert alert-warning">
+    <strong>Warning!</strong> You should never use this and next directives on <code>input</code> tag.
+    Use <code>div</code> instead.
+  </div>
+  <h5>Directive: <code class="ng-binding">w-multiselect</code> with option <code>freetext</code></h5>
+  <p>
+          Tags allows to select multiple values from a predefinedn
+    list or to enter custom values. Only primitive types aren
+    supported as predefined values. Supports several angularn
+    directives: <code>ng-model</code>, <code>ng-disabled</code>,
+    <code>ng-required</code>. Available options are <code>items</code>n
+    and <code>limit</code>. Attributes: <code>items</code> and <code>limit</code>.n
+  </p>
+  <hr/>
+  <sample>
+<form class="well" role="form" ng-controller="TagsCtrl">
+  <div class="form-group">
+    <label>Choose your element</label>
+    <div w-tags="true"
+         items="items"
+         ng-model="tags">
+         {{item}}
+    </div>
+  </div>
+</form>
+<pre>
+  Your element is: {{ tags || 'none' }}
+</pre>
+<script>
+   function TagsCtrl($scope) {
+     $scope.items = [ 'Shijima','Musubi','Yosuga' ]
+   }
+</script>
+  </sample>
+</div>
