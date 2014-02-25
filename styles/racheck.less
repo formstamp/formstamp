@@ -7,38 +7,14 @@
     text-decoration: none;
     color: inherit;
 
-    .fs-racheck-item-container-sign {
-      margin-left: -20px;
-
-      &[disabled] {
-        color: #ccc;
-        cursor: default;
+    &:hover, &:focus {
+      outline: none;
+      .fs-check-outer {
+        border-color: #66afe9;
+        outline: 0;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
       }
-    }
-    opacity: 0.8;
-    &:hover {
-      opacity: 1;
-      .fs-racheck-outer {
-        background: #ebebeb;
-      }
-    }
-  }
-
-  /* FIXME: refactor and compact */
-  .fs-radio-outer {
-    width: 14px;
-    height: 14px;
-    display: inline-block;
-    border:1px solid #aaa;
-    border-radius: 100%;
-    overflow: hidden;
-    .fs-radio-inner {
-      width: 8px;
-      height: 8px;
-      margin:0.15em auto;
-      display: block;
-      background: #444;
-      border-radius: 100%;
     }
   }
 
@@ -49,6 +25,7 @@
     border:1px solid #aaa;
     border-radius: 1px;
     overflow: hidden;
+    margin-right: 5px;
     .fs-check-inner {
       width: 8px;
       height: 8px;
@@ -67,4 +44,53 @@
       margin-left: 10px;
     }
   }
+}
+
+.fs-radio-label {
+  position: relative;
+
+  input[type=radio]{
+   position: absolute;
+   top:0;
+   left:0;
+   width:1px;
+   height: 1px;
+  }
+  label {
+    font-weight: normal;
+  }
+
+
+  label:before {
+    width: 14px;
+    height: 14px;
+    content: "";
+    display: inline-block;
+    border:1px solid #aaa;
+    border-radius: 100%;
+    overflow: hidden;
+  }
+
+  &:hover label:before,
+  input[type=radio]:focus + label:before {
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  }
+  input[type=radio]:checked + label:before {
+    content: "\2022";
+    color: #444;
+    font-size: 30px;
+    text-align: center;
+    line-height: 11px;
+  }
+}
+.fs-radio-inner {
+  width: 8px;
+  height: 8px;
+  margin:0.15em auto;
+  display: block;
+  background: #444;
+  border-radius: 100%;
 }

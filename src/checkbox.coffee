@@ -3,49 +3,44 @@ angular
 .directive "fsCheckbox", ['$window', ($window) ->
     restrict: "A"
     scope:
+      disabled: '='
+      required: '='
       errors: '='
       items: '='
-      limit: '='
       inline: '='
-      keyAttr: '@'
-      valueAttr: '@'
     require: '?ngModel'
-    replace: true
-    transclude: true
-    templateUrl: "/templates/checkbox.html"
+    template: (el, attrs)->
+      itemTpl = el.html() || 'template me: {{item | json}}'
+      template = """
+<div class='fs-racheck'>
+  <div ng-repeat='item in items track by item.id'>
+    <a class="fs-racheck-item"
+       href='javascript:void(0)'
+       onclick="this.focus()"
+       ng-click="toggle(item)"
+       fs-space='toggle(item)'>
+      <span class="fs-check-outer"><span ng-show="isSelected(item)" class="fs-check-inner"></span></span>
+      #{itemTpl}
+    </a>
+  </div>
+  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>
+</div>
+      """
     controller: ($scope, $element, $attrs) ->
-
       $scope.toggle = (item)->
         unless $scope.isSelected(item)
           $scope.selectedItems.push(item)
         else
           $scope.selectedItems.splice(indexOf($scope.selectedItems, item), 1)
+        false
 
-      $scope.toggleOnSpace = (event, item) ->
-        $scope.toggle(item)
-        event.preventDefault()
+      $scope.isSelected = (item) -> indexOf($scope.selectedItems, item) > -1
 
-      $scope.hasItem = (item) ->
-        indexOf($scope.selectedItems, item) > -1
-
-      $scope.isSelected = (item) ->
-        indexOf($scope.selectedItems, item) > -1
-
-      $scope.invalid = ->
-        $scope.errors? and $scope.errors.length > 0
+      $scope.invalid = -> $scope.errors? and $scope.errors.length > 0
 
       $scope.selectedItems = []
-      $scope.shownItems = $scope.items
 
-    # run
-
-    compile: (tElement, tAttrs) ->
-      tAttrs.keyAttr ||= 'id'
-      tAttrs.valueAttr ||= 'label'
-
-      # Link function
-      (scope, element, attrs, ngModelCtrl, transcludeFn) ->
-
+    link: (scope, element, attrs, ngModelCtrl, transcludeFn) ->
         if ngModelCtrl
           setViewValue = (newValue, oldValue)->
             unless angular.equals(newValue, oldValue)
@@ -56,11 +51,4 @@ angular
           ngModelCtrl.$render = ->
             unless scope.disabled
               scope.selectedItems = ngModelCtrl.$viewValue || []
-
-        attrs.$observe 'disabled', (value) ->
-          scope.disabled = value
-
-        attrs.$observe 'required', (value) ->
-          scope.required = value
-
 ]

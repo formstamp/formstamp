@@ -66,12 +66,13 @@
       controller: function($scope) {
         return $scope.current = "demo";
       },
-      template: function(el) {
-        var html, js, orig;
-        orig = el.html();
+      template: function($el, attrs) {
+        var el, html, js, orig;
+        el = $el[0];
+        orig = el.innerHTML;
         js = hljs.highlightAuto($.trim($(el).find('script').remove().text())).value;
-        html = hljs.highlightAuto($.trim(el.html())).value;
-        return "<div>\n  <div class=\"btn-group\">\n    <a class=\"btn btn-default\" ng-click=\"current='demo'\">Demo</a>\n    <a class=\"btn btn-default\" ng-click=\"current='html'\">HTML</a>\n    <a class=\"btn btn-default\" ng-click=\"current='js'\">JavaScript</a>\n  </div>\n  <hr/>\n  <div ng-show=\"current=='demo'\">" + orig + "</div>\n  <div ng-show=\"current=='html'\"><pre>" + html + "</pre> </div>\n  <div ng-show=\"current=='js'\"><pre>" + js + "</pre> </div>\n</div>";
+        html = hljs.highlightAuto($.trim(el.innerHTML)).value.replace(/{{([^}]*)}}/g, "<b style='color:green;'>{{$1}}</b>");
+        return "<div>\n  <div class=\"btn-group\">\n    <a class=\"btn btn-default\" ng-click=\"current='demo'\">Demo</a>\n    <a class=\"btn btn-default\" ng-click=\"current='html'\">HTML</a>\n    <a class=\"btn btn-default\" ng-click=\"current='js'\">JavaScript</a>\n  </div>\n  <hr/>\n  <div ng-show=\"current=='demo'\">" + orig + "</div>\n  <div ng-show=\"current=='html'\"><pre ng-non-bindable>" + html + "</pre> </div>\n  <div ng-show=\"current=='js'\"><pre ng-non-bindable>" + js + "</pre> </div>\n</div>";
       }
     };
   });

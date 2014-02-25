@@ -42,10 +42,11 @@ app.directive 'sample', ()->
   # transclude: true
   controller: ($scope)->
     $scope.current = "demo"
-  template: (el)->
-    orig = el.html()
+  template: ($el, attrs)->
+    el = $el[0]
+    orig = el.innerHTML
     js = hljs.highlightAuto($.trim($(el).find('script').remove().text())).value
-    html = hljs.highlightAuto($.trim(el.html())).value
+    html = hljs.highlightAuto($.trim(el.innerHTML)).value.replace(/{{([^}]*)}}/g, "<b style='color:green;'>{{$1}}</b>")
     """
       <div>
         <div class="btn-group">
@@ -55,8 +56,8 @@ app.directive 'sample', ()->
         </div>
         <hr/>
         <div ng-show="current=='demo'">#{orig}</div>
-        <div ng-show="current=='html'"><pre>#{html}</pre> </div>
-        <div ng-show="current=='js'"><pre>#{js}</pre> </div>
+        <div ng-show="current=='html'"><pre ng-non-bindable>#{html}</pre> </div>
+        <div ng-show="current=='js'"><pre ng-non-bindable>#{js}</pre> </div>
       </div>
     """
 

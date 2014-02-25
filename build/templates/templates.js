@@ -74,62 +74,6 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
   );
 
 
-  $templateCache.put('/templates/checkbox.html',
-    "<div class='fs-racheck'>\n" +
-    "  <div ng-repeat='item in shownItems track by item.id'>\n" +
-    "    <a class=\"fs-racheck-item\"\n" +
-    "       ng-click=\"toggle(item)\"\n" +
-    "       href='javascript:void(0)'\n" +
-    "       fs-space='toggleOnSpace($event, item)'>\n" +
-    "      <span class=\"fs-check-outer\"><span ng-show=\"isSelected(item)\" class=\"fs-check-inner\"></span></span>\n" +
-    "      {{item[valueAttr]}}\n" +
-    "    </a>\n" +
-    "  </div>\n" +
-    "  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>\n" +
-    "</div>\n"
-  );
-
-
-  $templateCache.put('/templates/chz.html',
-    "<div class='fs-select fs-wiget-root'>\n" +
-    "  <div ng-hide=\"active\" class=\"fs-select-sel\" ng-class=\"{'btn-group': selectedItem}\">\n" +
-    "      <a class=\"btn btn-default fs-select-active\"\n" +
-    "         ng-class='{\"btn-danger\": invalid}'\n" +
-    "         href=\"javascript:void(0)\"\n" +
-    "         ng-click=\"active=true\"\n" +
-    "         ng-disabled=\"disabled\" >\n" +
-    "         <span ng-show='selectedItem'>{{ getItemLabel(selectedItem) }}</span>\n" +
-    "         <span ng-hide='selectedItem'>none</span>\n" +
-    "      </a>\n" +
-    "      <button type=\"button\"\n" +
-    "              class=\"btn btn-default fs-select-clear-btn\"\n" +
-    "              aria-hidden=\"true\"\n" +
-    "              ng-show='selectedItem'\n" +
-    "              ng-click='unselectItem()'>&times;</button>\n" +
-    "    </div>\n" +
-    "  <div class=\"open\" ng-show=\"active\">\n" +
-    "    <input class=\"form-control\"\n" +
-    "           fs-focus=\"active\"\n" +
-    "           fs-down='move(1)'\n" +
-    "           fs-up='move(-1)'\n" +
-    "           fs-pgup='move(-11)'\n" +
-    "           fs-pgdown='move(11)'\n" +
-    "           fs-enter='onEnter($event)'\n" +
-    "           type=\"search\"\n" +
-    "           placeholder='Search'\n" +
-    "           ng-model=\"search\" />\n" +
-    "    <div ng-if=\"active && dropdownItems.length > 0\">\n" +
-    "      <div fs-list items=\"dropdownItems\" on-highlight=\"highlight\">\n" +
-    "        <span class=\"item-expressin\"></span>\n" +
-    "      </div>\n" +
-    "    </div>\n" +
-    "  </div>\n" +
-    "  <!-- FIXME: why errors here -->\n" +
-    "  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>\n" +
-    "</div>\n"
-  );
-
-
   $templateCache.put('/templates/datepicker.html',
     "<div class=\"fs-datepicker\">\n" +
     "  <input type=\"text\"\n" +
@@ -220,24 +164,6 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
     "      </li>\n" +
     "    </ul>\n" +
     "  </div>\n" +
-    "</div>\n"
-  );
-
-
-  $templateCache.put('/templates/radio.html',
-    "<div class='fs-racheck'>\n" +
-    "  <div ng-repeat='item in shownItems'>\n" +
-    "  <a class=\"fs-racheck-item\"\n" +
-    "     ng-click=\"selection(item)\"\n" +
-    "     href='javascript:void(0)'\n" +
-    "     tabindex='{{ $first ? 0 : -1 }}'\n" +
-    "     fs-down='move($event, +1)'\n" +
-    "     fs-up='move($event, -1)'>\n" +
-    "    <span class=\"fs-radio-outer\"><span ng-show=\"isSelected(item)\" class=\"fs-radio-inner\"></span></span>\n" +
-    "    {{item[valueAttr]}}\n" +
-    "  </a>\n" +
-    "  </div>\n" +
-    "  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>\n" +
     "</div>\n"
   );
 

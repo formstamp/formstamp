@@ -1,79 +1,60 @@
 (function() {
+  var nextUid, uid;
+
+  uid = ['0', '0', '0'];
+
+  nextUid = function() {
+    var digit, index;
+    index = uid.length;
+    digit;
+    while (index) {
+      index -= 1;
+      digit = uid[index].charCodeAt(0);
+      if (digit === 57) {
+        uid[index] = 'A';
+        return uid.join('');
+      }
+      if (digit === 90) {
+        uid[index] = '0';
+      } else {
+        uid[index] = String.fromCharCode(digit + 1);
+        return uid.join('');
+      }
+    }
+    uid.unshift('0');
+    return uid.join('');
+  };
+
   angular.module("formstamp").directive("fsRadio", [
     '$window', function($window) {
       return {
         restrict: "A",
         scope: {
+          required: '=',
+          disabled: '=',
           items: '=',
-          limit: '=',
           inline: '=',
           keyAttr: '@',
           valueAttr: '@'
         },
         require: '?ngModel',
-        replace: true,
-        transclude: true,
-        templateUrl: "/templates/radio.html",
-        controller: function($scope, $element, $attrs) {
-          $scope.toggle = function(item) {
-            if (item !== $scope.selectedItem) {
-              return $scope.selection(item);
-            } else {
-              return $scope.selectedItem = null;
-            }
-          };
-          $scope.selection = function(item) {
-            return $scope.selectedItem = item;
-          };
-          $scope.isSelected = function(item) {
-            return angular.equals(item, $scope.selectedItem);
-          };
-          $scope.invalid = function() {
-            return ($scope.errors != null) && $scope.errors.length > 0;
-          };
-          return $scope.shownItems = $scope.items;
+        template: function(el, attrs) {
+          var itemTpl, name, template;
+          itemTpl = el.html() || 'template me: {{item | json}}';
+          name = nextUid();
+          return template = "<div class='fs-racheck'>\n  <div class=\"fs-radio-label\"\n     ng-repeat=\"item in items\" >\n    <input\n     type=\"radio\"\n     ng-model=\"$parent.selectedItem\"\n     name=\"" + name + "\"\n     ng-value=\"item\"\n     id=\"{{item.id}}\"/>\n    <label for=\"{{item.id}}\">\n      " + itemTpl + "\n    </label>\n  </div>\n  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>\n</div>";
         },
-        compile: function(tElement, tAttrs) {
-          tAttrs.keyAttr || (tAttrs.keyAttr = 'id');
-          tAttrs.valueAttr || (tAttrs.valueAttr = 'label');
-          return function(scope, element, attrs, ngModelCtrl, transcludeFn) {
-            var getSelectedIndex;
-            if (ngModelCtrl) {
-              scope.$watch('selectedItem', function(newValue, oldValue) {
-                if (newValue !== oldValue) {
-                  return ngModelCtrl.$setViewValue(scope.selectedItem);
-                }
-              });
-              ngModelCtrl.$render = function() {
-                return scope.selectedItem = ngModelCtrl.$modelValue;
-              };
-            }
-            attrs.$observe('disabled', function(value) {
-              return scope.disabled = value;
-            });
-            attrs.$observe('required', function(value) {
-              return scope.required = value;
-            });
-            getSelectedIndex = function() {
-              return indexOf(scope.shownItems, scope.selectedItem);
-            };
-            scope.selectedIndex = 0;
-            scope.move = function(event, d) {
-              scope.selectedIndex = scope.selectedIndex + d;
-              if (scope.selectedIndex < 0) {
-                scope.selectedIndex = 0;
-              } else if (scope.selectedIndex > scope.shownItems.length - 1) {
-                scope.selectedIndex = scope.shownItems.length - 1;
-              } else {
-                event.preventDefault();
+        link: function(scope, element, attrs, ngModelCtrl, transcludeFn) {
+          if (ngModelCtrl) {
+            scope.$watch('selectedItem', function(newValue, oldValue) {
+              if (newValue !== oldValue) {
+                return ngModelCtrl.$setViewValue(scope.selectedItem);
               }
-              return scope.selectedItem = scope.shownItems[scope.selectedIndex];
+            });
+            return ngModelCtrl.$render = function() {
+              return scope.selectedItem = ngModelCtrl.$modelValue;
             };
-            return scope.selectOnSpace = function(event, item) {
-              scope.selection(item);
-              return event.preventDefault();
-            };
-          };
+          }
         }
       };
     }
