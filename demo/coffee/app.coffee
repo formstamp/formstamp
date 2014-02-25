@@ -17,9 +17,6 @@ app = angular.module 'formstamp-demo',
    .when('/', {
      templateUrl: 'demo/templates/welcome.html'
    })
-   .when('/formbuilder', {
-     templateUrl: 'demo/formbuilder.html'
-   })
 
    for w in widgets
      do (w)->

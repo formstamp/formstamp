@@ -44,7 +44,6 @@
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-              <li><a href="#/formbuilder">Form Builder</a></li>
               <li ng-repeat='widget in widgets' ng-class="{active: currentWidget == widget.name}" >
                 <a href="#/widgets/{{ widget.name }}">{{ widget.name }}</a>
               </li>

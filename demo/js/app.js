@@ -27,8 +27,6 @@
     var w, _i, _len, _results;
     $routeProvider.when('/', {
       templateUrl: 'demo/templates/welcome.html'
-    }).when('/formbuilder', {
-      templateUrl: 'demo/formbuilder.html'
     });
     _results = [];
     for (_i = 0, _len = widgets.length; _i < _len; _i++) {
