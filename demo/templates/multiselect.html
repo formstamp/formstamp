@@ -13,35 +13,39 @@
   </p>
   <hr/>
 
-
   <sample>
-<form class="well" role="form" ng-controller="MultiselectCtrl">
-  <div class='form-group row'>
-    <label class="col-xs-2">Select weapon:</label>
+    <form class="well" role="form" ng-controller="MultiselectCtrl">
+      <div class='form-group row'>
+        <label class="col-xs-2">Select weapon:</label>
 
-    <div fs-multiselect
-         ng-model='mvalue'
-         items='items'
-         class="col-xs-5">
-    </div>
-  </div>
-  <div class='form-group row'>
-    <div class="col-xs-5 col-xs-offset-2">
-      You want to play
-      <ul>
-        <li ng-repeat='item in mvalue'> {{item.label}} </li>
-      </ul>
-    </div>
-  </div>
-</form>
-<script>
-   function MultiselectCtrl($scope) {
-     $scope.items = [
-        {id: 'S', label: 'Shijima'},
-        {id: 'M', label: 'Musubi'},
-        {id: 'Y', label: 'Yosuga'}
-     ]
-   }
-</script>
-</sample>
+        <div fs-multiselect ng-model='mvalue' items='items'
+             class="col-xs-5">
+          <strong>{{item.id}}</strong> {{item.label}}
+        </div>
+      </div>
+      <div class='form-group row'>
+        <div class="col-xs-5 col-xs-offset-2">
+          You want to play
+          <ul>
+            <li ng-repeat='item in mvalue'> {{item.label}} </li>
+          </ul>
+        </div>
+      </div>
+    </form>
+    <script>
+      function MultiselectCtrl($scope) {
+        $scope.items = [
+          {id: 'S', label: 'Shijima'},
+          {id: 'M', label: 'Musubi'},
+          {id: 'Y', label: 'Yosuga'},
+          {id: 'GG', label: 'Genmai gohan'},
+          {id: 'K', label: 'Kamameshi'},
+          {id: 'MO', label: 'Mochi'},
+          {id: 'SH', label: 'Sekihan'}
+        ];
+
+        $scope.mvalue = $scope.items.slice(0, 4);
+      }
+    </script>
+  </sample>
 </div>

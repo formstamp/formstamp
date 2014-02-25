@@ -48,7 +48,7 @@ angular
            placeholder='Search'
            ng-model="search" />
     <div ng-if="active && dropdownItems.length > 0">
-      <div fs-list items="dropdownItems" on-highlight="highlight">
+      <div fs-list items="dropdownItems">
        #{itemTpl}
       </div>
     </div>
@@ -108,42 +108,3 @@ angular
       ngModelCtrl.$render = ->
         scope.item = ngModelCtrl.$viewValue
 ]
-
-angular
-.module("formstamp")
-.directive "fsList", () ->
-  restrict: "A"
-  scope:
-    items: '='
-    class: '@'
-  transclude: true
-  replace: true
-  templateUrl: "/templates/list.html"
-  controller: ($scope, $element, $attrs, $filter) ->
-    updateSelectedItem = (hlIdx) ->
-      if $scope.$parent.listInterface?
-        $scope.$parent.listInterface.selectedItem = $scope.items[hlIdx]
-
-    $scope.highlightItem = (item) ->
-      $scope.highlightIndex = $scope.items.indexOf(item)
-      $scope.$parent.listInterface.onSelect(item)
-
-    $scope.$watch 'items', (newItems)->
-      $scope.highlightIndex = 0
-      updateSelectedItem(0)
-
-    $scope.$watch 'highlightIndex', (idx) ->
-      updateSelectedItem(idx)
-
-    $scope.move = (d) ->
-      filteredItems = $scope.items
-
-      $scope.highlightIndex += d
-      $scope.highlightIndex = filteredItems.length - 1 if $scope.highlightIndex == -1
-      $scope.highlightIndex = 0 if $scope.highlightIndex >= filteredItems.length
-
-    $scope.highlightIndex = 0
-
-    if $scope.$parent.listInterface?
-      $scope.$parent.listInterface.move = (delta) ->
-        $scope.move(delta)
