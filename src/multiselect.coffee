@@ -38,11 +38,13 @@ angular.module("formstamp")
            fs-hold-focus
            fs-on-focus="active = true"
            fs-on-blur="active = false"
+           fs-blur-when="!active"
            fs-down='listInterface.move(1)'
            fs-up='listInterface.move(-1)'
            fs-pgup='listInterface.move(-11)'
            fs-pgdown='listInterface.move(11)'
            fs-enter='selectItem(listInterface.selectedItem)'
+           fs-esc='active = false'
            class="form-control"
            type="text"
            placeholder='Select something'

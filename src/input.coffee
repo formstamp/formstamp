@@ -4,6 +4,7 @@ angular
   restrict: "A"
   link: (scope, element, attrs) ->
     focusElement = () -> setTimeout((-> element[0].focus()), 0)
+    blurElement = () -> setTimeout((-> element[0].blur()), 0)
 
     keyCodes =
       Tab:      9
@@ -24,7 +25,7 @@ angular
 
     if attrs["fsBlurWhen"]?
       scope.$watch attrs["fsBlurWhen"], (newValue) ->
-        focusElement() if newValue
+        blurElement() if newValue
 
     if attrs["fsOnFocus"]?
       element.on 'focus', (event) ->
@@ -45,6 +46,7 @@ angular
           true
 
     # process key bindings, if any
+    # TODO: single event listener with dispatching
     angular.forEach keyCodes, (keyCode, keyName) ->
       attrName = 'fs' + keyName
       if attrs[attrName]?

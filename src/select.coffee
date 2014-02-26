@@ -31,19 +31,23 @@ angular
     </div>
   <div class="open" ng-show="active">
     <input class="form-control"
-           fs-input='123'
+           fs-input
            fs-focus-when='active'
+           fs-blur-when='!active'
+           fs-on-focus='active = true'
            fs-on-blur='active = false'
-           fs-hold-focus=''
+           fs-hold-focus
 
            fs-down='move(1)'
            fs-up='move(-1)'
            fs-pgup='move(-11)'
            fs-pgdown='move(11)'
            fs-enter='onEnter($event)'
+           fs-esc='active = false'
            type="search"
            placeholder='Search'
            ng-model="search" />
+
     <div ng-if="active && dropdownItems.length > 0">
       <div fs-list items="dropdownItems">
        #{itemTpl}

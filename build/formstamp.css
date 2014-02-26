@@ -1,5 +1,8 @@
-.fs-datepicker {
+.fs-datepicker .fs-calendar-wrapper {
   position: relative;
+}
+.fs-datepicker .dropdown-menu {
+  padding: 5px;
 }
 .fs-calendar {
   user-select: none;

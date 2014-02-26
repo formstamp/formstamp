@@ -1,14 +1,18 @@
-<div class="fs-datepicker">
-  <input type="text"
-    class="form-control"
-    ng-focus="active=true"
-    data-ng-model="date"
-    ng-change="dateSelection()"
-    data-date-format="shortDate">
-  <div ng-if="active" class="open">
+<div class="fs-datepicker fs-widget-root">
+  <input
+     fs-input
+     fs-focus-when='active'
+     fs-blur-when='!active'
+     fs-on-focus='active = true'
+     fs-on-blur='active = false'
+     fs-hold-focus
+     type="text"
+     class="form-control"
+     ng-model="formattedDate" />
+
+  <div ng-if="active" class="open fs-calendar-wrapper">
     <div class="dropdown-menu">
-      <fs-calendar ng-model="date"
-        ng-change="console.log('here');active=false;"/>
+      <fs-calendar ng-model="selectedDate.date" />
     </div>
   </div>
 </div>

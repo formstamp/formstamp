@@ -1,12 +1,16 @@
 {
-	"name": "angular-w-demo",
+	"name": "formstamp",
 	"version": "0.0.0",
 	"authors": [
 		"niquola@gmail.com"
 	],
-	"description": "Demo",
+	"description": "FormStamp UI Library for AngularJS",
 	"keywords": [
 	],
+  "main": [
+    "build/formstamp.css",
+    "build/formstamp.js"
+  ],
 	"license": "MIT",
 	"ignore": [
 		"**/.*",
@@ -21,10 +25,10 @@
 		"angular-sanitize":"~1.2.0",
 		"angular-touch":"~1.2.0",
 		"angular-route":"~1.2.0",
-		"angular-animate":"~1.2.0"
-	},
-	"devDependencies": {
+		"angular-animate":"~1.2.0",
 		"bootstrap":"~3.0.3",
     "jquery": ">= 1.9.0"
+	},
+	"devDependencies": {
 	}
 }
