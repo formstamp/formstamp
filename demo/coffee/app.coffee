@@ -7,10 +7,11 @@ widgets  = [
     {name: 'radio'}
     {name: 'checkbox'}
     {name: 'list'}
+    {name: 'time'}
     {name: 'input'}
 ]
 app = angular.module 'formstamp-demo',
- ['formstamp', 'ngRoute', 'ngSanitize'],
+ ['formstamp', 'ngRoute', 'ngSanitize', 'ngAnimate'],
 
  ($routeProvider, $locationProvider) ->
    $routeProvider

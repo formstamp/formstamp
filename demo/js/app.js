@@ -19,11 +19,13 @@
     }, {
       name: 'list'
     }, {
+      name: 'time'
+    }, {
       name: 'input'
     }
   ];
 
-  app = angular.module('formstamp-demo', ['formstamp', 'ngRoute', 'ngSanitize'], function($routeProvider, $locationProvider) {
+  app = angular.module('formstamp-demo', ['formstamp', 'ngRoute', 'ngSanitize', 'ngAnimate'], function($routeProvider, $locationProvider) {
     var w, _i, _len, _results;
     $routeProvider.when('/', {
       templateUrl: 'demo/templates/welcome.html'

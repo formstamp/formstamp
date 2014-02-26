@@ -20,7 +20,8 @@
 		"angular-animate":"~1.2.0",
 		"angular-sanitize":"~1.2.0",
 		"angular-touch":"~1.2.0",
-		"angular-route":"~1.2.0"
+		"angular-route":"~1.2.0",
+		"angular-animate":"~1.2.0"
 	},
 	"devDependencies": {
 		"bootstrap":"~3.0.3",
