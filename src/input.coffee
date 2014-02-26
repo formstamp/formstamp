@@ -1,40 +1,57 @@
-widgetRoot = (el) ->
-  currentEl = el
-
-  while (currentEl && currentEl.className? && currentEl.className.indexOf("fs-widget-root") < 0)
-    currentEl = currentEl.parentNode
-
-  return currentEl
-
 angular
 .module("formstamp")
-.directive "fsInput", ['$window', '$timeout', ($window, $timeout) ->
-    restrict: "A"
-    link: (scope, element, attrs) ->
-      focusElement = () -> setTimeout((-> element[0].focus()), 0)
+.directive "fsInput", ['$window', '$parse', ($window, $parse) ->
+  restrict: "A"
+  link: (scope, element, attrs) ->
+    focusElement = () -> setTimeout((-> element[0].focus()), 0)
 
-      if attrs["fsFocusWhen"]?
-        scope.$watch attrs["fsFocusWhen"], (newValue) ->
-          focusElement() if newValue
+    keyCodes =
+      Tab:      9
+      ShiftTab: 9
+      Enter:    13
+      Esc:      27
+      PgUp:     33
+      PgDown:   34
+      Left:     37
+      Up:       38
+      Right:    39
+      Down:     40
+      Space:    32
 
-      if attrs["fsBlurWhen"]?
-        scope.$watch attrs["fsBlurWhen"], (newValue) ->
-          focusElement() if newValue
+    if attrs["fsFocusWhen"]?
+      scope.$watch attrs["fsFocusWhen"], (newValue) ->
+        focusElement() if newValue
 
-      if attrs["fsOnFocus"]?
-        element.on 'focus', (event) ->
-          scope.$apply(attrs["fsOnFocus"])
+    if attrs["fsBlurWhen"]?
+      scope.$watch attrs["fsBlurWhen"], (newValue) ->
+        focusElement() if newValue
 
-      if attrs["fsOnBlur"]?
-        element.on 'blur', (event) ->
-          scope.$apply(attrs["fsOnBlur"])
+    if attrs["fsOnFocus"]?
+      element.on 'focus', (event) ->
+        scope.$apply(attrs["fsOnFocus"])
 
-      if attrs["fsHoldFocus"]?
-        fsRoot = $(element).parents(".fs-widget-root").first()
-        fsRoot.on "mousedown", (event) ->
-          if event.target != element.get(0)
-            event.preventDefault()
-            false
-          else
-            true
+    if attrs["fsOnBlur"]?
+      element.on 'blur', (event) ->
+        scope.$apply(attrs["fsOnBlur"])
+
+    if attrs["fsHoldFocus"]?
+      fsRoot = $(element).parents(".fs-widget-root").first()
+
+      fsRoot.on "mousedown", (event) ->
+        if event.target != element.get(0)
+          event.preventDefault()
+          false
+        else
+          true
+
+    # process key bindings, if any
+    angular.forEach keyCodes, (keyCode, keyName) ->
+      attrName = 'fs' + keyName
+      if attrs[attrName]?
+        shift = keyName.indexOf('Shift') != -1
+        callbackExpr = $parse(attrs[attrName])
+        element.on 'keydown', (event) ->
+          if event.keyCode == keyCode and event.shiftKey == shift
+            event.preventDefault() unless scope.$apply(-> callbackExpr(scope, $event: event))
+
 ]
