@@ -5,11 +5,15 @@
   <h5>Directive: <code class="ng-binding">fs-checkbox</code> with option <code>freetext</code></h5>
   <sample>
 <form class="well" role="form" ng-controller='RadioCtrl'>
+  <button class="btn btn-default" ng-click="disabled=!disabled">
+    {{disabled ? 'Enable' : 'Disable'}}
+  </button>
   <div class="row">
     <div class="form-group col-xs-5">
       <label>Choose your katawari</label>
       <div fs-checkbox
            items="items"
+           disabled="disabled"
            ng-model="checkvalue">
            <b>{{item.id}}</b> {{item.label}}</div>
     </div>

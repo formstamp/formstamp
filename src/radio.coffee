@@ -34,7 +34,7 @@ angular
       itemTpl = el.html() || 'template me: {{item | json}}'
       name = nextUid()
       template = """
-<div class='fs-racheck'>
+<div class='fs-racheck' ng-class="{disabled: disabled, enabled: !disabled}">
   <div class="fs-radio-label"
      ng-repeat="item in items" >
     <input
@@ -42,6 +42,7 @@ angular
      ng-model="$parent.selectedItem"
      name="#{name}"
      ng-value="item"
+     ng-disabled="disabled"
      id="{{item.id}}"/>
     <label for="{{item.id}}">
       #{itemTpl}

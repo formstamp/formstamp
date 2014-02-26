@@ -12,11 +12,12 @@ angular
     template: (el, attrs)->
       itemTpl = el.html() || 'template me: {{item | json}}'
       template = """
-<div class='fs-racheck'>
+<div class='fs-racheck' ng-class="{disabled: disabled, enabled: !disabled}">
   <div ng-repeat='item in items track by item.id'>
     <a class="fs-racheck-item"
        href='javascript:void(0)'
        onclick="this.focus()"
+       ng-disabled="disabled"
        ng-click="toggle(item)"
        fs-space='toggle(item)'>
       <span class="fs-check-outer"><span ng-show="isSelected(item)" class="fs-check-inner"></span></span>
@@ -28,6 +29,7 @@ angular
       """
     controller: ($scope, $element, $attrs) ->
       $scope.toggle = (item)->
+        return if $scope.disabled
         unless $scope.isSelected(item)
           $scope.selectedItems.push(item)
         else

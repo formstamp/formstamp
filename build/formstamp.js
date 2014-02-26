@@ -455,10 +455,13 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
         template: function(el, attrs) {
           var itemTpl, template;
           itemTpl = el.html() || 'template me: {{item | json}}';
-          return template = "<div class='fs-racheck'>\n  <div ng-repeat='item in items track by item.id'>\n    <a class=\"fs-racheck-item\"\n       href='javascript:void(0)'\n       onclick=\"this.focus()\"\n       ng-click=\"toggle(item)\"\n       fs-space='toggle(item)'>\n      <span class=\"fs-check-outer\"><span ng-show=\"isSelected(item)\" class=\"fs-check-inner\"></span></span>\n      " + itemTpl + "\n    </a>\n  </div>\n  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>\n</div>";
+          return template = "<div class='fs-racheck' ng-class=\"{disabled: disabled, enabled: !disabled}\">\n  <div ng-repeat='item in items track by item.id'>\n    <a class=\"fs-racheck-item\"\n       href='javascript:void(0)'\n       onclick=\"this.focus()\"\n       ng-disabled=\"disabled\"\n       ng-click=\"toggle(item)\"\n       fs-space='toggle(item)'>\n      <span class=\"fs-check-outer\"><span ng-show=\"isSelected(item)\" class=\"fs-check-inner\"></span></span>\n      " + itemTpl + "\n    </a>\n  </div>\n  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>\n</div>";
         },
         controller: function($scope, $element, $attrs) {
           $scope.toggle = function(item) {
+            if ($scope.disabled) {
+              return;
+            }
             if (!$scope.isSelected(item)) {
               $scope.selectedItems.push(item);
             } else {
@@ -1113,7 +1116,7 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
           var itemTpl, name, template;
           itemTpl = el.html() || 'template me: {{item | json}}';
           name = nextUid();
-          return template = "<div class='fs-racheck'>\n  <div class=\"fs-radio-label\"\n     ng-repeat=\"item in items\" >\n    <input\n     type=\"radio\"\n     ng-model=\"$parent.selectedItem\"\n     name=\"" + name + "\"\n     ng-value=\"item\"\n     id=\"{{item.id}}\"/>\n    <label for=\"{{item.id}}\">\n      " + itemTpl + "\n    </label>\n  </div>\n  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>\n</div>";
+          return template = "<div class='fs-racheck' ng-class=\"{disabled: disabled, enabled: !disabled}\">\n  <div class=\"fs-radio-label\"\n     ng-repeat=\"item in items\" >\n    <input\n     type=\"radio\"\n     ng-model=\"$parent.selectedItem\"\n     name=\"" + name + "\"\n     ng-value=\"item\"\n     ng-disabled=\"disabled\"\n     id=\"{{item.id}}\"/>\n    <label for=\"{{item.id}}\">\n      " + itemTpl + "\n    </label>\n  </div>\n  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>\n</div>";
         },
         link: function(scope, element, attrs, ngModelCtrl, transcludeFn) {
           if (ngModelCtrl) {

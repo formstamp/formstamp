@@ -5,11 +5,15 @@
   <h5>Directive: <code class="ng-binding">fs-select-group</code></h5>
   <sample>
 <form class="well row" role="form" ng-controller='RadioCtrl'>
+  <button class="btn btn-default" ng-click="disabled=!disabled">
+    {{disabled ? 'Enable' : 'Disable'}}
+  </button>
   <div class="row">
     <div class="form-group col-xs-5">
       <label>Choose your katawari</label>
       <div fs-radio
            items="items"
+           disabled = "disabled"
            ng-model="radiovalue">
            <b>{{item.id}}</b> {{item.label}}
       </div>
