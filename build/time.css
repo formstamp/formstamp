@@ -1,0 +1,11 @@
+.fs-time input {
+  width: 6em;
+  display: inline-block;
+}
+.fs-time .glyphicon {
+  top: 4px;
+  font-size: 16px;
+  position: absoulte;
+  left: -25px;
+  color: gray;
+}
