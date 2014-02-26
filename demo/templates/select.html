@@ -61,7 +61,6 @@
 
       $http({method: 'GET', url: '/demo/data/countries.json'})
         .success(function(data) {
-          console.log(data);
           $scope.countries = data;
         });
     }
