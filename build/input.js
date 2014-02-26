@@ -1,25 +1,27 @@
 (function() {
-  var widgetRoot;
-
-  widgetRoot = function(el) {
-    var currentEl;
-    currentEl = el;
-    while (currentEl && (currentEl.className != null) && currentEl.className.indexOf("fs-widget-root") < 0) {
-      currentEl = currentEl.parentNode;
-    }
-    return currentEl;
-  };
-
   angular.module("formstamp").directive("fsInput", [
-    '$window', '$timeout', function($window, $timeout) {
+    '$window', '$parse', function($window, $parse) {
       return {
         restrict: "A",
         link: function(scope, element, attrs) {
-          var focusElement, fsRoot;
+          var focusElement, fsRoot, keyCodes;
           focusElement = function() {
             return setTimeout((function() {
               return element[0].focus();
             }), 0);
+          };
+          keyCodes = {
+            Tab: 9,
+            ShiftTab: 9,
+            Enter: 13,
+            Esc: 27,
+            PgUp: 33,
+            PgDown: 34,
+            Left: 37,
+            Up: 38,
+            Right: 39,
+            Down: 40,
+            Space: 32
           };
           if (attrs["fsFocusWhen"] != null) {
             scope.$watch(attrs["fsFocusWhen"], function(newValue) {
@@ -47,7 +49,7 @@
           }
           if (attrs["fsHoldFocus"] != null) {
             fsRoot = $(element).parents(".fs-widget-root").first();
-            return fsRoot.on("mousedown", function(event) {
+            fsRoot.on("mousedown", function(event) {
               if (event.target !== element.get(0)) {
                 event.preventDefault();
                 return false;
@@ -56,6 +58,25 @@
               }
             });
           }
+          return angular.forEach(keyCodes, function(keyCode, keyName) {
+            var attrName, callbackExpr, shift;
+            attrName = 'fs' + keyName;
+            if (attrs[attrName] != null) {
+              shift = keyName.indexOf('Shift') !== -1;
+              callbackExpr = $parse(attrs[attrName]);
+              return element.on('keydown', function(event) {
+                if (event.keyCode === keyCode && event.shiftKey === shift) {
+                  if (!scope.$apply(function() {
+                    return callbackExpr(scope, {
+                      $event: event
+                    });
+                  })) {
+                    return event.preventDefault();
+                  }
+                }
+              });
+            }
+          });
         }
       };
     }
