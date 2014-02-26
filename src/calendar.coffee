@@ -88,6 +88,7 @@ angular
     $scope.firstDayOfWeek = parseInt($attrs.firstDayOfWeek || 0)
     $scope.weekDays = shiftWeekDays($locale.DATETIME_FORMATS.SHORTDAY, $scope.firstDayOfWeek)
   ]
+
   link: (scope, element, attrs, ngModel)->
     parseDate = (dateString)->
       time = Date.parse(dateString)
@@ -103,6 +104,7 @@ angular
 
     scope.selectDay = (day)->
       scope.selectedDate = day
+      console.log(day)
       ngModel.$setViewValue(day)
 
     scope.selectMonth = (monthName)->

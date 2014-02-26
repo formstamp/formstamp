@@ -22,6 +22,8 @@
       name: 'time'
     }, {
       name: 'input'
+    }, {
+      name: 'datepicker'
     }
   ];
 

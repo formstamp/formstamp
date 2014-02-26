@@ -9,6 +9,7 @@ widgets  = [
     {name: 'list'}
     {name: 'time'}
     {name: 'input'}
+    {name: 'datepicker'}
 ]
 app = angular.module 'formstamp-demo',
  ['formstamp', 'ngRoute', 'ngSanitize', 'ngAnimate'],
