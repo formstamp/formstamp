@@ -10,7 +10,7 @@ angular.module("formstamp")
     restrict: "A"
     scope:
       items: '='
-      disabled: '@'
+      disabled: '=ngDisabled'
       freetext: '@'
       class: '@'
     require: '?ngModel'
@@ -26,13 +26,14 @@ angular.module("formstamp")
 <div class='fs-multiselect fs-widget-root' ng-class='{ "fs-with-selected-items": selectedItems.length > 0 }'>
   <div class='fs-multiselect-wrapper'>
     <div class="fs-multiselect-selected-items" ng-if="selectedItems.length > 0">
-      <a ng-repeat='item in selectedItems' class="btn" ng-click="unselectItem(item)">
+      <a ng-repeat='item in selectedItems' class="btn" ng-click="unselectItem(item)" ng-disabled="disabled">
         #{itemTpl}
         <span class="glyphicon glyphicon-remove" ></span>
       </a>
     </div>
 
     <input ng-keydown="onkeys($event)"
+           ng-disabled="disabled"
            fs-input
            fs-hold-focus
            fs-on-focus="active = true"

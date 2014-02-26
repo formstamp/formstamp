@@ -4,9 +4,7 @@ angular
   restrict: "A"
   scope:
     items: '='
-    limit: '='
-    disabled: '='
-    keyAttr: '@'
+    disabled: '=ngDisabled'
     freetext: '@'
     class: '@'
   require: '?ngModel'
