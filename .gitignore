@@ -20,5 +20,4 @@ node_modules
 #bower_components*sw?
 *~
 *sw?
-build/
 _site
