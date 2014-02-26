@@ -4,10 +4,15 @@
       return {
         restrict: "A",
         link: function(scope, element, attrs) {
-          var focusElement, fsRoot, keyCodes;
+          var blurElement, focusElement, fsRoot, keyCodes;
           focusElement = function() {
             return setTimeout((function() {
               return element[0].focus();
+            }), 0);
+          };
+          blurElement = function() {
+            return setTimeout((function() {
+              return element[0].blur();
             }), 0);
           };
           keyCodes = {
@@ -33,7 +38,7 @@
           if (attrs["fsBlurWhen"] != null) {
             scope.$watch(attrs["fsBlurWhen"], function(newValue) {
               if (newValue) {
-                return focusElement();
+                return blurElement();
               }
             });
           }
