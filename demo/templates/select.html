@@ -17,8 +17,9 @@
       <div class='form-group row'>
         <label class="col-xs-2">Select weapon:</label>
         <div class="col-xs-3"
-          fs-select items='items'
-          disabled="disabled"
+          fs-select
+          items='items'
+          ng-disabled="disabled"
           ng-model="svalue">
           <b>{{item.id}}</b> {{item.label}}
         </div>

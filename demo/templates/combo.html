@@ -17,22 +17,27 @@
   <sample>
 <form class="well" role="form" ng-controller="ComboCtrl">
   <div class="form-group">
-    <label>Choose your element</label>
+    <label>Enter type of your laugh</label>
     <div fs-select
       freetext="true"
       items="items"
+      ng-disabled="disabled"
       ng-model="element">
       {{item}}
     </div>
   </div>
   <div class="form-group">
-    <label>Choose your element</label>
+    <label>Enter type of your laugh</label>
     <div fs-select
       freetext="true"
       items="items"
+      ng-disabled="disabled"
       ng-model="element">
       {{item}}
     </div>
+  </div>
+  <div class="form-group">
+    <button class="btn btn-default" ng-click="disabled = !disabled">{{disabled ? 'Enable' : 'Disable'}}</button>
   </div>
 </form>
 <pre>
@@ -40,7 +45,8 @@
 </pre>
 <script>
    function ComboCtrl($scope) {
-     $scope.items = ['haha', 'hoho', 'hihi', 'hehe']
+     $scope.disabled = false;
+     $scope.items = ['haha', 'hoho', 'hihi', 'hehe'];
    }
 </script>
   </sample>
