@@ -150,7 +150,11 @@
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
 }
 .fs-racheck.disabled {
+  cursor: not-allowed;
   opacity: 0.8;
+}
+.fs-racheck.disabled * {
+  cursor: not-allowed;
 }
 .fs-racheck.disabled .fs-racheck-item:hover,
 .fs-racheck.disabled .fs-racheck-item:focus {
@@ -210,4 +214,16 @@
   display: block;
   margin-bottom: 5px;
   float: none;
+}
+
+.fs-time input {
+  width: 6em;
+  display: inline-block;
+}
+.fs-time .glyphicon {
+  top: 4px;
+  font-size: 16px;
+  position: absoulte;
+  left: -25px;
+  color: gray;
 }

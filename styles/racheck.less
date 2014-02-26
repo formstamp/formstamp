@@ -65,7 +65,11 @@
     }
   }
   &.disabled {
+    cursor: not-allowed;
     opacity: 0.8;
+    * {
+      cursor: not-allowed;
+    }
     .fs-racheck-item {
       &:hover, &:focus {
         outline: none;
