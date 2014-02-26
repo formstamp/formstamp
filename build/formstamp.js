@@ -445,7 +445,7 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
       return {
         restrict: "A",
         scope: {
-          disabled: '=',
+          disabled: '=ngDisabled',
           required: '=',
           errors: '=',
           items: '=',
@@ -1105,7 +1105,7 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
         restrict: "A",
         scope: {
           required: '=',
-          disabled: '=',
+          disabled: '=ngDisabled',
           items: '=',
           inline: '=',
           keyAttr: '@',

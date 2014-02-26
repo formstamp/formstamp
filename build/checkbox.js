@@ -4,7 +4,7 @@
       return {
         restrict: "A",
         scope: {
-          disabled: '=',
+          disabled: '=ngDisabled',
           required: '=',
           errors: '=',
           items: '=',

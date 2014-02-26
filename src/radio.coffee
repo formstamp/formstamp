@@ -24,7 +24,7 @@ angular
     restrict: "A"
     scope:
       required: '='
-      disabled: '='
+      disabled: '=ngDisabled'
       items: '='
       inline: '='
       keyAttr: '@'

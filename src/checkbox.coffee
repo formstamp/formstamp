@@ -3,7 +3,7 @@ angular
 .directive "fsCheckbox", ['$window', ($window) ->
     restrict: "A"
     scope:
-      disabled: '='
+      disabled: '=ngDisabled'
       required: '='
       errors: '='
       items: '='
