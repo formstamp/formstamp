@@ -6,6 +6,11 @@
       scope: {},
       templateUrl: '/templates/datepicker.html',
       replace: true,
+      controller: function($scope, $filter) {
+        return $scope.$watch('selectedDate.date', function(newDate) {
+          return $scope.formattedDate = $filter('date')(newDate);
+        });
+      },
       link: function($scope, element, attrs, ngModel) {
         $scope.selectedDate = {};
         ngModel.$render = function() {

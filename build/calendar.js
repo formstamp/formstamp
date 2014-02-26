@@ -171,7 +171,6 @@
           };
           scope.selectDay = function(day) {
             scope.selectedDate = day;
-            console.log(day);
             return ngModel.$setViewValue(day);
           };
           scope.selectMonth = function(monthName) {

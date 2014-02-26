@@ -104,7 +104,6 @@ angular
 
     scope.selectDay = (day)->
       scope.selectedDate = day
-      console.log(day)
       ngModel.$setViewValue(day)
 
     scope.selectMonth = (monthName)->

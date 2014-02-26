@@ -1,6 +1,4 @@
 <div class="fs-datepicker fs-widget-root">
-  {{ selectedDate.date | json }}
-
   <input
      fs-input
      fs-focus-when='active'
@@ -9,7 +7,8 @@
      fs-on-blur='active = false'
      fs-hold-focus
      type="text"
-     ng-model="selectedDate.date" />
+     class="form-control"
+     ng-model="formattedDate" />
 
   <div ng-if="active" class="open">
     <div class="dropdown-menu">

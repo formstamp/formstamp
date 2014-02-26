@@ -76,8 +76,6 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
 
   $templateCache.put('/templates/datepicker.html',
     "<div class=\"fs-datepicker fs-widget-root\">\n" +
-    "  {{ selectedDate.date | json }}\n" +
-    "\n" +
     "  <input\n" +
     "     fs-input\n" +
     "     fs-focus-when='active'\n" +
@@ -86,7 +84,8 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
     "     fs-on-blur='active = false'\n" +
     "     fs-hold-focus\n" +
     "     type=\"text\"\n" +
-    "     ng-model=\"selectedDate.date\" />\n" +
+    "     class=\"form-control\"\n" +
+    "     ng-model=\"formattedDate\" />\n" +
     "\n" +
     "  <div ng-if=\"active\" class=\"open\">\n" +
     "    <div class=\"dropdown-menu\">\n" +

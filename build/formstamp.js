@@ -184,8 +184,6 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
 
   $templateCache.put('/templates/datepicker.html',
     "<div class=\"fs-datepicker fs-widget-root\">\n" +
-    "  {{ selectedDate.date | json }}\n" +
-    "\n" +
     "  <input\n" +
     "     fs-input\n" +
     "     fs-focus-when='active'\n" +
@@ -194,7 +192,8 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
     "     fs-on-blur='active = false'\n" +
     "     fs-hold-focus\n" +
     "     type=\"text\"\n" +
-    "     ng-model=\"selectedDate.date\" />\n" +
+    "     class=\"form-control\"\n" +
+    "     ng-model=\"formattedDate\" />\n" +
     "\n" +
     "  <div ng-if=\"active\" class=\"open\">\n" +
     "    <div class=\"dropdown-menu\">\n" +
@@ -425,7 +424,6 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
           };
           scope.selectDay = function(day) {
             scope.selectedDate = day;
-            console.log(day);
             return ngModel.$setViewValue(day);
           };
           scope.selectMonth = function(monthName) {
@@ -535,6 +533,11 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
       scope: {},
       templateUrl: '/templates/datepicker.html',
       replace: true,
+      controller: function($scope, $filter) {
+        return $scope.$watch('selectedDate.date', function(newDate) {
+          return $scope.formattedDate = $filter('date')(newDate);
+        });
+      },
       link: function($scope, element, attrs, ngModel) {
         $scope.selectedDate = {};
         ngModel.$render = function() {
