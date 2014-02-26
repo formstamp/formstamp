@@ -47,6 +47,7 @@ app.directive 'sample', ()->
     orig = el.innerHTML
     js = hljs.highlightAuto($.trim($(el).find('script').remove().text())).value
     html = hljs.highlightAuto($.trim(el.innerHTML)).value.replace(/{{([^}]*)}}/g, "<b style='color:green;'>{{$1}}</b>")
+    html = html.replace(/(fs-[-a-zA-Z]*)/g, "<b style='color:red;'>$1</b>")
     """
       <div>
         <div class="btn-group">

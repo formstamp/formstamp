@@ -1,4 +1,5 @@
 uid = ['0', '0', '0']
+# copypaste from angularjs utils
 nextUid = ()->
   index = uid.length
   digit
