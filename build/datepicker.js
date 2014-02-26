@@ -3,11 +3,14 @@
     return {
       restrict: 'EA',
       require: '?ngModel',
-      scope: {},
+      scope: {
+        "class": '@'
+      },
       templateUrl: '/templates/datepicker.html',
       replace: true,
       controller: function($scope, $filter) {
         return $scope.$watch('selectedDate.date', function(newDate) {
+          $scope.active = false;
           return $scope.formattedDate = $filter('date')(newDate);
         });
       },

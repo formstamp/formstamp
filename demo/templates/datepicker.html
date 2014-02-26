@@ -21,10 +21,13 @@
 
   <h5>Directive: <code class="ng-binding">fs-datepicker</code>.</h5>
   <sample>
-    <div class='well' ng-controller='DatePickerCtrl'>
-      <pre>Selected date: {{ selectedDate | json }}</pre>
+    <div ng-controller='DatePickerCtrl' class="well">
+      <div class="form-group row">
+        <label class="col-xs-3">Choose convenient seppuku date</label>
+        <div fs-datepicker ng-model="selectedDate" class="col-xs-2"></div>
+      </div>
 
-      <div fs-datepicker ng-model="selectedDate"></div>
+      <pre>Seppuku date: {{ selectedDate }}</pre>
     </div>
 
     <script>

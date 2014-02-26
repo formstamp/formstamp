@@ -87,7 +87,7 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
     "     class=\"form-control\"\n" +
     "     ng-model=\"formattedDate\" />\n" +
     "\n" +
-    "  <div ng-if=\"active\" class=\"open\">\n" +
+    "  <div ng-if=\"active\" class=\"open fs-calendar-wrapper\">\n" +
     "    <div class=\"dropdown-menu\">\n" +
     "      <fs-calendar ng-model=\"selectedDate.date\" />\n" +
     "    </div>\n" +
