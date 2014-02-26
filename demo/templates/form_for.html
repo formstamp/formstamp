@@ -6,6 +6,12 @@
   </div>
   <h5>Directive: <code class="ng-binding">fs-select</code></h5>
   <p>
+  <ul>
+    <li> Form markup </li>
+    <li> Errors </li>
+    <li> Label-Input: required, for </li>
+    <li> fill form and collect </li>
+  </ul>
   </p>
   <hr/>
   <sample>
@@ -15,6 +21,11 @@
        freetext
        items='names'
        label='Name'></div>
+
+  <div fs-form-row label="blah">
+    <div fs-select items="items" ng-model="samurai.name"></div>
+    <input/>
+  </div>
 
   <div fs-field='age'
        type='fs-select'

@@ -16,8 +16,16 @@
     <form class="well" role="form" ng-controller="SelectCtrl">
       <div class='form-group row'>
         <label class="col-xs-2">Select weapon:</label>
-        <div class="col-xs-4" fs-select items='items' ng-model="svalue"> <b>{{item.id}}</b> {{item.label}}</div>
-        <div class="col-xs-4 col-xs-offset-1" fs-select items='items' ng-model="svalue">{{item.label}}</div>
+        <div class="col-xs-3"
+          fs-select items='items'
+          disabled="disabled"
+          ng-model="svalue">
+          <b>{{item.id}}</b> {{item.label}}
+        </div>
+        <div class="col-xs-3 col-xs-offset-1" fs-select items='items' ng-model="svalue">{{item.label}}</div>
+        <button class="col-xs-2 col-xs-offset-1 btn btn-default" ng-click="disabled=!disabled">
+          {{disabled ? 'Enable' : 'Disable'}}
+        </button>
       </div>
       <pre>
         Your element is: {{ svalue }}
@@ -25,6 +33,7 @@
     </form>
     <script>
       function SelectCtrl($scope) {
+      $scope.disabled = false
       $scope.items = [
       {id: 'S', label: 'Shijima'},
       {id: 'M', label: 'Musubi'},

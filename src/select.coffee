@@ -6,8 +6,8 @@ angular
     invalid: '='
     items: '='
     limit: '='
+    disabled: '='
     keyAttr: '@'
-    disabled: '@'
     freetext: '@'
     valueAttr: '@'
     class: '@'
@@ -30,6 +30,7 @@ angular
               class="btn btn-default fs-select-clear-btn"
               aria-hidden="true"
               ng-show='item'
+              ng-disabled="disabled"
               ng-click='unselectItem()'>&times;</button>
     </div>
   <div class="open" ng-show="active">
