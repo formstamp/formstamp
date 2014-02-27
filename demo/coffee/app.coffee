@@ -19,7 +19,6 @@ app = angular.module 'formstamp-demo',
   for w in widgets
     do (w)->
       templateName = if w.template? then w.template else w.name
-      console.log templateName
       $routeProvider.when "/widgets/#{templateName}", templateUrl: "demo/templates/#{templateName}.html", controller: 'WidgetCtrl'
 
 app.filter 'prettify', ()->

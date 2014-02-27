@@ -195,6 +195,7 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
     "     ng-disabled=\"disabled\"\n" +
     "     class=\"form-control\"\n" +
     "     ng-model=\"formattedDate\" />\n" +
+    "  <span class=\"glyphicon glyphicon-calendar\"></span>\n" +
     "\n" +
     "  <div ng-if=\"active\" class=\"open fs-calendar-wrapper\">\n" +
     "    <div class=\"dropdown-menu\">\n" +
@@ -554,6 +555,36 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
       }
     };
   });
+
+}).call(this);
+
+(function() {
+  angular.module("formstamp").directive("fsDatetimepicker", [
+    '$compile', function($compile) {
+      return {
+        restrict: "A",
+        scope: {
+          disabled: '=ngDisabled',
+          "class": '@'
+        },
+        require: '?ngModel',
+        replace: true,
+        template: "<div class=\"fs-datetimepicker fs-widget-root\">\n  <div fs-datepicker ng-model=\"value\" ng-disabled=\"disabled\"></div>\n  <div fs-time ng-model=\"value\" ng-disabled=\"disabled\"></div>\n</div>",
+        link: function(scope, element, attrs, ngModelCtrl, transcludeFn) {
+          if (ngModelCtrl) {
+            scope.$watch('value', function(newValue, oldValue) {
+              if (newValue !== oldValue) {
+                return ngModelCtrl.$setViewValue(newValue);
+              }
+            });
+            return ngModelCtrl.$render = function() {
+              return scope.value = ngModelCtrl.$viewValue;
+            };
+          }
+        }
+      };
+    }
+  ]);
 
 }).call(this);
 
@@ -1149,7 +1180,6 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
         restrict: "A",
         scope: {
           disabled: '=ngDisabled',
-          freetext: '@',
           "class": '@'
         },
         require: '?ngModel',
@@ -1175,7 +1205,7 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
             }
           }
           timeoptions = res.join('');
-          return "<div class=\"fs-time\">\n  <input\n    ng-model=\"value\"\n    class=\"form-control\"\n    ng-disabled=\"disabled\"\n    list=\"time\"\n    type=\"text\"/>\n  <span class=\"glyphicon glyphicon-time\" ></span>\n  <datalist id=\"time\">\n  " + timeoptions + "\n  </datalist>\n</div>";
+          return "<div class=\"fs-time fs-widget-root\">\n  <input\n    ng-model=\"value\"\n    class=\"form-control\"\n    ng-disabled=\"disabled\"\n    list=\"time\"\n    type=\"text\"/>\n  <span class=\"glyphicon glyphicon-time\"></span>\n  <datalist id=\"time\">\n  " + timeoptions + "\n  </datalist>\n</div>";
         },
         controller: function($scope, $element, $attrs, $filter, $timeout) {
           var patterns;

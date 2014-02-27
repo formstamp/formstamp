@@ -9,7 +9,9 @@
     <div ng-controller='DatePickerCtrl' class="well">
       <div class="form-group row">
         <label class="col-xs-3">Choose convenient seppuku date</label>
-        <div fs-datepicker ng-model="selectedDate" class="col-xs-2" ng-disabled="disabled"></div>
+        <div class="col-xs-2">
+          <div fs-datepicker ng-model="selectedDate" ng-disabled="disabled"></div>
+        </div>
         <button class="col-xs-2 col-xs-offset-1 btn btn-default" ng-click="disabled=!disabled">
           {{disabled ? 'Enable' : 'Disable'}}
         </button>
@@ -31,10 +33,11 @@
     <form class="well" role="form" ng-controller="TimeCtrl">
       <div class='form-group row'>
         <label class="col-xs-3">Select appointment time:</label>
-        <div class="col-xs-2"
-             fs-time
-             ng-disabled="disabled"
-             ng-model="svalue"></div>
+        <div class="col-xs-2">
+          <div fs-time
+               ng-disabled="disabled"
+               ng-model="svalue"></div>
+        </div>
         <button class="col-xs-2 col-xs-offset-1 btn btn-default" ng-click="disabled=!disabled">
           {{disabled ? 'Enable' : 'Disable'}}
         </button>
@@ -45,6 +48,29 @@
       function TimeCtrl($scope) {
         $scope.disabled = false
       }
+    </script>
+  </sample>
+
+  <h5>Directive: <code class="ng-binding">fs-datetimepicker</code>.</h5>
+  <sample>
+    <div ng-controller='DateTimePickerCtrl' class="well">
+      <div class="form-group row">
+        <label class="col-xs-3">DateTime:</label>
+        <div  class="col-xs-3">
+          <div fs-datetimepicker ng-model="selectedDateTime" ng-disabled="disabled"></div>
+        </div>
+        <button class="col-xs-2 col-xs-offset-1 btn btn-default" ng-click="disabled=!disabled">
+          {{disabled ? 'Enable' : 'Disable'}}
+        </button>
+      </div>
+
+      <pre>Entered datetime: {{ selectedDateTime }}</pre>
+    </div>
+
+    <script>
+      function DateTimePickerCtrl ($scope) {
+        $scope.disabled = false;
+      };
     </script>
   </sample>
 

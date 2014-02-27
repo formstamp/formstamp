@@ -37,7 +37,6 @@
       _results.push((function(w) {
         var templateName;
         templateName = w.template != null ? w.template : w.name;
-        console.log(templateName);
         return $routeProvider.when("/widgets/" + templateName, {
           templateUrl: "demo/templates/" + templateName + ".html",
           controller: 'WidgetCtrl'

@@ -4,7 +4,6 @@ angular
   restrict: "A"
   scope:
     disabled: '=ngDisabled'
-    freetext: '@'
     class: '@'
   require: '?ngModel'
   replace: true
@@ -19,14 +18,14 @@ angular
     timeoptions = res.join('')
 
     """
-    <div class="fs-time">
+    <div class="fs-time fs-widget-root">
       <input
         ng-model="value"
         class="form-control"
         ng-disabled="disabled"
         list="time"
         type="text"/>
-      <span class="glyphicon glyphicon-time" ></span>
+      <span class="glyphicon glyphicon-time"></span>
       <datalist id="time">
       #{timeoptions}
       </datalist>

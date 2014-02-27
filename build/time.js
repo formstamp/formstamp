@@ -5,7 +5,6 @@
         restrict: "A",
         scope: {
           disabled: '=ngDisabled',
-          freetext: '@',
           "class": '@'
         },
         require: '?ngModel',
@@ -31,7 +30,7 @@
             }
           }
           timeoptions = res.join('');
-          return "<div class=\"fs-time\">\n  <input\n    ng-model=\"value\"\n    class=\"form-control\"\n    ng-disabled=\"disabled\"\n    list=\"time\"\n    type=\"text\"/>\n  <span class=\"glyphicon glyphicon-time\" ></span>\n  <datalist id=\"time\">\n  " + timeoptions + "\n  </datalist>\n</div>";
+          return "<div class=\"fs-time fs-widget-root\">\n  <input\n    ng-model=\"value\"\n    class=\"form-control\"\n    ng-disabled=\"disabled\"\n    list=\"time\"\n    type=\"text\"/>\n  <span class=\"glyphicon glyphicon-time\"></span>\n  <datalist id=\"time\">\n  " + timeoptions + "\n  </datalist>\n</div>";
         },
         controller: function($scope, $element, $attrs, $filter, $timeout) {
           var patterns;
