@@ -576,7 +576,7 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
         },
         require: '?ngModel',
         replace: true,
-        template: "<div class=\"fs-datetimepicker fs-widget-root\">\n  <div fs-datepicker ng-model=\"value\" ng-disabled=\"disabled\"></div>\n  <div fs-time ng-model=\"value\" ng-disabled=\"disabled\"></div>\n</div>",
+        template: "<div class=\"fs-datetimepicker fs-widget-root\" fs-null-form>\n  <div fs-datepicker ng-model=\"value\" ng-disabled=\"disabled\"></div>\n  <div fs-time ng-model=\"value\" ng-disabled=\"disabled\"></div>\n</div>",
         link: function(scope, element, attrs, ngModelCtrl, transcludeFn) {
           if (ngModelCtrl) {
             scope.$watch('value', function(newValue, oldValue) {
@@ -969,6 +969,29 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
 }).call(this);
 
 (function() {
+  angular.module("formstamp").directive("fsNullForm", function() {
+    return {
+      restrict: "A",
+      controller: function($element) {
+        var noop, nullFormCtrl;
+        noop = function() {};
+        nullFormCtrl = {
+          $addControl: function() {
+            return console.log('fsNullForm', '$addControl', arguments);
+          },
+          $removeControl: noop,
+          $setValidity: noop,
+          $setDirty: noop,
+          $setPristine: noop
+        };
+        return $element.data('$formController', nullFormCtrl);
+      }
+    };
+  });
+
+}).call(this);
+
+(function() {
   var nextUid, uid;
 
   uid = ['0', '0', '0'];
@@ -1212,7 +1235,7 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
             }
           }
           timeoptions = res.join('');
-          return "<div class=\"fs-time fs-widget-root\">\n  <input\n    ng-model=\"value\"\n    class=\"form-control\"\n    ng-disabled=\"disabled\"\n    list=\"time\"\n    type=\"text\"/>\n  <span class=\"glyphicon glyphicon-time\"></span>\n  <datalist id=\"time\">\n  " + timeoptions + "\n  </datalist>\n</div>";
+          return "<div class=\"fs-time fs-widget-root\" fs-null-form>\n  <input\n    ng-model=\"value\"\n    class=\"form-control\"\n    ng-disabled=\"disabled\"\n    list=\"time\"\n    type=\"text\"/>\n  <span class=\"glyphicon glyphicon-time\"></span>\n  <datalist id=\"time\">\n  " + timeoptions + "\n  </datalist>\n</div>";
         },
         controller: function($scope, $element, $attrs, $filter, $timeout) {
           var patterns;

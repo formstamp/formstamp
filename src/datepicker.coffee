@@ -10,6 +10,7 @@ angular
   replace: true
 
   link: ($scope, element, attrs, ngModel) ->
+
     $scope.selectedDate = {}
 
     ngModel.$render = ->

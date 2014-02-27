@@ -8,7 +8,7 @@ angular
   require: '?ngModel'
   replace: true
   template: """
-    <div class="fs-datetimepicker fs-widget-root">
+    <div class="fs-datetimepicker fs-widget-root" fs-null-form>
       <div fs-datepicker ng-model="value" ng-disabled="disabled"></div>
       <div fs-time ng-model="value" ng-disabled="disabled"></div>
     </div>

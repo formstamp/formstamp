@@ -22,7 +22,7 @@
         <label for="input1" class="col-sm-2 control-label">Name</label>
         <div class="col-sm-10">
           <input id="input1" ng-model="user.name" name="name" required class="form-control"/>
-          <p> dirty: {{f.name.$dirty}}; errors:{{f.name.$error}}</p>
+          <!-- <p> dirty: {{f.name.$dirty}}; errors:{{f.name.$error}}</p> -->
         </div>
       </div>
       <div class="form-group" ng-class="{'has-error': (f.email.$dirty && f.email.$invalid)}">
@@ -33,17 +33,17 @@
             <span ng-show="f.email.$error.required">Tell us your email.</span>
             <span ng-show="f.email.$error.email">This is not a valid email.</span>
           </p>
-          <pre> dirty: {{f.email.$dirty}}; errors:{{f.email.$error}}</pre>
+          <!-- <pre> dirty: {{f.email.$dirty}}; errors:{{f.email.$error}}</pre> -->
         </div>
       </div>
       <div class="form-group" ng-class="{'has-error': (f.bithdate.$dirty && f.bithdate.$invalid)}">
         <label for="input1" class="col-sm-2 control-label">Bith Date</label>
         <div class="col-sm-10">
-          <div ng-model="user.bithdate" name="bithdate" fs-datepicker required></div>
+          <div ng-model="user.bithdate" name="bithdate" fs-datetimepicker required></div>
           <p class="text-danger" ng-show="f.bithdate.$dirty && f.bithdate.$invalid">Invalid:
             <span ng-show="f.bithdate.$error.required">Tell us your email.</span>
           </p>
-          <pre> dirty: {{f.bithdate.$dirty}}; errors:{{f.bithdate.$error}}</pre>
+          <!-- <pre> dirty: {{f.bithdate.$dirty}}; errors:{{f.bithdate.$error}}</pre> -->
         </div>
       </div>
       <pre> Form valid: {{ f.$valid }} </pre>
