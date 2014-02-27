@@ -4,7 +4,8 @@
       restrict: 'EA',
       require: '?ngModel',
       scope: {
-        "class": '@'
+        "class": '@',
+        disabled: '=ngDisabled'
       },
       templateUrl: '/templates/datepicker.html',
       replace: true,

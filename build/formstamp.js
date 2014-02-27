@@ -192,6 +192,7 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
     "     fs-on-blur='active = false'\n" +
     "     fs-hold-focus\n" +
     "     type=\"text\"\n" +
+    "     ng-disabled=\"disabled\"\n" +
     "     class=\"form-control\"\n" +
     "     ng-model=\"formattedDate\" />\n" +
     "\n" +
@@ -531,7 +532,8 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
       restrict: 'EA',
       require: '?ngModel',
       scope: {
-        "class": '@'
+        "class": '@',
+        disabled: '=ngDisabled'
       },
       templateUrl: '/templates/datepicker.html',
       replace: true,

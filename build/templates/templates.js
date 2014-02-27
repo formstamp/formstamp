@@ -84,6 +84,7 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
     "     fs-on-blur='active = false'\n" +
     "     fs-hold-focus\n" +
     "     type=\"text\"\n" +
+    "     ng-disabled=\"disabled\"\n" +
     "     class=\"form-control\"\n" +
     "     ng-model=\"formattedDate\" />\n" +
     "\n" +

@@ -5,6 +5,7 @@ angular
   require: '?ngModel'
   scope:
     class: '@'
+    disabled: '=ngDisabled'
   templateUrl: '/templates/datepicker.html'
   replace: true
   controller: ($scope, $filter) ->

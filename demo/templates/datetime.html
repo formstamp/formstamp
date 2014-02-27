@@ -9,7 +9,7 @@
     <div ng-controller='DatePickerCtrl' class="well">
       <div class="form-group row">
         <label class="col-xs-3">Choose convenient seppuku date</label>
-        <div fs-datepicker ng-model="selectedDate" class="col-xs-2"></div>
+        <div fs-datepicker ng-model="selectedDate" class="col-xs-2" ng-disabled="disabled"></div>
         <button class="col-xs-2 col-xs-offset-1 btn btn-default" ng-click="disabled=!disabled">
           {{disabled ? 'Enable' : 'Disable'}}
         </button>
