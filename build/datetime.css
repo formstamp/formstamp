@@ -1,14 +1,14 @@
 .fs-time,
-.fs-datepicker {
+.fs-date {
   position: relative;
 }
 .fs-time input,
-.fs-datepicker input {
+.fs-date input {
   width: 100%;
   display: inline-block;
 }
 .fs-time .glyphicon,
-.fs-datepicker .glyphicon {
+.fs-date .glyphicon {
   position: absolute;
   top: 10px;
   font-size: 16px;
@@ -16,32 +16,32 @@
   color: #aaa;
 }
 .fs-time input[disabled] + .glyphicon,
-.fs-datepicker input[disabled] + .glyphicon {
+.fs-date input[disabled] + .glyphicon {
   opacity: 0.6;
 }
 .fs-time input:hover + .glyphicon,
-.fs-datepicker input:hover + .glyphicon,
+.fs-date input:hover + .glyphicon,
 .fs-time .glyphicon:hover,
-.fs-datepicker .glyphicon:hover {
+.fs-date .glyphicon:hover {
   color: #888;
 }
-.fs-datetimepicker {
+.fs-datetime {
   display: -webkit-flex;
   -webkit-flex-flow: row nowrap;
 }
-.fs-datetimepicker .fs-time {
-  width: 7em;
+.fs-datetime .fs-time {
+  width: 85px;
   -webkit-flex: auto;
 }
-.fs-datetimepicker .fs-time input {
+.fs-datetime .fs-time input {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   margin-left: -1px;
 }
-.fs-datetimepicker .fs-datepicker {
+.fs-datetime .fs-date {
   -webkit-flex: auto;
 }
-.fs-datetimepicker .fs-datepicker input {
+.fs-datetime .fs-date input {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }

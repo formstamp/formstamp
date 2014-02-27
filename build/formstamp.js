@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-=======
 var addValidations, comp, filter, getComputedStyleFor, indexOf, innerHeightOf, scrollToTarget;
 
 comp = function(a, b) {
@@ -186,30 +184,6 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
 
   $templateCache.put('/templates/date.html',
     "<div class=\"fs-date fs-widget-root\">\n" +
-    "  <input\n" +
-    "     fs-input\n" +
-    "     fs-focus-when='active'\n" +
-    "     fs-blur-when='!active'\n" +
-    "     fs-on-focus='active = true'\n" +
-    "     fs-on-blur='active = false'\n" +
-    "     fs-hold-focus\n" +
-    "     type=\"text\"\n" +
-    "     ng-disabled=\"disabled\"\n" +
-    "     class=\"form-control\"\n" +
-    "     ng-model=\"formattedDate\" />\n" +
-    "  <span class=\"glyphicon glyphicon-calendar\"></span>\n" +
-    "\n" +
-    "  <div ng-if=\"active\" class=\"open fs-calendar-wrapper\">\n" +
-    "    <div class=\"dropdown-menu\">\n" +
-    "      <fs-calendar ng-model=\"selectedDate.date\" />\n" +
-    "    </div>\n" +
-    "  </div>\n" +
-    "</div>\n"
-  );
-
-
-  $templateCache.put('/templates/datepicker.html',
-    "<div class=\"fs-datepicker fs-widget-root\">\n" +
     "  <input\n" +
     "     fs-input\n" +
     "     fs-focus-when='active'\n" +
@@ -443,17 +417,23 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
               return new Date(parsedDate.getFullYear(), parsedDate.getMonth(), parsedDate.getDate());
             }
           };
-          ngModel.$render = function() {
-            return scope.selectedDate = parseDate(ngModel.$modelValue);
-          };
           scope.isSameYear = function() {
             var _ref;
             return ((_ref = parseDate(ngModel.$modelValue)) != null ? _ref.getFullYear() : void 0) === scope.selectedYear;
           };
           scope.selectDay = function(day) {
-            scope.selectedDate = day;
-            return ngModel.$setViewValue(day);
+            return scope.selectedDate = day;
           };
+          ngModel.$render = function() {
+            return scope.selectedDate = parseDate(ngModel.$modelValue);
+          };
+          scope.$watch('selectedDate', function(newDate, oldDate) {
+            if ((oldDate != null) && (newDate != null) && oldDate.getTime() !== newDate.getTime()) {
+              newDate.setHours(oldDate.getHours());
+              newDate.setMinutes(oldDate.getMinutes());
+              return ngModel.$setViewValue(newDate);
+            }
+          });
           scope.selectMonth = function(monthName) {
             scope.selectionMode = 'day';
             scope.selectedDate = void 0;
@@ -562,38 +542,7 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
         "class": '@',
         disabled: '=ngDisabled'
       },
-      templateUrl: '/templates/datepicker.html',
-      replace: true,
-      controller: function($scope, $filter) {
-        return $scope.$watch('selectedDate.date', function(newDate) {
-          $scope.active = false;
-          return $scope.formattedDate = $filter('date')(newDate);
-        });
-      },
-      link: function($scope, element, attrs, ngModel) {
-        $scope.selectedDate = {};
-        ngModel.$render = function() {
-          return $scope.selectedDate.date = ngModel.$modelValue;
-        };
-        return $scope.$watch('selectedDate.date', function(newDate) {
-          return ngModel.$setViewValue(newDate);
-        });
-      }
-    };
-  });
-
-}).call(this);
-
-(function() {
-  angular.module('formstamp').directive('fsDatepicker', function() {
-    return {
-      restrict: 'EA',
-      require: '?ngModel',
-      scope: {
-        "class": '@',
-        disabled: '=ngDisabled'
-      },
-      templateUrl: '/templates/datepicker.html',
+      templateUrl: '/templates/date.html',
       replace: true,
       controller: function($scope, $filter) {
         return $scope.$watch('selectedDate.date', function(newDate) {
@@ -627,36 +576,6 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
         require: '?ngModel',
         replace: true,
         template: "<div class=\"fs-datetime fs-widget-root\">\n  <div fs-date ng-model=\"value\" ng-disabled=\"disabled\"></div>\n  <div fs-time ng-model=\"value\" ng-disabled=\"disabled\"></div>\n</div>",
-        link: function(scope, element, attrs, ngModelCtrl, transcludeFn) {
-          if (ngModelCtrl) {
-            scope.$watch('value', function(newValue, oldValue) {
-              if (newValue !== oldValue) {
-                return ngModelCtrl.$setViewValue(newValue);
-              }
-            });
-            return ngModelCtrl.$render = function() {
-              return scope.value = ngModelCtrl.$viewValue;
-            };
-          }
-        }
-      };
-    }
-  ]);
-
-}).call(this);
-
-(function() {
-  angular.module("formstamp").directive("fsDatetimepicker", [
-    '$compile', function($compile) {
-      return {
-        restrict: "A",
-        scope: {
-          disabled: '=ngDisabled',
-          "class": '@'
-        },
-        require: '?ngModel',
-        replace: true,
-        template: "<div class=\"fs-datetimepicker fs-widget-root\">\n  <div fs-datepicker ng-model=\"value\" ng-disabled=\"disabled\"></div>\n  <div fs-time ng-model=\"value\" ng-disabled=\"disabled\"></div>\n</div>",
         link: function(scope, element, attrs, ngModelCtrl, transcludeFn) {
           if (ngModelCtrl) {
             scope.$watch('value', function(newValue, oldValue) {
@@ -1317,14 +1236,43 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
           });
         },
         link: function(scope, element, attrs, ngModelCtrl, transcludeFn) {
+          var toTimeStr, updateTime;
+          toTimeStr = function(date) {
+            var h, m;
+            if (date == null) {
+              return '';
+            }
+            h = date.getHours();
+            if (h.length < 2) {
+              h = "0" + h;
+            }
+            m = date.getMinutes();
+            if (m.length < 2) {
+              m = "0" + m;
+            }
+            return "" + h + ":" + m;
+          };
+          updateTime = function(date, timeStr) {
+            var parts;
+            parts = timeStr.split(':');
+            if (parts[0] != null) {
+              date.setHours(parts[0]);
+            }
+            if (parts[1] != null) {
+              date.setMinutes(parts[1]);
+            }
+            return date;
+          };
           if (ngModelCtrl) {
             scope.$watch('value', function(newValue, oldValue) {
+              var date;
               if (newValue !== oldValue) {
-                return ngModelCtrl.$setViewValue(scope.value);
+                date = ngModelCtrl.$viewValue || new Date();
+                return ngModelCtrl.$setViewValue(updateTime(date, newValue));
               }
             });
             return ngModelCtrl.$render = function() {
-              return scope.value = ngModelCtrl.$viewValue;
+              return scope.value = toTimeStr(ngModelCtrl.$viewValue);
             };
           }
         }
@@ -1333,4 +1281,3 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
   ]);
 
 }).call(this);
->>>>>>> Stashed changes

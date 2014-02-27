@@ -1,5 +1,5 @@
 (function() {
-  angular.module("formstamp").directive("fsDatetimepicker", [
+  angular.module("formstamp").directive("fsDatetime", [
     '$compile', function($compile) {
       return {
         restrict: "A",
@@ -9,7 +9,7 @@
         },
         require: '?ngModel',
         replace: true,
-        template: "<div class=\"fs-datetimepicker fs-widget-root\">\n  <div fs-datepicker ng-model=\"value\" ng-disabled=\"disabled\"></div>\n  <div fs-time ng-model=\"value\" ng-disabled=\"disabled\"></div>\n</div>",
+        template: "<div class=\"fs-datetime fs-widget-root\">\n  <div fs-date ng-model=\"value\" ng-disabled=\"disabled\"></div>\n  <div fs-time ng-model=\"value\" ng-disabled=\"disabled\"></div>\n</div>",
         link: function(scope, element, attrs, ngModelCtrl, transcludeFn) {
           if (ngModelCtrl) {
             scope.$watch('value', function(newValue, oldValue) {
