@@ -162,9 +162,6 @@
               return new Date(parsedDate.getFullYear(), parsedDate.getMonth(), parsedDate.getDate());
             }
           };
-          ngModel.$render = function() {
-            return scope.selectedDate = parseDate(ngModel.$modelValue);
-          };
           scope.isSameYear = function() {
             var _ref;
             return ((_ref = parseDate(ngModel.$modelValue)) != null ? _ref.getFullYear() : void 0) === scope.selectedYear;
@@ -172,14 +169,15 @@
           scope.selectDay = function(day) {
             return scope.selectedDate = day;
           };
-          scope.$watch('selectedDate', function(newDate) {
-            var oldDate;
-            oldDate = ngModel.$modelValue;
-            if ((oldDate != null) && (newDate != null)) {
+          ngModel.$render = function() {
+            return scope.selectedDate = parseDate(ngModel.$modelValue);
+          };
+          scope.$watch('selectedDate', function(newDate, oldDate) {
+            if ((oldDate != null) && (newDate != null) && oldDate.getTime() !== newDate.getTime()) {
               newDate.setHours(oldDate.getHours());
               newDate.setMinutes(oldDate.getMinutes());
+              return ngModel.$setViewValue(newDate);
             }
-            return ngModel.$setViewValue(newDate);
           });
           scope.selectMonth = function(monthName) {
             scope.selectionMode = 'day';

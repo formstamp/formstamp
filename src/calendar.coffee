@@ -96,21 +96,20 @@ angular
         parsedDate = new Date(time)
         new Date(parsedDate.getFullYear(), parsedDate.getMonth(), parsedDate.getDate())
 
-    ngModel.$render = ->
-      scope.selectedDate = parseDate(ngModel.$modelValue)
-
     scope.isSameYear = ->
       parseDate(ngModel.$modelValue)?.getFullYear() == scope.selectedYear
 
     scope.selectDay = (day)->
       scope.selectedDate = day
 
-    scope.$watch 'selectedDate', (newDate) ->
-      oldDate = ngModel.$modelValue
-      if oldDate? && newDate?
+    ngModel.$render = ->
+      scope.selectedDate = parseDate(ngModel.$modelValue)
+
+    scope.$watch 'selectedDate', (newDate, oldDate) ->
+      if oldDate? && newDate?  && oldDate.getTime() != newDate.getTime()
         newDate.setHours(oldDate.getHours())
         newDate.setMinutes(oldDate.getMinutes())
-      ngModel.$setViewValue(newDate)
+        ngModel.$setViewValue(newDate)
 
     scope.selectMonth = (monthName)->
       scope.selectionMode = 'day'

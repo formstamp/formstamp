@@ -1,6 +1,6 @@
 angular
 .module('formstamp')
-.directive('fsDatepicker', ->
+.directive('fsDatepicker', ($filter)->
   restrict: 'EA'
   require: '?ngModel'
   scope:
@@ -8,10 +8,6 @@ angular
     disabled: '=ngDisabled'
   templateUrl: '/templates/datepicker.html'
   replace: true
-  controller: ($scope, $filter) ->
-    $scope.$watch 'selectedDate.date', (newDate) ->
-      $scope.active = false
-      $scope.formattedDate = $filter('date')(newDate)
 
   link: ($scope, element, attrs, ngModel) ->
     $scope.selectedDate = {}
@@ -19,10 +15,12 @@ angular
     ngModel.$render = ->
       $scope.selectedDate.date = ngModel.$modelValue
 
-    $scope.$watch 'selectedDate.date', (newDate) ->
-      oldDate = ngModel.$modelValue
-      if oldDate? && newDate?
+    $scope.$watch 'selectedDate.date', (newDate, oldDate) ->
+      console.log('selectedDate.date', newDate, oldDate, newDate == oldDate)
+      if oldDate? && newDate?  && oldDate.getTime() != newDate.getTime()
         newDate.setHours(oldDate.getHours())
         newDate.setMinutes(oldDate.getMinutes())
       ngModel.$setViewValue(newDate)
+      $scope.formattedDate = $filter('date')(newDate)
+      $scope.active = false
 )
