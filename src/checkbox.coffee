@@ -12,7 +12,7 @@ angular
     template: (el, attrs)->
       itemTpl = el.html() || 'template me: {{item | json}}'
       template = """
-<div class='fs-racheck' ng-class="{disabled: disabled, enabled: !disabled}">
+<div fs-null-form class='fs-racheck' ng-class="{disabled: disabled, enabled: !disabled}">
   <div ng-repeat='item in items track by item.id'>
     <a class="fs-racheck-item"
        href='javascript:void(0)'

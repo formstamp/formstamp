@@ -23,7 +23,7 @@ angular.module("formstamp")
 
       itemTpl = el.html() || defaultItemTpl
       """
-<div class='fs-multiselect fs-widget-root' ng-class='{ "fs-with-selected-items": selectedItems.length > 0 }'>
+<div fs-null-form class='fs-multiselect fs-widget-root' ng-class='{ "fs-with-selected-items": selectedItems.length > 0 }'>
   <div class='fs-multiselect-wrapper'>
     <div class="fs-multiselect-selected-items" ng-if="selectedItems.length > 0">
       <a ng-repeat='item in selectedItems' class="btn" ng-click="unselectItem(item)" ng-disabled="disabled">

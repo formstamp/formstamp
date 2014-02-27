@@ -74,8 +74,8 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
   );
 
 
-  $templateCache.put('/templates/datepicker.html',
-    "<div class=\"fs-datepicker fs-widget-root\">\n" +
+  $templateCache.put('/templates/date.html',
+    "<div class=\"fs-date fs-widget-root\">\n" +
     "  <input\n" +
     "     fs-input\n" +
     "     fs-focus-when='active'\n" +

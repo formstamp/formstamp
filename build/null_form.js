@@ -6,9 +6,7 @@
         var noop, nullFormCtrl;
         noop = function() {};
         nullFormCtrl = {
-          $addControl: function() {
-            return console.log('fsNullForm', '$addControl', arguments);
-          },
+          $addControl: noop,
           $removeControl: noop,
           $setValidity: noop,
           $setDirty: noop,

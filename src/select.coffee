@@ -12,7 +12,7 @@ angular
   template: (el)->
     itemTpl = el.html()
     template = """
-<div class='fs-select fs-widget-root'>
+<div fs-null-form class='fs-select fs-widget-root'>
   <div ng-hide="active" class="fs-select-sel" ng-class="{'btn-group': item}">
       <a class="btn btn-default fs-select-active"
          ng-class='{"btn-danger": invalid}'

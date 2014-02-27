@@ -39,7 +39,7 @@
       <div class="form-group" ng-class="{'has-error': (f.bithdate.$dirty && f.bithdate.$invalid)}">
         <label for="input1" class="col-sm-2 control-label">Bith Date</label>
         <div class="col-sm-10">
-          <div ng-model="user.bithdate" name="bithdate" fs-datetimepicker required></div>
+          <div ng-model="user.bithdate" name="bithdate" fs-datetime required></div>
           <p class="text-danger" ng-show="f.bithdate.$dirty && f.bithdate.$invalid">Invalid:
             <span ng-show="f.bithdate.$error.required">Tell us your email.</span>
           </p>
@@ -47,6 +47,7 @@
         </div>
       </div>
       <pre> Form valid: {{ f.$valid }} </pre>
+      <pre> {{user | json}} </pre>
     </form>
   </div>
   <script>

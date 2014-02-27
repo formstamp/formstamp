@@ -35,7 +35,7 @@ angular
       itemTpl = el.html() || 'template me: {{item | json}}'
       name = nextUid()
       template = """
-<div class='fs-racheck' ng-class="{disabled: disabled, enabled: !disabled}">
+<div fs-null-form class='fs-racheck' ng-class="{disabled: disabled, enabled: !disabled}">
   <div class="fs-radio-label"
      ng-repeat="item in items" >
     <input
