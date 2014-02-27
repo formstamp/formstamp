@@ -51,11 +51,26 @@ angular
       $scope.value = value
 
   link: (scope, element, attrs, ngModelCtrl, transcludeFn) ->
+    toTimeStr = (date)->
+      return '' unless date?
+      h = date.getHours()
+      h = "0#{h}" if h.length < 2
+      m = date.getMinutes()
+      m = "0#{m}" if m.length < 2
+      "#{h}:#{m}"
+
+    updateTime = (date, timeStr)->
+      parts = timeStr.split(':')
+      date.setHours(parts[0]) if parts[0]?
+      date.setMinutes(parts[1]) if parts[1]?
+      date
+
     if ngModelCtrl
       scope.$watch 'value', (newValue, oldValue) ->
         if newValue isnt oldValue
-          ngModelCtrl.$setViewValue(scope.value)
+          date = ngModelCtrl.$viewValue || new Date()
+          ngModelCtrl.$setViewValue(updateTime(date, newValue))
 
       ngModelCtrl.$render = ->
-        scope.value = ngModelCtrl.$viewValue
+        scope.value = toTimeStr(ngModelCtrl.$viewValue)
 ]

@@ -21,6 +21,12 @@
           return $scope.selectedDate.date = ngModel.$modelValue;
         };
         return $scope.$watch('selectedDate.date', function(newDate) {
+          var oldDate;
+          oldDate = ngModel.$modelValue;
+          if ((oldDate != null) && (newDate != null)) {
+            newDate.setHours(oldDate.getHours());
+            newDate.setMinutes(oldDate.getMinutes());
+          }
           return ngModel.$setViewValue(newDate);
         });
       }

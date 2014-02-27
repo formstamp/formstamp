@@ -17,7 +17,7 @@
         </button>
       </div>
 
-      <pre>Seppuku date: {{ selectedDate }}</pre>
+      <pre>Seppuku date: {{ selectedDate.toString() }}</pre>
     </div>
 
     <script>
@@ -38,15 +38,29 @@
                ng-disabled="disabled"
                ng-model="svalue"></div>
         </div>
+        <button class="col-xs-1 col-xs-offset-1 btn btn-default" ng-click="setTime('21:50')">
+          21:50
+        </button>
+        <button class="col-xs-1 col-xs-offset-1 btn btn-default" ng-click="setTime('12:33')">
+          12:33
+        </button>
         <button class="col-xs-2 col-xs-offset-1 btn btn-default" ng-click="disabled=!disabled">
           {{disabled ? 'Enable' : 'Disable'}}
         </button>
       </div>
-      <pre>Time is: {{ svalue }}</pre>
+      <pre>Time is: {{ svalue.toString() }}</pre>
     </form>
     <script>
       function TimeCtrl($scope) {
+        $scope.svalue = new Date()
         $scope.disabled = false
+        $scope.setTime = function(str){
+          var date  = $scope.svalue
+          var parts = str.split(':')
+          date.setHours(parts[0])
+          date.setMinutes(parts[1])
+          $scope.svalue = new Date(date.getTime())
+        }
       }
     </script>
   </sample>
@@ -64,12 +78,13 @@
         </button>
       </div>
 
-      <pre>Entered datetime: {{ selectedDateTime }}</pre>
+      <pre>Entered datetime: {{ selectedDateTime.toString() }}</pre>
     </div>
 
     <script>
       function DateTimePickerCtrl ($scope) {
         $scope.disabled = false;
+        $scope.selectedDateTime = new Date()
       };
     </script>
   </sample>

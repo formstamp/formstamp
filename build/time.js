@@ -55,14 +55,43 @@
           });
         },
         link: function(scope, element, attrs, ngModelCtrl, transcludeFn) {
+          var toTimeStr, updateTime;
+          toTimeStr = function(date) {
+            var h, m;
+            if (date == null) {
+              return '';
+            }
+            h = date.getHours();
+            if (h.length < 2) {
+              h = "0" + h;
+            }
+            m = date.getMinutes();
+            if (m.length < 2) {
+              m = "0" + m;
+            }
+            return "" + h + ":" + m;
+          };
+          updateTime = function(date, timeStr) {
+            var parts;
+            parts = timeStr.split(':');
+            if (parts[0] != null) {
+              date.setHours(parts[0]);
+            }
+            if (parts[1] != null) {
+              date.setMinutes(parts[1]);
+            }
+            return date;
+          };
           if (ngModelCtrl) {
             scope.$watch('value', function(newValue, oldValue) {
+              var date;
               if (newValue !== oldValue) {
-                return ngModelCtrl.$setViewValue(scope.value);
+                date = ngModelCtrl.$viewValue || new Date();
+                return ngModelCtrl.$setViewValue(updateTime(date, newValue));
               }
             });
             return ngModelCtrl.$render = function() {
-              return scope.value = ngModelCtrl.$viewValue;
+              return scope.value = toTimeStr(ngModelCtrl.$viewValue);
             };
           }
         }

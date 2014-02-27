@@ -20,5 +20,9 @@ angular
       $scope.selectedDate.date = ngModel.$modelValue
 
     $scope.$watch 'selectedDate.date', (newDate) ->
+      oldDate = ngModel.$modelValue
+      if oldDate? && newDate?
+        newDate.setHours(oldDate.getHours())
+        newDate.setMinutes(oldDate.getMinutes())
       ngModel.$setViewValue(newDate)
 )

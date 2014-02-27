@@ -104,7 +104,13 @@ angular
 
     scope.selectDay = (day)->
       scope.selectedDate = day
-      ngModel.$setViewValue(day)
+
+    scope.$watch 'selectedDate', (newDate) ->
+      oldDate = ngModel.$modelValue
+      if oldDate? && newDate?
+        newDate.setHours(oldDate.getHours())
+        newDate.setMinutes(oldDate.getMinutes())
+      ngModel.$setViewValue(newDate)
 
     scope.selectMonth = (monthName)->
       scope.selectionMode = 'day'

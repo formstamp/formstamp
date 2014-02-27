@@ -30,7 +30,7 @@
   -webkit-flex-flow: row nowrap;
 }
 .fs-datetimepicker .fs-time {
-  width: 85px;
+  width: 7em;
   -webkit-flex: auto;
 }
 .fs-datetimepicker .fs-time input {

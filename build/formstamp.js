@@ -425,9 +425,17 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
             return ((_ref = parseDate(ngModel.$modelValue)) != null ? _ref.getFullYear() : void 0) === scope.selectedYear;
           };
           scope.selectDay = function(day) {
-            scope.selectedDate = day;
-            return ngModel.$setViewValue(day);
+            return scope.selectedDate = day;
           };
+          scope.$watch('selectedDate', function(newDate) {
+            var oldDate;
+            oldDate = ngModel.$modelValue;
+            if ((oldDate != null) && (newDate != null)) {
+              newDate.setHours(oldDate.getHours());
+              newDate.setMinutes(oldDate.getMinutes());
+            }
+            return ngModel.$setViewValue(newDate);
+          });
           scope.selectMonth = function(monthName) {
             scope.selectionMode = 'day';
             scope.selectedDate = void 0;
@@ -550,6 +558,12 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
           return $scope.selectedDate.date = ngModel.$modelValue;
         };
         return $scope.$watch('selectedDate.date', function(newDate) {
+          var oldDate;
+          oldDate = ngModel.$modelValue;
+          if ((oldDate != null) && (newDate != null)) {
+            newDate.setHours(oldDate.getHours());
+            newDate.setMinutes(oldDate.getMinutes());
+          }
           return ngModel.$setViewValue(newDate);
         });
       }
@@ -1230,14 +1244,43 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
           });
         },
         link: function(scope, element, attrs, ngModelCtrl, transcludeFn) {
+          var toTimeStr, updateTime;
+          toTimeStr = function(date) {
+            var h, m;
+            if (date == null) {
+              return '';
+            }
+            h = date.getHours();
+            if (h.length < 2) {
+              h = "0" + h;
+            }
+            m = date.getMinutes();
+            if (m.length < 2) {
+              m = "0" + m;
+            }
+            return "" + h + ":" + m;
+          };
+          updateTime = function(date, timeStr) {
+            var parts;
+            parts = timeStr.split(':');
+            if (parts[0] != null) {
+              date.setHours(parts[0]);
+            }
+            if (parts[1] != null) {
+              date.setMinutes(parts[1]);
+            }
+            return date;
+          };
           if (ngModelCtrl) {
             scope.$watch('value', function(newValue, oldValue) {
+              var date;
               if (newValue !== oldValue) {
-                return ngModelCtrl.$setViewValue(scope.value);
+                date = ngModelCtrl.$viewValue || new Date();
+                return ngModelCtrl.$setViewValue(updateTime(date, newValue));
               }
             });
             return ngModelCtrl.$render = function() {
-              return scope.value = ngModelCtrl.$viewValue;
+              return scope.value = toTimeStr(ngModelCtrl.$viewValue);
             };
           }
         }
