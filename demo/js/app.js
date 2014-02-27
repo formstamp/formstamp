@@ -19,11 +19,10 @@
     }, {
       name: 'list'
     }, {
-      name: 'time'
-    }, {
       name: 'input'
     }, {
-      name: 'datepicker'
+      name: 'date/time',
+      template: 'datetime'
     }
   ];
 
@@ -36,8 +35,11 @@
     for (_i = 0, _len = widgets.length; _i < _len; _i++) {
       w = widgets[_i];
       _results.push((function(w) {
-        return $routeProvider.when("/widgets/" + w.name, {
-          templateUrl: "demo/templates/" + w.name + ".html",
+        var templateName;
+        templateName = w.template != null ? w.template : w.name;
+        console.log(templateName);
+        return $routeProvider.when("/widgets/" + templateName, {
+          templateUrl: "demo/templates/" + templateName + ".html",
           controller: 'WidgetCtrl'
         });
       })(w));

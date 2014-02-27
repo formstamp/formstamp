@@ -46,7 +46,7 @@
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
               <li ng-repeat='widget in widgets' ng-class="{active: currentWidget == widget.name}" >
-                <a href="#/widgets/{{ widget.name }}">{{ widget.name }}</a>
+                <a href="#/widgets/{{ widget.template || widget.name }}">{{ widget.name }}</a>
               </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">

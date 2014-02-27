@@ -1,0 +1,65 @@
+<div class="container">
+  <h1>Date/Time pickers</h1>
+  <div class="alert alert-warning">
+    Some meaningless alert!
+  </div>
+
+  <h5>Directive: <code class="ng-binding">fs-datepicker</code>.</h5>
+  <sample>
+    <div ng-controller='DatePickerCtrl' class="well">
+      <div class="form-group row">
+        <label class="col-xs-3">Choose convenient seppuku date</label>
+        <div fs-datepicker ng-model="selectedDate" class="col-xs-2"></div>
+        <button class="col-xs-2 col-xs-offset-1 btn btn-default" ng-click="disabled=!disabled">
+          {{disabled ? 'Enable' : 'Disable'}}
+        </button>
+      </div>
+
+      <pre>Seppuku date: {{ selectedDate }}</pre>
+    </div>
+
+    <script>
+      function DatePickerCtrl ($scope) {
+        $scope.selectedDate = new Date();
+        $scope.disabled = false;
+      };
+    </script>
+  </sample>
+
+  <h5>Directive: <code class="ng-binding">fs-time</code>.</h5>
+  <sample>
+    <form class="well" role="form" ng-controller="TimeCtrl">
+      <div class='form-group row'>
+        <label class="col-xs-3">Select appointment time:</label>
+        <div class="col-xs-2"
+             fs-time
+             ng-disabled="disabled"
+             ng-model="svalue"></div>
+        <button class="col-xs-2 col-xs-offset-1 btn btn-default" ng-click="disabled=!disabled">
+          {{disabled ? 'Enable' : 'Disable'}}
+        </button>
+      </div>
+      <pre>Time is: {{ svalue }}</pre>
+    </form>
+    <script>
+      function TimeCtrl($scope) {
+        $scope.disabled = false
+      }
+    </script>
+  </sample>
+
+  <h5>Directive: <code class="ng-binding">fs-calendar</code>.</h5>
+  <sample>
+    <div class='well' ng-controller='CalendarCtrl'>
+      <pre>Selected date: {{ selectedDate | json }}</pre>
+
+      <fs-calendar ng-model="selectedDate" />
+    </div>
+
+    <script>
+      function CalendarCtrl ($scope) {
+        $scope.selectedDate = new Date();
+      };
+    </script>
+  </sample>
+</div>

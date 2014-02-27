@@ -1,28 +1,26 @@
 widgets  = [
-    {name: 'form_for'}
-    {name: 'combo'}
-    {name: 'select'}
-    {name: 'multiselect'}
-    {name: 'tags'}
-    {name: 'radio'}
-    {name: 'checkbox'}
-    {name: 'list'}
-    {name: 'time'}
-    {name: 'input'}
-    {name: 'datepicker'}
+    { name: 'form_for' }
+    { name: 'combo' }
+    { name: 'select' }
+    { name: 'multiselect' }
+    { name: 'tags' }
+    { name: 'radio' }
+    { name: 'checkbox' }
+    { name: 'list' }
+    { name: 'input' }
+    { name: 'date/time', template: 'datetime' }
 ]
 app = angular.module 'formstamp-demo',
- ['formstamp', 'ngRoute', 'ngSanitize', 'ngAnimate'],
+['formstamp', 'ngRoute', 'ngSanitize', 'ngAnimate'],
+($routeProvider, $locationProvider) ->
+  $routeProvider.when '/',
+    templateUrl: 'demo/templates/welcome.html'
 
- ($routeProvider, $locationProvider) ->
-   $routeProvider
-   .when('/', {
-     templateUrl: 'demo/templates/welcome.html'
-   })
-
-   for w in widgets
-     do (w)->
-       $routeProvider.when "/widgets/#{w.name}", templateUrl: "demo/templates/#{w.name}.html", controller: 'WidgetCtrl'
+  for w in widgets
+    do (w)->
+      templateName = if w.template? then w.template else w.name
+      console.log templateName
+      $routeProvider.when "/widgets/#{templateName}", templateUrl: "demo/templates/#{templateName}.html", controller: 'WidgetCtrl'
 
 app.filter 'prettify', ()->
   return (code)->
