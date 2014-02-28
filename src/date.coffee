@@ -11,7 +11,7 @@ angular
   controller: ($scope, $filter) ->
     $scope.$watch 'selectedDate.date', (newDate) ->
       $scope.active = false
-      $scope.formattedDate = $filter('date')(newDate)
+      $scope.formattedDate = $filter('date')(newDate, 'shortDate')
 
   link: ($scope, element, attrs, ngModel) ->
     parseDate = (dateString)->

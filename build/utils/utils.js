@@ -107,13 +107,14 @@ addValidations = function(attrs, ctrl) {
 };
 
 updateDate = function(newDate, oldDate) {
+  var _ref, _ref1;
   switch (false) {
     case !((oldDate == null) && (newDate != null)):
       return newDate;
     case !(newDate == null):
       return null;
     case !((newDate != null) && (oldDate != null)):
-      if (parseDate(oldDate).getTime() !== parseDate(newDate).getTime()) {
+      if (((_ref = parseDate(oldDate)) != null ? _ref.getTime() : void 0) !== ((_ref1 = parseDate(newDate)) != null ? _ref1.getTime() : void 0)) {
         newDate.setHours(oldDate.getHours());
         newDate.setMinutes(oldDate.getMinutes());
         newDate.setSeconds(oldDate.getSeconds());

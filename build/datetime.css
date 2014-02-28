@@ -6,6 +6,7 @@
 .fs-date input {
   width: 100%;
   display: inline-block;
+  padding-right: 25px;
 }
 .fs-time .glyphicon,
 .fs-date .glyphicon {
@@ -30,8 +31,11 @@
   display: -webkit-flex;
   -webkit-flex-flow: row nowrap;
 }
+.fs-datetime button {
+  -webkit-flex: auto;
+}
 .fs-datetime .fs-time {
-  width: 85px;
+  width: 8em;
   -webkit-flex: auto;
 }
 .fs-datetime .fs-time input {

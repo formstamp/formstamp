@@ -107,13 +107,14 @@ addValidations = function(attrs, ctrl) {
 };
 
 updateDate = function(newDate, oldDate) {
+  var _ref, _ref1;
   switch (false) {
     case !((oldDate == null) && (newDate != null)):
       return newDate;
     case !(newDate == null):
       return null;
     case !((newDate != null) && (oldDate != null)):
-      if (parseDate(oldDate).getTime() !== parseDate(newDate).getTime()) {
+      if (((_ref = parseDate(oldDate)) != null ? _ref.getTime() : void 0) !== ((_ref1 = parseDate(newDate)) != null ? _ref1.getTime() : void 0)) {
         newDate.setHours(oldDate.getHours());
         newDate.setMinutes(oldDate.getMinutes());
         newDate.setSeconds(oldDate.getSeconds());
@@ -567,7 +568,7 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
       controller: function($scope, $filter) {
         return $scope.$watch('selectedDate.date', function(newDate) {
           $scope.active = false;
-          return $scope.formattedDate = $filter('date')(newDate);
+          return $scope.formattedDate = $filter('date')(newDate, 'shortDate');
         });
       },
       link: function($scope, element, attrs, ngModel) {
@@ -609,7 +610,12 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
         },
         require: '?ngModel',
         replace: true,
-        template: "<div class=\"fs-datetime fs-widget-root\">\n  <div fs-date ng-model=\"value\" ng-disabled=\"disabled\" fs-null-form></div>\n  <div fs-time ng-model=\"value\" ng-disabled=\"disabled\" fs-null-form></div>\n</div>",
+        template: "<div class=\"fs-datetime fs-widget-root\">\n  <div fs-date ng-model=\"value\" ng-disabled=\"disabled\" fs-null-form></div>\n  <div fs-time ng-model=\"value\" ng-disabled=\"disabled\" fs-null-form with-date></div>\n  <button type=\"button\"\n          class=\"btn btn-default fs-datetime-clear-btn\"\n          ng-show='value'\n          ng-disabled=\"disabled\"\n          ng-click='clearDate()'>&times;</button>\n</div>",
+        controller: function($scope) {
+          return $scope.clearDate = function() {
+            return $scope.value = null;
+          };
+        },
         link: function(scope, element, attrs, ngModelCtrl, transcludeFn) {
           if (ngModelCtrl) {
             scope.$watch('value', function(newValue, oldValue) {
@@ -767,9 +773,7 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
           return "<div class=\"form-group\">\n  <label class=\"col-sm-2 control-label\">" + label + "</label>\n  <div class=\"col-sm-10\">\n    " + (row.get(0).outerHTML) + "\n  </div>\n</div>";
         };
         html = el.find("fs-input").replaceWith(inputReplacer).end().find("fs-row").replaceWith(rowReplacer).end().html();
-        html = "<form name='form' class='form-horizontal' novalidate>\n  " + html + "\n</form>";
-        console.log(html);
-        return html;
+        return "<form name='form' class='form-horizontal' novalidate>\n  " + html + "\n</form>";
       }
     };
   });
@@ -1355,12 +1359,15 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
           };
           updateTime = function(date, timeStr) {
             var parts;
-            parts = timeStr.split(':');
-            if (parts[0] != null) {
-              date.setHours(parts[0]);
-            }
-            if (parts[1] != null) {
-              date.setMinutes(parts[1]);
+            if ((date != null) && date.length > 0) {
+              console.log(date);
+              parts = timeStr.split(':');
+              if (parts[0] != null) {
+                date.setHours(parts[0]);
+              }
+              if (parts[1] != null) {
+                date.setMinutes(parts[1]);
+              }
             }
             return date;
           };
@@ -1368,7 +1375,7 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
             scope.$watch('value', function(newValue, oldValue) {
               var date;
               if (newValue !== oldValue) {
-                date = ngModelCtrl.$viewValue || new Date();
+                date = ngModelCtrl.$viewValue || (attrs['withDate'] && new Date());
                 return ngModelCtrl.$setViewValue(updateTime(date, newValue));
               }
             });

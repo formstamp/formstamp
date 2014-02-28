@@ -61,15 +61,17 @@ angular
       "#{h}:#{m}"
 
     updateTime = (date, timeStr)->
-      parts = timeStr.split(':')
-      date.setHours(parts[0]) if parts[0]?
-      date.setMinutes(parts[1]) if parts[1]?
+      if date? && date.length > 0
+        console.log date
+        parts = timeStr.split(':')
+        date.setHours(parts[0]) if parts[0]?
+        date.setMinutes(parts[1]) if parts[1]?
       date
 
     if ngModelCtrl
       scope.$watch 'value', (newValue, oldValue) ->
         if newValue isnt oldValue
-          date = ngModelCtrl.$viewValue || new Date()
+          date = ngModelCtrl.$viewValue || (attrs['withDate'] && new Date())
           ngModelCtrl.$setViewValue(updateTime(date, newValue))
 
       ngModelCtrl.$render = ->

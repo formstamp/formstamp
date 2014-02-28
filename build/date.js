@@ -12,7 +12,7 @@
       controller: function($scope, $filter) {
         return $scope.$watch('selectedDate.date', function(newDate) {
           $scope.active = false;
-          return $scope.formattedDate = $filter('date')(newDate);
+          return $scope.formattedDate = $filter('date')(newDate, 'shortDate');
         });
       },
       link: function($scope, element, attrs, ngModel) {

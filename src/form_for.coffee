@@ -75,11 +75,8 @@ angular
       .replaceWith(rowReplacer)
       .end().html()
 
-    html = """
+    """
     <form name='form' class='form-horizontal' novalidate>
       #{html}
     </form>
     """
-
-    console.log html
-    html

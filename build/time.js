@@ -73,12 +73,15 @@
           };
           updateTime = function(date, timeStr) {
             var parts;
-            parts = timeStr.split(':');
-            if (parts[0] != null) {
-              date.setHours(parts[0]);
-            }
-            if (parts[1] != null) {
-              date.setMinutes(parts[1]);
+            if ((date != null) && date.length > 0) {
+              console.log(date);
+              parts = timeStr.split(':');
+              if (parts[0] != null) {
+                date.setHours(parts[0]);
+              }
+              if (parts[1] != null) {
+                date.setMinutes(parts[1]);
+              }
             }
             return date;
           };
@@ -86,7 +89,7 @@
             scope.$watch('value', function(newValue, oldValue) {
               var date;
               if (newValue !== oldValue) {
-                date = ngModelCtrl.$viewValue || new Date();
+                date = ngModelCtrl.$viewValue || (attrs['withDate'] && new Date());
                 return ngModelCtrl.$setViewValue(updateTime(date, newValue));
               }
             });

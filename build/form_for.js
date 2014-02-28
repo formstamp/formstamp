@@ -69,9 +69,7 @@
           return "<div class=\"form-group\">\n  <label class=\"col-sm-2 control-label\">" + label + "</label>\n  <div class=\"col-sm-10\">\n    " + (row.get(0).outerHTML) + "\n  </div>\n</div>";
         };
         html = el.find("fs-input").replaceWith(inputReplacer).end().find("fs-row").replaceWith(rowReplacer).end().html();
-        html = "<form name='form' class='form-horizontal' novalidate>\n  " + html + "\n</form>";
-        console.log(html);
-        return html;
+        return "<form name='form' class='form-horizontal' novalidate>\n  " + html + "\n</form>";
       }
     };
   });
