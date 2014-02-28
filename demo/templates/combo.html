@@ -20,9 +20,9 @@
         <label>Enter type of your laugh</label>
         <div fs-select
              freetext="true"
-             items="items"
+             items="laughs"
              ng-disabled="disabled"
-             ng-model="element">
+             ng-model="laugh">
           {{item}}
         </div>
       </div>
@@ -30,17 +30,18 @@
         <label>Enter type of your laugh</label>
         <div fs-select
              freetext="true"
-             items="items"
+             items="laughs"
              ng-disabled="disabled"
-             ng-model="element">
+             ng-model="laugh">
           {{item}}
         </div>
       </div>
       <div class="form-group">
         <button class="btn btn-default" ng-click="disabled = !disabled">{{disabled ? 'Enable' : 'Disable'}}</button>
       </div>
+
+      <pre>Your laugh is like: {{ laugh || 'none' }}</pre>
     </form>
-    <pre>You laugh is like: {{ element || 'none' }}</pre>
     <script>
       function ComboCtrl($scope) {
         $scope.disabled = false;
