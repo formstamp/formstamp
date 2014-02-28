@@ -1,10 +1,13 @@
 unindentCode = (str) ->
   str = str ? ""
   str = str.replace(/^\n/, "")
-  leadingSpaces = str.match(/^\s+/)[0]
-  re = new RegExp("^[ ]{#{leadingSpaces.length}}", 'gm')
+  leadingSpaces = str.match(/^\s+/)
 
-  str.replace(re, '')
+  if leadingSpaces
+    re = new RegExp("^[ ]{#{leadingSpaces[0].length}}", 'gm')
+    str.replace(re, '')
+  else
+    str
 
 widgets  = [
     { name: 'form_for' }
