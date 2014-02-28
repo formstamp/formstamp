@@ -14,6 +14,7 @@ app = angular.module 'formstamp-demo',
 ['formstamp', 'ngRoute', 'ngSanitize', 'ngAnimate'],
 ($routeProvider, $locationProvider) ->
   $routeProvider.when '/',
+    controller: 'ReadmeCtrl'
     templateUrl: 'demo/templates/welcome.html'
 
   for w in widgets
@@ -33,8 +34,12 @@ app.run ($rootScope, $location)->
       parts = $location.path().split('/')
       $rootScope.currentWidget = parts[parts.length - 1]
 
-app.controller 'WidgetCtrl', ($scope, $location)->
-  #
+app.controller 'ReadmeCtrl', ($scope, $http)->
+  $http.get('/README.md').success (data)->
+    $scope.readme = markdown.toHTML(data)
+
+app.controller 'WidgetCtrl', ($scope, $http)->
+  # noop
 
 app.directive 'sample', ()->
   restrict: 'E'

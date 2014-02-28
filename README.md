@@ -1,229 +1,71 @@
-Angular-w
+FORM STAMP
 ====
 
-Pure AngularJS widgets.
+Pure AngularJS widgets set:
 
-Description
-----------
+* designed with only front-end in mind (ununabtrusive)
+* styled with Twitter Bootstrap
+* and written with clean & minimalistic code.
 
-This library provides full pack of pure AngluarJS widgets.
+[Live Demo](http://formstamp.github.io/)
+
+Structure
+------------
+
+There are 3 levels of directives:
+
+* Low level directives - common concerns for widgets construction, can be used for building you own widgets
+* Form Directives - minimalistic set (20/80) of input directives
+* Form Builder - orchestrates form workflow: markup boilerplate, errors etc.
+
+Low level directives
+---------
+
+* `fs-list` - render list by template & move operations
+* `fs-null-form` - hide internal widget ngModels from top level formController
+* `fs-input` - simplify keyboard events bindings on text input
+
+Form input directives
+---------
+
+* `fs-select` - select input
+* `fs-select` freetext - combobox input
+* `fs-multiselect` - multi select
+* `fs-multiselect` freetext - tags input
+* `fs-time` - time input
+* `fs-calendar` - time input
+* `fs-date` - time input
+* `fs-datetime` - time input
+* `fs-radio` - radio buttons group
+* `fs-check` - checkboxes group
+
 
 Form builder
 -----------
-Form bulider builds angular-compatible forms using widgets
-provided by this library. It supports errors and validations.
 
-### Using
-```
-    <form fs-form-for='samurai' ng-submit='send()'>
-      <div fs-field='name' label='Name' type='fs-combo' items='names'></div>
-      <div fs-field='age' label='Age' type='fs-chz'  items='ages'></div>
-
-      <div fs-submit-field>Save</div>
-    </form>
-```
-
-### Errors
-Objects errors are extracted from its model passed to fsFormFor attribute.
-It should next format:
-```javascript
-  {
-    name: ..., /* this is custom field */
-    age: ..., /* this is custom field */
-    /* other custom attrs */,
-    $error: { /* this is special field */
-      name: ['Too bad!', 'Ugly!'],
-      age: ['Too young!']
-    }
-  }
-
-
-### Submiting
-For form submitting use `fs-submit`. It prevents for submiting if form is invalid.
-Function call submit handler SHOULD! update model passed to `fs-form-for`.
-
-```
-
-Example of handler:
-```javascript
-  $scope.send = function() {
-    $http.post('/').success(function(data) {
-      $scope.samurai = data;
-    });
-  }
-```
-
-Widgets
--------
-
-### Chosen
-Provides basic select-like input. It allows to select
-one value from provided values. It has support for ng-model,
-ng-disabled, ng-required.
-
-### Attributes
-#### items
-**Required.**
-Array of objects: `{code: 'some-code', name: 'some-name'}`.
-
-#### limit
-*Optional.*
-Limits number of shown `items`. Default: `items.length`.
-
-#### key-attr
-*Optional.*
-Attribute for retrieving html id from item. Default: 'id'.
-
-#### value-attr
-*Optional.*
-Attribute for retrieving html label from item. Default: 'label'.
-
-### Templating
-Chosen provides templating for selected object by passing html
-template inside directive.  You can reference current object by
-`item` and access all object's attributes.
-```html
-  <div fs-chz>
-    <b>{{item.name}}</b>: {{item.code}}
-  </div>
-```
-
-### Customizing styles
-For style customization library provides class
-for user extention. For styling list define css
-class `.fs-chz .fs-chz-items-list` with your own properties.
-
-#### Example usage
-```html
-  <div ng-controller='CountriesCtrl'>
-    <form role="form" class='form-horizontal'>
-      <div class="form-group">
-        <label class="col-sm-2 control-label">Chosen</label>
-        <div class="col-sm-10">
-          <div fs-chz
-               items="countries"
-               limit='30'
-               key-attr='code'
-               value-attr='name'
-               ng-model="value"
-               ng-disabled='disabled'
-               ng-required='required'>
-            <b>{{item.name}}</b>: {{item.code}}
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-```
-
-```javascript
-  angular.module('countries').controller('CountriesCtrl', function($scope) {
-      $scope.countries = [
-        {name: 'Afghanistan', code: 'AF'},
-        {name: 'Åland Islands', code: 'AX'},
-        {name: 'Albania', code: 'AL'},
-        {name: 'Algeria', code: 'DZ'},
-        {name: 'American Samoa', code: 'AS'}];
-  });
-```
-### MultiSelect
-MultiSelect allows to select multiple items from a predefined list of options. Supported angular directives and options are similar to Select.
-
-### Attributes
-MultiSelect has the same set of attributes as Chosen.
-
-### Combo
-Combo provides basic combo behavior. It allows to select a value from a predefined list of options or to enter custom value.
-Only primitive types are supported as options. Supports several angular directives: ng-model, ng-disabled, ng-required.
-
-### Attributes
-#### items
-*Required*.
-Array of items. `toString` will be called on item when retrieving it
-from list.
-
-#### limit
-*Optional.*
-Limits number of shown `items`. Default: `items.length`.
-
-### Templating
-Combo provides templating for selected object by passing html
-template inside directive.  You can reference current object by
-`item`.
-```html
-  <div fs-combo>
-    <b>{{item}}</b>
-  </div>
-```
-
-### Tags
-Provides basic combo-like input and allows to select
-multiple values from provided values. It has support for ng-model,
-ng-disabled, ng-required.
-
-### Attributes
-Multiselect has only items and limit attributes.
+* `from-for` - form builder, no markup & errors boilerplate
+* `fs-input` - render row with input in form builder
+* `fs-row` - render custom row
 
 TODO
 ----
-  * Form builder.
-  * ng-options support.
-  * Make demo github pages.
-  * I18n.
-
-### Chosen
- * Add ability for customizing Chosen style (added for list).
- * Different search algorithms.
- * Delegate id and name to input.
- * Fully remove jQuery.
- * Add select option, for providing selected value.
- * Support array of primitives.
-
-### MultiSelect
- * Same as in Chosen.
- * Add options for limiting number (min, max)  of selected values.
+  * I18n
 
 Installation for Development
 -----------
 
-### Node Version Manager
+### Node.js
 
-    curl https://raw.github.com/creationix/nvm/master/install.sh | sh
+    curl https://raw.github.com/creationix/nvm/master/install.sh | sh # install nvm
+    nvm install 0.10
+    cd /path/to/formstamp
+    nvm use 0.10`.
+    npm install # server deps
+    bower install # demo deps
+    npm bin`/grunt watch # Then start watching changes:
+    node server.js 3000` # Run server default port 17405
 
-Then follow the instructions.
 
 NOTE: This script adds `nvm` command to `.bash_profile`. It may not work if you are using not `bash` shell
 (like `zsh`). In this case you have to manually configure profile file.
 
-### Node.js
-
-    nvm install 0.10
-
-### Node Package Modules
-
-    cd /path/to/ng-w
-    npm install
-
-### Grunt
-
-Then build it at first time:
-
-    `npm bin`/grunt build
-
-Then start watching changes:
-
-    `npm bin`/grunt watch
-
-### Expressjs
-To run demo:
-    `node server.js`
-You can specify port as a second first argument:
-    `node server.js 3000`
-Default port is 17405.
-
-### Troubleshooting
-
-#### Node Package Modules
-
-If `The program 'npm' is currently not installed.`
-Then try `nvm use 0.10`.

@@ -29,6 +29,7 @@
   app = angular.module('formstamp-demo', ['formstamp', 'ngRoute', 'ngSanitize', 'ngAnimate'], function($routeProvider, $locationProvider) {
     var w, _i, _len, _results;
     $routeProvider.when('/', {
+      controller: 'ReadmeCtrl',
       templateUrl: 'demo/templates/welcome.html'
     });
     _results = [];
@@ -63,7 +64,13 @@
     });
   });
 
-  app.controller('WidgetCtrl', function($scope, $location) {});
+  app.controller('ReadmeCtrl', function($scope, $http) {
+    return $http.get('/README.md').success(function(data) {
+      return $scope.readme = markdown.toHTML(data);
+    });
+  });
+
+  app.controller('WidgetCtrl', function($scope, $http) {});
 
   app.directive('sample', function() {
     return {

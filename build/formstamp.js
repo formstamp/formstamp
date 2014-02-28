@@ -782,7 +782,7 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
 
 (function() {
   angular.module("formstamp").directive("fsInput", [
-    '$window', '$parse', function($window, $parse) {
+    '$parse', function($parse) {
       return {
         restrict: "A",
         link: function(scope, element, attrs) {

@@ -1,6 +1,6 @@
 angular
 .module("formstamp")
-.directive "fsInput", ['$window', '$parse', ($window, $parse) ->
+.directive "fsInput", ['$parse', ($parse) ->
   restrict: "A"
   link: (scope, element, attrs) ->
     focusElement = () -> setTimeout((-> element[0].focus()), 0)
