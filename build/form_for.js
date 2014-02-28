@@ -55,6 +55,7 @@
           if (type.indexOf("fs-") === 0) {
             attributes[type] = true;
             inputEl = $("<div />", attributes);
+            inputEl.html(input.html());
           } else {
             attributes['type'] = type;
             attributes['class'] = 'form-control';

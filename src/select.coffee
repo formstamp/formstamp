@@ -62,16 +62,9 @@ angular
     $scope.active = false
 
     if $scope.freetext
-      $scope.getItemLabel = (item)-> item
-      $scope.getItemValue = (item)-> item
       $scope.dynamicItems = ->
         if $scope.search then [$scope.search] else []
     else
-      valueAttr = () -> $scope.valueAttr || "label"
-      keyAttr = () -> $scope.valueAttr || "id"
-
-      $scope.getItemLabel = (item)-> item && item[valueAttr()]
-      $scope.getItemValue = (item)-> item && item[keyAttr()]
       $scope.dynamicItems = -> []
 
     updateDropdown = () ->

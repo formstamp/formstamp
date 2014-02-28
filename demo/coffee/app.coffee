@@ -43,7 +43,7 @@ app.controller 'WidgetCtrl', ($scope, $http)->
 
 app.directive 'sample', ()->
   restrict: 'E'
-  # transclude: true
+  scope: {}
   controller: ($scope)->
     $scope.current = "demo"
   template: ($el, attrs)->
@@ -52,14 +52,15 @@ app.directive 'sample', ()->
     js = hljs.highlightAuto($.trim($(el).find('script').remove().text())).value
     html = hljs.highlightAuto($.trim(el.innerHTML)).value.replace(/{{([^}]*)}}/g, "<b style='color:green;'>{{$1}}</b>")
     html = html.replace(/(fs-[-a-zA-Z]*)/g, "<b style='color:red;'>$1</b>")
+
     """
-      <div>
-        <div class="btn-group">
+      <div class="fsdemo-sample well">
+        <div class="pull-right example-label">EXAMPLE</div>
+        <div class="btn-group clearfix">
           <a class="btn btn-default" ng-click="current='demo'">Demo</a>
           <a class="btn btn-default" ng-click="current='html'">HTML</a>
           <a class="btn btn-default" ng-click="current='js'">JavaScript</a>
         </div>
-        <hr/>
         <div ng-show="current=='demo'">#{orig}</div>
         <div ng-show="current=='html'"><pre ng-non-bindable>#{html}</pre> </div>
         <div ng-show="current=='js'"><pre ng-non-bindable>#{js}</pre> </div>
@@ -75,4 +76,3 @@ app.directive "demoAudio", () ->
     $scope.$watch 'track', (track) ->
       $element.attr('src', track.stream_url + "?client_id=8399f2e0577e0acb4eee4d65d6c6cce6")
       $element.get(0).play()
-

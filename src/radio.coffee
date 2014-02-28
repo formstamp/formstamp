@@ -32,7 +32,7 @@ angular
       valueAttr: '@'
     require: '?ngModel'
     template: (el, attrs)->
-      itemTpl = el.html() || 'template me: {{item | json}}'
+      itemTpl = el.html() || '{{item.label}}'
       name = nextUid()
       template = """
 <div class='fs-racheck' ng-class="{disabled: disabled, enabled: !disabled}">

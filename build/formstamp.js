@@ -223,6 +223,7 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
     "     ng-disabled=\"disabled\"\n" +
     "     class=\"form-control\"\n" +
     "     ng-model=\"formattedDate\"\n" +
+    "     placeholder=\"{{placeholder}}\"\n" +
     "     fs-null-form />\n" +
     "  <span class=\"glyphicon glyphicon-calendar\"></span>\n" +
     "\n" +
@@ -488,7 +489,7 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
         template: function(el, attrs) {
           var itemTpl, template;
           itemTpl = el.html() || 'template me: {{item | json}}';
-          return template = "<div class='fs-racheck' ng-class=\"{disabled: disabled, enabled: !disabled}\">\n  <div ng-repeat='item in items track by item.id'>\n    <a class=\"fs-racheck-item\"\n       href='javascript:void(0)'\n       onclick=\"this.focus()\"\n       ng-disabled=\"disabled\"\n       ng-click=\"toggle(item)\"\n       fs-space='toggle(item)'>\n      <span class=\"fs-check-outer\"><span ng-show=\"isSelected(item)\" class=\"fs-check-inner\"></span></span>\n      " + itemTpl + "\n    </a>\n  </div>\n  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>\n</div>";
+          return template = "<div class='fs-racheck' ng-class=\"{disabled: disabled, enabled: !disabled}\">\n  <div ng-repeat='item in items'>\n    <a class=\"fs-racheck-item\"\n       href='javascript:void(0)'\n       onclick=\"this.focus()\"\n       ng-disabled=\"disabled\"\n       ng-click=\"toggle(item)\"\n       fs-space='toggle(item)'>\n      <span class=\"fs-check-outer\"><span ng-show=\"isSelected(item)\" class=\"fs-check-inner\"></span></span>\n      " + itemTpl + "\n    </a>\n  </div>\n  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>\n</div>";
         },
         controller: function($scope, $element, $attrs) {
           $scope.toggle = function(item) {
@@ -561,7 +562,8 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
       require: '?ngModel',
       scope: {
         "class": '@',
-        disabled: '=ngDisabled'
+        disabled: '=ngDisabled',
+        placeholder: '@'
       },
       templateUrl: '/templates/date.html',
       replace: true,
@@ -759,6 +761,7 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
           if (type.indexOf("fs-") === 0) {
             attributes[type] = true;
             inputEl = $("<div />", attributes);
+            inputEl.html(input.html());
           } else {
             attributes['type'] = type;
             attributes['class'] = 'form-control';
@@ -1114,7 +1117,7 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
         require: '?ngModel',
         template: function(el, attrs) {
           var itemTpl, name, template;
-          itemTpl = el.html() || 'template me: {{item | json}}';
+          itemTpl = el.html() || '{{item.label}}';
           name = nextUid();
           return template = "<div class='fs-racheck' ng-class=\"{disabled: disabled, enabled: !disabled}\">\n  <div class=\"fs-radio-label\"\n     ng-repeat=\"item in items\" >\n    <input\n     fs-null-form\n     type=\"radio\"\n     ng-model=\"$parent.selectedItem\"\n     name=\"" + name + "\"\n     ng-value=\"item\"\n     ng-disabled=\"disabled\"\n     id=\"{{item.id}}\"/>\n    <label for=\"{{item.id}}\">\n      " + itemTpl + "\n    </label>\n  </div>\n  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>\n</div>";
         },
@@ -1155,15 +1158,9 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
           return template = "<div class='fs-select fs-widget-root'>\n  <div ng-hide=\"active\" class=\"fs-select-sel\" ng-class=\"{'btn-group': item}\">\n      <a class=\"btn btn-default fs-select-active\"\n         ng-class='{\"btn-danger\": invalid}'\n         href=\"javascript:void(0)\"\n         ng-click=\"active = true\"\n         ng-disabled=\"disabled\">\n           <span ng-show='item'>" + itemTpl + "</span>\n           <span ng-hide='item'>none</span>\n      </a>\n      <button type=\"button\"\n              class=\"btn btn-default fs-select-clear-btn\"\n              aria-hidden=\"true\"\n              ng-show='item'\n              ng-disabled=\"disabled\"\n              ng-click='unselectItem()'>&times;</button>\n    </div>\n  <div class=\"open\" ng-show=\"active\">\n    <input class=\"form-control\"\n           fs-input\n           fs-focus-when='active'\n           fs-blur-when='!active'\n           fs-on-focus='active = true'\n           fs-on-blur='active = false'\n           fs-hold-focus\n\n           fs-down='move(1)'\n           fs-up='move(-1)'\n           fs-pgup='move(-11)'\n           fs-pgdown='move(11)'\n           fs-enter='onEnter($event)'\n           fs-esc='active = false'\n           type=\"search\"\n           placeholder='Search'\n           ng-model=\"search\"\n           fs-null-form />\n\n    <div ng-if=\"active && dropdownItems.length > 0\">\n      <div fs-list items=\"dropdownItems\">\n       " + itemTpl + "\n      </div>\n    </div>\n  </div>\n</div>";
         },
         controller: function($scope, $element, $attrs, $filter, $timeout) {
-          var keyAttr, updateDropdown, valueAttr;
+          var updateDropdown;
           $scope.active = false;
           if ($scope.freetext) {
-            $scope.getItemLabel = function(item) {
-              return item;
-            };
-            $scope.getItemValue = function(item) {
-              return item;
-            };
             $scope.dynamicItems = function() {
               if ($scope.search) {
                 return [$scope.search];
@@ -1172,18 +1169,6 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
               }
             };
           } else {
-            valueAttr = function() {
-              return $scope.valueAttr || "label";
-            };
-            keyAttr = function() {
-              return $scope.valueAttr || "id";
-            };
-            $scope.getItemLabel = function(item) {
-              return item && item[valueAttr()];
-            };
-            $scope.getItemValue = function(item) {
-              return item && item[keyAttr()];
-            };
             $scope.dynamicItems = function() {
               return [];
             };
