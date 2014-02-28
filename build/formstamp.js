@@ -427,10 +427,13 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
           ngModel.$render = function() {
             return scope.selectedDate = parseDate(ngModel.$modelValue);
           };
-          scope.$watch('selectedDate', function(newDate, oldDate) {
-            if ((oldDate != null) && (newDate != null) && oldDate.getTime() !== newDate.getTime()) {
+          scope.$watch('selectedDate', function(newDate) {
+            var oldDate;
+            oldDate = ngModel.$modelValue;
+            if ((oldDate != null) && (newDate != null) && parseDate(oldDate).getTime() !== parseDate(newDate).getTime()) {
               newDate.setHours(oldDate.getHours());
               newDate.setMinutes(oldDate.getMinutes());
+              newDate.setSeconds(oldDate.getSeconds());
               return ngModel.$setViewValue(newDate);
             }
           });
@@ -551,12 +554,24 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
         });
       },
       link: function($scope, element, attrs, ngModel) {
+        var parseDate;
+        parseDate = function(dateString) {
+          var parsedDate, time;
+          time = Date.parse(dateString);
+          if (!isNaN(time)) {
+            parsedDate = new Date(time);
+            return new Date(parsedDate.getFullYear(), parsedDate.getMonth(), parsedDate.getDate());
+          }
+        };
         $scope.selectedDate = {};
         ngModel.$render = function() {
           return $scope.selectedDate.date = ngModel.$modelValue;
         };
-        return $scope.$watch('selectedDate.date', function(newDate) {
-          return ngModel.$setViewValue(newDate);
+        return $scope.$watch('selectedDate.date', function(newDate, oldDate) {
+          oldDate = ngModel.$modelValue;
+          if ((oldDate != null) && (newDate != null) && parseDate(oldDate) !== parseDate(newDate)) {
+            return ngModel.$setViewValue(newDate);
+          }
         });
       }
     };
@@ -1263,11 +1278,11 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
             if (date == null) {
               return '';
             }
-            h = date.getHours();
+            h = date.getHours().toString();
             if (h.length < 2) {
               h = "0" + h;
             }
-            m = date.getMinutes();
+            m = date.getMinutes().toString();
             if (m.length < 2) {
               m = "0" + m;
             }

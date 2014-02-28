@@ -105,10 +105,13 @@ angular
     ngModel.$render = ->
       scope.selectedDate = parseDate(ngModel.$modelValue)
 
-    scope.$watch 'selectedDate', (newDate, oldDate) ->
-      if oldDate? && newDate?  && oldDate.getTime() != newDate.getTime()
+    scope.$watch 'selectedDate', (newDate) ->
+      oldDate = ngModel.$modelValue
+
+      if oldDate? && newDate? && parseDate(oldDate).getTime() != parseDate(newDate).getTime()
         newDate.setHours(oldDate.getHours())
         newDate.setMinutes(oldDate.getMinutes())
+        newDate.setSeconds(oldDate.getSeconds())
         ngModel.$setViewValue(newDate)
 
     scope.selectMonth = (monthName)->

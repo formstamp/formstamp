@@ -14,12 +14,19 @@ angular
       $scope.formattedDate = $filter('date')(newDate)
 
   link: ($scope, element, attrs, ngModel) ->
+    parseDate = (dateString)->
+      time = Date.parse(dateString)
+      unless isNaN(time)
+        parsedDate = new Date(time)
+        new Date(parsedDate.getFullYear(), parsedDate.getMonth(), parsedDate.getDate())
 
     $scope.selectedDate = {}
 
     ngModel.$render = ->
       $scope.selectedDate.date = ngModel.$modelValue
 
-    $scope.$watch 'selectedDate.date', (newDate) ->
-      ngModel.$setViewValue(newDate)
+    $scope.$watch 'selectedDate.date', (newDate, oldDate) ->
+      oldDate = ngModel.$modelValue
+      if oldDate? && newDate? && parseDate(oldDate) != parseDate(newDate)
+        ngModel.$setViewValue(newDate)
 )

@@ -53,9 +53,9 @@ angular
   link: (scope, element, attrs, ngModelCtrl, transcludeFn) ->
     toTimeStr = (date)->
       return '' unless date?
-      h = date.getHours()
+      h = date.getHours().toString()
       h = "0#{h}" if h.length < 2
-      m = date.getMinutes()
+      m = date.getMinutes().toString()
       m = "0#{m}" if m.length < 2
       "#{h}:#{m}"
 

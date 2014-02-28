@@ -61,11 +61,11 @@
             if (date == null) {
               return '';
             }
-            h = date.getHours();
+            h = date.getHours().toString();
             if (h.length < 2) {
               h = "0" + h;
             }
-            m = date.getMinutes();
+            m = date.getMinutes().toString();
             if (m.length < 2) {
               m = "0" + m;
             }

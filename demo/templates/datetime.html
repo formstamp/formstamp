@@ -92,7 +92,7 @@
   <h5>Directive: <code class="ng-binding">fs-calendar</code>.</h5>
   <sample>
     <div class='well' ng-controller='CalendarCtrl'>
-      <pre>Selected date: {{ selectedDate | json }}</pre>
+      <pre>Selected date: {{ selectedDate.toString() }}</pre>
 
       <fs-calendar ng-model="selectedDate" />
     </div>

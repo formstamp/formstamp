@@ -172,10 +172,13 @@
           ngModel.$render = function() {
             return scope.selectedDate = parseDate(ngModel.$modelValue);
           };
-          scope.$watch('selectedDate', function(newDate, oldDate) {
-            if ((oldDate != null) && (newDate != null) && oldDate.getTime() !== newDate.getTime()) {
+          scope.$watch('selectedDate', function(newDate) {
+            var oldDate;
+            oldDate = ngModel.$modelValue;
+            if ((oldDate != null) && (newDate != null) && parseDate(oldDate).getTime() !== parseDate(newDate).getTime()) {
               newDate.setHours(oldDate.getHours());
               newDate.setMinutes(oldDate.getMinutes());
+              newDate.setSeconds(oldDate.getSeconds());
               return ngModel.$setViewValue(newDate);
             }
           });
