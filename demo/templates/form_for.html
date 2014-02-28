@@ -22,7 +22,16 @@
           <legend>User Data</legend>
           <fs-input as="text" name="name" required></fs-input>
           <fs-input as="email" name="email" required></fs-input>
-          <fs-input as="fs-datetime" name="birthdate" required></fs-input>
+          <fs-input as="fs-datetime" name="birthdate" required
+                    label="Date of Birth"></fs-input>
+
+          <fs-row label="Some custom row">
+            <div class="row">
+              <div class="col-xs-2"><div fs-time ng-model="user.time"></div></div>
+              <div class="col-xs-2"><div fs-time
+                                         ng-model="user.othertime"></div></div>
+            </div>
+          </fs-row>
         </fieldset>
 
         <pre> birthdate in form: {{ form.birthdate || false }} </pre>
