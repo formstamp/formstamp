@@ -75,9 +75,9 @@ app.directive 'sample', ()->
       <div class="fsdemo-sample">
         <div class="btn-group fstabs">
           <div class="btn btn-default disabled example-label">EXAMPLE</div>
-          <a class="btn btn-default" ng-click="current='demo'">Demo</a>
-          <a class="btn btn-default" ng-click="current='html'">HTML</a>
-          <a class="btn btn-default" ng-click="current='js'">JavaScript</a>
+          <a class="btn btn-default" ng-class="{'active': current == 'demo'}" ng-click="current='demo'">Demo</a>
+          <a class="btn btn-default" ng-class="{'active': current == 'html'}" ng-click="current='html'">HTML</a>
+          <a class="btn btn-default" ng-class="{'active': current == 'js'}" ng-click="current='js'">JavaScript</a>
         </div>
         <div ng-show="current=='demo'">#{orig}</div>
         <div ng-show="current=='html'"><pre ng-non-bindable>#{html}</pre> </div>
