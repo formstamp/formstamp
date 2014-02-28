@@ -40,13 +40,11 @@
         <button class="btn btn-default" ng-click="disabled = !disabled">{{disabled ? 'Enable' : 'Disable'}}</button>
       </div>
     </form>
-    <pre>
-      Your element is: {{ element || 'none' }}
-    </pre>
+    <pre>You laugh is like: {{ element || 'none' }}</pre>
     <script>
       function ComboCtrl($scope) {
         $scope.disabled = false;
-        $scope.items = ['Ha-ha-ha', 'Ho-ho-ho', 'He-he-he'];
+        $scope.laughs = ['Ha-ha-ha', 'Ho-ho-ho', 'He-he-he'];
       }
     </script>
   </sample>

@@ -5,9 +5,13 @@
     var leadingSpaces, re;
     str = str != null ? str : "";
     str = str.replace(/^\n/, "");
-    leadingSpaces = str.match(/^\s+/)[0];
-    re = new RegExp("^[ ]{" + leadingSpaces.length + "}", 'gm');
-    return str.replace(re, '');
+    leadingSpaces = str.match(/^\s+/);
+    if (leadingSpaces) {
+      re = new RegExp("^[ ]{" + leadingSpaces[0].length + "}", 'gm');
+      return str.replace(re, '');
+    } else {
+      return str;
+    }
   };
 
   widgets = [
