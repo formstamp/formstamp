@@ -1,153 +1,158 @@
-<div class="container">
-  <h1>Form Builder</h1>
 
-  <h3>Directive: <code class="ng-binding">fs-form-for</code></h3>
-  <p>
-    This directive allows to construct complex forms with easy DSL-like markup.
-  </p>
+<h1>
+  Form Builder
+  <a href="https://github.com/formstamp/formstamp/blob/master/src/form_for.coffee" class="btn btn-primary" style="margin-left: 40px;">
+    <big class="fa fa-github"></big> Source Code at GitHub
+  </a>
+</h1>
 
-  <sample>
-    <div ng-controller="FormBuilderCtrl">
-      <fs-form-for model="samurai">
-        <fieldset class='form-horizontal'>
-          <legend>Samurai Personal Info</legend>
-          <fs-input as="text" name="name" required label="Name"></fs-input>
-          <fs-input as="email" name="email" required label="Email"></fs-input>
-          <fs-input as="fs-datetime" name="birthdate" required
-                    label="Date of Birth"></fs-input>
+<h3>Directive <code class="ng-binding">fs-form-for</code></h3>
+<p>
+  This directive allows to construct complex forms with easy DSL-like markup.
+</p>
 
-          <fs-row label="Living district">
-            <div class="row">
-              <div class="col-xs-3"><div fs-select ng-model="samurai.district" items="districts">{{ item }}</div></div>
-              <div class="col-xs-3"><div fs-date ng-model="samurai.districtMoveDate" placeholder="Settled date"></div></div>
-            </div>
-          </fs-row>
-        </fieldset>
+<sample>
+  <div ng-controller="FormBuilderCtrl">
+    <fs-form-for model="samurai">
+      <fieldset class='form-horizontal'>
+        <legend>Samurai Personal Info</legend>
+        <fs-input as="text" name="name" required label="Name"></fs-input>
+        <fs-input as="email" name="email" required label="Email"></fs-input>
+        <fs-input as="fs-datetime" name="birthdate" required
+                  label="Date of Birth"></fs-input>
 
-        <fieldset class='form-horizontal'>
-          <legend>Samurai CV</legend>
+        <fs-row label="Living district">
+          <div class="row">
+            <div class="col-xs-3"><div fs-select ng-model="samurai.district" items="districts">{{ item }}</div></div>
+            <div class="col-xs-3"><div fs-date ng-model="samurai.districtMoveDate" placeholder="Settled date"></div></div>
+          </div>
+        </fs-row>
+      </fieldset>
 
-          <fs-input as="fs-radio"
-                    name="learningStage"
-                    label="Current Learning Stage"
-                    items="learningStages"></fs-input>
+      <fieldset class='form-horizontal'>
+        <legend>Samurai CV</legend>
 
-          <fs-input as="fs-multiselect"
-                    name="weapons"
-                    label="Owned Weapons"
-                    items="weapons">{{ item.label }}</fs-input>
+        <fs-input as="fs-radio"
+                  name="learningStage"
+                  label="Current Learning Stage"
+                  items="learningStages"></fs-input>
 
-          <fs-input as="fs-multiselect"
-                    name="weaponStyles"
-                    freetext='123'
-                    label="Weapon Styles"
-                    items="weaponStyles">{{ item }}</fs-input>
+        <fs-input as="fs-multiselect"
+                  name="weapons"
+                  label="Owned Weapons"
+                  items="weapons">{{ item.label }}</fs-input>
 
-          <fs-input as="fs-select"
-                    name="meal"
-                    label="Preferrable Food"
-                    items="meals"><b>{{ item.id.toUpperCase() }}</b> {{ item.label }}</fs-input>
+        <fs-input as="fs-multiselect"
+                  name="weaponStyles"
+                  freetext='123'
+                  label="Weapon Styles"
+                  items="weaponStyles">{{ item }}</fs-input>
 
-          <fs-input as="fs-checkbox"
-                    name="otherFacts"
-                    label="Other Facts"
-                    items="otherFacts">{{ item }}</fs-input>
+        <fs-input as="fs-select"
+                  name="meal"
+                  label="Preferrable Food"
+                  items="meals"><b>{{ item.id.toUpperCase() }}</b> {{ item.label }}</fs-input>
 
-        </fieldset>
-      </fs-form-for>
+        <fs-input as="fs-checkbox"
+                  name="otherFacts"
+                  label="Other Facts"
+                  items="otherFacts">{{ item }}</fs-input>
 
-      <pre>samurai = {{samurai | json}}</pre>
-    </div>
+      </fieldset>
+    </fs-form-for>
 
-    <script>
-      function FormBuilderCtrl($scope){
-        $scope.samurai = {
-          name: "Unnamed",
-          districts: []
-        };
+    <h4>Angular Scope</h4>
+    <pre>samurai = {{samurai | json}}</pre>
+  </div>
 
-        $scope.learningStages = [
-          {id: 'S', label: 'Shu'},
-          {id: 'H', label: 'Ha'},
-          {id: 'R', label: 'Ri'}
-        ];
+  <script>
+    function FormBuilderCtrl($scope){
+      $scope.samurai = {
+        name: "Unnamed",
+        districts: []
+      };
 
-        $scope.weapons = [
-          {id: '1', label: 'Katana'},
-          {id: '2', label: 'Naginata'},
-          {id: '3', label: 'Yari'},
-          {id: '4', label: 'Horagai'},
-          {id: '5', label: 'Horimono'}
-        ];
+      $scope.learningStages = [
+        {id: 'S', label: 'Shu'},
+        {id: 'H', label: 'Ha'},
+        {id: 'R', label: 'Ri'}
+      ];
 
-        $scope.meals = [
-          {id: 'me', label: 'Meat'},
-          {id: 'mi', label: 'Milk'},
-          {id: 'or', label: 'Orange'},
-          {id: 'ri', label: 'Rice'}
-        ];
+      $scope.weapons = [
+        {id: '1', label: 'Katana'},
+        {id: '2', label: 'Naginata'},
+        {id: '3', label: 'Yari'},
+        {id: '4', label: 'Horagai'},
+        {id: '5', label: 'Horimono'}
+      ];
 
-        $scope.otherFacts = [
-          'Uruwashii', 'Buke', 'Mononofu', 'Musha', 'Rōnin', 'Shi', 'Tsuwamono'
-        ];
+      $scope.meals = [
+        {id: 'me', label: 'Meat'},
+        {id: 'mi', label: 'Milk'},
+        {id: 'or', label: 'Orange'},
+        {id: 'ri', label: 'Rice'}
+      ];
 
-        $scope.weaponStyles = ['Kenjutsu', 'Naginatajutsu', 'Sōjutsu'];
+      $scope.otherFacts = [
+        'Uruwashii', 'Buke', 'Mononofu', 'Musha', 'Rōnin', 'Shi', 'Tsuwamono'
+      ];
 
-        $scope.districts = [
-          'Kita District',
-          'Tsugaru District',
-          'Hei District',
-          'Iwai District',
-          'Akita District',
-          'Tagawa District',
-          'Murayama District',
-          'Okitama District',
-          'Aizu District',
-          'Shirakawa District',
-          'Ibaraki District',
-          'Tsuga District',
-          'Habu District',
-          'Sōma District',
-          'Katsushika District',
-          'Saitama District',
-          'Adachi District',
-          'Toshima District',
-          'Tama District',
-          'Kanbara District',
-          'Uonuma District',
-          'Kubiki District',
-          'Niikawa District',
-          'Tsuru District',
-          'Yamanashi District',
-          'Yatsushiro District',
-          'Koma District',
-          'Saku District',
-          'Takai District',
-          'Minochi District',
-          'Ina District',
-          'Chikuma District',
-          'Azumi District',
-          'Ishizu District',
-          'Shitara District',
-          'Kamo District',
-          'Kasugai District',
-          'Muro District',
-          'Azai District',
-          'Kuwata District',
-          'Ukena District',
-          'Uwa District',
-          'Matsuura District',
-          'Sonogi District',
-          'Takaki District',
-          'Kunisaki District',
-          'Amabe District',
-          'Usuki District',
-          'Naka District',
-          'Ōsumi District',
-          'Soo District',
-          'Isa District'
-        ];
-      }
-    </script>
-  </sample>
-</div>
+      $scope.weaponStyles = ['Kenjutsu', 'Naginatajutsu', 'Sōjutsu'];
+
+      $scope.districts = [
+      'Kita District',
+        'Tsugaru District',
+        'Hei District',
+        'Iwai District',
+        'Akita District',
+        'Tagawa District',
+        'Murayama District',
+        'Okitama District',
+        'Aizu District',
+        'Shirakawa District',
+        'Ibaraki District',
+        'Tsuga District',
+        'Habu District',
+        'Sōma District',
+        'Katsushika District',
+        'Saitama District',
+        'Adachi District',
+        'Toshima District',
+        'Tama District',
+        'Kanbara District',
+        'Uonuma District',
+        'Kubiki District',
+        'Niikawa District',
+        'Tsuru District',
+        'Yamanashi District',
+        'Yatsushiro District',
+        'Koma District',
+        'Saku District',
+        'Takai District',
+        'Minochi District',
+        'Ina District',
+        'Chikuma District',
+        'Azumi District',
+        'Ishizu District',
+        'Shitara District',
+        'Kamo District',
+        'Kasugai District',
+        'Muro District',
+        'Azai District',
+        'Kuwata District',
+        'Ukena District',
+        'Uwa District',
+        'Matsuura District',
+        'Sonogi District',
+        'Takaki District',
+        'Kunisaki District',
+        'Amabe District',
+        'Usuki District',
+        'Naka District',
+        'Ōsumi District',
+        'Soo District',
+        'Isa District'
+      ];
+    }
+  </script>
+</sample>

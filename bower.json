@@ -14,12 +14,13 @@
   "license": "MIT",
   "ignore": [
     "**/.*",
-"node_modules",
-"bower_components",
-"test",
-"tests"
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
   ],
   "dependencies": {
+    "components-font-awesome": "latest",
     "angular":"~1.2.0",
     "angular-animate":"~1.2.0",
     "angular-sanitize":"~1.2.0",
