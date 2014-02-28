@@ -86,3 +86,22 @@ addValidations = (attrs, ctrl) ->
 
     ctrl.$formatters.push(patternValidator)
     ctrl.$parsers.push(patternValidator)
+
+updateDate = (newDate, oldDate) ->
+  switch
+    when !oldDate? && newDate? then newDate
+    when !newDate? then null
+    when newDate? && oldDate?
+      if parseDate(oldDate).getTime() != parseDate(newDate).getTime()
+        newDate.setHours(oldDate.getHours())
+        newDate.setMinutes(oldDate.getMinutes())
+        newDate.setSeconds(oldDate.getSeconds())
+        newDate
+      else
+        oldDate
+
+parseDate = (dateString)->
+  time = Date.parse(dateString)
+  unless isNaN(time)
+    parsedDate = new Date(time)
+    new Date(parsedDate.getFullYear(), parsedDate.getMonth(), parsedDate.getDate())

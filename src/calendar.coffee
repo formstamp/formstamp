@@ -90,11 +90,6 @@ angular
   ]
 
   link: (scope, element, attrs, ngModel)->
-    parseDate = (dateString)->
-      time = Date.parse(dateString)
-      unless isNaN(time)
-        parsedDate = new Date(time)
-        new Date(parsedDate.getFullYear(), parsedDate.getMonth(), parsedDate.getDate())
 
     scope.isSameYear = ->
       parseDate(ngModel.$modelValue)?.getFullYear() == scope.selectedYear
@@ -107,11 +102,9 @@ angular
 
     scope.$watch 'selectedDate', (newDate) ->
       oldDate = ngModel.$modelValue
+      updatedDate = updateDate(newDate, oldDate)
 
-      if oldDate? && newDate? && parseDate(oldDate).getTime() != parseDate(newDate).getTime()
-        newDate.setHours(oldDate.getHours())
-        newDate.setMinutes(oldDate.getMinutes())
-        newDate.setSeconds(oldDate.getSeconds())
+      if newDate?.getTime() != oldDate?.getTime()
         ngModel.$setViewValue(newDate)
 
     scope.selectMonth = (monthName)->

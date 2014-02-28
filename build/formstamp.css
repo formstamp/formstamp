@@ -69,6 +69,7 @@
 .fs-time .glyphicon,
 .fs-date .glyphicon {
   position: absolute;
+  z-index: 15;
   top: 10px;
   font-size: 16px;
   right: 8px;
@@ -103,6 +104,15 @@
 .fs-datetime .fs-date input {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
+}
+.fs-datetime .fs-date input,
+.fs-datetime .fs-time input {
+  z-index: 0;
+  position: relative;
+}
+.fs-datetime .fs-date input:focus,
+.fs-datetime .fs-time input:focus {
+  z-index: 10;
 }
 
 .fs-list ul.dropdown-menu {

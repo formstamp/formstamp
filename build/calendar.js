@@ -153,15 +153,6 @@
           }
         ],
         link: function(scope, element, attrs, ngModel) {
-          var parseDate;
-          parseDate = function(dateString) {
-            var parsedDate, time;
-            time = Date.parse(dateString);
-            if (!isNaN(time)) {
-              parsedDate = new Date(time);
-              return new Date(parsedDate.getFullYear(), parsedDate.getMonth(), parsedDate.getDate());
-            }
-          };
           scope.isSameYear = function() {
             var _ref;
             return ((_ref = parseDate(ngModel.$modelValue)) != null ? _ref.getFullYear() : void 0) === scope.selectedYear;
@@ -173,12 +164,10 @@
             return scope.selectedDate = parseDate(ngModel.$modelValue);
           };
           scope.$watch('selectedDate', function(newDate) {
-            var oldDate;
+            var oldDate, updatedDate;
             oldDate = ngModel.$modelValue;
-            if ((oldDate != null) && (newDate != null) && parseDate(oldDate).getTime() !== parseDate(newDate).getTime()) {
-              newDate.setHours(oldDate.getHours());
-              newDate.setMinutes(oldDate.getMinutes());
-              newDate.setSeconds(oldDate.getSeconds());
+            updatedDate = updateDate(newDate, oldDate);
+            if ((newDate != null ? newDate.getTime() : void 0) !== (oldDate != null ? oldDate.getTime() : void 0)) {
               return ngModel.$setViewValue(newDate);
             }
           });

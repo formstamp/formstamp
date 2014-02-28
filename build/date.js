@@ -29,9 +29,11 @@
         ngModel.$render = function() {
           return $scope.selectedDate.date = ngModel.$modelValue;
         };
-        return $scope.$watch('selectedDate.date', function(newDate, oldDate) {
+        return $scope.$watch('selectedDate.date', function(newDate) {
+          var oldDate, updatedDate;
           oldDate = ngModel.$modelValue;
-          if ((oldDate != null) && (newDate != null) && parseDate(oldDate) !== parseDate(newDate)) {
+          updatedDate = updateDate(newDate, oldDate);
+          if ((newDate != null ? newDate.getTime() : void 0) !== (oldDate != null ? oldDate.getTime() : void 0)) {
             return ngModel.$setViewValue(newDate);
           }
         });

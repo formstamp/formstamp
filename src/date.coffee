@@ -25,8 +25,10 @@ angular
     ngModel.$render = ->
       $scope.selectedDate.date = ngModel.$modelValue
 
-    $scope.$watch 'selectedDate.date', (newDate, oldDate) ->
+    $scope.$watch 'selectedDate.date', (newDate) ->
       oldDate = ngModel.$modelValue
-      if oldDate? && newDate? && parseDate(oldDate) != parseDate(newDate)
+      updatedDate = updateDate(newDate, oldDate)
+
+      if newDate?.getTime() != oldDate?.getTime()
         ngModel.$setViewValue(newDate)
 )

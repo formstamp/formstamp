@@ -1,4 +1,4 @@
-var addValidations, comp, filter, getComputedStyleFor, indexOf, innerHeightOf, scrollToTarget;
+var addValidations, comp, filter, getComputedStyleFor, indexOf, innerHeightOf, parseDate, scrollToTarget, updateDate;
 
 comp = function(a, b) {
   return ("" + a).toLowerCase().indexOf(b.toString().toLowerCase()) > -1;
@@ -103,5 +103,32 @@ addValidations = function(attrs, ctrl) {
     }
     ctrl.$formatters.push(patternValidator);
     return ctrl.$parsers.push(patternValidator);
+  }
+};
+
+updateDate = function(newDate, oldDate) {
+  switch (false) {
+    case !((oldDate == null) && (newDate != null)):
+      return newDate;
+    case !(newDate == null):
+      return null;
+    case !((newDate != null) && (oldDate != null)):
+      if (parseDate(oldDate).getTime() !== parseDate(newDate).getTime()) {
+        newDate.setHours(oldDate.getHours());
+        newDate.setMinutes(oldDate.getMinutes());
+        newDate.setSeconds(oldDate.getSeconds());
+        return newDate;
+      } else {
+        return oldDate;
+      }
+  }
+};
+
+parseDate = function(dateString) {
+  var parsedDate, time;
+  time = Date.parse(dateString);
+  if (!isNaN(time)) {
+    parsedDate = new Date(time);
+    return new Date(parsedDate.getFullYear(), parsedDate.getMonth(), parsedDate.getDate());
   }
 };

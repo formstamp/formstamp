@@ -16,6 +16,30 @@
   <hr/>
 
   <sample>
+    <div ng-controller="FormBuilderCtrl">
+      <fs-form-for model="user">
+        <fieldset class='form-horizontal'>
+          <legend>User Data</legend>
+          <fs-input as="text" name="name" required></fs-input>
+          <fs-input as="email" name="email" required></fs-input>
+          <fs-input as="fs-datetime" name="birthdate" required></fs-input>
+        </fieldset>
+
+        <pre> Form valid: {{ form.$valid }} </pre>
+      </fs-form-for>
+
+      <pre> {{user | json}} </pre>
+    </div>
+
+    <script>
+      function FormBuilderCtrl($scope){
+        $scope.user = {
+        };
+      }
+    </script>
+  </sample>
+
+  <sample>
   <div ng-controller="MyFormCtrl">
     <form novalidate class="form-horizontal" name="f">
       <div class="form-group" ng-class="{'has-error': (f.name.$dirty && f.name.$invalid)}">

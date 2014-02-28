@@ -1,4 +1,4 @@
-var addValidations, comp, filter, getComputedStyleFor, indexOf, innerHeightOf, scrollToTarget;
+var addValidations, comp, filter, getComputedStyleFor, indexOf, innerHeightOf, parseDate, scrollToTarget, updateDate;
 
 comp = function(a, b) {
   return ("" + a).toLowerCase().indexOf(b.toString().toLowerCase()) > -1;
@@ -103,6 +103,33 @@ addValidations = function(attrs, ctrl) {
     }
     ctrl.$formatters.push(patternValidator);
     return ctrl.$parsers.push(patternValidator);
+  }
+};
+
+updateDate = function(newDate, oldDate) {
+  switch (false) {
+    case !((oldDate == null) && (newDate != null)):
+      return newDate;
+    case !(newDate == null):
+      return null;
+    case !((newDate != null) && (oldDate != null)):
+      if (parseDate(oldDate).getTime() !== parseDate(newDate).getTime()) {
+        newDate.setHours(oldDate.getHours());
+        newDate.setMinutes(oldDate.getMinutes());
+        newDate.setSeconds(oldDate.getSeconds());
+        return newDate;
+      } else {
+        return oldDate;
+      }
+  }
+};
+
+parseDate = function(dateString) {
+  var parsedDate, time;
+  time = Date.parse(dateString);
+  if (!isNaN(time)) {
+    parsedDate = new Date(time);
+    return new Date(parsedDate.getFullYear(), parsedDate.getMonth(), parsedDate.getDate());
   }
 };
 
@@ -408,15 +435,6 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
           }
         ],
         link: function(scope, element, attrs, ngModel) {
-          var parseDate;
-          parseDate = function(dateString) {
-            var parsedDate, time;
-            time = Date.parse(dateString);
-            if (!isNaN(time)) {
-              parsedDate = new Date(time);
-              return new Date(parsedDate.getFullYear(), parsedDate.getMonth(), parsedDate.getDate());
-            }
-          };
           scope.isSameYear = function() {
             var _ref;
             return ((_ref = parseDate(ngModel.$modelValue)) != null ? _ref.getFullYear() : void 0) === scope.selectedYear;
@@ -428,12 +446,10 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
             return scope.selectedDate = parseDate(ngModel.$modelValue);
           };
           scope.$watch('selectedDate', function(newDate) {
-            var oldDate;
+            var oldDate, updatedDate;
             oldDate = ngModel.$modelValue;
-            if ((oldDate != null) && (newDate != null) && parseDate(oldDate).getTime() !== parseDate(newDate).getTime()) {
-              newDate.setHours(oldDate.getHours());
-              newDate.setMinutes(oldDate.getMinutes());
-              newDate.setSeconds(oldDate.getSeconds());
+            updatedDate = updateDate(newDate, oldDate);
+            if ((newDate != null ? newDate.getTime() : void 0) !== (oldDate != null ? oldDate.getTime() : void 0)) {
               return ngModel.$setViewValue(newDate);
             }
           });
@@ -567,9 +583,11 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
         ngModel.$render = function() {
           return $scope.selectedDate.date = ngModel.$modelValue;
         };
-        return $scope.$watch('selectedDate.date', function(newDate, oldDate) {
+        return $scope.$watch('selectedDate.date', function(newDate) {
+          var oldDate, updatedDate;
           oldDate = ngModel.$modelValue;
-          if ((oldDate != null) && (newDate != null) && parseDate(oldDate) !== parseDate(newDate)) {
+          updatedDate = updateDate(newDate, oldDate);
+          if ((newDate != null ? newDate.getTime() : void 0) !== (oldDate != null ? oldDate.getTime() : void 0)) {
             return ngModel.$setViewValue(newDate);
           }
         });
@@ -681,29 +699,40 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
   angular.module('formstamp').directive('fsFormFor', [
     '$window', function($window) {
       return {
-        restrict: 'A',
-        require: '?form',
-        scope: {
-          object: '=fsFormFor'
-        },
-        compile: function(tElement, tAttrs) {
-          tElement.attr('class', 'form-horizontal');
-          tElement.attr('role', 'form');
-          return function(scope, element, attrs, formController) {
-            return $window.addEventListener('beforeunload', function() {
-              if (formController.$dirty) {
-                return 'You will lose unsaved changes unless you stay on this page';
+        restrict: 'AE',
+        template: function(el, attrs) {
+          var html, modelName, replacer;
+          modelName = el.attr("model");
+          replacer = function() {
+            var attr, attributes, input, inputFunc, name, type;
+            input = $(this);
+            name = input.attr("name");
+            type = input.attr("as");
+            attributes = ((function() {
+              var _i, _len, _ref, _results;
+              _ref = input.prop("attributes");
+              _results = [];
+              for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                attr = _ref[_i];
+                _results.push("" + attr.name + "=\"" + attr.value + "\"");
               }
-            });
+              return _results;
+            })()).join(' ');
+            if (type.indexOf("fs-") === 0) {
+              inputFunc = function(attrs) {
+                return "<div " + type + " " + attrs + " ng-model=\"" + modelName + "." + name + "\" name=\"" + name + "\"></div>";
+              };
+            } else {
+              inputFunc = function(attrs) {
+                return "<input type=\"" + type + "\" " + attrs + " class=\"form-control\" ng-model=\"" + modelName + "." + name + "\" name=\"" + name + "\" />";
+              };
+            }
+            return "<div class=\"form-group\" ng-class=\"{'has-error': (form." + name + ".$dirty && form." + name + ".$invalid)}\">\n  <label class=\"col-sm-2 control-label\">" + name + "</label>\n  <div class=\"col-sm-10\">\n    <!-- < type=\"" + type + "\" " + type + " ng-model=\"" + modelName + "." + name + "\" name=\"" + name + "\"></> -->\n    " + (inputFunc(attributes)) + "\n  </div>\n</div>";
           };
-        },
-        controller: function($scope, $element, $attrs) {
-          this.getObject = function() {
-            return $scope.object;
-          };
-          this.getObjectName = function() {
-            return $attrs.fsFormFor;
-          };
+          html = el.find("fs-input").replaceWith(replacer).end().html();
+          html = "<form name='form' class='form-horizontal' novalidate>\n  " + html + "\n</form>";
+          console.log(html);
+          return html;
         }
       };
     }

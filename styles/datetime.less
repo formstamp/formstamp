@@ -11,6 +11,7 @@
 
   .glyphicon {
     position: absolute;
+    z-index: 15;
     top: 10px;
     font-size: 16px;
     right: 8px;
@@ -47,6 +48,17 @@
     input {
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
+    }
+  }
+
+  .fs-date, .fs-time {
+    input {
+      z-index: 0;
+      position: relative;
+    }
+
+    input:focus {
+      z-index: 10;
     }
   }
 }
