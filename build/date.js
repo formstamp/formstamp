@@ -5,7 +5,8 @@
       require: '?ngModel',
       scope: {
         "class": '@',
-        disabled: '=ngDisabled'
+        disabled: '=ngDisabled',
+        placeholder: '@'
       },
       templateUrl: '/templates/date.html',
       replace: true,

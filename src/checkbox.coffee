@@ -13,7 +13,7 @@ angular
       itemTpl = el.html() || 'template me: {{item | json}}'
       template = """
 <div class='fs-racheck' ng-class="{disabled: disabled, enabled: !disabled}">
-  <div ng-repeat='item in items track by item.id'>
+  <div ng-repeat='item in items'>
     <a class="fs-racheck-item"
        href='javascript:void(0)'
        onclick="this.focus()"

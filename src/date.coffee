@@ -6,6 +6,7 @@ angular
   scope:
     class: '@'
     disabled: '=ngDisabled'
+    placeholder: '@'
   templateUrl: '/templates/date.html'
   replace: true
   controller: ($scope, $filter) ->

@@ -68,6 +68,7 @@
   app.directive('sample', function() {
     return {
       restrict: 'E',
+      scope: {},
       controller: function($scope) {
         return $scope.current = "demo";
       },
@@ -78,7 +79,7 @@
         js = hljs.highlightAuto($.trim($(el).find('script').remove().text())).value;
         html = hljs.highlightAuto($.trim(el.innerHTML)).value.replace(/{{([^}]*)}}/g, "<b style='color:green;'>{{$1}}</b>");
         html = html.replace(/(fs-[-a-zA-Z]*)/g, "<b style='color:red;'>$1</b>");
-        return "<div>\n  <div class=\"btn-group\">\n    <a class=\"btn btn-default\" ng-click=\"current='demo'\">Demo</a>\n    <a class=\"btn btn-default\" ng-click=\"current='html'\">HTML</a>\n    <a class=\"btn btn-default\" ng-click=\"current='js'\">JavaScript</a>\n  </div>\n  <hr/>\n  <div ng-show=\"current=='demo'\">" + orig + "</div>\n  <div ng-show=\"current=='html'\"><pre ng-non-bindable>" + html + "</pre> </div>\n  <div ng-show=\"current=='js'\"><pre ng-non-bindable>" + js + "</pre> </div>\n</div>";
+        return "<div class=\"fsdemo-sample well\">\n  <div class=\"pull-right example-label\">EXAMPLE</div>\n  <div class=\"btn-group clearfix\">\n    <a class=\"btn btn-default\" ng-click=\"current='demo'\">Demo</a>\n    <a class=\"btn btn-default\" ng-click=\"current='html'\">HTML</a>\n    <a class=\"btn btn-default\" ng-click=\"current='js'\">JavaScript</a>\n  </div>\n  <div ng-show=\"current=='demo'\">" + orig + "</div>\n  <div ng-show=\"current=='html'\"><pre ng-non-bindable>" + html + "</pre> </div>\n  <div ng-show=\"current=='js'\"><pre ng-non-bindable>" + js + "</pre> </div>\n</div>";
       }
     };
   });

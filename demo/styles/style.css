@@ -154,3 +154,17 @@ body{
   opacity: 0.1;
   left: -100%;
 }
+
+.fsdemo-sample {
+  margin-bottom: 40px;
+}
+
+.fsdemo-sample .example-label {
+  color: #aaa;
+  font-weight: bold;
+}
+
+.fsdemo-sample > .btn-group {
+  margin-bottom: 20px;
+  display: block;
+}
