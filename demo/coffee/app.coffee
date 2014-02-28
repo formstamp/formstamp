@@ -1,9 +1,10 @@
 unindentCode = (str) ->
   str = str ? ""
-  str = str.replace("\n", "")
+  str = str.replace(/^\n/, "")
   leadingSpaces = str.match(/^\s+/)[0]
-  re = new RegExp("^\\s{#{leadingSpaces.length}}", 'gm')
-  $.trim(str.replace(re, ''))
+  re = new RegExp("^[ ]{#{leadingSpaces.length}}", 'gm')
+
+  str.replace(re, '')
 
 widgets  = [
     { name: 'form_for' }

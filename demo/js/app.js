@@ -4,10 +4,10 @@
   unindentCode = function(str) {
     var leadingSpaces, re;
     str = str != null ? str : "";
-    str = str.replace("\n", "");
+    str = str.replace(/^\n/, "");
     leadingSpaces = str.match(/^\s+/)[0];
-    re = new RegExp("^\\s{" + leadingSpaces.length + "}", 'gm');
-    return $.trim(str.replace(re, ''));
+    re = new RegExp("^[ ]{" + leadingSpaces.length + "}", 'gm');
+    return str.replace(re, '');
   };
 
   widgets = [
