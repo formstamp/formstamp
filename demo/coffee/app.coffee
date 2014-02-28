@@ -54,9 +54,9 @@ app.directive 'sample', ()->
     html = html.replace(/(fs-[-a-zA-Z]*)/g, "<b style='color:red;'>$1</b>")
 
     """
-      <div class="fsdemo-sample well">
-        <div class="pull-right example-label">EXAMPLE</div>
-        <div class="btn-group clearfix">
+      <div class="fsdemo-sample">
+        <div class="btn-group fstabs">
+          <div class="btn btn-default disabled example-label">EXAMPLE</div>
           <a class="btn btn-default" ng-click="current='demo'">Demo</a>
           <a class="btn btn-default" ng-click="current='html'">HTML</a>
           <a class="btn btn-default" ng-click="current='js'">JavaScript</a>

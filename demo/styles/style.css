@@ -162,7 +162,7 @@ html, body {
   left: -100%;
 }
 
-footer {
+.footer {
   font-size: 16px;
   position: fixed;
   text-align: right;
@@ -173,9 +173,22 @@ footer {
   bottom:0;
   right: 0;
   left:0;
+}
 
 .fsdemo-sample {
-  margin-bottom: 40px;
+  margin: 40px 0;
+  padding: 40px 25px;
+  position: relative;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px #eee;
+}
+
+
+.fsdemo-sample .fstabs{
+  position: absolute;
+  top: -17px;
+  left: 10px;
 }
 
 .fsdemo-sample .example-label {
@@ -183,7 +196,3 @@ footer {
   font-weight: bold;
 }
 
-.fsdemo-sample > .btn-group {
-  margin-bottom: 20px;
-  display: block;
-}
