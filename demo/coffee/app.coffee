@@ -1,3 +1,11 @@
+unindentCode = (str) ->
+  str = str ? ""
+  str = str.replace(/^\n/, "")
+  leadingSpaces = str.match(/^\s+/)[0]
+  re = new RegExp("^[ ]{#{leadingSpaces.length}}", 'gm')
+
+  str.replace(re, '')
+
 widgets  = [
     { name: 'form_for' }
     { name: 'combo' }
@@ -10,6 +18,8 @@ widgets  = [
     { name: 'input' }
     { name: 'date/time', template: 'datetime' }
 ]
+
+
 app = angular.module 'formstamp-demo',
 ['formstamp', 'ngRoute', 'ngSanitize', 'ngAnimate'],
 ($routeProvider, $locationProvider) ->
@@ -49,9 +59,14 @@ app.directive 'sample', ()->
   template: ($el, attrs)->
     el = $el[0]
     orig = el.innerHTML
-    js = hljs.highlightAuto($.trim($(el).find('script').remove().text())).value
-    html = hljs.highlightAuto($.trim(el.innerHTML)).value.replace(/{{([^}]*)}}/g, "<b style='color:green;'>{{$1}}</b>")
-    html = html.replace(/(fs-[-a-zA-Z]*)/g, "<b style='color:red;'>$1</b>")
+
+    js = unindentCode($(el).find('script').remove().text())
+    js = hljs.highlightAuto(js).value
+
+    html = unindentCode(el.innerHTML)
+    html = hljs.highlightAuto(html).value.replace(/{{([^}]*)}}/g, "<b style='color:green;'>{{$1}}</b>")
+    html = html.replace(/(fs-[-a-zA-Z]*)/g, "<b style='color:#c00;'>$1</b>")
+
 
     """
       <div class="fsdemo-sample">

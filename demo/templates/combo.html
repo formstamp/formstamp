@@ -15,39 +15,39 @@
   </p>
   <hr/>
   <sample>
-<form class="well" role="form" ng-controller="ComboCtrl">
-  <div class="form-group">
-    <label>Enter type of your laugh</label>
-    <div fs-select
-      freetext="true"
-      items="items"
-      ng-disabled="disabled"
-      ng-model="element">
-      {{item}}
-    </div>
-  </div>
-  <div class="form-group">
-    <label>Enter type of your laugh</label>
-    <div fs-select
-      freetext="true"
-      items="items"
-      ng-disabled="disabled"
-      ng-model="element">
-      {{item}}
-    </div>
-  </div>
-  <div class="form-group">
-    <button class="btn btn-default" ng-click="disabled = !disabled">{{disabled ? 'Enable' : 'Disable'}}</button>
-  </div>
-</form>
-<pre>
-  Your element is: {{ element || 'none' }}
-</pre>
-<script>
-   function ComboCtrl($scope) {
-     $scope.disabled = false;
-     $scope.items = ['haha', 'hoho', 'hihi', 'hehe'];
-   }
-</script>
+    <form class="well" role="form" ng-controller="ComboCtrl">
+      <div class="form-group">
+        <label>Enter type of your laugh</label>
+        <div fs-select
+             freetext="true"
+             items="items"
+             ng-disabled="disabled"
+             ng-model="element">
+          {{item}}
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Enter type of your laugh</label>
+        <div fs-select
+             freetext="true"
+             items="items"
+             ng-disabled="disabled"
+             ng-model="element">
+          {{item}}
+        </div>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-default" ng-click="disabled = !disabled">{{disabled ? 'Enable' : 'Disable'}}</button>
+      </div>
+    </form>
+    <pre>
+      Your element is: {{ element || 'none' }}
+    </pre>
+    <script>
+      function ComboCtrl($scope) {
+        $scope.disabled = false;
+        $scope.items = ['Ha-ha-ha', 'Ho-ho-ho', 'He-he-he'];
+      }
+    </script>
   </sample>
 </div>

@@ -1,5 +1,14 @@
 (function() {
-  var app, widgets;
+  var app, unindentCode, widgets;
+
+  unindentCode = function(str) {
+    var leadingSpaces, re;
+    str = str != null ? str : "";
+    str = str.replace(/^\n/, "");
+    leadingSpaces = str.match(/^\s+/)[0];
+    re = new RegExp("^[ ]{" + leadingSpaces.length + "}", 'gm');
+    return str.replace(re, '');
+  };
 
   widgets = [
     {
@@ -83,9 +92,11 @@
         var el, html, js, orig;
         el = $el[0];
         orig = el.innerHTML;
-        js = hljs.highlightAuto($.trim($(el).find('script').remove().text())).value;
-        html = hljs.highlightAuto($.trim(el.innerHTML)).value.replace(/{{([^}]*)}}/g, "<b style='color:green;'>{{$1}}</b>");
-        html = html.replace(/(fs-[-a-zA-Z]*)/g, "<b style='color:red;'>$1</b>");
+        js = unindentCode($(el).find('script').remove().text());
+        js = hljs.highlightAuto(js).value;
+        html = unindentCode(el.innerHTML);
+        html = hljs.highlightAuto(html).value.replace(/{{([^}]*)}}/g, "<b style='color:green;'>{{$1}}</b>");
+        html = html.replace(/(fs-[-a-zA-Z]*)/g, "<b style='color:#c00;'>$1</b>");
         return "<div class=\"fsdemo-sample\">\n  <div class=\"btn-group fstabs\">\n    <div class=\"btn btn-default disabled example-label\">EXAMPLE</div>\n    <a class=\"btn btn-default\" ng-click=\"current='demo'\">Demo</a>\n    <a class=\"btn btn-default\" ng-click=\"current='html'\">HTML</a>\n    <a class=\"btn btn-default\" ng-click=\"current='js'\">JavaScript</a>\n  </div>\n  <div ng-show=\"current=='demo'\">" + orig + "</div>\n  <div ng-show=\"current=='html'\"><pre ng-non-bindable>" + html + "</pre> </div>\n  <div ng-show=\"current=='js'\"><pre ng-non-bindable>" + js + "</pre> </div>\n</div>";
       }
     };
