@@ -5,7 +5,7 @@ angular
   controller: ($element)->
     noop = ->
     nullFormCtrl =
-      $addControl: noop # ()-> console.log('fsNullForm', '$addControl', arguments)
+      $addControl: noop # ()-> console.log('fsNullForm', $element, '$addControl', arguments)
       $removeControl: noop
       $setValidity: noop
       $setDirty: noop

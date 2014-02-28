@@ -18,8 +18,9 @@ angular
     timeoptions = res.join('')
 
     """
-    <div class="fs-time fs-widget-root" fs-null-form>
+    <div class="fs-time fs-widget-root">
       <input
+        fs-null-form
         ng-model="value"
         class="form-control"
         ng-disabled="disabled"

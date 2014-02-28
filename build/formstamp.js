@@ -221,7 +221,8 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
     "     type=\"text\"\n" +
     "     ng-disabled=\"disabled\"\n" +
     "     class=\"form-control\"\n" +
-    "     ng-model=\"formattedDate\" />\n" +
+    "     ng-model=\"formattedDate\"\n" +
+    "     fs-null-form />\n" +
     "  <span class=\"glyphicon glyphicon-calendar\"></span>\n" +
     "\n" +
     "  <div ng-if=\"active\" class=\"open fs-calendar-wrapper\">\n" +
@@ -486,7 +487,7 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
         template: function(el, attrs) {
           var itemTpl, template;
           itemTpl = el.html() || 'template me: {{item | json}}';
-          return template = "<div fs-null-form class='fs-racheck' ng-class=\"{disabled: disabled, enabled: !disabled}\">\n  <div ng-repeat='item in items track by item.id'>\n    <a class=\"fs-racheck-item\"\n       href='javascript:void(0)'\n       onclick=\"this.focus()\"\n       ng-disabled=\"disabled\"\n       ng-click=\"toggle(item)\"\n       fs-space='toggle(item)'>\n      <span class=\"fs-check-outer\"><span ng-show=\"isSelected(item)\" class=\"fs-check-inner\"></span></span>\n      " + itemTpl + "\n    </a>\n  </div>\n  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>\n</div>";
+          return template = "<div class='fs-racheck' ng-class=\"{disabled: disabled, enabled: !disabled}\">\n  <div ng-repeat='item in items track by item.id'>\n    <a class=\"fs-racheck-item\"\n       href='javascript:void(0)'\n       onclick=\"this.focus()\"\n       ng-disabled=\"disabled\"\n       ng-click=\"toggle(item)\"\n       fs-space='toggle(item)'>\n      <span class=\"fs-check-outer\"><span ng-show=\"isSelected(item)\" class=\"fs-check-inner\"></span></span>\n      " + itemTpl + "\n    </a>\n  </div>\n  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>\n</div>";
         },
         controller: function($scope, $element, $attrs) {
           $scope.toggle = function(item) {
@@ -608,7 +609,7 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
         },
         require: '?ngModel',
         replace: true,
-        template: "<div class=\"fs-datetime fs-widget-root\" fs-null-form>\n  <div fs-date ng-model=\"value\" ng-disabled=\"disabled\"></div>\n  <div fs-time ng-model=\"value\" ng-disabled=\"disabled\"></div>\n</div>",
+        template: "<div class=\"fs-datetime fs-widget-root\">\n  <div fs-date ng-model=\"value\" ng-disabled=\"disabled\" fs-null-form></div>\n  <div fs-time ng-model=\"value\" ng-disabled=\"disabled\" fs-null-form></div>\n</div>",
         link: function(scope, element, attrs, ngModelCtrl, transcludeFn) {
           if (ngModelCtrl) {
             scope.$watch('value', function(newValue, oldValue) {
@@ -934,7 +935,7 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
             defaultItemTpl = "{{ item | json }}";
           }
           itemTpl = el.html() || defaultItemTpl;
-          return "<div fs-null-form class='fs-multiselect fs-widget-root' ng-class='{ \"fs-with-selected-items\": selectedItems.length > 0 }'>\n  <div class='fs-multiselect-wrapper'>\n    <div class=\"fs-multiselect-selected-items\" ng-if=\"selectedItems.length > 0\">\n      <a ng-repeat='item in selectedItems' class=\"btn\" ng-click=\"unselectItem(item)\" ng-disabled=\"disabled\">\n        " + itemTpl + "\n        <span class=\"glyphicon glyphicon-remove\" ></span>\n      </a>\n    </div>\n\n    <input ng-keydown=\"onkeys($event)\"\n           ng-disabled=\"disabled\"\n           fs-input\n           fs-hold-focus\n           fs-on-focus=\"active = true\"\n           fs-on-blur=\"active = false\"\n           fs-blur-when=\"!active\"\n           fs-down='listInterface.move(1)'\n           fs-up='listInterface.move(-1)'\n           fs-pgup='listInterface.move(-11)'\n           fs-pgdown='listInterface.move(11)'\n           fs-enter='selectItem(listInterface.selectedItem)'\n           fs-esc='active = false'\n           class=\"form-control\"\n           type=\"text\"\n           placeholder='Select something'\n           ng-model=\"search\" />\n\n    <div ng-if=\"active && dropdownItems.length > 0\" class=\"open\">\n      <div fs-list items=\"dropdownItems\">\n        " + itemTpl + "\n      </div>\n    </div>\n  </div>\n</div>";
+          return "<div class='fs-multiselect fs-widget-root' ng-class='{ \"fs-with-selected-items\": selectedItems.length > 0 }'>\n  <div class='fs-multiselect-wrapper'>\n    <div class=\"fs-multiselect-selected-items\" ng-if=\"selectedItems.length > 0\">\n      <a ng-repeat='item in selectedItems' class=\"btn\" ng-click=\"unselectItem(item)\" ng-disabled=\"disabled\">\n        " + itemTpl + "\n        <span class=\"glyphicon glyphicon-remove\" ></span>\n      </a>\n    </div>\n\n    <input ng-keydown=\"onkeys($event)\"\n           fs-null-form\n           ng-disabled=\"disabled\"\n           fs-input\n           fs-hold-focus\n           fs-on-focus=\"active = true\"\n           fs-on-blur=\"active = false\"\n           fs-blur-when=\"!active\"\n           fs-down='listInterface.move(1)'\n           fs-up='listInterface.move(-1)'\n           fs-pgup='listInterface.move(-11)'\n           fs-pgdown='listInterface.move(11)'\n           fs-enter='selectItem(listInterface.selectedItem)'\n           fs-esc='active = false'\n           class=\"form-control\"\n           type=\"text\"\n           placeholder='Select something'\n           ng-model=\"search\" />\n\n    <div ng-if=\"active && dropdownItems.length > 0\" class=\"open\">\n      <div fs-list items=\"dropdownItems\">\n        " + itemTpl + "\n      </div>\n    </div>\n  </div>\n</div>";
         },
         controller: function($scope, $element, $attrs, $filter) {
           if ($scope.freetext) {
@@ -1076,7 +1077,7 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
           var itemTpl, name, template;
           itemTpl = el.html() || 'template me: {{item | json}}';
           name = nextUid();
-          return template = "<div fs-null-form class='fs-racheck' ng-class=\"{disabled: disabled, enabled: !disabled}\">\n  <div class=\"fs-radio-label\"\n     ng-repeat=\"item in items\" >\n    <input\n     type=\"radio\"\n     ng-model=\"$parent.selectedItem\"\n     name=\"" + name + "\"\n     ng-value=\"item\"\n     ng-disabled=\"disabled\"\n     id=\"{{item.id}}\"/>\n    <label for=\"{{item.id}}\">\n      " + itemTpl + "\n    </label>\n  </div>\n  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>\n</div>";
+          return template = "<div class='fs-racheck' ng-class=\"{disabled: disabled, enabled: !disabled}\">\n  <div class=\"fs-radio-label\"\n     ng-repeat=\"item in items\" >\n    <input\n     fs-null-form\n     type=\"radio\"\n     ng-model=\"$parent.selectedItem\"\n     name=\"" + name + "\"\n     ng-value=\"item\"\n     ng-disabled=\"disabled\"\n     id=\"{{item.id}}\"/>\n    <label for=\"{{item.id}}\">\n      " + itemTpl + "\n    </label>\n  </div>\n  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>\n</div>";
         },
         link: function(scope, element, attrs, ngModelCtrl, transcludeFn) {
           if (ngModelCtrl) {
@@ -1112,7 +1113,7 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
         template: function(el) {
           var itemTpl, template;
           itemTpl = el.html();
-          return template = "<div fs-null-form class='fs-select fs-widget-root'>\n  <div ng-hide=\"active\" class=\"fs-select-sel\" ng-class=\"{'btn-group': item}\">\n      <a class=\"btn btn-default fs-select-active\"\n         ng-class='{\"btn-danger\": invalid}'\n         href=\"javascript:void(0)\"\n         ng-click=\"active = true\"\n         ng-disabled=\"disabled\">\n           <span ng-show='item'>" + itemTpl + "</span>\n           <span ng-hide='item'>none</span>\n      </a>\n      <button type=\"button\"\n              class=\"btn btn-default fs-select-clear-btn\"\n              aria-hidden=\"true\"\n              ng-show='item'\n              ng-disabled=\"disabled\"\n              ng-click='unselectItem()'>&times;</button>\n    </div>\n  <div class=\"open\" ng-show=\"active\">\n    <input class=\"form-control\"\n           fs-input\n           fs-focus-when='active'\n           fs-blur-when='!active'\n           fs-on-focus='active = true'\n           fs-on-blur='active = false'\n           fs-hold-focus\n\n           fs-down='move(1)'\n           fs-up='move(-1)'\n           fs-pgup='move(-11)'\n           fs-pgdown='move(11)'\n           fs-enter='onEnter($event)'\n           fs-esc='active = false'\n           type=\"search\"\n           placeholder='Search'\n           ng-model=\"search\" />\n\n    <div ng-if=\"active && dropdownItems.length > 0\">\n      <div fs-list items=\"dropdownItems\">\n       " + itemTpl + "\n      </div>\n    </div>\n  </div>\n</div>";
+          return template = "<div class='fs-select fs-widget-root'>\n  <div ng-hide=\"active\" class=\"fs-select-sel\" ng-class=\"{'btn-group': item}\">\n      <a class=\"btn btn-default fs-select-active\"\n         ng-class='{\"btn-danger\": invalid}'\n         href=\"javascript:void(0)\"\n         ng-click=\"active = true\"\n         ng-disabled=\"disabled\">\n           <span ng-show='item'>" + itemTpl + "</span>\n           <span ng-hide='item'>none</span>\n      </a>\n      <button type=\"button\"\n              class=\"btn btn-default fs-select-clear-btn\"\n              aria-hidden=\"true\"\n              ng-show='item'\n              ng-disabled=\"disabled\"\n              ng-click='unselectItem()'>&times;</button>\n    </div>\n  <div class=\"open\" ng-show=\"active\">\n    <input class=\"form-control\"\n           fs-input\n           fs-focus-when='active'\n           fs-blur-when='!active'\n           fs-on-focus='active = true'\n           fs-on-blur='active = false'\n           fs-hold-focus\n\n           fs-down='move(1)'\n           fs-up='move(-1)'\n           fs-pgup='move(-11)'\n           fs-pgdown='move(11)'\n           fs-enter='onEnter($event)'\n           fs-esc='active = false'\n           type=\"search\"\n           placeholder='Search'\n           ng-model=\"search\"\n           fs-null-form />\n\n    <div ng-if=\"active && dropdownItems.length > 0\">\n      <div fs-list items=\"dropdownItems\">\n       " + itemTpl + "\n      </div>\n    </div>\n  </div>\n</div>";
         },
         controller: function($scope, $element, $attrs, $filter, $timeout) {
           var keyAttr, updateDropdown, valueAttr;
@@ -1276,7 +1277,7 @@ angular.module('formstamp', []).run(['$templateCache', function($templateCache) 
             }
           }
           timeoptions = res.join('');
-          return "<div class=\"fs-time fs-widget-root\" fs-null-form>\n  <input\n    ng-model=\"value\"\n    class=\"form-control\"\n    ng-disabled=\"disabled\"\n    list=\"time\"\n    type=\"text\"/>\n  <span class=\"glyphicon glyphicon-time\"></span>\n  <datalist id=\"time\">\n  " + timeoptions + "\n  </datalist>\n</div>";
+          return "<div class=\"fs-time fs-widget-root\">\n  <input\n    fs-null-form\n    ng-model=\"value\"\n    class=\"form-control\"\n    ng-disabled=\"disabled\"\n    list=\"time\"\n    type=\"text\"/>\n  <span class=\"glyphicon glyphicon-time\"></span>\n  <datalist id=\"time\">\n  " + timeoptions + "\n  </datalist>\n</div>";
         },
         controller: function($scope, $element, $attrs, $filter, $timeout) {
           var patterns;

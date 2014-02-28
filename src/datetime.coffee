@@ -8,9 +8,9 @@ angular
   require: '?ngModel'
   replace: true
   template: """
-    <div class="fs-datetime fs-widget-root" fs-null-form>
-      <div fs-date ng-model="value" ng-disabled="disabled"></div>
-      <div fs-time ng-model="value" ng-disabled="disabled"></div>
+    <div class="fs-datetime fs-widget-root">
+      <div fs-date ng-model="value" ng-disabled="disabled" fs-null-form></div>
+      <div fs-time ng-model="value" ng-disabled="disabled" fs-null-form></div>
     </div>
   """
 

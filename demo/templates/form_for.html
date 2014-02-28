@@ -25,7 +25,7 @@
           <fs-input as="fs-datetime" name="birthdate" required></fs-input>
         </fieldset>
 
-        <pre> Form valid: {{ form.$valid }} </pre>
+        <pre> birthdate in form: {{ form.birthdate || false }} </pre>
       </fs-form-for>
 
       <pre> {{user | json}} </pre>
@@ -39,47 +39,47 @@
     </script>
   </sample>
 
-  <sample>
-  <div ng-controller="MyFormCtrl">
-    <form novalidate class="form-horizontal" name="f">
-      <div class="form-group" ng-class="{'has-error': (f.name.$dirty && f.name.$invalid)}">
-        <label for="input1" class="col-sm-2 control-label">Name</label>
-        <div class="col-sm-10">
-          <input id="input1" ng-model="user.name" name="name" required class="form-control"/>
-          <!-- <p> dirty: {{f.name.$dirty}}; errors:{{f.name.$error}}</p> -->
-        </div>
-      </div>
-      <div class="form-group" ng-class="{'has-error': (f.email.$dirty && f.email.$invalid)}">
-        <label for="input1" class="col-sm-2 control-label">Email</label>
-        <div class="col-sm-10">
-          <input ng-model="user.email" name="email" type="email" required class="form-control"/>
-          <p class="text-danger" ng-show="f.email.$dirty && f.email.$invalid">Invalid:
-            <span ng-show="f.email.$error.required">Tell us your email.</span>
-            <span ng-show="f.email.$error.email">This is not a valid email.</span>
-          </p>
-          <!-- <pre> dirty: {{f.email.$dirty}}; errors:{{f.email.$error}}</pre> -->
-        </div>
-      </div>
-      <div class="form-group" ng-class="{'has-error': (f.bithdate.$dirty && f.bithdate.$invalid)}">
-        <label for="input1" class="col-sm-2 control-label">Bith Date</label>
-        <div class="col-sm-10">
-          <div ng-model="user.bithdate" name="bithdate" fs-datetime required></div>
-          <p class="text-danger" ng-show="f.bithdate.$dirty && f.bithdate.$invalid">Invalid:
-            <span ng-show="f.bithdate.$error.required">Tell us your email.</span>
-          </p>
-          <!-- <pre> dirty: {{f.bithdate.$dirty}}; errors:{{f.bithdate.$error}}</pre> -->
-        </div>
-      </div>
-      <pre> Form valid: {{ f.$valid }} </pre>
-      <pre> {{user | json}} </pre>
-    </form>
-  </div>
-  <script>
-function MyFormCtrl($scope){
-  $scope.user = {}
-}
-  </script>
-  </sample>
+  <!-- <sample> -->
+<!--   <div ng-controller="MyFormCtrl"> -->
+<!--     <form novalidate class="form-horizontal" name="f"> -->
+<!--       <div class="form-group" ng-class="{'has-error': (f.name.$dirty && f.name.$invalid)}"> -->
+<!--         <label for="input1" class="col-sm-2 control-label">Name</label> -->
+<!--         <div class="col-sm-10"> -->
+<!--           <input id="input1" ng-model="user.name" name="name" required class="form-control"/> -->
+<!--           <\!-- <p> dirty: {{f.name.$dirty}}; errors:{{f.name.$error}}</p> -\-> -->
+<!--         </div> -->
+<!--       </div> -->
+<!--       <div class="form-group" ng-class="{'has-error': (f.email.$dirty && f.email.$invalid)}"> -->
+<!--         <label for="input1" class="col-sm-2 control-label">Email</label> -->
+<!--         <div class="col-sm-10"> -->
+<!--           <input ng-model="user.email" name="email" type="email" required class="form-control"/> -->
+<!--           <p class="text-danger" ng-show="f.email.$dirty && f.email.$invalid">Invalid: -->
+<!--             <span ng-show="f.email.$error.required">Tell us your email.</span> -->
+<!--             <span ng-show="f.email.$error.email">This is not a valid email.</span> -->
+<!--           </p> -->
+<!--           <\!-- <pre> dirty: {{f.email.$dirty}}; errors:{{f.email.$error}}</pre> -\-> -->
+<!--         </div> -->
+<!--       </div> -->
+<!--       <div class="form-group" ng-class="{'has-error': (f.bithdate.$dirty && f.bithdate.$invalid)}"> -->
+<!--         <label for="input1" class="col-sm-2 control-label">Bith Date</label> -->
+<!--         <div class="col-sm-10"> -->
+<!--           <div ng-model="user.bithdate" name="bithdate" fs-datetime required></div> -->
+<!--           <p class="text-danger" ng-show="f.bithdate.$dirty && f.bithdate.$invalid">Invalid: -->
+<!--             <span ng-show="f.bithdate.$error.required">Tell us your email.</span> -->
+<!--           </p> -->
+<!--           <\!-- <pre> dirty: {{f.bithdate.$dirty}}; errors:{{f.bithdate.$error}}</pre> -\-> -->
+<!--         </div> -->
+<!--       </div> -->
+<!--       <pre> Form valid: {{ f.$valid }} </pre> -->
+<!--       <pre> {{user | json}} </pre> -->
+<!--     </form> -->
+<!--   </div> -->
+<!--   <script> -->
+<!-- function MyFormCtrl($scope){ -->
+<!--   $scope.user = {} -->
+<!-- } -->
+<!--   </script> -->
+<!--   </sample> -->
   <!-- <sample> -->
   <!-- <form name='form' ng-controller="FormBuilderCtrl" fs-form-for='samurai' fs-submit='send()'> -->
   <!--   <div fs-field='name' -->

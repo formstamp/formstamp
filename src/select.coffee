@@ -12,7 +12,7 @@ angular
   template: (el)->
     itemTpl = el.html()
     template = """
-<div fs-null-form class='fs-select fs-widget-root'>
+<div class='fs-select fs-widget-root'>
   <div ng-hide="active" class="fs-select-sel" ng-class="{'btn-group': item}">
       <a class="btn btn-default fs-select-active"
          ng-class='{"btn-danger": invalid}'
@@ -46,7 +46,8 @@ angular
            fs-esc='active = false'
            type="search"
            placeholder='Search'
-           ng-model="search" />
+           ng-model="search"
+           fs-null-form />
 
     <div ng-if="active && dropdownItems.length > 0">
       <div fs-list items="dropdownItems">
