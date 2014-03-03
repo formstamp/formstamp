@@ -1,57 +1,69 @@
-FORM STAMP
+FormStamp
 ====
 
-Pure AngularJS widgets set:
+FormStamp is a pure AngularJS widgets library designed for rich
+front-end web applications. FormStamp core principes are:
 
-* designed with only front-end in mind (ununabtrusive)
+* all widgets are written from scratch
+* maximum AngularJS compatibility (support ngDisabled, ngModel and
+  other standard directives)
 * styled with Twitter Bootstrap
-* and written with clean & minimalistic code.
+* clean & minimalistic codebase.
 
 [Live Demo](http://formstamp.github.io/)
+
+Installation
+------------
+
+FormStamp can be installed via [Bower Package Manager](http://bower.io/):
+
+    bower install formstamp
 
 Structure
 ------------
 
 There are 3 levels of directives:
 
-* Low level directives - common concerns for widgets construction, can be used for building you own widgets
-* Form Directives - minimalistic set (20/80) of input directives
-* Form Builder - orchestrates form workflow: markup boilerplate, errors etc.
+* Form Builder - orchestrates building of complex forms; provides
+  simple DSL-like markup for describing forms and hides complex markup
+  from you.
+* Widget directives - most often used widgets
+* Low-level directives - common concerns for widgets construction, can
+  be used to build you own custom widgets
 
-Low level directives
----------
-
-* `fs-list` - render list by template & move operations
-* `fs-null-form` - hide internal widget ngModels from top level formController
-* `fs-input` - simplify keyboard events bindings on text input
-
-Form input directives
----------
-
-* `fs-select` - select input
-* `fs-select` freetext - combobox input
-* `fs-multiselect` - multi select
-* `fs-multiselect` freetext - tags input
-* `fs-time` - time input
-* `fs-calendar` - time input
-* `fs-date` - time input
-* `fs-datetime` - time input
-* `fs-radio` - radio buttons group
-* `fs-check` - checkboxes group
-
-
-Form builder
+Form Builder
 -----------
 
-* `from-for` - form builder, no markup & errors boilerplate
-* `fs-input` - render row with input in form builder
-* `fs-row` - render custom row
+* `fsFromFor` - root form builder directive
+* `fsInput` - renders row with input in form builder
+* `fsRow` - renders custom row
+
+Widget Directives
+---------
+
+* `fsSelect` - select input with freetext support (select/combo)
+* `fsMultiselect` - multiple select input with freetext support
+* `fsTime` - time input
+* `fsDate` - date input with `fsCalendar` inside dropdown
+* `fsDatetime` - widget composed from `fsTime` and `fsDate` to enter
+  both date and time
+* `fsRadio` - radio buttons group
+* `fsCheck` - checkboxes group
+
+Low-level Directives
+---------
+
+* `fsList` - render list of items and allows to move selection up and
+  down (with custom templating for items)
+* `fsNullForm` - hides input with ngModel binding from parent form
+* `fsInput` - simplify keyboard & focus events handling
+* `fsCalendar` - draws a calendar and allows to mark one day as selected
 
 TODO
 ----
-  * I18n
+  * I18n support
 
-Installation for Development
+Development Environment
 -----------
 
 ### Node.js
@@ -65,7 +77,12 @@ Installation for Development
     `npm bin`/grunt watch # Then start watching changes
     node server.js 3000 # Run server default port 17405
 
+NOTE: This script adds `nvm` command to `.bash_profile`. It may not
+work if you are not using `bash` shell (like `zsh`). In this case you
+have to manually configure profile file.
 
-NOTE: This script adds `nvm` command to `.bash_profile`. It may not work if you are not using `bash` shell
-(like `zsh`). In this case you have to manually configure profile file.
+License
+-----------
 
+FormStamp is released under
+[MIT License](https://raw.github.com/formstamp/formstamp/master/MIT-LICENSE).
