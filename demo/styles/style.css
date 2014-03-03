@@ -176,21 +176,30 @@ html, body {
 }
 
 .fsdemo-sample {
-  margin: 40px 0;
-  padding: 40px 25px 20px 25px;
   position: relative;
+  margin: 40px 0 60px 0;
+  padding: 30px;
   border: 1px solid #ddd;
-  border-radius: 5px;
-  box-shadow: 2px 2px 2px #eee;
+  border-radius: 4px;
 }
 
 .fsdemo-sample .fstabs{
   position: absolute;
-  top: -17px;
-  left: 10px;
+  top: -18px;
+  right: 30px;
+}
+
+.fsdemo-sample pre:last-child {
+  margin-bottom: 0;
 }
 
 .fsdemo-sample .example-label {
-  color: #aaa;
-  font-weight: bold;
+  opacity: 1;
+}
+
+.fsdemo-sample > h4 {
+  margin: 0;
+  margin-top: -46px;
+  background-color: #fff;
+  padding: 5px;
 }

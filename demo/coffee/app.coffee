@@ -10,16 +10,14 @@ unindentCode = (str) ->
     str
 
 widgets  = [
-    { name: 'form_for' }
-    { name: 'combo' }
-    { name: 'select' }
-    { name: 'multiselect' }
-    { name: 'tags' }
-    { name: 'radio' }
-    { name: 'checkbox' }
-    { name: 'list' }
-    { name: 'input' }
-    { name: 'date/time', template: 'datetime' }
+    { name: 'Form Builder', template: 'formbuilder' }
+    { name: 'Select Widget', template: 'select' }
+    { name: 'MultiSelect Widget', template: 'multiselect' }
+    { name: 'Radio Group', template: 'radio' }
+    { name: 'Checkboxes', template: 'checkbox' }
+    { name: 'Date/Time Widgets', template: 'datetime' }
+    { name: 'fsList', template: 'list' }
+    { name: 'fsInput', template: 'input' }
 ]
 
 
@@ -56,7 +54,8 @@ app.controller 'WidgetCtrl', ($scope, $http)->
 
 app.directive 'sample', ()->
   restrict: 'E'
-  scope: {}
+  scope:
+    label: '@'
   controller: ($scope)->
     $scope.current = "demo"
   template: ($el, attrs)->
@@ -73,12 +72,15 @@ app.directive 'sample', ()->
 
     """
       <div class="fsdemo-sample">
-        <div class="btn-group fstabs">
-          <div class="btn btn-default disabled example-label">EXAMPLE</div>
+        <h4 class="pull-left">{{ label || "EXAMPLE" }}</h4>
+
+        <div class="btn-group fstabs pull-right">
           <a class="btn btn-default" ng-class="{'active': current == 'demo'}" ng-click="current='demo'">Demo</a>
           <a class="btn btn-default" ng-class="{'active': current == 'html'}" ng-click="current='html'">HTML</a>
           <a class="btn btn-default" ng-class="{'active': current == 'js'}" ng-click="current='js'">JavaScript</a>
         </div>
+
+        <div class='clearfix' style="height: 0;"></div>
         <div ng-show="current=='demo'">#{orig}</div>
         <div ng-show="current=='html'"><pre ng-non-bindable>#{html}</pre> </div>
         <div ng-show="current=='js'"><pre ng-non-bindable>#{js}</pre> </div>
