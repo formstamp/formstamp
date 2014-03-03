@@ -59,13 +59,13 @@ Installation for Development
     curl https://raw.github.com/creationix/nvm/master/install.sh | sh # install nvm
     nvm install 0.10
     cd /path/to/formstamp
-    nvm use 0.10`.
+    nvm use 0.10
     npm install # server deps
     bower install # demo deps
-    npm bin`/grunt watch # Then start watching changes:
-    node server.js 3000` # Run server default port 17405
+    `npm bin`/grunt watch # Then start watching changes
+    node server.js 3000 # Run server default port 17405
 
 
-NOTE: This script adds `nvm` command to `.bash_profile`. It may not work if you are using not `bash` shell
+NOTE: This script adds `nvm` command to `.bash_profile`. It may not work if you are not using `bash` shell
 (like `zsh`). In this case you have to manually configure profile file.
 
