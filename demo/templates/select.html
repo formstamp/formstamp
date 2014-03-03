@@ -1,11 +1,12 @@
 <h1>Select Widget</h1>
 
+<h3>Directive: <code class="ng-binding">fsSelect</code></h3>
+
 <div class="alert alert-warning">
   <strong>Warning!</strong> You should never use this and next directives on <code>input</code> tag.
   Use <code>div</code> instead.
 </div>
 
-<h3>Directive: <code class="ng-binding">fsSelect</code></h5>
 <p>
   Creates a 'select' widget. This widget provides default select-like
   behavior. Depending on <var>freetext</var> attribute, it allows to
@@ -21,6 +22,30 @@
   need, not only label text.
   In <code>ngModel</code> it holds full object, not only value.
 </p>
+<p>
+  Supported attributes:
+</p>
+<ul>
+  <li>
+    <var>items</var> - property of scope containing list of
+    available values (of strings for autocomplete,
+    if <var>freetext</var> is enabled)
+  </li>
+  <li>
+    <var>ng-model</var> - see AngularJS documentation
+    for <a href="http://docs.angularjs.org/api/ng/directive/ngModel">ngModel</a> directive
+  </li>
+  <li>
+    <var>ng-disabled</var> - disable/enable input with scope property
+  </li>
+  <li>
+    <var>items</var> - property of scope containing list of
+    available values for selection or autocomplete
+  </li>
+  <li>
+    <var>class</var> - additional CSS classes
+  </li>
+</ul>
 
 <sample label="Two fsSelects binded to one model">
   <form class="form-horizontal" role="form" ng-controller="SelectCtrl">
