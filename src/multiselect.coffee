@@ -16,7 +16,7 @@ angular.module("formstamp")
     require: '?ngModel'
     replace: true
     template: (el, attributes) ->
-      if attributes['freetext']?
+      if attributes.freetext?
         defaultItemTpl = "{{ item }}"
       else
         defaultItemTpl = "{{ item | json }}"
@@ -60,7 +60,7 @@ angular.module("formstamp")
 </div>
     """
     controller: ($scope, $element, $attrs, $filter) ->
-      if $scope.freetext
+      if $attrs.freetext?
         $scope.dynamicItems = ->
           if $scope.search then [$scope.search] else []
       else

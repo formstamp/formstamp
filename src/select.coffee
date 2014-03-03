@@ -61,7 +61,7 @@ angular
   controller: ($scope, $element, $attrs, $filter, $timeout) ->
     $scope.active = false
 
-    if $scope.freetext
+    if $attrs.freetext?
       $scope.dynamicItems = ->
         if $scope.search then [$scope.search] else []
     else

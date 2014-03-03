@@ -14,35 +14,5 @@
     and <code>limit</code>. Attributes: <code>items</code> and <code>limit</code>.n
   </p>
   <hr/>
-  <sample>
-    <form class="well" role="form" ng-controller="TagsCtrl">
-      <div class="form-group row">
-        <label class="col-xs-2">Choose countries you like most</label>
-        <div fs-multiselect
-             items="countries"
-             freetext="true"
-             ng-disabled="disabled"
-             ng-model="selectedCountries"
-             class="col-xs-5"></div>
-        <button class="btn btn-primary col-xs-2" ng-click="disabled=!disabled">
-          {{disabled ? 'Enable' : 'Disable'}}
-        </button>
-      </div>
-
-      <pre>
-Choosen countries is: {{ (selectedCountries || 'none') | json }}
-      </pre>
-    </form>
-    <script>
-      function TagsCtrl($scope, $http) {
-      $scope.countries = [];
-      $scope.disabled = false;
-
-      $http({method: 'GET', url: '/demo/data/countries.json'})
-        .success(function(data) {
-          $scope.countries = data.map(function(item) { return item.name; });
-        });
-      }
-    </script>
-  </sample>
+  
 </div>
