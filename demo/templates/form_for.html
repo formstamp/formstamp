@@ -6,10 +6,28 @@
   </a>
 </h1>
 
-<h3>Directive <code class="ng-binding">fs-form-for</code></h3>
+<h3>Directive <code class="ng-binding">fsFormFor</code></h3>
 <p>
-  This directive allows to construct complex forms with easy DSL-like markup.
+  This directive allows to construct complex horizontal forms with
+  easy DSL-like markup.
 </p>
+<p>
+  Each form row is described
+  with <code class="ng-binding">fsInput</code> directive. It's
+  attributes are:
+</p>
+<ul>
+  <li><var>as</var> - specifies type of input</li>
+  <li><var>label</var> - specifies label text</li>
+  <li>
+    <var>name</var> - specifies model's
+    attribute to which input will be binded
+  </li>
+  <li>
+    Other attributes (like <var>items</var>)
+    are directly passed into input directive.
+  </li>
+</ul>
 
 <sample>
   <div ng-controller="FormBuilderCtrl">
