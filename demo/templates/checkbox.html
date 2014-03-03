@@ -1,10 +1,11 @@
-<div class="container">
-  <h1>Checkbox Group</h1>
-  <div class="alert alert-warning">
-  </div>
-  <h5>Directive: <code class="ng-binding">fs-checkbox</code> with option <code>freetext</code></h5>
-  <sample>
-<form class="well" role="form" ng-controller='RadioCtrl'>
+<h1>Checkbox Group</h1>
+<div class="alert alert-warning">
+  <strong>Warning!</strong> You should never use this directive on <code>input</code> tag.
+  Use <code>div</code> instead.
+</div>
+<h5>Directive: <code class="ng-binding">fs-checkbox</code></h5>
+<sample>
+<form class="form-horizontal" role="form" ng-controller='RadioCtrl'>
   <button class="btn btn-default" ng-click="disabled=!disabled">
     {{disabled ? 'Enable' : 'Disable'}}
   </button>
@@ -12,32 +13,28 @@
     <div class="form-group col-xs-5">
       <label>Choose your katawari</label>
       <div fs-checkbox
-           items="items"
-           ng-disabled="disabled"
-           ng-model="checkvalue">
-           <b>{{item.id}}</b> {{item.label}}</div>
+        items="items"
+        ng-disabled="disabled"
+        ng-model="checkvalue">
+        <b>{{item.id}}</b> {{item.label}}</div>
     </div>
     <div class="form-group col-xs-5">
       <label>Choose your katawari</label>
       <div fs-checkbox
-           items="items"
-           ng-model="checkvalue">
-           <b>{{item.id}}</b> {{item.label}}</div>
+        items="items"
+        ng-model="checkvalue">
+        <b>{{item.id}}</b> {{item.label}}</div>
     </div>
   </div>
-  <pre>
-  Value: {{ checkvalue | json }}
-  </pre>
+  <pre>Value: {{ checkvalue | json }}</pre>
 </form>
 <script>
-   function RadioCtrl($scope) {
-     $scope.items = [
-        {id: 'S', label: 'Shijima'},
-        {id: 'M', label: 'Musubi'},
-        {id: 'Y', label: 'Yosuga'}
-     ]
-   }
+function RadioCtrl($scope) {
+  $scope.items = [
+  {id: 'S', label: 'Shijima'},
+  {id: 'M', label: 'Musubi'},
+  {id: 'Y', label: 'Yosuga'}
+  ]
+}
 </script>
-  </sample>
-</div>
-
+</sample>
