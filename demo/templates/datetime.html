@@ -1,106 +1,116 @@
-<div class="container">
-  <h1>Date/Time pickers</h1>
-  <div class="alert alert-warning">
-    Some meaningless alert!
+<h1>Date/Time pickers</h1>
+
+<h3>Directive: <code class="ng-binding">fsDate</code></h3>
+<sample label="fsDate example">
+  <div ng-controller='DatePickerCtrl' class="form-horizontal">
+    <div class="form-group row">
+      <label class="col-xs-3 control-label">Choose convenient seppuku date</label>
+      <div class="col-xs-2">
+        <div fs-date ng-model="selectedDate" ng-disabled="disabled"></div>
+      </div>
+      <div class="col-xs-2 col-xs-offset-3">
+        <button class="btn btn-default" ng-click="disabled=!disabled">
+          {{disabled ? 'Enable' : 'Disable'}}
+        </button>
+      </div>
+    </div>
+
+    <pre>Seppuku date: {{ selectedDate.toString() }}</pre>
   </div>
 
-  <h5>Directive: <code class="ng-binding">fs-date</code>.</h5>
-  <sample>
-    <div ng-controller='DatePickerCtrl' class="well">
-      <div class="form-group row">
-        <label class="col-xs-3">Choose convenient seppuku date</label>
-        <div class="col-xs-2">
-          <div fs-date ng-model="selectedDate" ng-disabled="disabled"></div>
-        </div>
-        <button class="col-xs-2 col-xs-offset-1 btn btn-default" ng-click="disabled=!disabled">
-          {{disabled ? 'Enable' : 'Disable'}}
-        </button>
+  <script>
+    function DatePickerCtrl ($scope) {
+      $scope.selectedDate = new Date();
+      $scope.disabled = false;
+    };
+  </script>
+</sample>
+
+<h3>Directive: <code class="ng-binding">fsTime</code></h3>
+<sample label="fsTime example">
+  <form class="form-horizontal" role="form" ng-controller="TimeCtrl">
+    <div class='form-group row'>
+      <label class="col-xs-3 control-label">Select appointment time</label>
+      <div class="col-xs-2">
+        <div fs-time
+             ng-disabled="disabled"
+             ng-model="svalue"></div>
       </div>
-
-      <pre>Seppuku date: {{ selectedDate.toString() }}</pre>
-    </div>
-
-    <script>
-      function DatePickerCtrl ($scope) {
-        $scope.selectedDate = new Date();
-        $scope.disabled = false;
-      };
-    </script>
-  </sample>
-
-  <h5>Directive: <code class="ng-binding">fs-time</code>.</h5>
-  <sample>
-    <form class="well" role="form" ng-controller="TimeCtrl">
-      <div class='form-group row'>
-        <label class="col-xs-3">Select appointment time:</label>
-        <div class="col-xs-2">
-          <div fs-time
-               ng-disabled="disabled"
-               ng-model="svalue"></div>
-        </div>
-        <button class="col-xs-1 col-xs-offset-1 btn btn-default" ng-click="setTime('21:50')">
+      <div class="col-xs-1">
+        <button class="btn btn-default" ng-click="setTime('21:50')">
           21:50
         </button>
-        <button class="col-xs-1 col-xs-offset-1 btn btn-default" ng-click="setTime('12:33')">
-          12:33
+      </div>
+      <div class="col-xs-1">
+        <button class="btn btn-default" ng-click="setTime('19:22')">
+          19:22
         </button>
-        <button class="col-xs-2 col-xs-offset-1 btn btn-default" ng-click="disabled=!disabled">
+      </div>
+      <div class="col-xs-2 col-xs-offset-1">
+        <button class="btn btn-default" ng-click="disabled=!disabled">
           {{disabled ? 'Enable' : 'Disable'}}
         </button>
       </div>
-      <pre>Time is: {{ svalue.toString() }}</pre>
-    </form>
-    <script>
-      function TimeCtrl($scope) {
-        $scope.svalue = new Date()
-        $scope.disabled = false
-        $scope.setTime = function(str){
-          var date  = $scope.svalue
-          var parts = str.split(':')
-          date.setHours(parts[0])
-          date.setMinutes(parts[1])
-          $scope.svalue = new Date(date.getTime())
-        }
+    </div>
+    <pre>Time is: {{ svalue.toString() }}</pre>
+  </form>
+
+  <script>
+    function TimeCtrl($scope) {
+      $scope.svalue = new Date()
+      $scope.disabled = false
+      $scope.setTime = function(str){
+        var date  = $scope.svalue
+        var parts = str.split(':')
+        date.setHours(parts[0])
+        date.setMinutes(parts[1])
+        $scope.svalue = new Date(date.getTime())
       }
-    </script>
-  </sample>
+    }
+  </script>
+</sample>
 
-  <h5>Directive: <code class="ng-binding">fs-datetime</code>.</h5>
-  <sample>
-    <div ng-controller='DateTimePickerCtrl' class="well">
-      <div class="form-group row">
-        <label class="col-xs-3">DateTime:</label>
-        <div  class="col-xs-3">
-          <div fs-datetime ng-model="selectedDateTime" ng-disabled="disabled"></div>
-        </div>
-        <button class="col-xs-2 col-xs-offset-1 btn btn-default" ng-click="disabled=!disabled">
+<h3>Directive: <code class="ng-binding">fsDatetime</code></h3>
+
+<sample label="fsDatetime example">
+  <div ng-controller='DateTimePickerCtrl' class="form-horizontal">
+    <div class="form-group row">
+      <label class="col-xs-3 control-label">DateTime</label>
+      <div class="col-xs-3">
+        <div fs-datetime ng-model="selectedDateTime" ng-disabled="disabled"></div>
+      </div>
+      <div class="col-xs-3 col-xs-offset-2">
+        <button class="btn btn-default" ng-click="disabled=!disabled">
           {{disabled ? 'Enable' : 'Disable'}}
         </button>
       </div>
-
-      <pre>Entered datetime: {{ selectedDateTime.toString() }}</pre>
     </div>
 
-    <script>
-      function DateTimePickerCtrl ($scope) {
-        $scope.disabled = false;
-        $scope.selectedDateTime = new Date()
-      };
-    </script>
-  </sample>
+    <pre>Entered datetime: {{ selectedDateTime.toString() }}</pre>
+  </div>
 
-  <h5>Directive: <code class="ng-binding">fs-calendar</code>.</h5>
-  <sample>
-    <div class='well' ng-controller='CalendarCtrl'>
-      <pre>Selected date: {{ selectedDate.toString() }}</pre>
+  <script>
+    function DateTimePickerCtrl ($scope) {
+      $scope.disabled = false;
+      $scope.selectedDateTime = new Date()
+    };
+  </script>
+</sample>
 
+<h3>Directive: <code class="ng-binding">fsCalendar</code></h3>
+
+<sample label="fsCalendar example">
+  <div ng-controller='CalendarCtrl'>
+    <div class='well'>
       <fs-calendar ng-model="selectedDate" />
     </div>
 
-    <script>
-      function CalendarCtrl ($scope) {
-        $scope.selectedDate = new Date();
-      };
-    </script>
-  </sample>
-</div>
+    <pre>Selected date: {{ selectedDate.toString() }}</pre>
+  </div>
+
+  <script>
+    function CalendarCtrl ($scope) {
+      $scope.selectedDate = new Date();
+    };
+  </script>
+</sample>
