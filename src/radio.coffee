@@ -45,12 +45,11 @@ angular
      name="#{name}"
      ng-value="item"
      ng-disabled="disabled"
-     id="{{item.id}}"/>
-    <label for="{{item.id}}">
+     id="#{name}_{{$index}}"/>
+    <label for="#{name}_{{$index}}">
       #{itemTpl}
     </label>
   </div>
-  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>
 </div>
       """
     link: (scope, element, attrs, ngModelCtrl, transcludeFn) ->

@@ -24,7 +24,6 @@ angular
       #{itemTpl}
     </a>
   </div>
-  <p ng-repeat='error in errors' class='text-danger'>{{error}}</p>
 </div>
       """
     controller: ($scope, $element, $attrs) ->
