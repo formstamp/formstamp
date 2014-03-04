@@ -1,6 +1,30 @@
 <h1>Date/Time pickers</h1>
 
-<h3>Directive: <code class="ng-binding">fsDate</code></h3>
+<p>
+  A set of directives for entering date, time or both.
+</p>
+
+<h3>Directive <code class="ng-binding">fsDate</code></h3>
+<p>
+  This directive creates a datepicker widget with dropdown calendar.
+  This directive expects that scope property specified
+  in <var>ngModel</var> will be a Date, and will modify only
+  year/month/day components of this Date, time will remain unchanged.
+  Supported attributes:
+</p>
+<ul>
+  <li>
+    <var>ng-model</var> - see AngularJS documentation
+    for <a href="http://docs.angularjs.org/api/ng/directive/ngModel">ngModel</a> directive
+  </li>
+  <li>
+    <var>ng-disabled</var> - disable/enable input with scope property
+  </li>
+  <li>
+    <var>class</var> - additional CSS classes
+  </li>
+</ul>
+
 <sample label="fsDate example">
   <div ng-controller='DatePickerCtrl' class="form-horizontal">
     <div class="form-group row">
@@ -26,7 +50,25 @@
   </script>
 </sample>
 
-<h3>Directive: <code class="ng-binding">fsTime</code></h3>
+<h3>Directive <code class="ng-binding">fsTime</code></h3>
+<p>
+  This directive creates a time-input widget. This directive expects
+  that scope property specified in <var>ngModel</var> will be a Date,
+  and will modify only hours/minutes/seconds components of this Date,
+  year/month/day will remain unchanged. Supported attributes:
+</p>
+<ul>
+  <li>
+    <var>ng-model</var> - see AngularJS documentation
+    for <a href="http://docs.angularjs.org/api/ng/directive/ngModel">ngModel</a> directive
+  </li>
+  <li>
+    <var>ng-disabled</var> - disable/enable input with scope property
+  </li>
+  <li>
+    <var>class</var> - additional CSS classes
+  </li>
+</ul>
 <sample label="fsTime example">
   <form class="form-horizontal" role="form" ng-controller="TimeCtrl">
     <div class='form-group row'>
@@ -70,8 +112,23 @@
   </script>
 </sample>
 
-<h3>Directive: <code class="ng-binding">fsDatetime</code></h3>
-
+<h3>Directive <code class="ng-binding">fsDatetime</code></h3>
+<p>
+  Widget combining both <code>fsTime</code> and <code>fsDate</code>.
+  Allows to enter both Date components.
+</p>
+<ul>
+  <li>
+    <var>ng-model</var> - see AngularJS documentation
+    for <a href="http://docs.angularjs.org/api/ng/directive/ngModel">ngModel</a> directive
+  </li>
+  <li>
+    <var>ng-disabled</var> - disable/enable input with scope property
+  </li>
+  <li>
+    <var>class</var> - additional CSS classes
+  </li>
+</ul>
 <sample label="fsDatetime example">
   <div ng-controller='DateTimePickerCtrl' class="form-horizontal">
     <div class="form-group row">
@@ -97,8 +154,10 @@
   </script>
 </sample>
 
-<h3>Directive: <code class="ng-binding">fsCalendar</code></h3>
-
+<h3>Directive <code class="ng-binding">fsCalendar</code></h3>
+<p>
+  This directive creates a calendar and allows to select date.
+</p>
 <sample label="fsCalendar example">
   <div ng-controller='CalendarCtrl'>
     <div class='well'>
