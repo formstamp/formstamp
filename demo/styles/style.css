@@ -206,3 +206,12 @@ html, body {
   background-color: #fff;
   padding: 5px;
 }
+.directive-header {
+  position: relative;
+}
+
+.directive-header a {
+  position: absolute;
+  left: -36px;
+  top: -4px;
+}

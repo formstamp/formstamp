@@ -53,10 +53,10 @@ Widget Directives
 Low-level Directives
 ---------
 
-* `fsList` - render list of items and allows to move selection up and
+* `fsList` - renders list of items and allows to move selection up and
   down (with custom templating for items)
 * `fsNullForm` - hides input with ngModel binding from parent form
-* `fsInput` - simplify keyboard & focus events handling
+* `fsInput` - simplifies keyboard & focus events handling
 * `fsCalendar` - draws a calendar and allows to mark one day as selected
 
 TODO
@@ -87,7 +87,7 @@ Start grunt watcher and node.js server
     `npm bin`/grunt watch # Then start watching changes
     node server.js 17405 # Run server at port 17405
 
-Now point your browser to http://localhost:17405/ and you'll see
+Now, point your browser to http://localhost:17405/ and you'll see
 FormStamp's demo page.
 
 NOTE: This commands add `nvm` command to `.bash_profile`. It may not
