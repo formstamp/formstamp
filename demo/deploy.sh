@@ -28,6 +28,11 @@ bower install
 nvm use 0.10
 `npm bin`/grunt build
 
+cd ../formstamp.github.io
+git checkout .
+git pull -f origin master
+
+cd ../formstamp
 cp -r bower_components ../formstamp.github.io/
 cp -r build ../formstamp.github.io/
 cp -r demo ../formstamp.github.io/
