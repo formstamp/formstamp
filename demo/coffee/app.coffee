@@ -17,7 +17,7 @@ widgets  = [
     { name: 'Checkboxes', template: 'checkbox' }
     { name: 'Date/Time Widgets', template: 'datetime' }
     { name: 'fsList', template: 'list' }
-    { name: 'fsInput', template: 'input' }
+    # { name: 'fsInput', template: 'input' }
 ]
 
 
