@@ -44,10 +44,14 @@ $scope.listInterface = {
             <img src="{{ item.artwork_url }}" width="30" height="30" />
             {{item.title}} <small class="text-muted">{{item.genre}}</small>
           </div>
+          <div class="alert alert-success" style="margin-top: 20px;">
+            <strong>NB:</strong> you can navigate through list
+            using <kbd>Up</kbd> and <kbd>Down</kbd> arrows and select
+            track with <kbd>Enter</kbd> key.
+          </div>
         </div>
         <div class="col-xs-5">
           <demo-audio track="selectedTrack"></demo-audio>
-
           <pre style="margin-top: 20px;">Selected Item: {{ selectedTrack | json }}</pre>
         </div>
       </div>
