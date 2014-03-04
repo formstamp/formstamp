@@ -66,18 +66,31 @@ TODO
 Development Environment
 -----------
 
-### Node.js
+Install node.js
 
     curl https://raw.github.com/creationix/nvm/master/install.sh | sh # install nvm
     nvm install 0.10
-    cd /path/to/formstamp
+
+Clone FormStamp repository
+
+    git clone git@github.com:formstamp/formstamp.git
+
+Install bower dependencies and node.js packages
+
+    cd formstamp
     nvm use 0.10
     npm install # server deps
     bower install # demo deps
-    `npm bin`/grunt watch # Then start watching changes
-    node server.js 3000 # Run server default port 17405
 
-NOTE: This script adds `nvm` command to `.bash_profile`. It may not
+Start grunt watcher and node.js server
+
+    `npm bin`/grunt watch # Then start watching changes
+    node server.js 17405 # Run server at port 17405
+
+Now point your browser to http://localhost:17405/ and you'll see
+FormStamp's demo page.
+
+NOTE: This commands add `nvm` command to `.bash_profile`. It may not
 work if you are not using `bash` shell (like `zsh`). In this case you
 have to manually configure profile file.
 
