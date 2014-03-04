@@ -1,29 +1,59 @@
 <div class="container">
-  <h1>fsList</h1>
-  <h5>Directive: <code class="ng-binding">fs-list</code></h5>
+  <h1>Internal directive fsList</h1>
+  <h3>Directive <code class="ng-binding">fs-list</code></h3>
   <p>
-    TODO: document me
+    This directive renders a list of items, with one of them marked as
+    selected. It provides interface for moving selection up or down.
+    This directive is used in <code class="ng-binding">fsSelect</code>
+    and <code class="ng-binding">fsMultiselect</code> to create dropdowns.
   </p>
-  <hr/>
-  <sample>
-    <div ng-controller="ListDemoCtrl" style="postion: relative;" class="row">
-      <div class="col-xs-7">
-        <input class='form-control' autofocus="1" fs-input fs-up='move(-1)' fs-down='move(1)' fs-enter='select()' ng-model='search' />
-        <div fs-list items='tracks' class="no-popup">
-          <img src="{{ item.artwork_url }}" width="30" height="30" />
-          {{item.title}} <small class="text-muted">{{item.genre}}</small>
+  <p>
+    This directive doesn't use <code class="ng-binding">ngModel</code>
+    to set selected value in scope. Instead, you should create
+    special <code>listInterface</code> property in your scope and
+    implement <var>onSelect</var> callback function:
+  </p>
+
+  <pre>
+$scope.listInterface = {
+  onSelect: function(selectedItem) {
+    $scope.selectedItem = selectedItem;
+  }
+};</pre>
+
+  <p>
+    You can call <code>scope.listInteface.move()</code> function from
+    your controller to move list's selection up or down.
+  </p>
+
+  <p>
+    Supported attributes:
+  </p>
+
+  <ul>
+    <li><var>items</var> - list of items to display</li>
+    <li><var>class</var> - additional CSS classes for list</li>
+  </ul>
+
+  <sample label="fsList with custom templating and data from SoundCloud">
+    <div ng-controller="ListDemoCtrl" style="postion: relative;">
+      <div class="row">
+        <div class="col-xs-7">
+          <input class='form-control' autofocus="1" fs-input fs-up='move(-1)' fs-down='move(1)' fs-enter='select()' ng-model='search' />
+          <div fs-list items='tracks' class="no-popup">
+            <img src="{{ item.artwork_url }}" width="30" height="30" />
+            {{item.title}} <small class="text-muted">{{item.genre}}</small>
+          </div>
         </div>
-      </div>
-      <div class="col-xs-5">
-        <demo-audio track="selectedTrack" />
-        <pre>Selected Item: {{ selectedTrack | json }}</pre>
-        <pre>Tracks: {{ tracks | json }}</pre>
+        <div class="col-xs-5">
+          <demo-audio track="selectedTrack"></demo-audio>
+
+          <pre style="margin-top: 20px;">Selected Item: {{ selectedTrack | json }}</pre>
+        </div>
       </div>
     </div>
 
     <script>
-      angular.module("formstamp");
-
       function ListDemoCtrl($scope) {
         SC.initialize({
           client_id: '8399f2e0577e0acb4eee4d65d6c6cce6'
@@ -47,8 +77,7 @@
         $scope.listInterface = {
           onSelect: function () {
             $scope.select()
-          },
-          move: function(d) {}
+          }
         };
 
         $scope.select = function() {

@@ -147,16 +147,19 @@ html, body {
   position: relative;
   left: 100%;
 }
+
 .view.ng-enter.ng-enter-active {
   opacity: 1;
   left: 0;
 }
+
 .view.ng-leave {
   position: absolute;
   z-index: -1;
   opacity: 1;
   left: 0;
 }
+
 .view.ng-leave.ng-leave-active {
   opacity: 0.1;
   left: -100%;
