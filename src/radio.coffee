@@ -33,7 +33,7 @@ angular
     require: '?ngModel'
     template: (el, attrs)->
       itemTpl = el.html() || '{{item.label}}'
-      name = nextUid()
+      name = "fsRadio_#{nextUid()}"
       template = """
 <div class='fs-racheck' ng-class="{disabled: disabled, enabled: !disabled}">
   <div class="fs-radio-label"
