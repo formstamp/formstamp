@@ -15,6 +15,8 @@ angular
       zh = if h < 10 then "0#{h}" else h
       for m in minutes
         res.push "<option value='#{zh}:#{m}'/>"
+
+    datalistId = "fsTimeDatalist_#{nextUid()}"
     timeoptions = res.join('')
 
     """
@@ -24,10 +26,10 @@ angular
         ng-model="value"
         class="form-control"
         ng-disabled="disabled"
-        list="time"
+        list="#{datalistId}"
         type="text"/>
       <span class="glyphicon glyphicon-time"></span>
-      <datalist id="time">
+      <datalist id="#{datalistId}">
       #{timeoptions}
       </datalist>
     </div>
@@ -59,14 +61,6 @@ angular
       m = date.getMinutes().toString()
       m = "0#{m}" if m.length < 2
       "#{h}:#{m}"
-
-    updateTime = (date, timeStr)->
-      if date? && date.length > 0
-        console.log date
-        parts = timeStr.split(':')
-        date.setHours(parts[0]) if parts[0]?
-        date.setMinutes(parts[1]) if parts[1]?
-      date
 
     if ngModelCtrl
       scope.$watch 'value', (newValue, oldValue) ->

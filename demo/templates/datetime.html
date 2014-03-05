@@ -97,8 +97,8 @@
              ng-model="svalue"></div>
       </div>
       <div class="col-xs-1">
-        <button class="btn btn-default" ng-click="setTime('21:50')">
-          21:50
+        <button class="btn btn-default" ng-click="setTime('21:52')">
+          21:52
         </button>
       </div>
       <div class="col-xs-1">
@@ -117,15 +117,18 @@
 
   <script>
     function TimeCtrl($scope) {
-      $scope.svalue = new Date()
-      $scope.disabled = false
+      $scope.svalue = new Date();
+      $scope.disabled = false;
+
       $scope.setTime = function(str){
-        var date  = $scope.svalue
-        var parts = str.split(':')
-        date.setHours(parts[0])
-        date.setMinutes(parts[1])
-        $scope.svalue = new Date(date.getTime())
-      }
+        var date  = $scope.svalue;
+        var parts = str.split(':');
+        date.setHours(parts[0]);
+        date.setMinutes(parts[1]);
+        console.log("setting date", date);
+
+        $scope.svalue = new Date(date.getTime());
+      };
     }
   </script>
 </sample>

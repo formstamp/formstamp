@@ -1,24 +1,3 @@
-uid = ['0', '0', '0']
-# copypaste from angularjs utils
-nextUid = ()->
-  index = uid.length
-  digit
-
-  while index
-    index -= 1
-    digit = uid[index].charCodeAt(0)
-    if digit == 57
-      uid[index] = 'A'
-      return uid.join('')
-    if digit == 90
-      uid[index] = '0'
-    else
-      uid[index] = String.fromCharCode(digit + 1)
-      return uid.join('')
-  uid.unshift('0')
-  uid.join('')
-
-
 angular
 .module("formstamp")
 .directive "fsRadio", ['$window', ($window) ->

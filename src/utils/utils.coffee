@@ -87,6 +87,13 @@ addValidations = (attrs, ctrl) ->
     ctrl.$formatters.push(patternValidator)
     ctrl.$parsers.push(patternValidator)
 
+updateTime = (date, timeStr)->
+  if date?
+    parts = timeStr.split(':')
+    date.setHours(parts[0]) if parts[0]?
+    date.setMinutes(parts[1]) if parts[1]?
+  date
+
 updateDate = (newDate, oldDate) ->
   switch
     when !oldDate? && newDate? then newDate
@@ -105,3 +112,24 @@ parseDate = (dateString)->
   unless isNaN(time)
     parsedDate = new Date(time)
     new Date(parsedDate.getFullYear(), parsedDate.getMonth(), parsedDate.getDate())
+
+uid = ['0', '0', '0']
+# copypaste from angularjs utils
+nextUid = ()->
+  index = uid.length
+  digit
+
+  while index
+    index -= 1
+    digit = uid[index].charCodeAt(0)
+    if digit == 57
+      uid[index] = 'A'
+      return uid.join('')
+    if digit == 90
+      uid[index] = '0'
+    else
+      uid[index] = String.fromCharCode(digit + 1)
+      return uid.join('')
+  uid.unshift('0')
+  uid.join('')
+
