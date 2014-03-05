@@ -88,13 +88,13 @@ $scope.listInterface = {
         };
 
         $scope.listInterface = {
-          onSelect: function () {
-            $scope.select()
+          onSelect: function (selectedItem) {
+            $scope.select(selectedItem)
           }
         };
 
-        $scope.select = function() {
-          $scope.selectedTrack = $scope.listInterface.selectedItem;
+        $scope.select = function(selectedItem) {
+          $scope.selectedTrack = selectedItem;
         };
       }
     </script>
