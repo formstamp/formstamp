@@ -24,6 +24,7 @@ angular
       <input
         fs-null-form
         ng-model="value"
+        fs-time-format
         class="form-control"
         ng-disabled="disabled"
         list="#{datalistId}"
@@ -44,14 +45,6 @@ angular
     ]
 
     $scope.$watch 'value',(ev)->
-      return unless $scope.value?
-      value = ''
-      for p in patterns
-        res = $scope.value.match(p)
-        if res
-          value = res[0]
-      value = value.replace(/^(\d\d)([^:]*)$/,"$1:$2") if value.length > 2
-      $scope.value = value
 
   link: (scope, element, attrs, ngModelCtrl, transcludeFn) ->
     toTimeStr = (date)->
@@ -64,10 +57,10 @@ angular
 
     if ngModelCtrl
       scope.$watch 'value', (newValue, oldValue) ->
-        if newValue isnt oldValue
+        if toTimeStr(newValue) isnt toTimeStr(oldValue)
           date = ngModelCtrl.$viewValue || (attrs['withDate'] && new Date())
-          ngModelCtrl.$setViewValue(updateTime(date, newValue))
+          ngModelCtrl.$setViewValue(updateDate(date, newValue))
 
       ngModelCtrl.$render = ->
-        scope.value = toTimeStr(ngModelCtrl.$viewValue)
+        scope.value = ngModelCtrl.$viewValue
 ]

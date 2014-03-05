@@ -87,17 +87,16 @@ addValidations = (attrs, ctrl) ->
     ctrl.$formatters.push(patternValidator)
     ctrl.$parsers.push(patternValidator)
 
-updateTime = (date, timeStr)->
+updateTime = (date, time)->
   if date?
-    parts = timeStr.split(':')
-    date.setHours(parts[0]) if parts[0]?
-    date.setMinutes(parts[1]) if parts[1]?
+    date.setHours(time.getHours())
+    date.setMinutes(time.getMinutes())
   date
 
 updateDate = (newDate, oldDate) ->
   switch
+    when !newDate? or angular.isString(newDate) then null
     when !oldDate? && newDate? then newDate
-    when !newDate? then null
     when newDate? && oldDate?
       if oldDate?.getTime() != newDate?.getTime()
         newDate.setHours(oldDate.getHours())
