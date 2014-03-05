@@ -8,7 +8,8 @@ angular
   templateUrl: '/templates/calendar.html'
   replace: true
   require: '?ngModel'
-  scope: {}
+  scope:
+    onSelect: '&'
   controller: ['$scope', '$attrs', ($scope, $attrs)->
     $scope.selectionMode = 'day'
     $scope.months = $locale.DATETIME_FORMATS.SHORTMONTH
@@ -97,6 +98,7 @@ angular
     scope.selectDay = (day)->
       scope.selectedDate = day
       ngModel.$setViewValue(day)
+      scope.onSelect()
 
     ngModel.$render = ->
       scope.selectedDate = parseDate(ngModel.$modelValue)

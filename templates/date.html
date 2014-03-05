@@ -9,14 +9,15 @@
      type="text"
      ng-disabled="disabled"
      class="form-control"
-     ng-model="formattedDate"
+     ng-model="selectedDate.date"
+     fs-date-format
      placeholder="{{placeholder}}"
      fs-null-form />
   <span class="glyphicon glyphicon-calendar" ng-click='active = true'></span>
 
   <div ng-if="active" class="open fs-calendar-wrapper">
     <div class="dropdown-menu">
-      <fs-calendar ng-model="selectedDate.date" />
+      <fs-calendar ng-model="selectedDate.date" on-select='close()'/>
     </div>
   </div>
 </div>

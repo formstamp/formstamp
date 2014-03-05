@@ -5,6 +5,7 @@ angular
   scope:
     items: '='
     class: '@'
+    listInterface: '='
   transclude: true
   replace: true
   templateUrl: "/templates/list.html"
