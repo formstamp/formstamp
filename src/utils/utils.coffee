@@ -99,7 +99,7 @@ updateDate = (newDate, oldDate) ->
     when !oldDate? && newDate? then newDate
     when !newDate? then null
     when newDate? && oldDate?
-      if parseDate(oldDate)?.getTime() != parseDate(newDate)?.getTime()
+      if oldDate?.getTime() != newDate?.getTime()
         newDate.setHours(oldDate.getHours())
         newDate.setMinutes(oldDate.getMinutes())
         newDate.setSeconds(oldDate.getSeconds())

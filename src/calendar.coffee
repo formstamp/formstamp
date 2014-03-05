@@ -96,16 +96,10 @@ angular
 
     scope.selectDay = (day)->
       scope.selectedDate = day
+      ngModel.$setViewValue(day)
 
     ngModel.$render = ->
       scope.selectedDate = parseDate(ngModel.$modelValue)
-
-    scope.$watch 'selectedDate', (newDate) ->
-      oldDate = ngModel.$modelValue
-      updatedDate = updateDate(newDate, oldDate)
-
-      if newDate?.getTime() != oldDate?.getTime()
-        ngModel.$setViewValue(newDate)
 
     scope.selectMonth = (monthName)->
       scope.selectionMode = 'day'
