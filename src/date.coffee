@@ -10,9 +10,10 @@ angular
   templateUrl: '/templates/date.html'
   replace: true
   controller: ($scope, $filter) ->
-    $scope.$watch 'selectedDate.date', (newDate) ->
-      $scope.active = false
-      $scope.formattedDate = $filter('date')(newDate, 'shortDate')
+    $scope.$watch 'selectedDate.date', (oldDate, newDate) ->
+      updatedDate = updateDate(newDate, oldDate)
+      $scope.active = false unless angular.equals(updatedDate, oldDate)
+      $scope.formattedDate = $filter('date')(updatedDate, 'shortDate')
 
   link: ($scope, element, attrs, ngModel) ->
     parseDate = (dateString)->
@@ -30,6 +31,6 @@ angular
       oldDate = ngModel.$modelValue
       updatedDate = updateDate(newDate, oldDate)
 
-      if newDate?.getTime() != oldDate?.getTime()
-        ngModel.$setViewValue(newDate)
+      if updatedDate?.getTime() != oldDate?.getTime()
+        ngModel.$setViewValue(updatedDate)
 )
