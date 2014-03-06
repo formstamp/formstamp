@@ -127,6 +127,7 @@ module.exports = function (grunt) {
                       'concat:js',
                       'concat:css',
                       'copy']);
+
   grunt.registerTask('test',
                      ['clean:test',
                       'coffee:test',
