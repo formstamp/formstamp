@@ -1,7 +1,8 @@
 # .travis.yml
 before_script:
   - echo "hello world!"
-  - node --version
-  - npm --version
+  - npm install
+  - node server.js &
+  - phantomjs --webdriver=4444 &
 
-script: echo "hello again!"
+script: `npm bin`/grunt test
