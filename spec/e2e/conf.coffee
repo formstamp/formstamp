@@ -3,6 +3,8 @@ exports.config =
   # The address of a running selenium server.
   seleniumAddress: 'http://localhost:4444'
 
+  baseUrl: 'http://localhost:17405/spec/e2e/views/'
+
   # Capabilities to be passed to the webdriver instance.
   capabilities:
     browserName: 'phantomjs'
