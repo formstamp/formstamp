@@ -1,6 +1,7 @@
 # .travis.yml
 before_script:
   - echo "hello world!"
-  - sudo apt-get install vim
+  - node --version
+  - npm --version
 
 script: echo "hello again!"
