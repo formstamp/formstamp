@@ -94,6 +94,16 @@ NOTE: This commands add `nvm` command to `.bash_profile`. It may not
 work if you are not using `bash` shell (like `zsh`). In this case you
 have to manually configure profile file.
 
+Testing
+-------
+
+Before you can run test, you should start phantomjs service:
+
+  grunt phantomjs
+
+Then you could use `grunt test` for running tests. Also
+you could use 'grunt watch:test' for continues test running.
+
 License
 -----------
 

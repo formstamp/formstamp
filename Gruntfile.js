@@ -9,6 +9,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-angular-templates');
   grunt.loadNpmTasks('grunt-protractor-runner');
+  grunt.loadNpmTasks('grunt-shell');
 
   grunt.initConfig({
     coffee: {
@@ -94,13 +95,23 @@ module.exports = function (grunt) {
         }
       }
     },
+    shell: {
+      phantomjs: {
+        command: './node_modules/.bin/phantomjs --webdriver=4444'
+      }
+    },
     watch: {
-      options: {
-        nospawn: true
-      },
-      sources: {
+      main: {
         files: ['src/**/*.coffee', 'styles/**/*.less', 'templates/**/*.html', 'demo/coffee/*.coffee'],
         tasks: ['build'],
+        options: {
+          events: ['changed', 'added'],
+          nospawn: true
+        }
+      },
+      test: {
+        files: ['spec/**/*.coffee'],
+        tasks: ['test'],
         options: {
           events: ['changed', 'added'],
           nospawn: true
@@ -119,8 +130,9 @@ module.exports = function (grunt) {
                       'concat:css',
                       'copy']);
   grunt.registerTask('test',
-                     ['build',
-                      'clean:test',
+                     ['clean:test',
                       'coffee:test',
                       'protractor']);
+  grunt.registerTask('phantomjs',
+                     ['shell:phantomjs']);
 };
