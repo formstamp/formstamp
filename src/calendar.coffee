@@ -4,7 +4,7 @@ shiftWeekDays = (weekDays, firstDayOfWeek)->
 
 angular
 .module('formstamp').directive 'fsCalendar', ['$locale', ($locale)->
-  restrict: 'E'
+  restrict: 'EA'
   templateUrl: '/templates/calendar.html'
   replace: true
   require: '?ngModel'

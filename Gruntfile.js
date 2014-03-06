@@ -14,13 +14,11 @@ module.exports = function (grunt) {
   grunt.initConfig({
     coffee: {
       main: {
-        directives: {
-          expand: true,
-          cwd: 'src/',
-          src: ['*.coffee', '!.*#.coffee'],
-          dest: 'build/',
-          ext: '.js'
-        }
+        expand: true,
+        cwd: 'src/',
+        src: ['*.coffee', '!.*#.coffee'],
+        dest: 'build/',
+        ext: '.js'
       },
       demo: {
         options: { join: true },
@@ -110,7 +108,7 @@ module.exports = function (grunt) {
         }
       },
       test: {
-        files: ['spec/**/*.coffee'],
+        files: ['spec/**/*.coffee', 'spec/views/**/*.html'],
         tasks: ['test'],
         options: {
           events: ['changed', 'added'],
