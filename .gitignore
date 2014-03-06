@@ -23,4 +23,5 @@ bower_components
 *sw?
 _site
 build/
+spec/build
 demo/js/

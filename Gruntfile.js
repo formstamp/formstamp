@@ -8,15 +8,18 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-angular-templates');
+  grunt.loadNpmTasks('grunt-protractor-runner');
 
   grunt.initConfig({
     coffee: {
-      directives: {
-        expand: true,
-        cwd: 'src/',
-        src: ['*.coffee', '!.*#.coffee'],
-        dest: 'build/',
-        ext: '.js'
+      main: {
+        directives: {
+          expand: true,
+          cwd: 'src/',
+          src: ['*.coffee', '!.*#.coffee'],
+          dest: 'build/',
+          ext: '.js'
+        }
       },
       demo: {
         options: { join: true },
@@ -32,6 +35,13 @@ module.exports = function (grunt) {
         cwd: 'src/utils',
         src: ['*.coffee', '!.*#.coffee'],
         dest: 'build/utils/',
+        ext: '.js'
+      },
+      test: {
+        expand: true,
+        cwd: 'spec/',
+        src: ['./**/*.coffee', '!.*#.coffee'],
+        dest: 'spec/build/',
         ext: '.js'
       }
     },
@@ -63,7 +73,10 @@ module.exports = function (grunt) {
         dest: 'build/'
       }
     },
-    clean: ['build/**/*'],
+    clean: {
+      main: ['build/**/*'],
+      test: ['spec/build/**/*']
+    },
     concat: {
       js: {
         src: ['build/utils/*.js', '<%= ngtemplates.app.dest %>', 'build/*.js'],
@@ -72,6 +85,13 @@ module.exports = function (grunt) {
       css: {
         src: ['build/*.css'],
         dest: 'build/formstamp.css'
+      }
+    },
+    protractor: {
+      'default': {
+        options: {
+          configFile: 'spec/build/e2e/conf.js'
+        }
       }
     },
     watch: {
@@ -89,11 +109,18 @@ module.exports = function (grunt) {
     }
   })
   grunt.registerTask('build',
-                     ['clean',
-                      'coffee',
+                     ['clean:main',
+                      'coffee:main',
+                      'coffee:utils',
+                      'coffee:demo',
                       'less',
                       'ngtemplates',
                       'concat:js',
                       'concat:css',
                       'copy']);
+  grunt.registerTask('test',
+                     ['build',
+                      'clean:test',
+                      'coffee:test',
+                      'protractor']);
 };
