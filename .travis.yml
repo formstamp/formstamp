@@ -1,0 +1,6 @@
+# .travis.yml
+before_script:
+  - echo "hello world!"
+  - sudo apt-get install vim
+
+script: echo "hello again!"
