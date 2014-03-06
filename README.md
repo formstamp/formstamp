@@ -4,7 +4,7 @@ FormStamp
 [![Build Status](https://travis-ci.org/formstamp/formstamp.png?branch=master)](https://travis-ci.org/formstamp/formstamp)
 
 FormStamp is a pure AngularJS widgets library designed for rich
-front-end web applications. FormStamp core principles are: 
+front-end web applications. FormStamp core principles are:
 
 * all widgets are written from scratch
 * maximum AngularJS compatibility (support ngDisabled, ngModel and
