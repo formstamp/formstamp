@@ -97,8 +97,10 @@ have to manually configure profile file.
 Testing
 -------
 
-Before you can run test, you should start phantomjs service:
+Before you can run test, you should start phantomjs service
+and express server:
 
+  node server.js
   grunt phantomjs
 
 Then you could use `grunt test` for running tests. Also
