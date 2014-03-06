@@ -38,9 +38,9 @@ module.exports = function (grunt) {
       },
       test: {
         expand: true,
-        cwd: 'spec/',
+        cwd: 'test/',
         src: ['./**/*.coffee', '!.*#.coffee'],
-        dest: 'spec/build/',
+        dest: 'test/build/',
         ext: '.js'
       }
     },
@@ -74,7 +74,7 @@ module.exports = function (grunt) {
     },
     clean: {
       main: ['build/**/*'],
-      test: ['spec/build/**/*']
+      test: ['test/build/**/*']
     },
     concat: {
       js: {
@@ -89,7 +89,7 @@ module.exports = function (grunt) {
     protractor: {
       'default': {
         options: {
-          configFile: 'spec/build/e2e/conf.js'
+          configFile: 'test/build/e2e/conf.js'
         }
       }
     },
@@ -108,7 +108,7 @@ module.exports = function (grunt) {
         }
       },
       test: {
-        files: ['spec/**/*.coffee', 'spec/views/**/*.html'],
+        files: ['test/**/*.coffee', 'test/views/**/*.html'],
         tasks: ['test'],
         options: {
           events: ['changed', 'added'],

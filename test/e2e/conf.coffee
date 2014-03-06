@@ -3,7 +3,7 @@ exports.config =
   # The address of a running selenium server.
   seleniumAddress: 'http://localhost:4444'
 
-  baseUrl: 'http://localhost:17405/spec/e2e/views/'
+  baseUrl: 'http://localhost:17405/test/e2e/views/'
 
   # Capabilities to be passed to the webdriver instance.
   capabilities:
@@ -11,7 +11,7 @@ exports.config =
 
   # Spec patterns are relative to the current working directly when
   # protractor is called.
-  specs: ['*_spec.js']
+  specs: ['*Spec.js']
 
   # Options to be passed to Jasmine-node.
   jasmineNodeOpts:
