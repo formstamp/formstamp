@@ -6,6 +6,7 @@ branches:
 before_script:
   - echo "hello world!"
   - npm install
+  - bower install
   - node server.js &
   - phantomjs --webdriver=4444 &
 
