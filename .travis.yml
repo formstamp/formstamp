@@ -10,4 +10,4 @@ before_script:
   - node server.js &
   - phantomjs --webdriver=4444 &
 
-script: "`npm bin`/grunt test:e2e"
+script: "`npm bin`/grunt build && `npm bin`/grunt test:e2e"
