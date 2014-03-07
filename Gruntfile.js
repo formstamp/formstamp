@@ -116,7 +116,8 @@ module.exports = function (grunt) {
         }
       }
     }
-  })
+  });
+
   grunt.registerTask('build',
                      ['clean',
                       'coffee',
@@ -130,6 +131,7 @@ module.exports = function (grunt) {
                      ['clean:e2e',
                       'coffee:e2e',
                       'protractor']);
+
   grunt.registerTask('phantomjs',
                      ['shell:phantomjs']);
 };
