@@ -99,14 +99,24 @@ have to manually configure profile file.
 Testing
 -------
 
-Before you can run test, you should start phantomjs service
-and express server:
+To run test suite you should start local web server and
+[PhantomJS](http://phantomjs.org/) server:
 
-  node server.js
-  grunt phantomjs
+    cd formstamp
+    node server.js
+    `npm bin`/phantomjs --webdriver=4444
 
-Then you could use `grunt test` for running tests. Also
-you could use 'grunt watch:test' for continues test running.
+Next, compile CoffeeScript in test directory with command:
+
+    `npm bin`/grunt coffee:e2e
+
+Then you can run unit tests with following command:
+
+    `npm bin`/karma start test/karma.conf.js --single-run
+
+And E2E tests with:
+
+     `npm bin`/protractor test/build/e2e/conf.js
 
 License
 -----------
