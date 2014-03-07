@@ -4,8 +4,8 @@ branches:
     - master
 
 before_script:
-  - npm install
-  - "`npm bin`/bower install"
+  - npm install > /dev/null
+  - "`npm bin`/bower install > /dev/null"
   - node server.js &
   - phantomjs --webdriver=4444 &
 
