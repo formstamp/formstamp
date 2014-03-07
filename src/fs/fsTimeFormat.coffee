@@ -16,23 +16,29 @@ angular
 
 
       ngModel.$parsers.unshift (value)->
-        return '' unless value?
+        result = new Date()
+        result.setHours(0)
+        result.setMinutes(0)
+        return result unless value?
         patterns = [
           /^[012]/
           /^([0-1][0-9]|2[0-3]):?/
           /^([0-1][0-9]|2[0-3]):?[0-5]/
           /^([0-1][0-9]|2[0-3]):?([0-5][0-9])/
         ]
-        value = ''
+
+        matched = null
         for p in patterns
           res = value.match(p)
           if res
-            value = res[0]
-        value = value.replace(/^(\d\d)([^:]*)$/,"$1:$2") if value.length > 2
+            matched = res[0]
+        value = matched
 
-        parts = value.split(':')
-        result = new Date()
-        result.setHours(parseInt(parts[0]))
-        result.setMinutes(parseInt(parts[1]))
+        if value
+          value = value.replace(/^(\d\d)([^:]*)$/,"$1:$2") if value.length > 2
+
+          parts = value.split(':')
+          result.setHours(parseInt(parts[0]))
+          result.setMinutes(parseInt(parts[1]))
         result
   ])

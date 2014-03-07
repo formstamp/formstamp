@@ -15,3 +15,4 @@ describe 'fsTime', ->
 
     expect($("#hours").getText()).toBe("12")
     expect($("#minutes").getText()).toBe("24")
+

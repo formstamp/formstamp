@@ -109,7 +109,7 @@ module.exports = function (grunt) {
       },
       e2e: {
         files: ['test/e2e/**/*.coffee', 'test/e2e/views/**/*.html'],
-        tasks: ['test'],
+        tasks: ['test:e2e'],
         options: {
           events: ['changed', 'added'],
           nospawn: true

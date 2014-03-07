@@ -1,6 +1,5 @@
 describe 'fsCalendar', ->
   now = null
-  reload = ->
 
   beforeEach ->
     now = new Date()

@@ -57,7 +57,7 @@ angular
       scope.$watch 'value', (newValue, oldValue) ->
         if toTimeStr(newValue) isnt toTimeStr(oldValue)
           date = ngModelCtrl.$viewValue || (attrs['withDate'] && new Date())
-          ngModelCtrl.$setViewValue(updateDate(date, newValue))
+          ngModelCtrl.$setViewValue(updateDate(newValue, date))
 
       ngModelCtrl.$render = ->
         scope.value = ngModelCtrl.$viewValue
