@@ -1,5 +1,3 @@
-'use strict'
-
 describe 'fsTime', ->
   $scope = null
   $compile = null

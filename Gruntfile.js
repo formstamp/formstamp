@@ -17,7 +17,7 @@ module.exports = function (grunt) {
         expand: true,
         cwd: 'src/fs',
         src: ['*.coffee', '!.*#.coffee'],
-        dest: 'build/',
+        dest: 'build/fs',
         ext: '.js'
       },
       demo: {
