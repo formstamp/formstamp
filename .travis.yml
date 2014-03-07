@@ -1,4 +1,8 @@
 # .travis.yml
+branches:
+  only:
+    - master
+
 before_script:
   - echo "hello world!"
   - npm install
