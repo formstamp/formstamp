@@ -44,3 +44,13 @@ describe 'fsSelect', ->
 
     element.find('.fs-select-clear-btn').click()
     expect($scope.value).toBe(null)
+
+  it 'should set scope value as it were in items array', ->
+    $scope.items = [
+      { id: 1, label: "first" },
+      { id: 2, label: "second" }
+    ]
+
+    element = compile('<div fs-select ng-model="value" items="items">{{ item.label }}</div>')
+    $scope.$apply(-> $scope.value = $scope.items.first)
+    expect($scope.value).toBe $scope.items.first
