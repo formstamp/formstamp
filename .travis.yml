@@ -4,10 +4,13 @@ branches:
     - master
 
 before_script:
-  - echo "hello world!"
   - npm install
   - "`npm bin`/bower install"
   - node server.js &
   - phantomjs --webdriver=4444 &
 
-script: "`npm bin`/grunt build && `npm bin`/grunt clean:e2e coffee:e2e && `npm bin`/protractor test/build/e2e/conf.js"
+script:
+  - "`npm bin`/grunt build"
+  - "`npm bin`/grunt clean:e2e coffee:e2e"
+  - "`npm bin`/protractor test/build/e2e/conf.js"
+  - "`npm bin`/karma start test/karma.conf.js"
