@@ -19,7 +19,8 @@ module.exports = function(config) {
     files: [
       'bower_components/angular/angular.js',
       'bower_components/angular-mocks/angular-mocks.js',
-      'test/**/*Spec.coffee',
+      'build/formstamp.js',
+      'test/fs/**/*Spec.coffee',
     ],
 
 

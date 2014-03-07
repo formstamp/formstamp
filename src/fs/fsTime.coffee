@@ -44,8 +44,6 @@ angular
       /^([0-1][0-9]|2[0-3]):?([0-5][0-9])/
     ]
 
-    $scope.$watch 'value',(ev)->
-
   link: (scope, element, attrs, ngModelCtrl, transcludeFn) ->
     toTimeStr = (date)->
       return '' unless date?
