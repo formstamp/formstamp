@@ -26,6 +26,7 @@
     "phantomjs" : "~1.9",
     "karma" : "~0.10",
     "karma-jasmine" : "~0.1",
+    "karma-coffee-preprocessor": "~0.1",
     "protractor" : "~0.18"
   },
   "scripts": {

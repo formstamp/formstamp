@@ -36,11 +36,11 @@ module.exports = function (grunt) {
         dest: 'build/utils/',
         ext: '.js'
       },
-      test: {
+      e2e: {
         expand: true,
-        cwd: 'test/',
+        cwd: 'test/e2e/',
         src: ['./**/*.coffee', '!.*#.coffee'],
-        dest: 'test/build/',
+        dest: 'test/build/e2e',
         ext: '.js'
       }
     },
@@ -74,7 +74,7 @@ module.exports = function (grunt) {
     },
     clean: {
       main: ['build/**/*'],
-      test: ['test/build/**/*']
+      e2e: ['test/build/e2e/**/*']
     },
     concat: {
       js: {
@@ -107,8 +107,8 @@ module.exports = function (grunt) {
           nospawn: true
         }
       },
-      test: {
-        files: ['test/**/*.coffee', 'test/views/**/*.html'],
+      e2e: {
+        files: ['test/e2e/**/*.coffee', 'test/e2e/views/**/*.html'],
         tasks: ['test'],
         options: {
           events: ['changed', 'added'],
@@ -118,19 +118,17 @@ module.exports = function (grunt) {
     }
   })
   grunt.registerTask('build',
-                     ['clean:main',
-                      'coffee:main',
-                      'coffee:utils',
-                      'coffee:demo',
+                     ['clean',
+                      'coffee',
                       'less',
                       'ngtemplates',
                       'concat:js',
                       'concat:css',
                       'copy']);
 
-  grunt.registerTask('test',
-                     ['clean:test',
-                      'coffee:test',
+  grunt.registerTask('test:e2e',
+                     ['clean:e2e',
+                      'coffee:e2e',
                       'protractor']);
   grunt.registerTask('phantomjs',
                      ['shell:phantomjs']);
