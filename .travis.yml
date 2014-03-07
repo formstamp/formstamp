@@ -13,4 +13,4 @@ script:
   - "`npm bin`/grunt build"
   - "`npm bin`/grunt clean:e2e coffee:e2e"
   - "`npm bin`/protractor test/build/e2e/conf.js"
-  - "`npm bin`/karma start test/karma.conf.js"
+  - "`npm bin`/karma start test/karma.conf.js --single-run"
