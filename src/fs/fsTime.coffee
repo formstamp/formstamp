@@ -35,29 +35,13 @@ angular
       </datalist>
     </div>
     """
-
-  controller: ($scope, $element, $attrs, $filter, $timeout) ->
-    patterns = [
-      /^[012]/
-      /^([0-1][0-9]|2[0-3]):?/
-      /^([0-1][0-9]|2[0-3]):?[0-5]/
-      /^([0-1][0-9]|2[0-3]):?([0-5][0-9])/
-    ]
-
-  link: (scope, element, attrs, ngModelCtrl, transcludeFn) ->
-    toTimeStr = (date)->
-      return '' unless date?
-      h = date.getHours().toString()
-      h = "0#{h}" if h.length < 2
-      m = date.getMinutes().toString()
-      m = "0#{m}" if m.length < 2
-      "#{h}:#{m}"
+  link: (scope, element, attrs, ngModelCtrl) ->
 
     if ngModelCtrl
       scope.$watch 'value', (newValue, oldValue) ->
-        if toTimeStr(newValue) isnt toTimeStr(oldValue)
-          date = ngModelCtrl.$viewValue || (attrs['withDate'] && new Date())
-          ngModelCtrl.$setViewValue(updateDate(newValue, date))
+        unless equalsTime(newValue, oldValue)
+          updatedDate = updateDate(oldValue, newValue)
+          ngModelCtrl.$setViewValue(updatedDate)
 
       ngModelCtrl.$render = ->
         scope.value = ngModelCtrl.$viewValue

@@ -93,18 +93,20 @@ updateTime = (date, time)->
     date.setMinutes(time.getMinutes())
   date
 
-updateDate = (newDate, oldDate) ->
+updateDate = (date, newDate) ->
   switch
-    when !newDate? or angular.isString(newDate) then null
-    when !oldDate? && newDate? then newDate
-    when newDate? && oldDate?
-      if oldDate?.getTime() != newDate?.getTime()
-        newDate.setHours(oldDate.getHours())
-        newDate.setMinutes(oldDate.getMinutes())
-        newDate.setSeconds(oldDate.getSeconds())
-        newDate
-      else
-        oldDate
+    when !date? then newDate
+    when !newDate? then date
+    else
+      date.setHours(newDate.getHours())
+      date.setMinutes(newDate.getMinutes())
+      date.setSeconds(newDate.getSeconds())
+      date
+
+equalsTime = (first, second) ->
+  first.hours == second.hours and
+    first.minutes == second.minutes
+
 
 parseDate = (dateString)->
   time = Date.parse(dateString)
