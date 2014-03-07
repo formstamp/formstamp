@@ -1,4 +1,4 @@
-describe 'fsTime', ->
+describe 'fsTimeFormat', ->
   $scope = null
   $compile = null
   input = null
