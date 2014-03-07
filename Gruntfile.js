@@ -15,7 +15,7 @@ module.exports = function (grunt) {
     coffee: {
       main: {
         expand: true,
-        cwd: 'src/',
+        cwd: 'src/fs',
         src: ['*.coffee', '!.*#.coffee'],
         dest: 'build/',
         ext: '.js'
@@ -78,7 +78,7 @@ module.exports = function (grunt) {
     },
     concat: {
       js: {
-        src: ['build/utils/*.js', '<%= ngtemplates.app.dest %>', 'build/*.js'],
+        src: ['build/utils/*.js', '<%= ngtemplates.app.dest %>', 'build/fs/*.js'],
         dest: 'build/formstamp.js'
       },
       css: {
