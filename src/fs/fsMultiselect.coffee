@@ -16,12 +16,9 @@ angular.module("formstamp")
     require: '?ngModel'
     replace: true
     template: (el, attributes) ->
-      if attributes.freetext?
-        defaultItemTpl = "{{ item }}"
-      else
-        defaultItemTpl = "{{ item | json }}"
-
+      defaultItemTpl = "{{ item }}"
       itemTpl = el.html() || defaultItemTpl
+
       """
 <div class='fs-multiselect fs-widget-root' ng-class='{ "fs-with-selected-items": selectedItems.length > 0 }'>
   <div class='fs-multiselect-wrapper'>

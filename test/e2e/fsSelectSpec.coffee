@@ -1,11 +1,3 @@
-takeScreenshot = ->
-  fs = require('fs')
-  browser.takeScreenshot().then (png) ->
-    stream = fs.createWriteStream("/tmp/screenshot.png")
-
-    stream.write(new Buffer(png, 'base64'))
-    stream.end()
-
 describe 'fsSelect', ->
   $ptor = protractor
 
@@ -14,7 +6,7 @@ describe 'fsSelect', ->
 
   it 'should open dropdown on click' , ->
     expect($('.first-select .dropdown.fs-list').isPresent()).toBe(false)
-    $('.fs-select-active').click()
+    $('.first-select .fs-select-active').click()
 
     expect($('.first-select .dropdown.fs-list').isPresent()).toBe(true)
 

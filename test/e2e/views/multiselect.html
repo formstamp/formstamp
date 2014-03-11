@@ -1,0 +1,28 @@
+<html ng-app='formstamp-test'>
+  <head>
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="/build/formstamp.css"/>
+    <script type='text/javascript' src='/bower_components/jquery/dist/jquery.js'></script>
+    <script type='text/javascript' src='/bower_components/angular/angular.js'></script>
+    <script type='text/javascript' src='/build/formstamp.js'></script>
+    <script type='text/javascript'>
+      angular.module('formstamp-test', ['formstamp']);
+
+      function MultiselectCtrl($scope) {
+        $scope.items = ['one', 'two', 'three'];
+
+        $scope.selectValues = function() {
+          $scope.value = ['one', 'two'];
+        };
+      }
+    </script>
+  </head>
+  <body ng-controller='MultiselectCtrl'>
+    <div fs-multiselect ng-model='value' items='items' class='first-select'><span class='foo'>{{ item }}</span></div>
+    <span ng-bind='value | json' id='firstValue'></span>
+    <a href="javascript:void(0)" ng-click='selectValues()' id='selectValues'>select values</a>
+
+    <div fs-multiselect ng-model='ftValue' items='items' class='second-select' freetext='true'></div>
+    <span ng-bind='ftValue | json' id='secondValue'></span>
+  </body>
+</html>
