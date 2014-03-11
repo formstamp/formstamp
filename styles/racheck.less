@@ -43,10 +43,9 @@
   }
 
   &.enabled {
-    .fs-radio-label {
-      &:hover label:before,
-
-      input[type=radio]:focus + label:before {
+    .fs-radio-item {
+      &:hover label .fs-radio-btn,
+      input[type=radio]:focus + label .fs-radio-btn {
         border-color: #66afe9;
         outline: 0;
         -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
@@ -80,7 +79,7 @@
     }
   }
 
-  .fs-radio-label {
+  .fs-radio-item {
     position: relative;
     padding: 3px 0;
 
@@ -92,7 +91,11 @@
       height: 0;
     }
 
-    label:before {
+    label {
+      cursor: pointer;
+    }
+
+    .fs-radio-btn {
       width: 14px;
       height: 14px;
       content: " ";
@@ -102,13 +105,22 @@
       overflow: hidden;
       vertical-align: -0.06em;
       line-height: 0.35em;
-      font-size: 2.4em;
       text-align: center;
+
+      span {
+        display: none;
+      }
     }
 
-    input[type=radio]:checked + label:before {
-      content: "\2022";
-      color: #444;
+    input[type=radio]:checked + label > .fs-radio-btn {
+      span {
+        display: inline-block;
+        background-color: #333;
+        border-radius: 100%;
+        width: 8px;
+        height: 8px;
+        margin-top: 2px;
+      }
     }
   }
 }

@@ -13,9 +13,10 @@ angular
     template: (el, attrs)->
       itemTpl = el.html() || '{{item.label}}'
       name = "fsRadio_#{nextUid()}"
+
       template = """
-<div class='fs-racheck' ng-class="{disabled: disabled, enabled: !disabled}">
-  <div class="fs-radio-label"
+<div class='fs-widget-root fs-radio fs-racheck' ng-class="{disabled: disabled, enabled: !disabled}">
+  <div class="fs-radio-item"
      ng-repeat="item in items" >
     <input
      fs-null-form
@@ -24,8 +25,11 @@ angular
      name="#{name}"
      ng-value="item"
      ng-disabled="disabled"
-     id="#{name}_{{$index}}"/>
+     id="#{name}_{{$index}}" />
+
     <label for="#{name}_{{$index}}">
+      <span class='fs-radio-btn'><span></span></span>
+
       #{itemTpl}
     </label>
   </div>
