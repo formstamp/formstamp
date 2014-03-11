@@ -6,10 +6,10 @@ angular
     link: (scope, element, attrs, ngModel)->
       ngModel.$formatters.push (time)->
         return '' unless time?
-        h = time.hours.toString()
-        h = "0#{h}" if h.length < 2
-        m = time.minutes.toString()
-        m = "0#{m}" if m.length < 2
+        h = time.hours?.toString()
+        h = "0#{h}" if h?.length < 2
+        m = time.minutes?.toString()
+        m = "0#{m}" if m?.length < 2
         "#{h}:#{m}"
 
 

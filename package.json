@@ -28,7 +28,7 @@
     "karma" : "~0.10",
     "karma-jasmine" : "~0.1",
     "karma-coffee-preprocessor": "~0.1",
-    "protractor" : "~0.18"
+    "protractor" : "~0.20"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
