@@ -31,7 +31,10 @@ angular
         value = matched
 
         if value
-          value = value.replace(/^(\d\d)([^:]*)$/,"$1:$2") if value.length > 2
+          if value.length > 2 and  /^(\d\d)([^:]*)$/.test(value)
+            value = value.replace(/^(\d\d)([^:]*)$/,"$1:$2")
+            ngModel.$setViewValue(value)
+            ngModel.$render()
           parts = value.split(':')
 
           hours: if isNaN(hours = parseInt(parts[0])) then null else hours

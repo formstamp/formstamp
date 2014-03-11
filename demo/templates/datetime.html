@@ -112,22 +112,17 @@
         </button>
       </div>
     </div>
-    <pre>Time is: {{ svalue.toString() }}</pre>
+    <pre>Time is: {{ svalue | json }}</pre>
   </form>
 
   <script>
     function TimeCtrl($scope) {
-      $scope.svalue = new Date();
       $scope.disabled = false;
 
       $scope.setTime = function(str){
-        var date  = $scope.svalue;
         var parts = str.split(':');
-        date.setHours(parts[0]);
-        date.setMinutes(parts[1]);
-        console.log("setting date", date);
-
-        $scope.svalue = new Date(date.getTime());
+        $scope.svalue.hours = parts[0]
+        $scope.svalue.minutes = parts[1]
       };
     }
   </script>

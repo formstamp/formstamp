@@ -36,12 +36,10 @@ angular
     </div>
     """
   link: (scope, element, attrs, ngModelCtrl) ->
-
     if ngModelCtrl
       scope.$watch 'value', (newValue, oldValue) ->
-        unless equalsTime(newValue, oldValue)
-          updatedDate = updateDate(oldValue, newValue)
-          ngModelCtrl.$setViewValue(updatedDate)
+        unless angular.equals(newValue, oldValue)
+          ngModelCtrl.$setViewValue(newValue)
 
       ngModelCtrl.$render = ->
         scope.value = ngModelCtrl.$viewValue

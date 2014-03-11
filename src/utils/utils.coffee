@@ -103,11 +103,6 @@ updateDate = (date, newDate) ->
       date.setSeconds(newDate.getSeconds())
       date
 
-equalsTime = (first, second) ->
-  first.hours == second.hours and
-    first.minutes == second.minutes
-
-
 parseDate = (dateString)->
   time = Date.parse(dateString)
   unless isNaN(time)

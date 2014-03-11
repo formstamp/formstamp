@@ -29,6 +29,7 @@ describe 'fsTimeFormat', ->
       input.val('1224').triggerHandler('input')
       expect($scope.value.hours).toBe 12
       expect($scope.value.minutes).toBe 24
+      expect(input.val()).toEqual '12:24'
 
     it 'sholudnt allow to enter invalid value', ->
       input.val('abc').triggerHandler('input')
