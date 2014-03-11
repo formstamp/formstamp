@@ -18,14 +18,14 @@
 <p>
   Each form row is described
   with <code class="ng-binding">fsInput</code> directive. It has
-  folowing attributes:
+  following attributes:
 </p>
 <ul>
   <li><var>as</var> - specifies type of input</li>
   <li><var>label</var> - specifies label text</li>
   <li>
     <var>name</var> - specifies model's
-    attribute to which input will be binded
+    attribute to which input will be bound
   </li>
   <li>
     Other attributes (like <var>items</var>)
@@ -72,7 +72,7 @@
 
         <fs-input as="fs-select"
                   name="meal"
-                  label="Preferrable Food"
+                  label="Preferable Food"
                   items="meals"><b>{{ item.id.toUpperCase() }}</b> {{ item.label }}</fs-input>
 
         <fs-input as="fs-checkbox"

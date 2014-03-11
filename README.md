@@ -31,7 +31,7 @@ There are 3 levels of directives:
   from you.
 * Widget directives - most often used widgets
 * Low-level directives - common concerns for widgets construction, can
-  be used to build you own custom widgets
+  be used to build your own custom widgets
 
 Form Builder
 -----------
@@ -92,7 +92,7 @@ Start grunt watcher and node.js server
 Now, point your browser to http://localhost:17405/ and you'll see
 FormStamp's demo page.
 
-NOTE: This commands add `nvm` command to `.bash_profile`. It may not
+NOTE: These commands add `nvm` command to `.bash_profile`. It may not
 work if you are not using `bash` shell (like `zsh`). In this case you
 have to manually configure profile file.
 
