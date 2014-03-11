@@ -14,12 +14,17 @@
           { id: 2, label: "second label" },
           { id: 3, label: "third label" }
         ];
+
+        $scope.freetextItems = ['one', 'two', 'three'];
       }
     </script>
   </head>
   <body ng-controller='SelectCtrl'>
-    <div fs-select ng-model='value' items='items'>{{item.label}}</div>
+    <div fs-select ng-model='value' items='items' class='first-select'>{{item.label}}</div>
     <span ng-bind='value.id' id='valueId'></span>
     <span ng-bind='value.label' id='valueLabel'></span>
+
+    <div fs-select freetext ng-model='freetextValue' class='second-select' items='freetextItems'>{{item}}</div>
+    <span ng-bind='freetextValue' id='ftValue'></span>
   </body>
 </html>

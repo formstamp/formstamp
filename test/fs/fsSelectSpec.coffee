@@ -45,12 +45,17 @@ describe 'fsSelect', ->
     element.find('.fs-select-clear-btn').click()
     expect($scope.value).toBe(null)
 
-  it 'should set scope value as it were in items array', ->
+  it 'should set scope value exactly as it was in items array', ->
     $scope.items = [
       { id: 1, label: "first" },
       { id: 2, label: "second" }
     ]
 
     element = compile('<div fs-select ng-model="value" items="items">{{ item.label }}</div>')
-    $scope.$apply(-> $scope.value = $scope.items.first)
+    element.find('input').val('first').triggerHandler('input')
     expect($scope.value).toBe $scope.items.first
+
+  it 'should apply custom template for item', ->
+    element = compile('<div fs-select ng-model="value" items="items"><span class="bang"></span>{{ item }}</div>')
+    $scope.$apply(-> $scope.value = $scope.items.first)
+    expect(element.find(".fs-select-active .bang").length).toBe(1)

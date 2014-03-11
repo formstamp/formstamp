@@ -1,12 +1,3 @@
-fs = require('fs')
-
-takeScreenshot = ->
-  browser.takeScreenshot().then (png) ->
-    stream = fs.createWriteStream("/tmp/screenshot.png")
-
-    stream.write(new Buffer(png, 'base64'))
-    stream.end()
-
 describe 'fsDate', ->
   beforeEach ->
     browser.get('date.html')

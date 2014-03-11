@@ -1,3 +1,11 @@
+takeScreenshot = ->
+  fs = require('fs')
+  browser.takeScreenshot().then (png) ->
+    stream = fs.createWriteStream("/tmp/screenshot.png")
+
+    stream.write(new Buffer(png, 'base64'))
+    stream.end()
+
 describe 'fsSelect', ->
   $ptor = protractor
 
@@ -5,24 +13,45 @@ describe 'fsSelect', ->
     browser.get('select.html')
 
   it 'should open dropdown on click' , ->
-    expect($('.fs-select .dropdown.fs-list').isPresent()).toBe(false)
+    expect($('.first-select .dropdown.fs-list').isPresent()).toBe(false)
     $('.fs-select-active').click()
 
-    expect($('.fs-select .dropdown.fs-list').isPresent()).toBe(true)
+    expect($('.first-select .dropdown.fs-list').isPresent()).toBe(true)
 
   it 'should allow to select value with mouse click', ->
-    $('.fs-select .fs-select-active').click()
-    $('.fs-select .dropdown.fs-list li:first-child a').click()
+    $('.first-select .fs-select-active').click()
+    $('.first-select .dropdown.fs-list li:first-child a').click()
 
     expect($('#valueId').getText()).toBe('1')
 
   it 'should allow to select value with enter key', ->
-    $('.fs-select .fs-select-active').click()
-    $('.fs-select input').sendKeys($ptor.Key.ENTER)
+    $('.first-select .fs-select-active').click()
+    $('.first-select input').sendKeys($ptor.Key.ENTER)
     expect($('#valueId').getText()).toBe('1')
 
   it 'should allow to navigate through list with arrows', ->
-    $('.fs-select .fs-select-active').click()
-    $('.fs-select input').sendKeys(($ptor.Key.ARROW_DOWN for [1..10]))
-    $('.fs-select input').sendKeys($ptor.Key.ENTER)
+    $('.first-select .fs-select-active').click()
+    $('.first-select input').sendKeys(($ptor.Key.ARROW_DOWN for [1..10]))
+    $('.first-select input').sendKeys($ptor.Key.ENTER)
     expect($('#valueId').getText()).toBe('2')
+
+  it 'should allow to enter freetext if freetext is enabled', ->
+    $('.second-select .fs-select-active').click()
+    $('.second-select input').sendKeys("hello freetext")
+    expect($('.second-select .dropdown-menu li:first-child a').getText()).toBe("hello freetext")
+
+    $('.second-select input').sendKeys($ptor.Key.ENTER)
+    expect($('#ftValue').getText()).toBe('hello freetext')
+
+  it 'should filter dropdown items with entered text', ->
+    $('.first-select .fs-select-active').click()
+    input = $('.first-select input')
+    input.sendKeys("label")
+    expect(element.all(By.css(".first-select .dropdown-menu li")).count()).toBe(3)
+
+    input.clear()
+    input.sendKeys("first")
+    filteredItems = element.all(By.css(".first-select .dropdown-menu li"))
+
+    expect(filteredItems.count()).toBe(1)
+    expect(filteredItems.first().getText()).toBe('first label')
