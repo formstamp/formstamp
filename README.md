@@ -96,7 +96,7 @@ NOTE: This commands add `nvm` command to `.bash_profile`. It may not
 work if you are not using `bash` shell (like `zsh`). In this case you
 have to manually configure profile file.
 
-Testing
+Running Tests
 -------
 
 To run test suite you should start local web server and
