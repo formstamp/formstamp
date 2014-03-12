@@ -91,6 +91,7 @@
       left: 0;
       width: 0;
       height: 0;
+      display: block;
     }
 
     label {
@@ -124,5 +125,13 @@
         margin-top: 2px;
       }
     }
+  }
+}
+
+/* hacks for firefox */
+@-moz-document url-prefix() {
+  .fs-radio-item input {
+    /* hide inputs with opacity, cause FF doesn't support resizing of inputs */
+    opacity: 0;
   }
 }
