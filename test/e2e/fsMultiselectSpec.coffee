@@ -1,12 +1,4 @@
-takeScreenshot = ->
-  fs = require('fs')
-  browser.takeScreenshot().then (png) ->
-    stream = fs.createWriteStream("/tmp/screenshot.png")
-
-    stream.write(new Buffer(png, 'base64'))
-    stream.end()
-
-describe 'fsSelect', ->
+describe 'fsMultiselect', ->
   $ptor = protractor
 
   beforeEach ->
@@ -76,3 +68,11 @@ describe 'fsSelect', ->
     # focus other widget
     $('.second-select input').click()
     expect(input.getAttribute('value')).toBe('')
+
+  it 'should not select anything on Enter when items doesnt match entered search text', ->
+    expect($("#firstValue").getText()).toBe('')
+    input = $('.first-select input')
+    input.sendKeys("foobarbazzzz")
+    input.sendKeys($ptor.Key.ENTER)
+
+    expect($("#firstValue").getText()).toBe('')

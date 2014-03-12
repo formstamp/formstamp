@@ -91,7 +91,10 @@ angular
       $scope.listInterface.move && $scope.listInterface.move(d)
 
     $scope.onEnter = (event) ->
-      $scope.selectItem($scope.listInterface.selectedItem)
+      if $scope.dropdownItems.length > 0
+        $scope.selectItem($scope.listInterface.selectedItem)
+      else
+        $scope.selectItem(null)
 
     $scope.listInterface =
       onSelect: (selectedItem) ->

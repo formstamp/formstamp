@@ -1,3 +1,11 @@
+takeScreenshot = ->
+  fs = require('fs')
+  browser.takeScreenshot().then (png) ->
+    stream = fs.createWriteStream("/tmp/screenshot.png")
+
+    stream.write(new Buffer(png, 'base64'))
+    stream.end()
+
 describe 'fsSelect', ->
   $ptor = protractor
 
@@ -23,7 +31,8 @@ describe 'fsSelect', ->
 
   it 'should allow to navigate through list with arrows', ->
     $('.first-select .fs-select-active').click()
-    $('.first-select input').sendKeys(($ptor.Key.ARROW_DOWN for [1..10]))
+    $('.first-select input').sendKeys($ptor.Key.DOWN) for [1..10]
+    takeScreenshot()
     $('.first-select input').sendKeys($ptor.Key.ENTER)
     expect($('#valueId').getText()).toBe('2')
 
@@ -59,3 +68,11 @@ describe 'fsSelect', ->
     # focus first widget again
     $('.first-select .fs-select-active').click()
     expect(input.getAttribute('value')).toBe('')
+
+  it 'should not select anything on Enter when items doesnt match entered search text', ->
+    $('.first-select .fs-select-active').click()
+    input = $('.first-select input')
+    input.sendKeys("foobarbaz")
+
+    $('.first-select input').sendKeys($ptor.Key.ENTER)
+    expect($('#valueId').getText()).toBe('')

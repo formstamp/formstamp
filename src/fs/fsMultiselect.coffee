@@ -41,7 +41,7 @@ angular.module("formstamp")
            fs-up='listInterface.move(-1)'
            fs-pgup='listInterface.move(-11)'
            fs-pgdown='listInterface.move(11)'
-           fs-enter='selectItem(listInterface.selectedItem)'
+           fs-enter='onEnter()'
            fs-esc='active = false'
            class="form-control"
            type="text"
@@ -83,6 +83,9 @@ angular.module("formstamp")
       $scope.onBlur = ->
         $scope.active = false
         $scope.search = ''
+
+      $scope.onEnter = ->
+        $scope.selectItem(if $scope.dropdownItems.length > 0 then $scope.listInterface.selectedItem else null)
 
       $scope.listInterface =
         onSelect: (selectedItem) ->
