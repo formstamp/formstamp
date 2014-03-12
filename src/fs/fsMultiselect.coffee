@@ -35,7 +35,7 @@ angular.module("formstamp")
            fs-input
            fs-hold-focus
            fs-on-focus="active = true"
-           fs-on-blur="active = false; search = ''"
+           fs-on-blur="onBlur()"
            fs-blur-when="!active"
            fs-down='listInterface.move(1)'
            fs-up='listInterface.move(-1)'
@@ -79,6 +79,10 @@ angular.module("formstamp")
         index = indexOf($scope.selectedItems, item)
         if index > -1
           $scope.selectedItems.splice(index, 1)
+
+      $scope.onBlur = ->
+        $scope.active = false
+        $scope.search = ''
 
       $scope.listInterface =
         onSelect: (selectedItem) ->

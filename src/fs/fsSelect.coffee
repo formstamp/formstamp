@@ -35,7 +35,7 @@ angular
            fs-focus-when='active'
            fs-blur-when='!active'
            fs-on-focus='active = true'
-           fs-on-blur='active = false'
+           fs-on-blur='onBlur()'
            fs-hold-focus
 
            fs-down='move(1)'
@@ -70,7 +70,6 @@ angular
     updateDropdown = () ->
       $scope.dropdownItems = $filter('filter')($scope.items, $scope.search).concat($scope.dynamicItems())
 
-
     $scope.$watch 'active', (q)-> updateDropdown()
     $scope.$watch 'search', (q)-> updateDropdown()
 
@@ -83,7 +82,10 @@ angular
       $scope.item = null
 
     $scope.onBlur = () ->
-      $timeout((-> $scope.active = false), 0, true)
+      $timeout(->
+        $scope.active = false
+        $scope.search = ''
+      , 0, true)
 
     $scope.move = (d) ->
       $scope.listInterface.move && $scope.listInterface.move(d)

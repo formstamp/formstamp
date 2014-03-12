@@ -47,3 +47,15 @@ describe 'fsSelect', ->
 
     expect(filteredItems.count()).toBe(1)
     expect(filteredItems.first().getText()).toBe('first label')
+
+  it 'should clear entered text on blur', ->
+    $('.first-select .fs-select-active').click()
+    input = $('.first-select input')
+    input.sendKeys("foobar")
+
+    # focus second widget
+    $('.second-select .fs-select-active').click()
+
+    # focus first widget again
+    $('.first-select .fs-select-active').click()
+    expect(input.getAttribute('value')).toBe('')

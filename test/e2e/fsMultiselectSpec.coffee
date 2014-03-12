@@ -76,4 +76,3 @@ describe 'fsSelect', ->
     # focus other widget
     $('.second-select input').click()
     expect(input.getAttribute('value')).toBe('')
-
