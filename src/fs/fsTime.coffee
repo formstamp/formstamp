@@ -37,9 +37,10 @@ angular
     """
   link: (scope, element, attrs, ngModelCtrl) ->
     if ngModelCtrl
-      scope.$watch 'value', (newValue, oldValue) ->
+      watchFn = (newValue, oldValue) ->
         unless angular.equals(newValue, oldValue)
           ngModelCtrl.$setViewValue(newValue)
+      scope.$watch 'value', watchFn, true
 
       ngModelCtrl.$render = ->
         scope.value = ngModelCtrl.$viewValue

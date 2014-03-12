@@ -60,5 +60,18 @@ describe 'fsTimeFormat', ->
       $scope.$apply()
       expect(input.val()).toBe ''
 
+      $scope.value = {}
+      $scope.$apply()
+      expect(input.val()).toBe ''
+
+   it 'should fix angular bug #6648', ->
+      $scope.value = {}
+      $scope.$apply()
+
+      $scope.value.hours = 10
+      $scope.value.minutes = 10
+      $scope.$apply()
+      expect(input.val()).toBe '10:10'
+
 
 

@@ -5,13 +5,12 @@ angular
     require: 'ngModel'
     link: (scope, element, attrs, ngModel)->
       ngModel.$formatters.push (time)->
-        return '' unless time?
+        return '' unless time? && time.hours? && time.minutes?
         h = time.hours?.toString()
         h = "0#{h}" if h?.length < 2
         m = time.minutes?.toString()
         m = "0#{m}" if m?.length < 2
         "#{h}:#{m}"
-
 
       ngModel.$parsers.unshift (value)->
         value ||= ''
