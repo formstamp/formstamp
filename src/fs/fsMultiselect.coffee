@@ -35,7 +35,7 @@ angular.module("formstamp")
            fs-input
            fs-hold-focus
            fs-on-focus="active = true"
-           fs-on-blur="active = false"
+           fs-on-blur="active = false; search = ''"
            fs-blur-when="!active"
            fs-down='listInterface.move(1)'
            fs-up='listInterface.move(-1)'

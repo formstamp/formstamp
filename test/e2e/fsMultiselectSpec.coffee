@@ -67,3 +67,13 @@ describe 'fsSelect', ->
 
     expect($(".second-select .fs-multiselect-selected-items a").getText()).toBe("gzigzigzeo")
     expect($("#secondValue").getText()).toMatch(/gzigzigzeo/)
+
+  it 'should clear entered text on blur', ->
+    input = $('.first-select input')
+    input.click()
+    input.sendKeys("foobar")
+
+    # focus other widget
+    $('.second-select input').click()
+    expect(input.getAttribute('value')).toBe('')
+
