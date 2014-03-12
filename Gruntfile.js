@@ -130,6 +130,7 @@ module.exports = function (grunt) {
                      ['clean:e2e',
                       'coffee:e2e',
                       'protractor:default']);
+
   grunt.registerTask('phantomjs',
                      ['shell:phantomjs']);
 };

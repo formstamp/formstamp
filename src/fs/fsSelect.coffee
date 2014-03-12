@@ -44,7 +44,7 @@ angular
            fs-pgdown='move(11)'
            fs-enter='onEnter($event)'
            fs-esc='active = false'
-           type="search"
+           type="text"
            placeholder='Search'
            ng-model="search"
            fs-null-form />
