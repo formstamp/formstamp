@@ -30,15 +30,25 @@
 
 .fs-datetime {
   display: -webkit-flex;
+  display: -moz-flex;
+  display: flex;
+
   -webkit-flex-flow: row nowrap;
+  -moz-flex-flow: row nowrap;
+  flex-flow: row nowrap;
 
   button {
     -webkit-flex: auto;
+    -moz-flex: auto;
+    flex: auto;
   }
 
   .fs-time {
     width: 8em;
+
     -webkit-flex: auto;
+    -moz-flex: auto;
+    flex: auto;
 
     input {
       border-top-left-radius: 0;
@@ -49,6 +59,8 @@
 
   .fs-date {
     -webkit-flex: auto;
+    -moz-flex: auto;
+    flex: auto;
 
     input {
       border-top-right-radius: 0;
