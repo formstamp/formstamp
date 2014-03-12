@@ -18,11 +18,13 @@ describe 'fsFormFor', ->
 
   compile = (elem) ->
     elem ||= """
-<fs-form-for model="user">
-  <fs-input as="text" name="name" required="" label="Name"></fs-input>
-  <fs-input as="email" name="email" required="" label="Email"></fs-input>
-  <fs-input as="fs-select" name="title" required="" label="Title" items="titles" freetext=""></fs-input>
-</fs-form-for>
+<form>
+  <fs-form-for model="user">
+    <fs-input as="text" name="name" required="" label="Name"></fs-input>
+    <fs-input as="email" name="email" required="" label="Email"></fs-input>
+    <fs-input as="fs-select" name="title" required="" label="Title" items="titles" freetext=""></fs-input>
+  </fs-form-for>
+</form>
     """
     element = $compile(elem)($scope)
     $scope.$apply()
@@ -47,3 +49,9 @@ describe 'fsFormFor', ->
     expect(element.find('input[ng-model="user.name"]').length).toBe 1
     expect(element.find('input[ng-model="user.email"]').length).toBe 1
     expect(element.find('div[ng-model="user.title"]').length).toBe 1
+
+  it 'should register only 3 inputs in FormController', ->
+    element = compile()
+    formCtrl = element.data('$formController')
+    attrs = (name for name, val of formCtrl when '$' not in name)
+    expect(attrs).toEqual(['name', 'email', 'title'])
