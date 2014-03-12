@@ -87,11 +87,10 @@ module.exports = function (grunt) {
       }
     },
     protractor: {
-      'default': {
-        options: {
-          configFile: 'test/build/e2e/conf.js'
-        }
-      }
+      options: {
+        configFile: 'test/build/e2e/conf.js'
+      },
+      'default': { }
     },
     shell: {
       phantomjs: {
@@ -130,8 +129,7 @@ module.exports = function (grunt) {
   grunt.registerTask('test:e2e',
                      ['clean:e2e',
                       'coffee:e2e',
-                      'protractor']);
-
+                      'protractor:default']);
   grunt.registerTask('phantomjs',
                      ['shell:phantomjs']);
 };

@@ -7,7 +7,7 @@ exports.config =
 
   # Capabilities to be passed to the webdriver instance.
   capabilities:
-    browserName: 'phantomjs'
+    browserName: 'phatomjs'
 
   # Spec patterns are relative to the current working directly when
   # protractor is called.

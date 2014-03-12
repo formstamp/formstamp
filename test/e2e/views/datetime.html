@@ -7,20 +7,17 @@
     <script type='text/javascript' src='/build/formstamp.js'></script>
     <script type='text/javascript'>
       angular.module('formstamp-test', ['formstamp']);
-
-      function TimeCtrl($scope) {
-        $scope.value = new Date();
-
-        $scope.setNow = function() {
-          $scope.value = new Date()
-        };
-      }
     </script>
   </head>
-  <body ng-controller="TimeCtrl">
-    <h1>fsTime</h1>
-    <div fs-time ng-model='value'></div>
-    <span ng-bind='value.hours' id="hours"></span>
-    <span ng-bind='value.minutes' id="minutes"></span>
+  <body>
+    <h1>fsDatetime</h1>
+    <div fs-datetime ng-model='value'></div>
+
+    <span ng-bind='value' id="value"></span>
+    <span ng-bind='value.getHours()' id="hours"></span>
+    <span ng-bind='value.getMinutes()' id="minutes"></span>
+    <span ng-bind='value.getDate()' id="day"></span>
+    <span ng-bind='value.getMonth()' id="month"></span>
+    <span ng-bind='value.getFullYear()' id="year"></span>
   </body>
 </html>
