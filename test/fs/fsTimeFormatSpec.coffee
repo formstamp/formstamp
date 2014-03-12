@@ -64,7 +64,7 @@ describe 'fsTimeFormat', ->
       $scope.$apply()
       expect(input.val()).toBe ''
 
-   it 'should fix angular bug #6648', ->
+   xit 'should fix angular bug #6648', ->
       $scope.value = {}
       $scope.$apply()
 
