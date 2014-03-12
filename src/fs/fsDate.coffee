@@ -12,14 +12,15 @@ angular
   link: ($scope, element, attrs, ngModel) ->
     $scope.selectedDate = {}
 
-    ngModel.$render = ->
-      $scope.selectedDate.date = ngModel.$modelValue
+    if ngModel
+      ngModel.$render = ->
+        $scope.selectedDate.date = ngModel.$modelValue
 
-    $scope.$watch 'selectedDate.date', (newDate, oldDate) ->
-      updatedDate = updateDate(newDate, oldDate)
+      $scope.$watch 'selectedDate.date', (newDate, oldDate) ->
+        updatedDate = updateDate(newDate, oldDate)
 
-      if updatedDate?.getTime() != oldDate?.getTime()
-        ngModel.$setViewValue(updatedDate)
+        if updatedDate?.getTime() != oldDate?.getTime()
+          ngModel.$setViewValue(updatedDate)
 
     $scope.close = ->
       $scope.active = false

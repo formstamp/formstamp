@@ -8,5 +8,6 @@ angular
         $filter('date')(value, 'shortDate')
 
       ngModel.$parsers.unshift (value)->
-        new Date(value)
+        date = new Date(value)
+        if isNaN(date.getTime()) then null else date
   ])
