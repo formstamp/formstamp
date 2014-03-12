@@ -14,21 +14,8 @@ describe 'fsTimeFormat', ->
       input = $compile('<input fs-time-format ng-model="value" />')($scope)
       $scope.$apply()
 
-    it 'should update scope model by input', ->
-      input.val('12:00').triggerHandler('input')
-      expect($scope.value.hours).toBe 12
-      expect($scope.value.minutes).toBe 0
-
-    it 'should set time to null if no time specified', ->
-      expect($scope.value).toBe undefined
-
-      input.val('').triggerHandler('input')
-      expect($scope.value).toBe null
-
     it 'should expand time from 1224 to 12:24', ->
       input.val('1224').triggerHandler('input')
-      expect($scope.value.hours).toBe 12
-      expect($scope.value.minutes).toBe 24
       expect(input.val()).toEqual '12:24'
 
     it 'sholudnt allow to enter invalid value', ->
@@ -36,42 +23,34 @@ describe 'fsTimeFormat', ->
       expect($scope.value).toBe null
 
       input.val('3').triggerHandler('input')
-      expect($scope.value).toBe null
+      expect($scope.value).toBe '03:00'
 
       input.val('26').triggerHandler('input')
-      expect($scope.value.hours).toBe 2
-      expect($scope.value.minutes).toBe null
+      expect($scope.value).toBe '02:00'
 
       input.val('23:7').triggerHandler('input')
-      expect($scope.value.hours).toBe 23
-      expect($scope.value.minutes).toBe null
+      expect($scope.value).toBe '23:07'
 
-  describe 'updating view', ->
-    it 'should update view by model', ->
-      $scope.value =
-        hours: 12
-        minutes: 1
-      input = $compile('<input fs-time-format ng-model="value" />')($scope)
-      $scope.$apply()
-      expect(input.val()).toBe '12:01'
+      input.val('2').triggerHandler('input')
+      expect($scope.value).toBe '02:00'
 
-    it 'should set view to empty string in model is empty', ->
-      input = $compile('<input fs-time-format ng-model="value" />')($scope)
-      $scope.$apply()
-      expect(input.val()).toBe ''
+      input.val('23').triggerHandler('input')
+      expect($scope.value).toBe '23:00'
 
-      $scope.value = {}
-      $scope.$apply()
-      expect(input.val()).toBe ''
+      input.val('232').triggerHandler('input')
+      expect($scope.value).toBe '23:02'
 
-   xit 'should fix angular bug #6648', ->
-      $scope.value = {}
-      $scope.$apply()
+      input.val('2301').triggerHandler('input')
+      expect($scope.value).toBe '23:01'
 
-      $scope.value.hours = 10
-      $scope.value.minutes = 10
-      $scope.$apply()
-      expect(input.val()).toBe '10:10'
+      input.val('2:1').triggerHandler('input')
+      expect($scope.value).toBe '02:01'
 
+      input.val('2:13').triggerHandler('input')
+      expect($scope.value).toBe '02:13'
 
+      input.val('2:13').triggerHandler('input')
+      expect($scope.value).toBe '02:13'
 
+      input.val(':13').triggerHandler('input')
+      expect($scope.value).toBe '00:13'

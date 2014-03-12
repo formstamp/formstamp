@@ -29,9 +29,7 @@ describe 'fsTime', ->
     expect(element.attr('class')).toMatch /cool-class/
 
   it 'should update viewValue', ->
-    $scope.value =
-      hours: 12
-      minutes: 0
+    $scope.value = '12:00'
     element = compile('<div fs-time ng-model="value"></div>')
     textValue = element.find('input').val()
     expect(textValue).toBe '12:00'
@@ -39,8 +37,4 @@ describe 'fsTime', ->
   it 'should update model', ->
     element = compile('<div fs-time ng-model="value"></div>')
     element.find('input').val('12:00').triggerHandler('input')
-    expect($scope.value).toEqual
-      hours: 12
-      minutes: 0
-
-
+    expect($scope.value).toEqual '12:00'

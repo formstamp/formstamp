@@ -30,9 +30,12 @@ angular
       scope.$watch 'time', (newValue, oldValue) ->
         unless angular.equals(newValue, oldValue)
           if newValue
+            parts =  newValue.split(':')
+            minutes = parseInt(parts[1])
+            hours = parseInt(parts[0])
             scope.value ||= new Date()
-            scope.value.setHours(newValue.hours)
-            scope.value.setMinutes(newValue.minutes)
+            scope.value.setHours(hours)
+            scope.value.setMinutes(minutes)
             scope.value.setSeconds(0)
             scope.value.setMilliseconds(0)
 
@@ -52,8 +55,9 @@ angular
         scope.date = scope.value = ngModelCtrl.$viewValue
         scope.time =
           if ngModelCtrl.$viewValue
-            hours: ngModelCtrl.$viewValue.getHours()
-            minutes: ngModelCtrl.$viewValue.getMinutes()
+            toTimeStr
+              hours: ngModelCtrl.$viewValue.getHours()
+              minutes: ngModelCtrl.$viewValue.getMinutes()
           else
             null
 ]

@@ -1,0 +1,22 @@
+<html ng-app='formstamp-test'>
+  <head>
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="/build/formstamp.css"/>
+    <script type='text/javascript' src='/bower_components/jquery/dist/jquery.js'></script>
+    <script type='text/javascript' src='/bower_components/angular/angular.js'></script>
+    <script type='text/javascript' src='/build/formstamp.js'></script>
+    <script type='text/javascript'>
+      angular.module('formstamp-test', ['formstamp']);
+    </script>
+  </head>
+  <body>
+    <h1>fsTime</h1>
+    <div fs-time ng-model='value'></div>
+
+    <span ng-bind='value.getHours()' id="hours"></span>
+    <span ng-bind='value.getMinutes()' id="minutes"></span>
+    <span ng-bind='value.getDate()' id="day"></span>
+    <span ng-bind='value.getMonth()' id="month"></span>
+    <span ng-bind='value.getFullYear()' id="year"></span>
+  </body>
+</html>

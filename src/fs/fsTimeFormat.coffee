@@ -4,40 +4,32 @@ angular
     restrict: 'A'
     require: 'ngModel'
     link: (scope, element, attrs, ngModel)->
-      ngModel.$formatters.push (time)->
-        return '' unless time? && time.hours? && time.minutes?
-        h = time.hours?.toString()
-        h = "0#{h}" if h?.length < 2
-        m = time.minutes?.toString()
-        m = "0#{m}" if m?.length < 2
-        "#{h}:#{m}"
-
       ngModel.$parsers.unshift (value)->
         value ||= ''
 
-        patterns = [
-          /^[012]/
-          /^([0-1][0-9]|2[0-3]):?/
-          /^([0-1][0-9]|2[0-3]):?[0-5]/
-          /^([0-1][0-9]|2[0-3]):?([0-5][0-9])/
-        ]
-
-        matched = null
-        for p in patterns
-          res = value.match(p)
+        if value.match(/^([0-1][0-9]|2[0-3]):[0-5][0-9]$/)
+          value
+        else
+          res = value.match(/^(\d{0,2}):?(\d{0,2})$/)
           if res
-            matched = res[0]
-        value = matched
+            hours = res[1]
+            hours = '00' if !hours || hours.length == 0
+            iHours = parseInt(hours)
+            hours = 2 if iHours > 23
+            hours = hours.toString()
+            hours = "0#{hours}" if hours.length == 1
 
-        if value
-          if value.length > 2 and  /^(\d\d)([^:]*)$/.test(value)
-            value = value.replace(/^(\d\d)([^:]*)$/,"$1:$2")
+            minutes = res[2]
+            minutes = "00" if !minutes || minutes.length == 0
+            iMinutes = parseInt(minutes)
+            iMinutes = 0 if iMinutes > 59
+            minutes = iMinutes.toString()
+            minutes = "0#{minutes}" if  minutes.length == 1
+
+            value = "#{hours}:#{minutes}"
             ngModel.$setViewValue(value)
             ngModel.$render()
-          parts = value.split(':')
-
-          hours: if isNaN(hours = parseInt(parts[0])) then null else hours
-          minutes: if isNaN(minutes = parseInt(parts[1])) then null else minutes
-        else
-          null
+            value
+          else
+            null
   ])
