@@ -8,7 +8,7 @@ angular
   require: '?ngModel'
   replace: true
   template: """
-    <div class="fs-datetime fs-widget-root">
+    <div class="fs-datetime fs-widget-root" ng-class='{ "fs-with-value": value }'>
       <div fs-date ng-model="date" ng-disabled="disabled" fs-null-form></div>
       <div fs-time ng-model="time" ng-disabled="disabled" fs-null-form with-date></div>
       <button type="button"
