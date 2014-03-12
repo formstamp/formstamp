@@ -21,12 +21,11 @@
 
     <a href="#" id="setNow" ng-click="setNow()">set now</a>
 
+    <span ng-bind='value' id="value"></span>
     <span ng-bind='value.getHours()' id="hours"></span>
     <span ng-bind='value.getMinutes()' id="minutes"></span>
     <span ng-bind='value.getDate()' id="day"></span>
     <span ng-bind='value.getMonth()' id="month"></span>
     <span ng-bind='value.getFullYear()' id="year"></span>
-
-    <span ng-bind='value | json' id="dateJson"></span>
   </body>
 </html>
