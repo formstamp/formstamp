@@ -58,7 +58,7 @@
         <td data-ng-repeat="day in week" class="day"
             data-ng-class="{'day-in-selected-month': isDayInSelectedMonth(day),
                        'day-current': isCurrentDate(day),
-                       'active': isSelectedDate(day)}"
+                       'active bg-info': isSelectedDate(day)}"
             data-ng-click="selectDay(day)">
           {{day.getDate()}}
         </td>

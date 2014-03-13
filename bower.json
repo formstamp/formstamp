@@ -30,7 +30,7 @@
     "angular-mocks":"~1.2.0",
     "angular-scenario":"~1.2.0",
     "markdown":"latest",
-    "bootstrap":"~3.0.3",
+    "bootstrap":"~3",
     "jquery": ">= 1.9.0"
   },
   "devDependencies": {
