@@ -44,8 +44,14 @@ angular
       for m in minutes
         items.push "#{zh}:#{m}"
 
+    dynamicItems = ->
+      if scope.value and scope.value.length == 5 and indexOf(items, scope.value) == -1
+        [scope.value]
+      else
+        []
+
     updateDropdown = ->
-      scope.dropdownItems = $filter('filter')(items, scope.value)
+      scope.dropdownItems = $filter('filter')(items, scope.value).concat(dynamicItems())
     scope.$watch 'value', (q)-> updateDropdown()
 
     scope.onBlur = ->
