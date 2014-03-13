@@ -1,11 +1,3 @@
-takeScreenshot = ->
-  fs = require('fs')
-  browser.takeScreenshot().then (png) ->
-    stream = fs.createWriteStream("/tmp/screenshot.png")
-
-    stream.write(new Buffer(png, 'base64'))
-    stream.end()
-
 describe 'fsSelect', ->
   $ptor = protractor
 

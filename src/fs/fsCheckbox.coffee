@@ -9,14 +9,14 @@ angular
       items: '='
       inline: '='
     require: '?ngModel'
+    replace: true
     template: (el, attrs)->
       itemTpl = el.html() || 'template me: {{item | json}}'
       template = """
-<div class='fs-racheck' ng-class="{disabled: disabled, enabled: !disabled}">
+<div class='fs-racheck fs-checkbox' ng-class="{disabled: disabled, enabled: !disabled}">
   <div ng-repeat='item in items'>
     <a class="fs-racheck-item"
        href='javascript:void(0)'
-       onclick="this.focus()"
        ng-disabled="disabled"
        ng-click="toggle(item)"
        fs-space='toggle(item)'>

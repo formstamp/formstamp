@@ -1,0 +1,24 @@
+<html ng-app='formstamp-test'>
+  <head>
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="/build/formstamp.css"/>
+    <script type='text/javascript' src='/bower_components/jquery/dist/jquery.js'></script>
+    <script type='text/javascript' src='/bower_components/angular/angular.js'></script>
+    <script type='text/javascript' src='/build/formstamp.js'></script>
+    <script type='text/javascript'>
+      var app = angular.module('formstamp-test', ['formstamp']);
+      function CheckboxCtrl($scope) {
+        $scope.items = [
+          { id: 1, label: 'one' },
+          { id: 2, label: 'two' },
+          { id: 3, label: 'three' }
+        ];
+      }
+    </script>
+  </head>
+  <body ng-controller='CheckboxCtrl'>
+    <div fs-checkbox items='items' ng-model='value'>{{ item.label }}</div>
+
+    <div id="value" ng-bind="value | json"></div>
+  </body>
+</html>
