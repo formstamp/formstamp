@@ -6,11 +6,17 @@
     <script type='text/javascript' src='/bower_components/angular/angular.js'></script>
     <script type='text/javascript' src='/build/formstamp.js'></script>
     <script type='text/javascript'>
-      angular.module('formstamp-test', ['formstamp']);
+      var app = angular.module('formstamp-test', ['formstamp']);
+      function RadioCtrl($scope) {
+        $scope.items = [
+          { id: 1, label: 'one' },
+          { id: 2, label: 'two' },
+          { id: 3, label: 'three' }
+        ];
+      }
     </script>
   </head>
-  <body>
-    <div fs-calendar ng-model='value'></div>
-    <span ng-bind='value'></span>
+  <body ng-controller='RadioCtrl'>
+    <div fs-radio items='items' ng-model='value'></div>
   </body>
 </html>
