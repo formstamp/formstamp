@@ -24,6 +24,11 @@ describe 'fsDate', ->
     expect($("#month").getText()).toBe(now.getMonth().toString())
     expect($("#year").getText()).toBe(now.getFullYear().toString())
 
+  it 'should close dropdown on Esc', ->
+    $('.fs-date input').click()
+    $('.fs-date input').sendKeys(protractor.Key.ESCAPE)
+    expect($('.fs-date .fs-calendar-wrapper').isPresent()).toBe false
+
   it "should preserve time component of date when new date is selected", ->
     $('#setNow').click()
 
