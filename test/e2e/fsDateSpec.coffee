@@ -44,6 +44,11 @@ describe 'fsDate', ->
     expect($("#hours").getText()).toBe(hours)
     expect($("#minutes").getText()).toBe(minutes)
 
+  it 'should not open dropdown when widget is disabled', ->
+    $("#disable").click()
+    $(".fs-date .glyphicon").click()
+    expect($('.fs-date .fs-calendar-wrapper').isPresent()).toBe(false)
+
   it "should open dropdown on click on icon", ->
     $(".fs-date .glyphicon").click()
     expect($('.fs-date .fs-calendar-wrapper').isPresent()).toBe(true)

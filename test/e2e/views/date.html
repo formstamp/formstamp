@@ -1,4 +1,4 @@
-<html ng-app='formstamp-test'>
+\<html ng-app='formstamp-test'>
   <head>
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
     <link rel="stylesheet" href="/build/formstamp.css"/>
@@ -9,6 +9,8 @@
       angular.module('formstamp-test', ['formstamp']);
 
       function DateCtrl($scope) {
+        $scope.disabled = false;
+
         $scope.setNow = function() {
           $scope.value = new Date()
         };
@@ -17,9 +19,10 @@
   </head>
   <body ng-controller='DateCtrl'>
     <h1>fsDate</h1>
-    <div fs-date ng-model='value'></div>
+    <div fs-date ng-model='value' ng-disabled='disabled'></div>
 
     <a href="#" id="setNow" ng-click="setNow()">set now</a>
+    <a href="#" id="disable" ng-click="disabled = true">set now</a>
 
     <span ng-bind='value' id="value"></span>
     <span ng-bind='value.getHours()' id="hours"></span>

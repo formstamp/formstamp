@@ -14,9 +14,9 @@
      fs-date-format
      placeholder="{{placeholder}}"
      fs-null-form />
-  <span class="glyphicon glyphicon-calendar" ng-click='active = true'></span>
+  <span class="glyphicon glyphicon-calendar" ng-click='active = !disabled'></span>
 
-  <div ng-if="active" class="open fs-calendar-wrapper">
+  <div ng-if="!disabled && active" class="open fs-calendar-wrapper">
     <div class="dropdown-menu">
       <fs-calendar ng-model="selectedDate.date" on-select='close()'/>
     </div>
