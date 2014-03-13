@@ -37,6 +37,12 @@ body > .container {
   margin-top: 40px;
 }
 
+.jumbotron > .container .buttons big {
+  font-size: 140%;
+  margin-right: 15px;
+  vertical-align: -0.1em;
+}
+
 .jumbotron > .container h1 {
   color: #fff;
   font-weight: bold;
@@ -45,7 +51,7 @@ body > .container {
 .jumbotron > .container h1 sup {
   font-size: 30%;
   vertical-align: super;
-  opacity: 0.4;
+  opacity: 0.5;
 }
 
 html, body {
