@@ -33,6 +33,10 @@ angular
       for m in minutes
         items.push "#{zh}:#{m}"
 
+    updateDropdown = () ->
+      scope.dropdownItems = $filter('filter')(items, scope.value)
+    scope.$watch 'value', (q)-> updateDropdown()
+
     if ngModelCtrl
       watchFn = (newValue, oldValue) ->
         unless angular.equals(newValue, oldValue)

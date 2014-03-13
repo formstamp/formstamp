@@ -20,10 +20,10 @@ describe 'fsTimeFormat', ->
 
     it 'sholudnt allow to enter invalid value', ->
       input.val('abc').triggerHandler('input')
-      expect($scope.value).toBe null
+      expect($scope.value).toBe ''
 
       input.val('3').triggerHandler('input')
-      expect($scope.value).toBe null
+      expect($scope.value).toBe ''
 
       input.val('2301').triggerHandler('input')
       expect($scope.value).toBe '23:01'
