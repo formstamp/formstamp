@@ -37,11 +37,10 @@ angular
            fs-on-focus='active = true'
            fs-on-blur='onBlur()'
            fs-hold-focus
-
            fs-down='move(1)'
            fs-up='move(-1)'
-           fs-pgup='move(-11)'
-           fs-pgdown='move(11)'
+           fs-pg-up='move(-11)'
+           fs-pg-down='move(11)'
            fs-enter='onEnter($event)'
            fs-esc='active = false'
            type="text"

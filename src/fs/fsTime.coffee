@@ -1,6 +1,6 @@
 angular
 .module("formstamp")
-.directive "fsTime", ['$compile', '$filter', ($compile, $filter) ->
+.directive "fsTime", ['$compile', '$filter', '$timeout', ($compile, $filter, $timeout) ->
   restrict: "A"
   scope:
     disabled: '=ngDisabled'
@@ -8,18 +8,29 @@ angular
   require: '?ngModel'
   replace: true
   template: (el)->
-
     """
     <div class="fs-time fs-widget-root">
       <input
         fs-null-form
+        fs-input
+        fs-focus-when='active'
+        fs-blur-when='!active'
+        fs-on-focus='active = true'
+        fs-on-blur='onBlur()'
+        fs-hold-focus
         fs-time-format
+        fs-down='move(1)'
+        fs-up='move(-1)'
+        fs-pg-up='move(-11)'
+        fs-pg-down='move(11)'
+        fs-enter='select(listInterface.selectedItem)'
+        fs-esc='active = false'
         ng-model="value"
         class="form-control"
         ng-disabled="disabled"
         type="text"/>
       <span class="glyphicon glyphicon-time"></span>
-      <div fs-list items="dropdownItems">
+      <div ng-if='active' fs-list items="dropdownItems">
         {{item}}
       </div>
     </div>
@@ -33,9 +44,27 @@ angular
       for m in minutes
         items.push "#{zh}:#{m}"
 
-    updateDropdown = () ->
+    updateDropdown = ->
       scope.dropdownItems = $filter('filter')(items, scope.value)
     scope.$watch 'value', (q)-> updateDropdown()
+
+    scope.onBlur = ->
+      $timeout(->
+        scope.active = false
+      , 0, true)
+
+    scope.move = (d) ->
+      scope.listInterface.move && scope.listInterface.move(d)
+
+    scope.select = (value) ->
+      scope.value = value
+      scope.active = false
+
+    scope.listInterface =
+      onSelect: scope.select
+
+      move: () ->
+        console.log "not-implemented listInterface.move() function"
 
     if ngModelCtrl
       watchFn = (newValue, oldValue) ->
