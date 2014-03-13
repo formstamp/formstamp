@@ -13,6 +13,7 @@ angular
     <div class="fs-time fs-widget-root">
       <input
         fs-null-form
+        fs-time-format
         ng-model="value"
         class="form-control"
         ng-disabled="disabled"

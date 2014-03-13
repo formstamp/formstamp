@@ -14,7 +14,7 @@ describe 'fsTimeFormat', ->
       input = $compile('<input fs-time-format ng-model="value" />')($scope)
       $scope.$apply()
 
-    it 'should expand time from 1224 to 12:24', ->
+    it 'should expand time from 1224 to 12:24 in input', ->
       input.val('1224').triggerHandler('input')
       expect(input.val()).toEqual '12:24'
 
@@ -23,34 +23,7 @@ describe 'fsTimeFormat', ->
       expect($scope.value).toBe null
 
       input.val('3').triggerHandler('input')
-      expect($scope.value).toBe '03:00'
-
-      input.val('26').triggerHandler('input')
-      expect($scope.value).toBe '02:00'
-
-      input.val('23:7').triggerHandler('input')
-      expect($scope.value).toBe '23:07'
-
-      input.val('2').triggerHandler('input')
-      expect($scope.value).toBe '02:00'
-
-      input.val('23').triggerHandler('input')
-      expect($scope.value).toBe '23:00'
-
-      input.val('232').triggerHandler('input')
-      expect($scope.value).toBe '23:02'
+      expect($scope.value).toBe null
 
       input.val('2301').triggerHandler('input')
       expect($scope.value).toBe '23:01'
-
-      input.val('2:1').triggerHandler('input')
-      expect($scope.value).toBe '02:01'
-
-      input.val('2:13').triggerHandler('input')
-      expect($scope.value).toBe '02:13'
-
-      input.val('2:13').triggerHandler('input')
-      expect($scope.value).toBe '02:13'
-
-      input.val(':13').triggerHandler('input')
-      expect($scope.value).toBe '00:13'
