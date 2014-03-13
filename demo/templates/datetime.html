@@ -118,18 +118,11 @@
   <script>
     function TimeCtrl($scope) {
       now = new Date()
-      $scope.svalue = {
-        hours: now.getHours(),
-        minutes: now.getMinutes()
-      };
+      $scope.svalue = now.getHours() + ":" + now.getMinutes();
       $scope.disabled = false;
 
       $scope.setTime = function(str){
-        var parts = str.split(':');
-        $scope.svalue = {
-          hours: parts[0],
-          minutes: parts[1]
-        }
+        $scope.svalue = str
       };
     }
   </script>
