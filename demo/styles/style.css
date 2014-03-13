@@ -21,7 +21,7 @@ body{
 }
 
 body > .container {
-  margin-top: 20px;
+  margin: 20px auto 40px auto;
 }
 
 .jumbotron {
