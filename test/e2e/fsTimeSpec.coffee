@@ -9,6 +9,17 @@ describe 'fsTime', ->
     $('.fs-time input').click()
     expect($('.fs-time .dropdown.fs-list').isPresent()).toBe(true)
 
+  it 'should open dropdown when icon is clicked', ->
+    expect($('.fs-time .dropdown.fs-list').isPresent()).toBe(false)
+    $('.fs-time .glyphicon').click()
+    expect($('.fs-time .dropdown.fs-list').isPresent()).toBe(true)
+
+  it 'should not open dropdown when widget is disabled and icon is clicked', ->
+    expect($('.fs-time .dropdown.fs-list').isPresent()).toBe(false)
+    $('#disable').click()
+    $('.fs-time .glyphicon').click()
+    expect($('.fs-time .dropdown.fs-list').isPresent()).toBe(false)
+
   it 'should allow to select value with mouse click', ->
     $('.fs-time input').click()
     $('.fs-time .dropdown.fs-list li:first-child a').click()

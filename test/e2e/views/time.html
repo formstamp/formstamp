@@ -7,10 +7,16 @@
     <script type='text/javascript' src='/build/formstamp.js'></script>
     <script type='text/javascript'>
       angular.module('formstamp-test', ['formstamp']);
+
+      function TimeCtrl($scope) {
+        $scope.disabled = false;
+      }
     </script>
   </head>
-  <body>
+  <body ng-controller='TimeCtrl'>
     <h1>fsTime</h1>
-    <div fs-time ng-model='value'></div>
+    <div fs-time ng-model='value' ng-disabled='disabled'></div>
+
+    <a href="#" ng-click="disabled = !disabled" id="disable">disable</a>
   </body>
 </html>

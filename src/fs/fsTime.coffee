@@ -29,8 +29,9 @@ angular
         class="form-control"
         ng-disabled="disabled"
         type="text"/>
-      <span class="glyphicon glyphicon-time"></span>
-      <div ng-if='active' fs-list items="dropdownItems">
+
+      <span class="glyphicon glyphicon-time" ng-click="active = !disabled"></span>
+      <div ng-if='!disabled && active' fs-list items="dropdownItems">
         {{item}}
       </div>
     </div>
