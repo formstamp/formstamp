@@ -24,7 +24,6 @@ describe 'fsSelect', ->
   it 'should allow to navigate through list with arrows', ->
     $('.first-select .fs-select-active').click()
     $('.first-select input').sendKeys($ptor.Key.DOWN) for [1..10]
-    takeScreenshot()
     $('.first-select input').sendKeys($ptor.Key.ENTER)
     expect($('#valueId').getText()).toBe('2')
 
