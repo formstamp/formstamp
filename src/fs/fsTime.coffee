@@ -23,7 +23,7 @@ angular
         fs-up='move(-1)'
         fs-pg-up='move(-11)'
         fs-pg-down='move(11)'
-        fs-enter='select(listInterface.selectedItem)'
+        fs-enter='onEnter()'
         fs-esc='active = false'
         ng-model="value"
         class="form-control"
@@ -60,6 +60,11 @@ angular
         scope.active = false
       , 0, true)
 
+    scope.onEnter = ->
+      scope.select(scope.listInterface.selectedItem)
+      scope.active = false
+      false
+
     scope.move = (d) ->
       scope.listInterface.move && scope.listInterface.move(d)
 
@@ -69,7 +74,6 @@ angular
 
     scope.listInterface =
       onSelect: scope.select
-
       move: () ->
         console.log "not-implemented listInterface.move() function"
 
@@ -77,6 +81,7 @@ angular
       watchFn = (newValue, oldValue) ->
         unless angular.equals(newValue, oldValue)
           ngModelCtrl.$setViewValue(newValue)
+
       scope.$watch 'value', watchFn
 
       ngModelCtrl.$render = ->

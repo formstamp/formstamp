@@ -20,6 +20,15 @@ describe 'fsTime', ->
     $('.fs-time .glyphicon').click()
     expect($('.fs-time .dropdown.fs-list').isPresent()).toBe(false)
 
+  it 'should allow to select value from dropdown (issue #1)', ->
+    $('.fs-time input').click()
+    $('.fs-time input').sendKeys('12')
+    $('.fs-time input').sendKeys('12')
+    $('.fs-time input').sendKeys($ptor.Key.ENTER)
+
+    expect($('.fs-time input').getAttribute('value')).toBe '12:12'
+    expect($('#value').getText()).toBe '12:12'
+
   it 'should allow to select value with mouse click', ->
     $('.fs-time input').click()
     $('.fs-time .dropdown.fs-list li:first-child a').click()
