@@ -4,14 +4,19 @@ branches:
   only:
     - master
 
+before_install:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+
 before_script:
   - npm install
+  - "`npm bin`/webdriver-manager update"
   - "`npm bin`/bower install"
   - node server.js &
-  - phantomjs --webdriver=4444 &
 
 script:
   - "`npm bin`/grunt build"
-  - "`npm bin`/grunt clean:e2e coffee:e2e"
-  - "`npm bin`/protractor test/build/e2e/conf.js"
+  - "`npm bin`/grunt test:e2e:phantomjs"
+  - "`npm bin`/grunt test:e2e:chrome"
+  - "`npm bin`/grunt test:e2e:firefox"
   - "`npm bin`/karma start test/karma.conf.js --single-run"

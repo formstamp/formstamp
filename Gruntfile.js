@@ -9,7 +9,8 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-angular-templates');
   grunt.loadNpmTasks('grunt-protractor-runner');
-  grunt.loadNpmTasks('grunt-shell');
+  grunt.loadNpmTasks('grunt-selenium-webdriver');
+
 
   grunt.initConfig({
     coffee: {
@@ -88,13 +89,33 @@ module.exports = function (grunt) {
     },
     protractor: {
       options: {
-        configFile: 'test/build/e2e/conf.js'
+        configFile: 'test/build/e2e/conf.js',
+        args: {
+          seleniumAddress: 'http://localhost:4444/wd/hub'
+        }
       },
-      'default': { }
-    },
-    shell: {
       phantomjs: {
-        command: './node_modules/.bin/phantomjs --webdriver=4444'
+        options: {
+          args: {
+            browser: 'phantomjs',
+            seleniumAddress: 'http://localhost:4444/wd/hub'
+          }
+        }
+      },
+      chrome: {
+        options: {
+          args: {
+            browser: 'chrome',
+          }
+        }
+      },
+      firefox: {
+        options: {
+          args: {
+            browser: 'firefox',
+            seleniumAddress: 'http://localhost:4444/wd/hub'
+          }
+        }
       }
     },
     watch: {
@@ -131,6 +152,15 @@ module.exports = function (grunt) {
                       'coffee:e2e',
                       'protractor:default']);
 
-  grunt.registerTask('phantomjs',
-                     ['shell:phantomjs']);
+  grunt.registerTask('test:e2e:phantomjs',
+                     ['clean:e2e', 'coffee:e2e',
+                      'selenium_phantom_hub', 'protractor:phantomjs', 'selenium_stop'])
+
+  grunt.registerTask('test:e2e:chrome',
+                     ['clean:e2e', 'coffee:e2e',
+                      'protractor:chrome'])
+
+  grunt.registerTask('test:e2e:firefox',
+                     ['clean:e2e', 'coffee:e2e',
+                      'selenium_start', 'protractor:firefox', 'selenium_stop'])
 };

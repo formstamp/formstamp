@@ -23,7 +23,7 @@
     "grunt-angular-templates": "~0.5.1",
     "grunt-contrib-clean": "~0.5.0",
     "grunt-protractor-runner": "~0.2",
-    "grunt-shell": "~0.6",
+    "grunt-selenium-webdriver": "~0.2",
     "phantomjs" : "~1.9",
     "karma" : "~0.10",
     "karma-jasmine" : "~0.1",

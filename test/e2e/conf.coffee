@@ -1,8 +1,5 @@
 # An example configuration file.
 exports.config =
-  # The address of a running selenium server.
-  seleniumAddress: 'http://localhost:4444'
-
   baseUrl: 'http://localhost:17405/test/e2e/views/'
 
   # Capabilities to be passed to the webdriver instance.
