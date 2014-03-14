@@ -12,22 +12,28 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-selenium-webdriver');
 
   var protractorConf = function(browser) {
-    var conf = {
+    var args = {};
+
+    args.baseUrl = 'http://localhost:17405/test/e2e/views/';
+    args.browser = browser;
+    args.specs = grunt.option('specs') || ['test/build/e2e/*Spec.js'];
+
+    if (process.env.TRAVIS) {
+      args.sauceUser = process.env.SAUCE_USERNAME;
+      args.sauceKey = process.env.SAUCE_ACCESS_KEY;
+    } else {
+      // Chrome is not running wirh grunt-selenium-webdriver.
+      // Make it run on his own.
+      if (browser != 'chrome')
+        args.seleniumAddress = 'http://localhost:4444/wd/hub';
+    }
+
+    return {
       options: {
         keepAlive: false,
-        args: {
-          baseUrl: 'http://localhost:8000/test/e2e/views/',
-          browser: browser,
-          specs: grunt.option('specs') || ['test/build/e2e/*Spec.js'],
-          sauceUser: process.env.SAUCE_USERNAME,
-          sauceKey: process.env.SAUCE_ACCESS_KEY
-        }
+        'args': args
       }
     }
-    // Chrome is not running wirh grunt-selenium-webdriver. Make it run on his own.
-    if (browser == 'chrome') delete conf.options.args.seleniumAddress
-
-    return conf;
   };
 
   grunt.initConfig({

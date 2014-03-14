@@ -12,7 +12,7 @@ before_script:
 - npm install
 - '`npm bin`/webdriver-manager update'
 - '`npm bin`/bower install'
-- node server.js 8000 &
+- node server.js &
 script:
 - '`npm bin`/grunt build'
 - '`npm bin`/grunt test:e2e:firefox'
