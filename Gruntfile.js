@@ -16,7 +16,7 @@ module.exports = function (grunt) {
       options: {
         keepAlive: false,
         args: {
-          //baseUrl: 'http://localhost:17405/test/e2e/views/',
+          baseUrl: 'http://localhost:8000/test/e2e/views/',
           //browser: browser,
           specs: grunt.option('specs') || ['test/build/e2e/*Spec.js'],
           sauceUser: process.env.SAUCE_USERNAME,
