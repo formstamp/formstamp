@@ -14,7 +14,7 @@ before_script:
 - npm install
 - '`npm bin`/webdriver-manager update'
 - '`npm bin`/bower install'
-- node server.js &
+- node server.js 5000 &
 - sh -e sauce_connect.sh
 script:
 - '`npm bin`/grunt build'
