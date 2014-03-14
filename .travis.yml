@@ -7,9 +7,6 @@ env:
   global:
   - secure: JxS2Nhd0w1L4sr+y2uko4nGKa4CoXZwmA0mbWQk3jo1joJm1AJhONR3z+1GUPVyadZEIaVS+W3uE+f0V8ebHVU8Ke/jdDIUdWat0NmGv20YnHh3myjfMqCDiT0scjDfM69mAq89G3NZKDHJTtn3oVXQt5igegVUg9i/tBN1H4hY=
   - secure: J3zmAg4FgfMtpT27G/qcpv44mILTGLBn/uRNle3w4M33TG4LQOtwbhKvF8zLeWWFrYHLHwmCtU8vQYQJ7qWvUdaoYYrIjtg+8IrmPOim93xcX/XrguE3YwmUCJG0/OMPNZukUiPkwSXy3fMSRwznMY8SAyYrlcVzbdD9kbBTLD8=
-before_install:
-- sh -e /etc/init.d/xvfb start
-- export DISPLAY=:99.0
 before_script:
 - sh sc.sh
 - npm install
