@@ -104,11 +104,17 @@ To run test suite you should start local web server and
 
     cd formstamp
     node server.js
-    `npm bin`/phantomjs --webdriver=4444
+    grunt webdriver-manager update
 
-Next, compile CoffeeScript in test directory with command:
+To run protractor tests you could use:
+    
+    grunt test:e2e:phantomjs 
+    grunt test:e2e:chrome 
+    grunt test:e2e:firefox 
 
-    `npm bin`/grunt coffee:e2e
+Alse you can provide option to protractor test to run specific test:
+
+    grunt test:e2e:chrome --specs=test/build/e2e/fsDateSpec.js
 
 Then you can run unit tests with following command:
 

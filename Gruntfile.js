@@ -11,6 +11,18 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-protractor-runner');
   grunt.loadNpmTasks('grunt-selenium-webdriver');
 
+  var protractorConf = function(browser) {
+    return {
+      options: {
+        args: {
+          baseUrl: 'http://localhost:17405/test/e2e/views/',
+          browser: browser,
+          specs: grunt.option('specs') || ['test/build/e2e/*Spec.js'],
+          seleniumAddress: 'http://localhost:4444/wd/hub'
+        }
+      }
+    }
+  };
 
   grunt.initConfig({
     coffee: {
@@ -88,35 +100,10 @@ module.exports = function (grunt) {
       }
     },
     protractor: {
-      options: {
-        configFile: 'test/build/e2e/conf.js',
-        args: {
-          seleniumAddress: 'http://localhost:4444/wd/hub'
-        }
-      },
-      phantomjs: {
-        options: {
-          args: {
-            browser: 'phantomjs',
-            seleniumAddress: 'http://localhost:4444/wd/hub'
-          }
-        }
-      },
-      chrome: {
-        options: {
-          args: {
-            browser: 'chrome',
-          }
-        }
-      },
-      firefox: {
-        options: {
-          args: {
-            browser: 'firefox',
-            seleniumAddress: 'http://localhost:4444/wd/hub'
-          }
-        }
-      }
+      options: { },
+      phantomjs: protractorConf('phantomjs'),
+      chrome: protractorConf('chrome'),
+      firefox: protractorConf('firefox')
     },
     watch: {
       main: {
