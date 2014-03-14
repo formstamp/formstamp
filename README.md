@@ -107,10 +107,10 @@ To run test suite you should start local web server and
     grunt webdriver-manager update
 
 To run protractor tests you could use:
-    
-    grunt test:e2e:phantomjs 
-    grunt test:e2e:chrome 
-    grunt test:e2e:firefox 
+
+    grunt test:e2e:phantomjs
+    grunt test:e2e:chrome
+    grunt test:e2e:firefox
 
 Alse you can provide option to protractor test to run specific test:
 
@@ -122,7 +122,7 @@ Then you can run unit tests with following command:
 
 And E2E tests with:
 
-     `npm bin`/protractor test/build/e2e/conf.js
+    `npm bin`/protractor test/build/e2e/conf.js
 
 License
 -----------
