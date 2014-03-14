@@ -16,10 +16,11 @@ module.exports = function (grunt) {
       options: {
         keepAlive: false,
         args: {
-          baseUrl: 'http://localhost:17405/test/e2e/views/',
-          browser: browser,
+          //baseUrl: 'http://localhost:17405/test/e2e/views/',
+          //browser: browser,
           specs: grunt.option('specs') || ['test/build/e2e/*Spec.js'],
-          seleniumAddress: 'http://localhost:4444/wd/hub'
+          sauceUser: process.env.SAUCE_USERNAME,
+          sauceKey: process.env.SAUCE_ACCESS_KEY
         }
       }
     }
