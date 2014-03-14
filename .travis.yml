@@ -9,7 +9,6 @@ env:
   - secure: iBYDR5myuv+J2NvdWfwlHE36JAFFduEoHSs91WRbnehwkd3AO89rSro0izeTbRM+e8VGGtNMr04RQTrcuu0mRSsrL+NOkACBWa42Z/EdE0ZAgAZdwz65gM+Ng9wXNhKZHEqN8pyGsNUA0RKyUoYcjOLkBoKeS/vUTqCb5aZDEyI=
 before_script:
 - sh sc.sh
-- npm install
 - '`npm bin`/webdriver-manager update'
 - '`npm bin`/bower install'
 - node server.js &
