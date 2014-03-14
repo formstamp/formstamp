@@ -22,10 +22,10 @@ describe 'fsTime', ->
 
   it 'should allow to select value from dropdown (issue #1)', ->
     $('.fs-time input').click()
-    $('.fs-time input').sendKeys('1212', $ptor.Key.ENTER)
+    $('.fs-time input').sendKeys('1200', $ptor.Key.ENTER)
 
-    expect($('.fs-time input').getAttribute('value')).toBe '12:12'
-    expect($('#value').getText()).toBe '12:12'
+    expect($('.fs-time input').getAttribute('value')).toBe '12:00'
+    expect($('#value').getText()).toBe '12:00'
 
   it 'should allow to select value with mouse click', ->
     $('.fs-time input').click()
