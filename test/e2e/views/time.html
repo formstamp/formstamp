@@ -1,6 +1,5 @@
 <html ng-app='formstamp-test'>
-  <head>
-    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
+  <head> <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
     <link rel="stylesheet" href="/build/formstamp.css"/>
     <script type='text/javascript' src='/bower_components/jquery/dist/jquery.js'></script>
     <script type='text/javascript' src='/bower_components/angular/angular.js'></script>
@@ -15,6 +14,7 @@
   </head>
   <body ng-controller='TimeCtrl'>
     <h1>fsTime</h1>
+    <input type='text' id='x' />
     <div fs-time ng-model='value' ng-disabled='disabled'></div>
 
     <a href="#" ng-click="disabled = !disabled" id="disable">disable</a>
