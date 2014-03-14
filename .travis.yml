@@ -5,7 +5,7 @@ branches:
     - master
 
 before_install:
-  - "Xvfb -fp /usr/share/fonts/X11/misc/ :22 -screen 0 1024x768x16 2>&1 &"
+  - "Xvfb -fp /usr/share/fonts/X11/misc/ :99 -screen 0 1024x768x16 2>&1 &"
   - "export DISPLAY=:99.0"
   - "echo 1 || sh -e /etc/init.d/xvfb start"
 
