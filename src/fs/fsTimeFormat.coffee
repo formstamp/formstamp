@@ -19,7 +19,6 @@ angular
 
         [_..., matched] = patterns.filter( (p) -> p.test(value) )
 
-        console.log value
         if !ideal.test(value) and prev != value
           value = value.replace(/^(\d\d)([^:]*)$/, "$1:$2") if value.length > 2
           value = value.match(matched)?[0] || ''
