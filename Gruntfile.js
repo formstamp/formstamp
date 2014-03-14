@@ -14,6 +14,7 @@ module.exports = function (grunt) {
   var protractorConf = function(browser) {
     var conf = {
       options: {
+        keepAlive: false,
         args: {
           baseUrl: 'http://localhost:17405/test/e2e/views/',
           browser: browser,
@@ -22,6 +23,7 @@ module.exports = function (grunt) {
         }
       }
     }
+    // Chrome is not running wirh grunt-selenium-webdriver. Make it run on his own.
     if (browser == 'chrome') delete conf.options.args.seleniumAddress
 
     return conf;
