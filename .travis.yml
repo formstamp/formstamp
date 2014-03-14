@@ -18,7 +18,7 @@ before_script:
 
 script:
   - "`npm bin`/grunt build"
-  - "`npm bin`/grunt test:e2e:chrome"
   - "`npm bin`/grunt test:e2e:firefox"
+  - "`npm bin`/grunt test:e2e:chrome"
   - "echo 1 || `npm bin`/grunt test:e2e:phantomjs"
   - "`npm bin`/karma start test/karma.conf.js --single-run"
