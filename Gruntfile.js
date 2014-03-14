@@ -134,10 +134,7 @@ module.exports = function (grunt) {
                       'concat:css',
                       'copy']);
 
-  grunt.registerTask('test:e2e',
-                     ['clean:e2e',
-                      'coffee:e2e',
-                      'protractor:default']);
+  grunt.registerTask('test:e2e', 'test:e2e:phantomjs')
 
   grunt.registerTask('test:e2e:phantomjs',
                      ['clean:e2e', 'coffee:e2e',
