@@ -12,7 +12,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-selenium-webdriver');
 
   var protractorConf = function(browser) {
-    return {
+    var conf = {
       options: {
         args: {
           baseUrl: 'http://localhost:17405/test/e2e/views/',
@@ -22,6 +22,9 @@ module.exports = function (grunt) {
         }
       }
     }
+    if (browser == 'chrome') delete conf.options.args.seleniumAddress
+
+    return conf;
   };
 
   grunt.initConfig({
