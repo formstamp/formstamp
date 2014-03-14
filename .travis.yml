@@ -5,8 +5,8 @@ branches:
   - master
 env:
   global:
-  - secure: JxS2Nhd0w1L4sr+y2uko4nGKa4CoXZwmA0mbWQk3jo1joJm1AJhONR3z+1GUPVyadZEIaVS+W3uE+f0V8ebHVU8Ke/jdDIUdWat0NmGv20YnHh3myjfMqCDiT0scjDfM69mAq89G3NZKDHJTtn3oVXQt5igegVUg9i/tBN1H4hY=
-  - secure: J3zmAg4FgfMtpT27G/qcpv44mILTGLBn/uRNle3w4M33TG4LQOtwbhKvF8zLeWWFrYHLHwmCtU8vQYQJ7qWvUdaoYYrIjtg+8IrmPOim93xcX/XrguE3YwmUCJG0/OMPNZukUiPkwSXy3fMSRwznMY8SAyYrlcVzbdD9kbBTLD8=
+  - secure: orh/qjGCOk8zzATI19BV/qoV9Zv+m6C2sLeCYR1aeWXU2g9xX+f0iW960zrg1ja2Dj1PsX7c0SXbdXSUEko/AqQQqyiZZjE0r4SVZKn6fIBIGrZvnhkKwr7CtGdxWqy4PFNZi6DHLd6DKi2bFOUgmulk8GnZ64d2TstD9tEzLzA=
+  - secure: iBYDR5myuv+J2NvdWfwlHE36JAFFduEoHSs91WRbnehwkd3AO89rSro0izeTbRM+e8VGGtNMr04RQTrcuu0mRSsrL+NOkACBWa42Z/EdE0ZAgAZdwz65gM+Ng9wXNhKZHEqN8pyGsNUA0RKyUoYcjOLkBoKeS/vUTqCb5aZDEyI=
 before_script:
 - sh sc.sh
 - npm install
@@ -16,6 +16,6 @@ before_script:
 script:
 - '`npm bin`/grunt build'
 - '`npm bin`/grunt test:e2e:firefox'
-- echo 1 || `npm bin`/grunt test:e2e:chrome
-- echo 1 || `npm bin`/grunt test:e2e:phantomjs
+- '`npm bin`/grunt test:e2e:chrome'
+- '`npm bin`/grunt test:e2e:phantomjs'
 - '`npm bin`/karma start test/karma.conf.js --single-run'
