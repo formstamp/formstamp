@@ -60,7 +60,7 @@ describe 'fsDate', ->
 
   it "should allow to enter date via keyboard", ->
     $('.fs-date input').clear()
-    $('.fs-date input').sendKeys("9/11/01")
+    $('.fs-date input').sendKeys("9/11/2001")
 
     expect($("#day").getText()).toBe('11')
     expect($("#month").getText()).toBe('8')
