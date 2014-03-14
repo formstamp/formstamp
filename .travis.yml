@@ -11,11 +11,11 @@ before_install:
 - sh -e /etc/init.d/xvfb start
 - export DISPLAY=:99.0
 before_script:
+- sh sc.sh
 - npm install
 - '`npm bin`/webdriver-manager update'
 - '`npm bin`/bower install'
 - node server.js 8000 &
-- sh sc.sh
 script:
 - '`npm bin`/grunt build'
 - '`npm bin`/grunt test:e2e:firefox'
