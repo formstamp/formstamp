@@ -1,7 +1,5 @@
 language: node_js
 node_js: '0.10'
-addons:
-  sauce_connect: true
 branches:
   only:
   - master
@@ -17,6 +15,7 @@ before_script:
 - '`npm bin`/webdriver-manager update'
 - '`npm bin`/bower install'
 - node server.js 8000 &
+- sh sc.sh
 script:
 - '`npm bin`/grunt build'
 - '`npm bin`/grunt test:e2e:firefox'
