@@ -18,7 +18,7 @@ module.exports = function (grunt) {
     args.browser = browser;
     args.specs = grunt.option('specs') || ['test/build/e2e/*Spec.js'];
 
-    if (process.env.TRAVIS) {
+    if (process.env.TRAVIS && browser != 'phantomjs') {
       args.sauceUser = process.env.SAUCE_USERNAME;
       args.sauceKey = process.env.SAUCE_ACCESS_KEY;
     } else {
