@@ -1,5 +1,7 @@
 language: node_js
 node_js: '0.10'
+addons:
+  sauce_connect: true
 branches:
   only:
   - master
@@ -15,7 +17,6 @@ before_script:
 - '`npm bin`/webdriver-manager update'
 - '`npm bin`/bower install'
 - node server.js 8000 &
-- curl https://gist.github.com/santiycr/5139565/raw/sauce_connect_setup.sh | bash
 script:
 - '`npm bin`/grunt build'
 - '`npm bin`/grunt test:e2e:firefox'
