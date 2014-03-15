@@ -1,6 +1,10 @@
 describe 'fsSelect', ->
   $ptor = protractor
 
+  # Issue https://github.com/angular/protractor/issues/614
+  pressEnter = (element) ->
+    element.sendKeys("\n")
+
   beforeEach ->
     browser.get('select.html')
 
@@ -18,13 +22,13 @@ describe 'fsSelect', ->
 
   it 'should allow to select value with enter key', ->
     $('.first-select .fs-select-active').click()
-    $('.first-select input').sendKeys($ptor.Key.ENTER)
+    pressEnter($('.first-select input'))
     expect($('#valueId').getText()).toBe('1')
 
   it 'should allow to navigate through list with arrows', ->
     $('.first-select .fs-select-active').click()
     $('.first-select input').sendKeys($ptor.Key.DOWN) for [1..10]
-    $('.first-select input').sendKeys($ptor.Key.ENTER)
+    pressEnter($('.first-select input'))
     expect($('#valueId').getText()).toBe('2')
 
   it 'should allow to enter freetext if freetext is enabled', ->
@@ -32,7 +36,7 @@ describe 'fsSelect', ->
     $('.second-select input').sendKeys("hello freetext")
     expect($('.second-select .dropdown-menu li:first-child a').getText()).toBe("hello freetext")
 
-    $('.second-select input').sendKeys($ptor.Key.ENTER)
+    pressEnter($('.second-select input'))
     expect($('#ftValue').getText()).toBe('hello freetext')
 
   it 'should filter dropdown items with entered text', ->

@@ -1,7 +1,7 @@
 describe 'fsMultiselect', ->
   $ptor = protractor
 
-  #
+  # Issue https://github.com/angular/protractor/issues/614
   pressEnter = (element) ->
     element.sendKeys("\n")
 
