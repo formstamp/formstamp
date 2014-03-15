@@ -67,7 +67,7 @@ describe 'fsDatetime', ->
   it 'should update view', ->
     $scope.value = date(year: 2010, month: 1, day: 1, hours: 12, minutes: 3)
     element = compile('<div fs-datetime ng-model="value"></div>')
-    expect(element.find('.fs-date input').val()).toBe '2/1/10'
+    expect(element.find('.fs-date input').val()).toBe '02/01/2010'
     expect(element.find('.fs-time input').val()).toBe '12:03'
 
     $scope.value = null

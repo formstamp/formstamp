@@ -1,4 +1,4 @@
-describe 'fsFormatDate', ->
+describe 'fsDateFormat', ->
   $scope = null
   $compile = null
   input = null
@@ -31,10 +31,10 @@ describe 'fsFormatDate', ->
   it 'should format date', ->
     $scope.value = date(day: 1, month: 1, year: 2012)
     $scope.$apply()
-    expect(input.val()).toEqual '2/1/12'
+    expect(input.val()).toEqual '02/01/2012'
 
   it 'should parse date', ->
-    input.val('3/2/12').triggerHandler('input')
+    input.val('03/02/2012').triggerHandler('input')
     expect($scope.value).toEqual date(day: 2, month: 2, year: 2012)
 
   it 'should set model to null if view is empty', ->
