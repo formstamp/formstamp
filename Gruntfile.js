@@ -14,7 +14,7 @@ module.exports = function (grunt) {
   var protractorConf = function(browser) {
     var args = {};
 
-    args.baseUrl = 'http://localhost:17405/test/e2e/views/';
+    args.baseUrl = 'http://localhost:8000/test/e2e/views/';
     args.browser = browser;
     args.specs = grunt.option('specs') || ['test/build/e2e/*Spec.js'];
 
