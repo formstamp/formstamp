@@ -3,9 +3,6 @@ node_js: '0.10'
 branches:
   only:
   - master
-cache:
-  directories:
-  - node_modules
 env:
   global:
   - secure: orh/qjGCOk8zzATI19BV/qoV9Zv+m6C2sLeCYR1aeWXU2g9xX+f0iW960zrg1ja2Dj1PsX7c0SXbdXSUEko/AqQQqyiZZjE0r4SVZKn6fIBIGrZvnhkKwr7CtGdxWqy4PFNZi6DHLd6DKi2bFOUgmulk8GnZ64d2TstD9tEzLzA=
