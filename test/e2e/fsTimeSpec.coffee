@@ -1,6 +1,10 @@
 describe 'fsTime', ->
   $ptor = protractor
 
+  # Issue https://github.com/angular/protractor/issues/614
+  pressEnter = (element) ->
+    element.sendKeys("\n")
+
   beforeEach ->
     browser.get('time.html')
 
@@ -22,7 +26,8 @@ describe 'fsTime', ->
 
   it 'should allow to select value from dropdown (issue #1)', ->
     $('.fs-time input').click()
-    $('.fs-time input').sendKeys('1200', $ptor.Key.ENTER)
+    $('.fs-time input').sendKeys('1200')
+    pressEnter($('.fs-time input'))
 
     expect($('.fs-time input').getAttribute('value')).toBe '12:00'
     expect($('#value').getText()).toBe '12:00'
@@ -33,7 +38,8 @@ describe 'fsTime', ->
     expect($('.fs-time input').getAttribute('value')).toBe '00:00'
 
   it 'should allow use keyboard for selecting values', ->
-    $('.fs-time input').sendKeys($ptor.Key.DOWN, $ptor.Key.ENTER)
+    $('.fs-time input').sendKeys($ptor.Key.DOWN)
+    pressEnter($('.fs-time input'))
     expect($('.fs-time input').getAttribute('value')).toBe '00:15'
 
   it 'should close dropdown after value is selected', ->
