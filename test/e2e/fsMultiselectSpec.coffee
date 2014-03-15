@@ -1,6 +1,10 @@
 describe 'fsMultiselect', ->
   $ptor = protractor
 
+  #
+  pressEnter = (element) ->
+    element.sendKeys("\n")
+
   beforeEach ->
     browser.get('multiselect.html')
 
@@ -14,8 +18,8 @@ describe 'fsMultiselect', ->
   it 'should allow to select multiple values', ->
     input = $('.first-select input')
     input.click()
-    input.sendKeys($ptor.Key.ENTER)
-    input.sendKeys($ptor.Key.ENTER)
+    pressEnter(input)
+    pressEnter(input)
 
     # check that dropdown wasn't closed
     expect(element.all(By.css(".first-select .dropdown-menu li")).count()).toBe(1)
@@ -55,7 +59,7 @@ describe 'fsMultiselect', ->
     input = $('.second-select input')
     input.click()
     input.sendKeys("gzigzigzeo")
-    input.sendKeys($ptor.Key.ENTER)
+    pressEnter(input)
 
     expect($(".second-select .fs-multiselect-selected-items a").getText()).toBe("gzigzigzeo")
     expect($("#secondValue").getText()).toMatch(/gzigzigzeo/)
