@@ -1,8 +1,13 @@
 describe 'fsCalendar', ->
-  now = null
+  year = null
+  month = null
+  day = null
 
   beforeEach ->
     now = new Date()
+    year = now.getFullYear()
+    month = now.getMonth()
+    day = now.getDate()
     browser.get('calendar.html')
 
   it 'should sets ng-model', ->
@@ -10,58 +15,38 @@ describe 'fsCalendar', ->
       .toBe('')
     $('.fs-calendar .day-current').click()
 
-    now.setHours(0)
-    now.setMinutes(0)
-    now.setSeconds(0)
-
-    expect(element(By.binding('value')).getText())
-      .toBe now.toString()
+    expect($('#year').getText()).toBe year.toString()
+    expect($('#month').getText()).toBe month.toString()
+    expect($('#day').getText()).toBe day.toString()
 
     $('.fs-calendar .day-in-selected-month').click()
-    now.setDate(1)
 
-    expect(element(By.binding('value')).getText())
-      .toBe now.toString()
+    expect($('#day').getText()).toBe '1'
 
   it 'should change month to next', ->
     $('.fs-calendar .fs-calendar-next').click()
     $('.fs-calendar .day-in-selected-month').click()
 
-    now.setMonth(now.getMonth() + 1)
-    now.setDate(1)
-    now.setHours(0)
-    now.setMinutes(0)
-    now.setSeconds(0)
-
-    expect(element(By.binding('value')).getText())
-      .toBe now.toString()
+    expect($('#year').getText()).toBe year.toString()
+    expect($('#month').getText()).toBe (month+1).toString()
+    expect($('#day').getText()).toBe '1'
 
   it 'should change month to previous', ->
     $('.fs-calendar .fs-calendar-prev').click()
     $('.fs-calendar .day-in-selected-month').click()
 
-    now.setMonth(now.getMonth() - 1)
-    now.setDate(1)
-    now.setHours(0)
-    now.setMinutes(0)
-    now.setSeconds(0)
-
-    expect(element(By.binding('value')).getText())
-      .toBe now.toString()
+    expect($('#year').getText()).toBe year.toString()
+    expect($('#month').getText()).toBe (month-1).toString()
+    expect($('#day').getText()).toBe '1'
 
   it 'should change month through month grid', ->
     $('.fs-calendar .fs-calendar-title').click()
     $('.fs-calendar .month').click()
     $('.fs-calendar .day-in-selected-month').click()
 
-    now.setMonth(0)
-    now.setDate(1)
-    now.setHours(0)
-    now.setMinutes(0)
-    now.setSeconds(0)
-
-    expect(element(By.binding('value')).getText())
-      .toBe now.toString()
+    expect($('#year').getText()).toBe year.toString()
+    expect($('#month').getText()).toBe '0'
+    expect($('#day').getText()).toBe '1'
 
   it 'should change year through year grid', ->
     $('.fs-calendar .fs-calendar-title').click()
@@ -70,12 +55,6 @@ describe 'fsCalendar', ->
     $('.fs-calendar .month').click()
     $('.fs-calendar .day-in-selected-month').click()
 
-    now.setYear(2009)
-    now.setMonth(0)
-    now.setDate(1)
-    now.setHours(0)
-    now.setMinutes(0)
-    now.setSeconds(0)
-
-    expect(element(By.binding('value')).getText())
-      .toBe now.toString()
+    expect($('#year').getText()).toBe '2009'
+    expect($('#month').getText()).toBe '0'
+    expect($('#day').getText()).toBe '1'

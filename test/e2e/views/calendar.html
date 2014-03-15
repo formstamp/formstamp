@@ -11,6 +11,8 @@
   </head>
   <body>
     <div fs-calendar ng-model='value'></div>
-    <span ng-bind='value'></span>
+    <span ng-bind='value.getFullYear()' id='year'></span>
+    <span ng-bind='value.getMonth()' id='month'></span>
+    <span ng-bind='value.getDate()' id='day'></span>
   </body>
 </html>
