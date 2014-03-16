@@ -24,6 +24,7 @@
     "grunt-contrib-clean": "~0.5.0",
     "grunt-protractor-runner": "~0.2",
     "grunt-selenium-webdriver": "~0.2",
+    "grunt-express": "~1.0",
     "phantomjs" : "~1.9",
     "karma" : "~0.10",
     "karma-jasmine" : "~0.1",

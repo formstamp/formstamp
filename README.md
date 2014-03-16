@@ -86,8 +86,8 @@ Install bower dependencies and node.js packages
 
 Start grunt watcher and node.js server
 
-    `npm bin`/grunt watch # Then start watching changes
-    node server.js 17405 # Run server at port 17405
+    `npm bin`/grunt watch         # Then start watching changes
+    `npm bin`/grunt express:perm  # Run server at port 17405
 
 Now, point your browser to http://localhost:17405/ and you'll see
 FormStamp's demo page.
@@ -99,11 +99,8 @@ have to manually configure profile file.
 Running Tests
 -------
 
-To run test suite you should start local web server and
-[PhantomJS](http://phantomjs.org/) server:
+Before run test suite:
 
-    cd formstamp
-    node server.js
     grunt webdriver-manager update
 
 To run protractor tests you could use:

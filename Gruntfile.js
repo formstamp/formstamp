@@ -10,11 +10,14 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-angular-templates');
   grunt.loadNpmTasks('grunt-protractor-runner');
   grunt.loadNpmTasks('grunt-selenium-webdriver');
+  grunt.loadNpmTasks('grunt-express');
+
+  var serverPort = 17405;
 
   var protractorConf = function(browser) {
     var args = {};
 
-    args.baseUrl = 'http://localhost:8000/test/e2e/views/';
+    args.baseUrl = 'http://localhost:' + serverPort + '/test/e2e/views/';
     args.browser = browser;
     args.specs = grunt.option('specs') || ['test/build/e2e/*Spec.js'];
 
@@ -117,6 +120,14 @@ module.exports = function (grunt) {
       chrome: protractorConf('chrome'),
       firefox: protractorConf('firefox')
     },
+    express: {
+      server: {
+        options: {
+          port: serverPort,
+          bases: __dirname
+        }
+      }
+    },
     watch: {
       main: {
         files: ['src/**/*.coffee', 'styles/**/*.less', 'templates/**/*.html', 'demo/coffee/*.coffee'],
@@ -146,17 +157,18 @@ module.exports = function (grunt) {
                       'concat:css',
                       'copy']);
 
+  grunt.registerTask('express:perm', ['express', 'express-keepalive'])
   grunt.registerTask('test:e2e', 'test:e2e:phantomjs')
 
   grunt.registerTask('test:e2e:phantomjs',
-                     ['clean:e2e', 'coffee:e2e',
+                     ['clean:e2e', 'coffee:e2e', 'express',
                       'selenium_phantom_hub', 'protractor:phantomjs', 'selenium_stop'])
 
   grunt.registerTask('test:e2e:chrome',
-                     ['clean:e2e', 'coffee:e2e',
+                     ['clean:e2e', 'coffee:e2e', 'express',
                       'protractor:chrome'])
 
   grunt.registerTask('test:e2e:firefox',
-                     ['clean:e2e', 'coffee:e2e',
+                     ['clean:e2e', 'coffee:e2e', 'express',
                       'selenium_start', 'protractor:firefox', 'selenium_stop'])
 };
