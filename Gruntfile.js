@@ -28,9 +28,7 @@ module.exports = function (grunt) {
       args.capabilities = {
         'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
         'build': process.env.TRAVIS_BUILD_NUMBER,
-        'record-video': false,
-        'record-screenshots': false,
-        'record-logs': false
+        'name': process.env.TRAVIS_COMMIT
       }
     } else {
       // Chrome is not running wirh grunt-selenium-webdriver.
