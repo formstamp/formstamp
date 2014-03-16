@@ -13,6 +13,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-express');
 
   var serverPort = 17405;
+  if (process.env.TRAVIS) serverPort = 8000;
 
   var protractorConf = function(browser) {
     var args = {};
