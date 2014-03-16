@@ -27,7 +27,10 @@ module.exports = function (grunt) {
       args.sauceKey = process.env.SAUCE_ACCESS_KEY;
       args.capabilities = {
         'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
-        'build': process.env.TRAVIS_BUILD_NUMBER
+        'build': process.env.TRAVIS_BUILD_NUMBER,
+        'record-video': false,
+        'record-screenshots': false,
+        'record-logs': false
       }
     } else {
       // Chrome is not running wirh grunt-selenium-webdriver.
