@@ -26,7 +26,7 @@ module.exports = function (grunt) {
       args.sauceUser = process.env.SAUCE_USERNAME;
       args.sauceKey = process.env.SAUCE_ACCESS_KEY;
       config.capabilities = {
-        'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
+        'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
         'build': process.env.TRAVIS_BUILD_NUMBER
       }
     } else {
