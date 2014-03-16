@@ -11,7 +11,6 @@ before_script:
 - sh sc.sh
 - '`npm bin`/webdriver-manager update'
 - '`npm bin`/bower install'
-- node server.js 8000 &
 script:
 - '`npm bin`/grunt build'
 - '`npm bin`/grunt test:e2e:firefox'
