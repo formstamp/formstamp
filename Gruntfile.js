@@ -25,6 +25,10 @@ module.exports = function (grunt) {
     if (process.env.TRAVIS && browser != 'phantomjs') {
       args.sauceUser = process.env.SAUCE_USERNAME;
       args.sauceKey = process.env.SAUCE_ACCESS_KEY;
+      config.capabilities = {
+        'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
+        'build': process.env.TRAVIS_BUILD_NUMBER
+      }
     } else {
       // Chrome is not running wirh grunt-selenium-webdriver.
       // Make it run on his own.
