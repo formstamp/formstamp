@@ -6,10 +6,10 @@ FormStamp
 FormStamp is a pure AngularJS widgets library designed for rich
 front-end web applications. FormStamp core principles are:
 
-* all widgets are written from scratch
-* maximum AngularJS compatibility (support ngDisabled, ngModel and
-  other standard directives)
-* styled with Twitter Bootstrap
+* all widgets are written from scratch;
+* maximum AngularJS compatibility (supports ngDisabled, ngModel and
+  other standard directives);
+* styled with Twitter Bootstrap;
 * clean & minimalistic codebase.
 
 [Live Demo](http://formstamp.github.io/)
@@ -29,41 +29,41 @@ There are 3 levels of directives:
 * Form Builder - orchestrates building of complex forms; provides
   simple DSL-like markup for describing forms and hides complex markup
   from you.
-* Widget directives - most often used widgets
+* Widget directives - most often used widgets.
 * Low-level directives - common concerns for widgets construction, can
-  be used to build your own custom widgets
+  be used to build your own custom widgets.
 
 Form Builder
 -----------
 
-* `fsFromFor` - root form builder directive
-* `fsInput` - renders row with input in form builder
-* `fsRow` - renders custom row
+* `fsFormFor` - root form builder directive;
+* `fsInput` - renders a row with input in form builder;
+* `fsRow` - renders a custom row.
 
 Widget Directives
 ---------
 
-* `fsSelect` - select input with freetext support (select/combo)
-* `fsMultiselect` - multiple select input with freetext support
-* `fsTime` - time input
-* `fsDate` - date input with `fsCalendar` inside dropdown
+* `fsSelect` - select input with free text support (select/combo);
+* `fsMultiselect` - multiple select input with free text support;
+* `fsTime` - time input;
+* `fsDate` - date input with `fsCalendar` inside dropdown;
 * `fsDatetime` - widget composed from `fsTime` and `fsDate` to enter
-  both date and time
-* `fsRadio` - radio buttons group
-* `fsCheck` - checkboxes group
+  both date and time;
+* `fsRadio` - a group of radiobuttons;
+* `fsCheck` - a group of checkboxes.
 
 Low-level Directives
 ---------
 
-* `fsList` - renders list of items and allows to move selection up and
-  down (with custom templating for items)
-* `fsNullForm` - hides input with ngModel binding from parent form
-* `fsInput` - simplifies keyboard & focus events handling
-* `fsCalendar` - draws a calendar and allows to mark one day as selected
+* `fsList` - renders a list of items and allows to move selection up and
+  down (with custom templating for items);
+* `fsNullForm` - hides input with ngModel binding from a parent form;
+* `fsInput` - simplifies keyboard & focus events handling;
+* `fsCalendar` - draws a calendar and allows to mark one day as selected.
 
 TODO
 ----
-  * I18n support
+  * support I18n
 
 Development Environment
 -----------
