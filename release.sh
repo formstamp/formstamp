@@ -40,3 +40,7 @@ cd ../bower-formstamp
 git add .
 git commit -a -m "release at `date` by `git config --get user.name`"
 git push origin master
+
+echo "-----------------------"
+echo "Released successfully!"
+echo "Don't forget to bump package version (make new tag in bower-formstamp repo & push it)"
