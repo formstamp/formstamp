@@ -13,11 +13,13 @@ describe 'fsCalendar', ->
   it 'should sets ng-model', ->
     expect(element(By.binding('value')).getText())
       .toBe('')
-    $('.fs-calendar .day-current').click()
+    currentTd = $('.fs-calendar .day-current')
+    day = currentTd.getText()
+    currentTd.click()
 
     expect($('#year').getText()).toBe year.toString()
     expect($('#month').getText()).toBe month.toString()
-    expect($('#day').getText()).toBe day.toString()
+    expect($('#day').getText()).toBe day
 
     $('.fs-calendar .day-in-selected-month').click()
 

@@ -1,4 +1,4 @@
-describe 'fsDate', ->
+describe 'fsDatetime', ->
   beforeEach ->
     browser.get('datetime.html')
 
@@ -15,12 +15,15 @@ describe 'fsDate', ->
 
   it 'should allow to choose date and time', ->
     $('.fs-datetime .fs-date input').click()
-    $('.fs-datetime .fs-date .day-current').click()
+    currentTd = $('.fs-datetime .fs-date .day-current')
+    day = currentTd.getText()
+    currentTd.click()
 
     $('.fs-datetime .fs-time input').sendKeys('12:01')
 
     now = new Date()
-    [day, month, year] = [now.getDate(), now.getMonth(), now.getFullYear()].map String
+    [month, year] = [now.getMonth(), now.getFullYear()].map String
+
     expect($('#hours').getText()).toBe '12'
     expect($('#minutes').getText()).toBe '1'
     expect($('#day').getText()).toBe day
