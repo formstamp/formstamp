@@ -1,9 +1,9 @@
 {
-  "author": "",
-  "name": "formstamp",
+  "author": "Health Samurai",
+  "name": "angular-formstamp",
   "version": "0.0.0",
-  "description": "",
-  "homepage": "",
+  "description": "Pure AngularJS widgets library",
+  "homepage": "http://formstamp.github.io/",
   "dependencies": {},
   "devDependencies": {
     "express": "~3.4.4",

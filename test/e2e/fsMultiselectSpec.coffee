@@ -15,6 +15,12 @@ describe 'fsMultiselect', ->
     expect($('.first-select .dropdown.fs-list').isPresent()).toBe(true)
     expect(element.all(By.css(".first-select .dropdown-menu li")).count()).toBe(3)
 
+  it 'should close dropdown on blur' , ->
+    $('.first-select input').click()
+    expect($('.first-select .dropdown.fs-list').isPresent()).toBe(true)
+    $('body').click()
+    expect($('.first-select .dropdown.fs-list').isPresent()).toBe(false)
+
   it 'should allow to select multiple values', ->
     input = $('.first-select input')
     input.click()
