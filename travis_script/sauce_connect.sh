@@ -6,5 +6,5 @@ cd sc-4.0-linux
 bin/sc -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY -f $READY_FILE -i $TRAVIS_JOB_NUMBER > /dev/null &
 
 while [ ! -f $READY_FILE ]; do
-    sleep .5
+  sleep .5
 done
