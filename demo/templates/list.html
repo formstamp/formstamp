@@ -94,7 +94,7 @@ $scope.listInterface = {
         };
 
         $scope.select = function(selectedItem) {
-          $scope.selectedTrack = selectedItem;
+          $scope.selectedTrack = selectedItem || $scope.listInterface.selectedItem;
         };
       }
     </script>
