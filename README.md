@@ -19,7 +19,7 @@ Installation
 
 FormStamp can be installed via [Bower Package Manager](http://bower.io/):
 
-    bower install formstamp
+    bower install angular-formstamp
 
 Structure
 ------------
