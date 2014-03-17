@@ -1,27 +1,33 @@
 {
-  "name": "formstamp",
+  "name": "angular-formstamp",
   "version": "0.0.0",
   "authors": [
-    "niquola@gmail.com"
+    "Alexander Bondarev",
+    "Alexandra Pavlyshina",
+    "Danil Kutkevich",
+    "Dmitry Nechyaev",
+    "Mike Lapshin",
+    "Nikolay Ryzhikov",
+    "Serzh Nechyporchuk"
   ],
-  "description": "FormStamp UI Library for AngularJS",
-  "keywords": [
-  ],
+  "description": "Pure AngularJS widgets library",
+  "keywords": ["ui", "angular", "widgets"],
   "main": [
     "build/formstamp.css",
-    "build/formstamp.js"
+    "build/formstamp.js",
+    "README.md",
+    "MIT-LICENSE"
   ],
   "license": "MIT",
   "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
   ],
   "dependencies": {
-    "components-font-awesome": "latest",
     "angular":"~1.2.0",
+    "bootstrap":"~3",
+    "jquery": ">= 1.9.0"
+  },
+  "devDependencies": {
+    "components-font-awesome": "latest",
     "angular-animate":"~1.2.0",
     "angular-sanitize":"~1.2.0",
     "angular-touch":"~1.2.0",
@@ -29,10 +35,6 @@
     "angular-animate":"~1.2.0",
     "angular-mocks":"~1.2.0",
     "angular-scenario":"~1.2.0",
-    "markdown":"latest",
-    "bootstrap":"~3",
-    "jquery": ">= 1.9.0"
-  },
-  "devDependencies": {
+    "markdown":"latest"
   }
 }
