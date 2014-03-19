@@ -98,5 +98,6 @@ app.directive "demoAudio", () ->
   replace: true,
   link: ($scope, $element, $attrs) ->
     $scope.$watch 'track', (track) ->
-      $element.attr('src', track.stream_url + "?client_id=8399f2e0577e0acb4eee4d65d6c6cce6")
-      $element.get(0).play()
+      if track
+        $element.attr('src', track.stream_url + "?client_id=8399f2e0577e0acb4eee4d65d6c6cce6")
+        $element.get(0).play()
