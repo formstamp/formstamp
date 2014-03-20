@@ -117,12 +117,8 @@ Then you can run unit tests with following command:
 
     `npm bin`/karma start test/karma.conf.js --single-run
 
-And E2E tests with:
-
-    `npm bin`/protractor test/build/e2e/conf.js
-
 License
------------
+-------
 
 FormStamp is released under
 [MIT License](https://raw.github.com/formstamp/formstamp/master/MIT-LICENSE).
