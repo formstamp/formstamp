@@ -11,12 +11,12 @@ unindentCode = (str) ->
 
 widgets  = [
     { name: 'Form Builder', template: 'formbuilder' }
-    { name: 'Select Widget', template: 'select' }
-    { name: 'MultiSelect Widget', template: 'multiselect' }
+    { name: 'Select', template: 'select' }
+    { name: 'MultiSelect', template: 'multiselect' }
     { name: 'Radio Group', template: 'radio' }
-    { name: 'Checkboxes', template: 'checkbox' }
-    { name: 'Date/Time Widgets', template: 'datetime' }
-    { name: 'fsList', template: 'list' }
+    { name: 'Checkbox Group', template: 'checkbox' }
+    { name: 'Date/Time', template: 'datetime' }
+    { name: 'List', template: 'list' }
     # { name: 'fsInput', template: 'input' }
 ]
 
