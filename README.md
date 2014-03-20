@@ -101,7 +101,7 @@ Running Tests
 
 Before run test suite:
 
-    grunt webdriver-manager update
+    `npm bin`/webdriver-manager update
 
 To run protractor tests you could use:
 
