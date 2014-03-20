@@ -86,7 +86,7 @@ Install bower dependencies and node.js packages
 
 Start grunt watcher and node.js server
 
-    `npm bin`/grunt watch         # Then start watching changes
+    `npm bin`/grunt build watch   # Then buid and start watching changes
     `npm bin`/grunt express:perm  # Run server at port 17405
 
 Now, point your browser to http://localhost:17405/ and you'll see
