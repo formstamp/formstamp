@@ -12,7 +12,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-selenium-webdriver');
   grunt.loadNpmTasks('grunt-express');
 
-  var serverPort = 17405;
+  var serverPort = grunt.option('port') || 17405;
   if (process.env.TRAVIS) serverPort = 8000;
 
   var protractorConf = function(browser) {

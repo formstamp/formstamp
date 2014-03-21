@@ -86,7 +86,8 @@ Install bower dependencies and node.js packages
 
 Build, start server and start watching changes using
 
-    grunt serve
+    grunt serve              # server starts on port 17405 by default
+    grunt serve --port 3000  # specify port
 
 Now, point your browser to http://localhost:17405/ and you'll see
 FormStamp's demo page.
@@ -110,7 +111,7 @@ To run protractor tests you could use:
 
 Alse you can provide option to protractor test to run specific test:
 
-    grunt test:e2e:chrome --specs=test/build/e2e/fsDateSpec.js
+    grunt test:e2e:chrome --specs test/build/e2e/fsDateSpec.js
 
 Then you can run unit tests with following command:
 
