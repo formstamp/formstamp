@@ -84,10 +84,9 @@ Install bower dependencies and node.js packages
     npm install # server deps
     bower install # demo deps
 
-Start grunt watcher and node.js server
+Build, start server and start watching changes using
 
-    `npm bin`/grunt build watch   # Then buid and start watching changes
-    `npm bin`/grunt express:perm  # Run server at port 17405
+    grunt serve
 
 Now, point your browser to http://localhost:17405/ and you'll see
 FormStamp's demo page.

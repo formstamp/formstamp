@@ -163,7 +163,7 @@ module.exports = function (grunt) {
                       'concat:css',
                       'copy']);
 
-  grunt.registerTask('express:perm', ['express', 'express-keepalive'])
+  grunt.registerTask('serve', ['build', 'express', 'watch'])
   grunt.registerTask('test:e2e', 'test:e2e:phantomjs')
 
   grunt.registerTask('test:e2e:phantomjs',
