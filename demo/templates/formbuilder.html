@@ -13,16 +13,8 @@
 </div>
 <p>
   This directive allows to construct complex horizontal forms with
-  easy DSL-like markup. Options:
-  <ul>
-    <li>
-      <var>fs-sync-form</var>
-      - Attribute used for synchronous form submitions.
-      It serializes model to the hidden input with name
-      <var>_json</var> as json. If value for this attribute
-      is provided then it'll be used as hidden name.
-    </li>
-  </ul>
+  easy DSL-like markup. Used primarily for asynchronous submits. For
+  synchronous use see <code class="ng-binding">fsSyncFormFor</code>.
 </p>
 <p>
   Each form row is described
@@ -44,7 +36,7 @@
 
 <sample>
   <div ng-controller="FormBuilderCtrl">
-    <fs-form-for model="samurai" fs-sync-form>
+    <fs-form-for model="samurai">
       <fieldset class='form-horizontal'>
         <legend>Samurai Personal Info</legend>
         <fs-input as="text" name="name" required label="Name"></fs-input>
@@ -187,3 +179,26 @@
     }
   </script>
 </sample>
+
+<div class='directive-header'>
+  <h3>
+    <a href="https://github.com/formstamp/formstamp/blob/master/src/fs/fsFormFor.coffee"
+       title="View source on GitHub"
+       class="btn btn-link">
+      <big class="fa fa-github"></big>
+    </a>
+    Directive <code class="ng-binding">fsSyncFormFor</code>
+  </h3>
+</div>
+<p>
+  This directive is similar with <var>fsFormFor</var>.
+  It's intended to use where synchronous form submit is needed.
+  It is serialize entire form object to the json to <var>_json</var>
+  hidden input.
+  <ul>
+    <li>
+      <var>sync-attr</var>
+      - Used for customizing name of hidden field. Default: <var>_json</var>.
+    </li>
+  </ul>
+</p>
