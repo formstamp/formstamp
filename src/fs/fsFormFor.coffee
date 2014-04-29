@@ -24,6 +24,8 @@ angular
   restrict: 'AE'
   template: (el, attrs) ->
     modelName = el.attr("model")
+    syncAttr = el.attr("fs-sync-form")
+    console.log syncAttr
 
     inputReplacer = () ->
       input = $(this)
@@ -76,8 +78,11 @@ angular
       .replaceWith(rowReplacer)
       .end().html()
 
-    """
-    <form name='form' class='form-horizontal' novalidate>
-      #{html}
-    </form>
-    """
+    hiddenJson = (model, attr) ->
+      name = attr || "_json"
+      "<input type='hidden' value='{{#{model} | json}}' name='#{name}' />"
+    
+    res  = "<form name='form' class='form-horizontal' novalidate>"
+    res += hiddenJson(modelName, syncAttr) if syncAttr?
+    res += html
+    res += "</form>"

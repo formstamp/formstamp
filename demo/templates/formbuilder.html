@@ -13,7 +13,16 @@
 </div>
 <p>
   This directive allows to construct complex horizontal forms with
-  easy DSL-like markup.
+  easy DSL-like markup. Options:
+  <ul>
+    <li>
+      <var>fs-sync-form</var>
+      - Attribute used for synchronous form submitions.
+      It serializes model to the hidden input with name
+      <var>_json</var> as json. If value for this attribute
+      is provided then it'll be used as hidden name.
+    </li>
+  </ul>
 </p>
 <p>
   Each form row is described
@@ -35,7 +44,7 @@
 
 <sample>
   <div ng-controller="FormBuilderCtrl">
-    <fs-form-for model="samurai">
+    <fs-form-for model="samurai" fs-sync-form>
       <fieldset class='form-horizontal'>
         <legend>Samurai Personal Info</legend>
         <fs-input as="text" name="name" required label="Name"></fs-input>
