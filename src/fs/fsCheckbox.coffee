@@ -15,14 +15,14 @@ angular
       template = """
 <div class='fs-racheck fs-checkbox' ng-class="{disabled: disabled, enabled: !disabled}">
   <div ng-repeat='item in items'>
-    <a class="fs-racheck-item"
+    <div class="fs-racheck-item"
        href='javascript:void(0)'
        ng-disabled="disabled"
        ng-click="toggle(item)"
        fs-space='toggle(item)'>
       <span class="fs-check-outer"><span ng-show="isSelected(item)" class="fs-check-inner"></span></span>
       #{itemTpl}
-    </a>
+    </div>
   </div>
 </div>
       """
