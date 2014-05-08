@@ -25,6 +25,7 @@ angular
   template: (el, attrs) ->
     modelName = el.attr("model")
     action = el.attr("action")
+    method = el.attr("method")
 
     inputReplacer = () ->
       input = $(this)
@@ -82,7 +83,7 @@ angular
       
     
     """
-    <form name='form' class='form-horizontal' action='#{action}' novalidate>
+    <form name='form' class='form-horizontal' action='#{action}' method='#{method}' novalidate>
       #{html}
     </form>
     """
