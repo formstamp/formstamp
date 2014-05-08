@@ -20,8 +20,14 @@ angular
        ng-disabled="disabled"
        ng-click="toggle(item)"
        fs-space='toggle(item)'>
+      <div class="row">
+<div class="col-xs-1">
       <span class="fs-check-outer"><span ng-show="isSelected(item)" class="fs-check-inner"></span></span>
+</div>
+      <div class="col-xs-9">
       #{itemTpl}
+        </div>
+      </div>
     </div>
   </div>
 </div>
