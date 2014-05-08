@@ -24,6 +24,7 @@ angular
   restrict: 'AE'
   template: (el, attrs) ->
     modelName = el.attr("model")
+    action = el.attr("action")
 
     inputReplacer = () ->
       input = $(this)
@@ -81,7 +82,7 @@ angular
       
     
     """
-    <form name='form' class='form-horizontal' novalidate>
+    <form name='form' class='form-horizontal' action='#{action}' novalidate>
       #{html}
     </form>
     """
