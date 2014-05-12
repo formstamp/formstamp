@@ -25,6 +25,12 @@ angular
   template: (el, attrs) ->
     modelName = el.attr("model")
     action = el.attr("action")
+    formAttributes = {
+      name: 'form'
+      class: 'form-horizontal'
+      novalidate: ''
+    }
+    formAttributes[attr.name] = attr.value for attr in el.prop("attributes")
 
     inputReplacer = () ->
       input = $(this)
@@ -77,31 +83,4 @@ angular
       .replaceWith(rowReplacer)
       .end().html()
 
-    hiddenJson = (model, attr) ->
-
-      
-    
-    """
-    <form name='form' class='form-horizontal' action='#{action}' novalidate>
-      #{html}
-    </form>
-    """
-
-angular
-.module('formstamp').directive 'fsSyncFormFor', ->
-  restrict: 'AE'
-  template: (el, attrs) ->
-    model = el.attr('model')
-    syncAttr = el.attr('sync-attr')
-
-    attributes = {}
-    attributes[attr.name] = attr.value for attr in el.prop("attributes")
-    attributes['fs-form-for'] = ''
-    delete attributes["fs-sync-form-for"]
-    res = $("<div />", attributes)
-
-    name = syncAttr || "_json"
-    res.html("<input type='hidden' value='{{#{model} | json}}' name='#{name}' />" +
-             el.html())
-        .get(0)
-        .outerHTML
+    $('<form>', formAttributes).html(html)[0].outerHTML
