@@ -24,7 +24,7 @@ angular
 <div class="col-xs-1">
       <span class="fs-check-outer"><span ng-show="isSelected(item)" class="fs-check-inner"></span></span>
 </div>
-      <div class="col-xs-9">
+      <div class="col-xs-11">
       #{itemTpl}
         </div>
       </div>
