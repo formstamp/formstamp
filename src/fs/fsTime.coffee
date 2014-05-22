@@ -52,7 +52,13 @@ angular
         []
 
     updateDropdown = ->
-      scope.dropdownItems = $filter('filter')(items, scope.value).concat(dynamicItems())
+      if scope.value.indexOf(':') >= 0
+        filterStr = scope.value
+      else
+        filterStr = "#{scope.value}:"
+
+      scope.dropdownItems = $filter('filter')(items, filterStr).concat(dynamicItems())
+
     scope.$watch 'value', (q)-> updateDropdown()
 
     scope.onBlur = ->
