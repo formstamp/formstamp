@@ -52,7 +52,9 @@ angular
         []
 
     updateDropdown = ->
-      if scope.value?.indexOf(':') >= 0
+      if not scope.value
+        filterStr = ""
+      else if scope.value?.indexOf(':') >= 0
         filterStr = scope.value
       else
         filterStr = "#{scope.value}:"
