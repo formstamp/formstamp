@@ -1,15 +1,15 @@
 <div class='form-group'
      ng-class='{"has-error": object.$errors[field].length > 0}'>
-  <label for='{{objectName}}[{{field}}]' class='col-sm-2 control-label'>Name</label>
+  <label for='{{ objectName }}[{{ field }}]' class='col-sm-2 control-label'>Name</label>
   <div class='col-sm-10'>
     <div w-combo
          class='w-field-input'
          items='items'
          invalid='object.$errors[field]'
-         name='{{objectName}}[{{field}}]' 
+         name='{{ objectName }}[{{ field }}]'
          ng-model='object[field]'></div>
     <div>
-      <p ng-repeat='error in object.$errors[field]' class='text-danger'>{{error}}</p>
+      <p ng-repeat='error in object.$errors[field]' class='text-danger'>{{ error }}</p>
     </div>
   </div>
 </div>
