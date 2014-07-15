@@ -22,19 +22,19 @@
   "ignore": [
   ],
   "dependencies": {
-    "angular":"~1.2.0",
+    "angular":"1.2.16",
     "bootstrap":"~3",
     "jquery": ">= 1.9.0"
   },
   "devDependencies": {
     "components-font-awesome": "latest",
-    "angular-animate":"~1.2.0",
-    "angular-sanitize":"~1.2.0",
-    "angular-touch":"~1.2.0",
-    "angular-route":"~1.2.0",
-    "angular-animate":"~1.2.0",
-    "angular-mocks":"~1.2.0",
-    "angular-scenario":"~1.2.0",
+    "angular-animate":"1.2.16",
+    "angular-sanitize":"1.2.16",
+    "angular-touch":"1.2.16",
+    "angular-route":"1.2.16",
+    "angular-animate":"1.2.16",
+    "angular-mocks":"1.2.16",
+    "angular-scenario":"1.2.16",
     "markdown":"latest"
   }
 }
