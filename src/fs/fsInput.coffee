@@ -7,17 +7,18 @@ angular
     blurElement = () -> setTimeout((-> element[0].blur()), 0)
 
     keyCodes =
-      Tab:      9
-      ShiftTab: 9
-      Enter:    13
-      Esc:      27
-      PgUp:     33
-      PgDown:   34
-      Left:     37
-      Up:       38
-      Right:    39
-      Down:     40
-      Space:    32
+      Tab:       9
+      ShiftTab:  9
+      Enter:     13
+      Esc:       27
+      PgUp:      33
+      PgDown:    34
+      Left:      37
+      Up:        38
+      Right:     39
+      Down:      40
+      Space:     32
+      Backspace: 8
 
     if attrs["fsFocusWhen"]?
       scope.$watch attrs["fsFocusWhen"], (newValue) ->
