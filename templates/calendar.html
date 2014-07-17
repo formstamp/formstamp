@@ -3,7 +3,7 @@
     <div class="fs-calendar-header">
       <span class="fs-calendar-prev" data-ng-click="prevYearRange()"></span>
       <span class="fs-calendar-title" data-ng-click="switchSelectionMode()">
-        {{years[0]}}-{{years[years.length-1]}}
+        {{ years[0] }}-{{ years[years.length-1] }}
       </span>
       <span class="fs-calendar-next" data-ng-click="nextYearRange()"></span>
     </div>
@@ -13,7 +13,7 @@
             data-ng-click="selectYear(year)"
             data-ng-class="{'active': year == selectedYear}"
             class="year">
-          {{year}}
+          {{ year }}
         </td>
       </tr>
     </table>
@@ -22,7 +22,7 @@
     <div class="fs-calendar-header">
       <span class="fs-calendar-prev" data-ng-click="prevYear()"></span>
       <span class="fs-calendar-title" data-ng-click="switchSelectionMode()">
-        {{selectedYear}}
+        {{ selectedYear }}
       </span>
       <span class="fs-calendar-next" data-ng-click="nextYear()"></span>
     </div>
@@ -32,7 +32,7 @@
             data-ng-click="selectMonth(month)"
             data-ng-class="{'active': month == selectedMonth && isSameYear()}"
             class="month">
-          {{month}}
+          {{ month }}
         </td>
       </tr>
     </table>
@@ -41,7 +41,7 @@
     <div class="fs-calendar-header">
       <span class="fs-calendar-prev" data-ng-click="prevMonth()"></span>
       <span class="fs-calendar-title" data-ng-click="switchSelectionMode()">
-        {{selectedMonth + ', ' + selectedYear}}
+        {{ selectedMonth + ', ' + selectedYear }}
       </span>
       <span class="fs-calendar-next" data-ng-click="nextMonth()"></span>
     </div>
@@ -49,7 +49,7 @@
       <thead>
       <tr>
         <th data-ng-repeat="weekDay in weekDays">
-          {{weekDay}}
+          {{ weekDay }}
         </th>
       </tr>
       </thead>
@@ -60,7 +60,7 @@
                        'day-current': isCurrentDate(day),
                        'active bg-info': isSelectedDate(day)}"
             data-ng-click="selectDay(day)">
-          {{day.getDate()}}
+          {{ day.getDate() }}
         </td>
       </tr>
       </tbody>
