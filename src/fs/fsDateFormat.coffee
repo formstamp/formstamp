@@ -5,7 +5,8 @@ angular
     require: 'ngModel'
     link: (scope, element, attrs, ngModel)->
       ngModel.$formatters.push (value)->
-        $filter('date')(value, 'MM/dd/yyyy')
+        format = attrs.fsDateFormat || 'MM/dd/yyyy'
+        $filter('date')(value, format)
 
       ngModel.$parsers.unshift (value)->
         date = new Date(value)

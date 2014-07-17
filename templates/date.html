@@ -11,7 +11,7 @@
      ng-disabled="disabled"
      class="form-control"
      ng-model="selectedDate.date"
-     fs-date-format
+     fs-date-format="{{format}}"
      placeholder="{{placeholder}}"
      fs-null-form />
   <span class="glyphicon glyphicon-calendar" ng-click='active = !disabled'></span>

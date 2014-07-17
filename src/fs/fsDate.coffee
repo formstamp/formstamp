@@ -7,6 +7,7 @@ angular
     class: '@'
     disabled: '=ngDisabled'
     placeholder: '@'
+    format: '@'
   templateUrl: '/templates/date.html'
   replace: true
   link: ($scope, element, attrs, ngModel) ->
