@@ -19,8 +19,7 @@ angular
          href="javascript:void(0)"
          ng-click="active = true"
          ng-disabled="disabled">
-           <span ng-show='item'>#{itemTpl}</span>
-           <span ng-hide='item'>none</span>
+           #{itemTpl}
       </a>
       <button type="button"
               class="btn btn-default fs-select-clear-btn"
