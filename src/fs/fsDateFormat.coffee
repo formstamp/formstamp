@@ -1,11 +1,11 @@
 angular
 .module('formstamp')
-.directive('fsDateFormat', ['$filter', 'fsDateFormatValue', ($filter, fsDateFormatValue)->
+.directive('fsDateFormat', ['$filter', 'fsConfig', ($filter, fsConfig)->
     restrict: 'A'
     require: 'ngModel'
     link: (scope, element, attrs, ngModel)->
       ngModel.$formatters.push (value)->
-        $filter('date')(value, fsDateFormatValue)
+        $filter('date')(value, fsConfig.dateFormat)
 
       ngModel.$parsers.unshift (value)->
         date = new Date(value)
