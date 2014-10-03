@@ -20,6 +20,7 @@ module.exports = function(config) {
       'bower_components/jquery/dist/jquery.js',
       'bower_components/angular/angular.js',
       'bower_components/angular-mocks/angular-mocks.js',
+      'bower_components/moment/moment.js',
       'build/formstamp.js',
       'test/fs/**/*Spec.coffee',
     ],
@@ -33,7 +34,7 @@ module.exports = function(config) {
 
     // test results reporter to use
     // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
-    reporters: ['dots'],
+    reporters: ['progress'],
 
 
     // web server port

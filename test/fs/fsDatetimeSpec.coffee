@@ -72,6 +72,6 @@ describe 'fsDatetime', ->
 
     $scope.value = null
     $scope.$apply()
-    expect(element.find('.fs-date input').val()).toBe ''
+    expect(element.find('.fs-date input').val()).toBe 'Invalid date'
     expect(element.find('.fs-time input').val()).toBe ''
 

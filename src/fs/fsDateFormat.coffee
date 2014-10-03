@@ -10,6 +10,10 @@ angular
         moment(value).format(format)
 
       ngModel.$parsers.unshift (value)->
-        date = new Date(moment(value, format).valueOf())
-        if isNaN(date.getTime()) then null else date
+        return null unless value
+        return null if value == ''
+        if moment(value).isValid()
+          new Date(moment(value, format).valueOf())
+        else
+          null
   ])
