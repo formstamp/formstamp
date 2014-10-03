@@ -3,6 +3,8 @@ FormStamp
 
 [![Build Status](https://travis-ci.org/formstamp/formstamp.png?branch=master)](https://travis-ci.org/formstamp/formstamp)
 
+[![Gitter chat](https://badges.gitter.im/formstamp/formstamp.png)](https://gitter.im/formstamp/formstamp)
+
 ***This project is under development. Some API may be changed.***
 
 FormStamp is a pure AngularJS widgets library designed for rich

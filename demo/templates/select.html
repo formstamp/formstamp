@@ -60,7 +60,12 @@
              items='items'
              ng-disabled="disabled"
              ng-model="svalue">
-          <b>{{item.id}}</b> {{item.label}}
+          <span ng-show="item">
+              <b>{{item.id}}</b> {{item.label}}
+          </span>
+          <span ng-hide="item">
+              Any weapon
+          </span>
         </div>
       </div>
       <div class="col-xs-3">
@@ -68,7 +73,12 @@
              items='items'
              ng-disabled="disabled"
              ng-model="svalue">
-          {{item.label}}
+          <span ng-show="item">
+              {{item.label}}
+          </span>
+          <span ng-hide="item">
+              Any weapon
+          </span>
         </div>
       </div>
       <div class="col-xs-1">
@@ -100,7 +110,13 @@
         <div fs-select
              items='countries'
              ng-model="country">
-          <div class="flag flag-{{ item['alpha-2'].toLowerCase() }}"></div> {{item.name}}
+          <div ng-show="item">
+              <div class="flag flag-{{ item['alpha-2'].toLowerCase() }}"></div>
+              {{item.name}}
+          </div>
+          <div ng-hide="item">
+              No country
+          </div>
         </div>
       </div>
     </div>

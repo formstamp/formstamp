@@ -4,10 +4,12 @@ angular
     restrict: 'A'
     require: 'ngModel'
     link: (scope, element, attrs, ngModel)->
+      format = attrs.fsDateFormat || fsConfig.dateFormat
+
       ngModel.$formatters.push (value)->
-        $filter('date')(value, fsConfig.dateFormat)
+        moment(value).format(format)
 
       ngModel.$parsers.unshift (value)->
-        date = new Date(value)
+        date = new Date(moment(value, format).valueOf())
         if isNaN(date.getTime()) then null else date
   ])
