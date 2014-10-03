@@ -1,4 +1,4 @@
-faDefaultConfig =
+fsDefaultConfig =
     dateFormat: 'MM/DD/YYYY'
 
 angular
