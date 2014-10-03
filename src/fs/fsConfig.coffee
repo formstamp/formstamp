@@ -1,3 +1,6 @@
+faDefaultConfig =
+    dateFormat: 'MM/DD/YYYY'
+
 angular
 .module('formstamp')
-.config('fsConfig', {dateFormat: 'MM/dd/yyyy'})
+.config('fsConfig', fsDefaultConfig)
