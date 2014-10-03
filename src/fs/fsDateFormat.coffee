@@ -1,10 +1,10 @@
 angular
 .module('formstamp')
-.directive('fsDateFormat', ['$filter', ($filter)->
+.directive('fsDateFormat', ['$filter', 'fsConfig', ($filter, fsConfig)->
     restrict: 'A'
     require: 'ngModel'
     link: (scope, element, attrs, ngModel)->
-      format = attrs.fsDateFormat || 'MM/DD/YYYY'
+      format = attrs.fsDateFormat || fsConfig.dateFormat
 
       ngModel.$formatters.push (value)->
         moment(value).format(format)
