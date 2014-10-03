@@ -1,5 +1,7 @@
 language: node_js
 node_js: '0.10'
+addons:
+  sauce_connect: true
 branches:
   only:
   - master
@@ -8,7 +10,6 @@ env:
   - secure: orh/qjGCOk8zzATI19BV/qoV9Zv+m6C2sLeCYR1aeWXU2g9xX+f0iW960zrg1ja2Dj1PsX7c0SXbdXSUEko/AqQQqyiZZjE0r4SVZKn6fIBIGrZvnhkKwr7CtGdxWqy4PFNZi6DHLd6DKi2bFOUgmulk8GnZ64d2TstD9tEzLzA=
   - secure: iBYDR5myuv+J2NvdWfwlHE36JAFFduEoHSs91WRbnehwkd3AO89rSro0izeTbRM+e8VGGtNMr04RQTrcuu0mRSsrL+NOkACBWa42Z/EdE0ZAgAZdwz65gM+Ng9wXNhKZHEqN8pyGsNUA0RKyUoYcjOLkBoKeS/vUTqCb5aZDEyI=
 before_script:
-- sh travis_script/sauce_connect.sh
 - '`npm bin`/webdriver-manager update'
 - '`npm bin`/bower install'
 script:
