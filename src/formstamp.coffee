@@ -1,0 +1,18 @@
+mod = require('./coffee/module')
+
+require('./coffee/config')
+require('./coffee/dateFormat')
+require('./coffee/date')
+require('./coffee/radio')
+require('./coffee/list')
+require('./coffee/input')
+require('./coffee/checkbox')
+require('./coffee/field')
+require('./coffee/datetime')
+require('./coffee/formFor')
+require('./coffee/time')
+require('./coffee/select')
+require('./coffee/multiselect')
+require('./coffee/calendar')
+
+require("./styles/syntax.css")

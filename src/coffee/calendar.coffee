@@ -1,11 +1,15 @@
+mod = require('./module')
+
+require("../styles/calendar.less")
+
 shiftWeekDays = (weekDays, firstDayOfWeek)->
   weekDaysHead = weekDays.slice(firstDayOfWeek, weekDays.length)
   weekDaysHead.concat(weekDays.slice(0, firstDayOfWeek))
 
-angular
-.module('formstamp').directive 'fsCalendar', ['$locale', ($locale)->
+
+mod.directive 'fsCalendar', ['$locale', ($locale)->
   restrict: 'EA'
-  templateUrl: '/templates/calendar.html'
+  template: require('html!../templates/calendar.html')
   replace: true
   require: '?ngModel'
   scope:

@@ -1,6 +1,8 @@
-angular
-.module("formstamp")
-.directive "fsCheckbox", ['$window', ($window) ->
+mod = require('./module')
+
+require('../styles/racheck.less')
+
+mod.directive "fsCheckbox", ['$window', ($window) ->
     restrict: "A"
     scope:
       disabled: '=ngDisabled'

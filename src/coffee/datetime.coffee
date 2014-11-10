@@ -1,6 +1,8 @@
-angular
-.module("formstamp")
-.directive "fsDatetime", ['$compile', ($compile) ->
+mod = require('./module')
+
+require("../styles/datetime.less")
+
+mod.directive "fsDatetime", ['$compile', ($compile) ->
   restrict: "A"
   scope:
     disabled: '=ngDisabled'

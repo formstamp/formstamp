@@ -1,6 +1,8 @@
-angular
-.module("formstamp")
-.directive "fsRadio", ['$window', ($window) ->
+mod = require('./module')
+
+require('../styles/racheck.less')
+
+mod.directive "fsRadio", ['$window', ($window) ->
     restrict: "A"
     scope:
       required: '='

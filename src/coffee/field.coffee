@@ -1,20 +1,20 @@
-angular.module('formstamp')
-.directive 'fsField', [->
+mod = require('./module')
 
-  VALIDATION_DIRECTIVES = [
-    'ngRequired', 'ngMinlength',
-    'ngMaxlength', 'ngPattern',
-    'ngDisabled']
+VALIDATION_DIRECTIVES = [
+  'ngRequired', 'ngMinlength',
+  'ngMaxlength', 'ngPattern',
+  'ngDisabled']
 
+mod.directive 'fsField', [->
   restrict: 'A'
   replace: true
   require: ['^fsFormFor', '^form']
+  template: require('html!../templates/field.html')
   scope:
     items: '='
     field: '@fsField'
     type: '@'
     label: '@'
-  templateUrl: '/templates/field.html'
   compile: (tElement, tAttrs) ->
     type = tAttrs.type
     inputDivRaw = tElement[0].querySelector('.fs-field-input')

@@ -1,6 +1,6 @@
-angular
-.module('formstamp')
-.directive('fsDate', ->
+mod = require('./module')
+
+mod.directive('fsDate', ->
   restrict: 'EA'
   require: '?ngModel'
   scope:
@@ -8,7 +8,7 @@ angular
     disabled: '=ngDisabled'
     placeholder: '@'
     format: '@'
-  templateUrl: '/templates/date.html'
+  template: require('html!../templates/date.html')
   replace: true
   link: ($scope, element, attrs, ngModel) ->
     $scope.selectedDate = {}

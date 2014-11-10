@@ -1,6 +1,8 @@
-angular
-.module("formstamp")
-.directive "fsList", () ->
+mod = require('./module')
+
+require("../styles/list.less")
+
+mod.directive "fsList", () ->
   restrict: "A"
   scope:
     items: '='
@@ -8,7 +10,7 @@ angular
     listInterface: '='
   transclude: true
   replace: true
-  templateUrl: "/templates/list.html"
+  template: require('html!../templates/list.html')
   link: ($scope, $element, $attrs) ->
     ensureHighlightedItemVisible = ->
       delayedScrollFn = ->

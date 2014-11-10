@@ -1,6 +1,5 @@
-angular
-.module('formstamp')
-.directive('fsDateFormat', ['$filter', 'fsConfig', ($filter, fsConfig)->
+mod = require('./module')
+mod.directive('fsDateFormat', ['$filter', 'fsConfig', ($filter, fsConfig)->
     restrict: 'A'
     require: 'ngModel'
     link: (scope, element, attrs, ngModel)->

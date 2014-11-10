@@ -1,12 +1,15 @@
-angular.module('formstamp').filter 'exclude', ->
+mod = require('./module')
+
+require("../styles/multiselect.less")
+
+mod.filter 'exclude', ->
   (input, selected) ->
     return input unless selected?
     return [] unless input?
 
     input.filter (item) -> selected.indexOf(item) < 0
 
-angular.module("formstamp")
-.directive "fsMultiselect", ['$window', ($window) ->
+mod.directive "fsMultiselect", ['$window', ($window) ->
     restrict: "A"
     scope:
       items: '='

@@ -1,6 +1,8 @@
-angular
-.module("formstamp")
-.directive "fsSelect", ['$compile', ($compile) ->
+mod = require('./module')
+
+require('../styles/select.less')
+
+mod.directive "fsSelect", ['$compile', ($compile) ->
   restrict: "A"
   scope:
     items: '='

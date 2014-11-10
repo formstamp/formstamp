@@ -19,23 +19,11 @@
     "MIT-LICENSE"
   ],
   "license": "MIT",
-  "ignore": [
-  ],
+  "ignore": [ ],
   "dependencies": {
     "angular":"1.2.16",
     "bootstrap":"~3",
     "jquery": ">= 1.9.0",
     "moment": "~2.7"
-  },
-  "devDependencies": {
-    "components-font-awesome": "latest",
-    "angular-animate":"1.2.16",
-    "angular-sanitize":"1.2.16",
-    "angular-touch":"1.2.16",
-    "angular-route":"1.2.16",
-    "angular-animate":"1.2.16",
-    "angular-mocks":"1.2.16",
-    "angular-scenario":"1.2.16",
-    "markdown":"latest"
   }
 }
