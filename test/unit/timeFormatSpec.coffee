@@ -1,4 +1,4 @@
-ddescribe 'fsTimeFormat', ->
+describe 'fsTimeFormat', ->
   $scope = null
   input  = null
 
@@ -7,7 +7,6 @@ ddescribe 'fsTimeFormat', ->
   beforeEach inject ($rootScope, $compile) ->
     $scope = $rootScope.$new()
     input = $compile('<input fs-time-format ng-model="value"/>')($scope)
-    console.log(input)
     $scope.$apply()
 
   it 'should expand time from 1224 to 12:24 in input', ->

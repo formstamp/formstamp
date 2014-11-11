@@ -17,7 +17,6 @@ mod.directive('fsTimeFormat', ['$filter', ($filter)->
     restrict: 'A'
     require: 'ngModel'
     link: (scope, element, attrs, ngModel)->
-      console.log('fsTimeFormat')
       prev = null
       ngModel.$parsers.unshift (value = '')->
         matched = match(value)
