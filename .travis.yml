@@ -1,7 +1,7 @@
 language: node_js
 node_js: '0.10'
-addons:
-  sauce_connect: true
+# addons:
+#   sauce_connect: true
 branches:
   only:
   - master
@@ -11,6 +11,7 @@ env:
   - secure: iBYDR5myuv+J2NvdWfwlHE36JAFFduEoHSs91WRbnehwkd3AO89rSro0izeTbRM+e8VGGtNMr04RQTrcuu0mRSsrL+NOkACBWa42Z/EdE0ZAgAZdwz65gM+Ng9wXNhKZHEqN8pyGsNUA0RKyUoYcjOLkBoKeS/vUTqCb5aZDEyI=
 before_script:
 # - '`npm bin`/webdriver-manager update'
+- npm install
 - '`npm bin`/bower install'
 script:
 - '`npm bin`/webpack && node_modules/karma/bin/karma start  --single-run'
