@@ -1,0 +1,13 @@
+<div class="dropdown open fs-list">
+  <ul class="dropdown-menu"
+      role="menu" >
+    <li ng-repeat="item in items"
+        ng-class="{true: 'active'}[$index == highlightIndex]">
+      <a ng-click="highlightItem(item)"
+         href="javascript:void(0)"
+         tabindex='-1'>
+         <span>::itemTpl</span>
+       </a>
+    </li>
+  </ul>
+</div>

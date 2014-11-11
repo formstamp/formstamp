@@ -1,0 +1,7 @@
+<div class="form-group" ng-class="{'has-error': (form.::name.$dirty && form.::name.$invalid)}">
+  <label class="col-sm-2 control-label">::label</label>
+  <div class="col-sm-10">
+    ::content
+    <div fs-errors model="form.::name"></div>
+  </div>
+</div>

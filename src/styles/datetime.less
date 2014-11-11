@@ -1,0 +1,99 @@
+.fs-time {
+}
+
+.fs-time, .fs-date {
+  position: relative;
+
+  input {
+    width: 100%;
+    display: inline-block;
+    padding-right: 25px;
+  }
+
+  .glyphicon {
+    position: absolute;
+    z-index: 15;
+    top: 10px;
+    font-size: 16px;
+    right: 8px;
+    color: #aaa;
+    cursor: pointer;
+  }
+
+  input[disabled] + .glyphicon {
+    opacity: 0.6;
+  }
+
+  input:hover + .glyphicon, .glyphicon:hover {
+    color: #888;
+  }
+}
+
+.fs-datetime {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: flex;
+
+  -webkit-flex-flow: row nowrap;
+  -moz-flex-flow: row nowrap;
+  flex-flow: row nowrap;
+
+  button {
+    -webkit-flex: auto;
+    -moz-flex: auto;
+    flex: auto;
+  }
+
+  .fs-time {
+    width: 8em;
+
+    -webkit-flex: auto;
+    -moz-flex: auto;
+    flex: auto;
+
+    input {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      margin-left: -1px;
+    }
+  }
+
+  .fs-date {
+    -webkit-flex: auto;
+    -moz-flex: auto;
+    flex: auto;
+
+    input {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+
+  .fs-date, .fs-time {
+    input {
+      z-index: 0;
+      position: relative;
+    }
+
+    input:focus {
+      z-index: 10;
+    }
+  }
+
+  &.fs-with-value {
+    .fs-time input {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .fs-datetime-clear-btn {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      margin-left: -2px;
+      font-weight: bold;
+      padding: 0 10px 0 8px;
+      flex-grow:0;
+      width: 2.5em;
+    }
+  }
+}

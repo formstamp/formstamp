@@ -10,11 +10,12 @@ env:
   - secure: orh/qjGCOk8zzATI19BV/qoV9Zv+m6C2sLeCYR1aeWXU2g9xX+f0iW960zrg1ja2Dj1PsX7c0SXbdXSUEko/AqQQqyiZZjE0r4SVZKn6fIBIGrZvnhkKwr7CtGdxWqy4PFNZi6DHLd6DKi2bFOUgmulk8GnZ64d2TstD9tEzLzA=
   - secure: iBYDR5myuv+J2NvdWfwlHE36JAFFduEoHSs91WRbnehwkd3AO89rSro0izeTbRM+e8VGGtNMr04RQTrcuu0mRSsrL+NOkACBWa42Z/EdE0ZAgAZdwz65gM+Ng9wXNhKZHEqN8pyGsNUA0RKyUoYcjOLkBoKeS/vUTqCb5aZDEyI=
 before_script:
-- '`npm bin`/webdriver-manager update'
+# - '`npm bin`/webdriver-manager update'
 - '`npm bin`/bower install'
 script:
-- '`npm bin`/grunt build'
-- '`npm bin`/grunt test:e2e:firefox'
-- '`npm bin`/grunt test:e2e:chrome'
-- '`npm bin`/grunt test:e2e:phantomjs'
-- '`npm bin`/karma start test/karma.conf.js --single-run'
+- '`npm bin`/webpack && node_modules/karma/bin/karma start  --single-run'
+# - '`npm bin`/grunt build'
+# - '`npm bin`/grunt test:e2e:firefox'
+# - '`npm bin`/grunt test:e2e:chrome'
+# - '`npm bin`/grunt test:e2e:phantomjs'
+# - '`npm bin`/karma start test/karma.conf.js --single-run'

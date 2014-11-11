@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+<meta charset="utf-8">
+<title>formstamp</title>
+<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="/formstamp.css"/>
+</head>
+<body>
+<div class="container">
+  <h1 class="page-header">Formstamp</h1>
+  <div ng-controller="FormBuilderCtrl">
+    <fs-form-for model="samurai">
+    <fieldset class="form-horizontal">
+      <legend>Samurai Personal Info</legend>
+      <fs-input as="text" name="name" required="" label="Name"></fs-input>
+      <fs-input as="email" name="email" required="" label="Email"></fs-input>
+      <fs-input as="fs-datetime" name="birthdate" required="" label="Date of Birth"></fs-input>
+
+      <fs-row label="Living district">
+      <div class="row">
+        <div class="col-xs-3"><div fs-select="" ng-model="samurai.district" items="districts">{{ item }}</div></div>
+        <div class="col-xs-3"><div fs-date="" ng-model="samurai.districtMoveDate" placeholder="Settled date"></div></div>
+      </div>
+      </fs-row>
+    </fieldset>
+
+    <fieldset class="form-horizontal">
+      <legend>Samurai CV</legend>
+      <fs-input as="fs-radio" name="learningStage" label="Current Learning Stage" items="learningStages"></fs-input>
+      <fs-input as="fs-multiselect" name="weapons" label="Owned Weapons" items="weapons">{{ item.label }}</fs-input>
+      <fs-input as="fs-multiselect" name="weaponStyles" freetext="123" label="Weapon Styles" items="weaponStyles">{{ item }}</fs-input>
+      <fs-input as="fs-select" name="meal" label="Preferable Food" items="meals"><b>{{ item.id.toUpperCase() }}</b> {{ item.label }}</fs-input>
+      <fs-input as="fs-checkbox" name="otherFacts" label="Other Facts" items="otherFacts">{{ item }}</fs-input>
+    </fieldset>
+
+    <fieldset class="form-horizontal">
+      <legend>List</legend>
+      <div fs-list="" items="districts" class="no-popup">
+        {{item | json}}
+      </div>
+    </fieldset>
+
+    </fs-form-for>
+  </div>
+</div>
+<script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="/bower_components/angular/angular.js"></script>
+<script type="text/javascript" src="/bower_components/moment/moment.js"></script>
+<!-- <script type="text/javascript" src="/bower_components/angular-route/angular-route.min.js"></script> -->
+<!-- <script type="text/javascript" src="/bower_components/angular-sanitize/angular-sanitize.min.js"></script> -->
+<!-- <script type="text/javascript" src="/bower_components/angular-touch/angular-touch.min.js"></script> -->
+<!-- <script type="text/javascript" src="/bower_components/angular-animate/angular-animate.min.js"></script> -->
+<script type="text/javascript" src="/formstamp.js"></script>
+<script type="text/javascript" src="/try/app.js"></script>
+</body>
+</html>
