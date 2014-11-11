@@ -1,5 +1,3 @@
-require('../../src/coffee/timeFormat.coffee')
-
 ddescribe 'fsTimeFormat', ->
   $scope = null
   input  = null
@@ -12,9 +10,10 @@ ddescribe 'fsTimeFormat', ->
     console.log(input)
     $scope.$apply()
 
-  iit 'should expand time from 1224 to 12:24 in input', ->
+  it 'should expand time from 1224 to 12:24 in input', ->
     input.val('1224').triggerHandler('input')
     expect(input.val()).toEqual '12:24'
+    expect($scope.value).toEqual '12:24'
 
   it 'sholudnt allow to enter invalid value', ->
     input.val('abc').triggerHandler('input')

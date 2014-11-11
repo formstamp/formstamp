@@ -1,5 +1,3 @@
-require('../../src/coffee/dateFormat.coffee')
-
 date = (elems) ->
   res = new Date()
   res.setMilliseconds(0)

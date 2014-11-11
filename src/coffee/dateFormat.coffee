@@ -11,7 +11,7 @@ mod.directive('fsDateFormat', ['$filter', ($filter)->
       ngModel.$parsers.unshift (value)->
         return null unless value
         return null if value == ''
-        if moment(value).isValid()
+        if moment(value, format).isValid()
           new Date(moment(value, format).valueOf())
         else
           null

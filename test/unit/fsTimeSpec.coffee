@@ -1,5 +1,3 @@
-require('../../src/coffee/time.coffee')
-
 describe 'fsTime', ->
   $scope = null
   $compile = null

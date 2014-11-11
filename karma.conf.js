@@ -21,6 +21,7 @@ module.exports = function(config) {
       'bower_components/moment/moment.js',
       'bower_components/angular/angular.js',
       'bower_components/angular-mocks/angular-mocks.js',
+      'dist/formstamp.js',
       'test/**/*Spec.coffee'
     ],
 

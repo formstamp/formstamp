@@ -1,5 +1,3 @@
-require('../../src/coffee/select.coffee')
-
 describe 'fsSelect', ->
   $scope = null
   $compile = null

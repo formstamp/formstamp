@@ -1,6 +1,7 @@
 mod = require('./module')
 
 require("../styles/datetime.less")
+u = require('./utils')
 
 mod.directive "fsDatetime", ['$compile', ($compile) ->
   restrict: "A"
@@ -48,7 +49,7 @@ mod.directive "fsDatetime", ['$compile', ($compile) ->
         scope.date = scope.value = ngModelCtrl.$viewValue
         scope.time =
           if ngModelCtrl.$viewValue
-            toTimeStr
+            u.toTimeStr
               hours: ngModelCtrl.$viewValue.getHours()
               minutes: ngModelCtrl.$viewValue.getMinutes()
           else
