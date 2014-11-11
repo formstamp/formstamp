@@ -1,8 +1,11 @@
-wp = require('./webpack.config.js')
-wp.devtool = "inline-source-map"
-delete wp.entry
-delete wp.context
-delete wp.output
+var wp = require('./webpack.config.js');
+wp.devtool = "inline-source-map";
+wp.externals = {
+    './module': 'angular.module("formstamp")'
+};
+delete wp.entry;
+delete wp.context;
+delete wp.output;
 
 module.exports = function(config) {
   config.set({
@@ -21,16 +24,15 @@ module.exports = function(config) {
       'bower_components/moment/moment.js',
       'bower_components/angular/angular.js',
       'bower_components/angular-mocks/angular-mocks.js',
-      'dist/formstamp.js',
-      'test/**/*Spec.coffee'
+
+      'src/coffee/module.coffee',
+
+      'test/unit/dateFormatSpec.coffee',
+      'test/unit/timeFormatSpec.coffee'
     ],
 
     // list of files to exclude
     exclude: [ 'test/e2e/**/*', '**/*.swp' ],
-
-
-    // preprocess matching files before serving them to the browser
-    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
 
     preprocessors: { '**/*.coffee': ['webpack', 'sourcemap'] },
 

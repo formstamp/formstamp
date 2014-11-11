@@ -10,6 +10,8 @@ date = (elems) ->
   res
 
 describe 'fsDateFormat', ->
+  require '../../src/coffee/dateFormat'
+
   $scope = null
   $compile = null
   input = null

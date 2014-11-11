@@ -1,4 +1,5 @@
 describe 'fsTimeFormat', ->
+  require '../../src/coffee/timeFormat'
   $scope = null
   input  = null
 
