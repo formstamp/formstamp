@@ -2,6 +2,8 @@ mod = require('./module')
 
 require('../styles/select.less')
 
+tpl = require('html!../templates/metaSelect.html')
+
 mod.directive "fsSelect", ['$compile', ($compile) ->
   restrict: "A"
   scope:
@@ -13,50 +15,7 @@ mod.directive "fsSelect", ['$compile', ($compile) ->
   replace: true
   template: (el)->
     itemTpl = el.html()
-    template = """
-<div class='fs-select fs-widget-root'>
-  <div ng-hide="active" class="fs-select-sel" ng-class="{'btn-group': item}">
-      <a class="btn btn-default fs-select-active"
-         ng-class='{"btn-danger": invalid}'
-         href="javascript:void(0)"
-         ng-click="active = true"
-         ng-disabled="disabled">
-           #{itemTpl}
-      </a>
-      <button type="button"
-              class="btn btn-default fs-select-clear-btn"
-              aria-hidden="true"
-              ng-show='item'
-              ng-disabled="disabled"
-              ng-click='unselectItem()'>&times;</button>
-    </div>
-  <div class="open" ng-show="active">
-    <input class="form-control"
-           fs-input
-           fs-focus-when='active'
-           fs-blur-when='!active'
-           fs-on-focus='active = true'
-           fs-on-blur='onBlur()'
-           fs-hold-focus
-           fs-down='move(1)'
-           fs-up='move(-1)'
-           fs-pg-up='move(-11)'
-           fs-pg-down='move(11)'
-           fs-enter='onEnter($event)'
-           fs-esc='active = false'
-           type="text"
-           placeholder='Search'
-           ng-model="search"
-           fs-null-form />
-
-    <div ng-if="active && dropdownItems.length > 0">
-      <div fs-list items="dropdownItems">
-       #{itemTpl}
-      </div>
-    </div>
-  </div>
-</div>
-    """
+    tpl.replace(/::itemTpl/g, itemTpl)
 
   controller: ($scope, $element, $attrs, $filter, $timeout) ->
     $scope.active = false

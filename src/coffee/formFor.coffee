@@ -1,14 +1,14 @@
-angular
-.module('formstamp').directive 'fsErrors', ->
+mod = require('./module')
+
+inputTpl = require('html!../templates/metaInput.html')
+rowTpl = require('html!../templates/metaRow.html')
+
+mod.directive 'fsErrors', ->
   restrict: 'A'
   scope:
     model: '='
   replace: true
-  template: """
-    <ul class='text-danger fs-errors' ng-show='model.$dirty && messages && messages.length > 0'>
-      <li ng-repeat='msg in messages'>{{ msg }}</li>
-    </ul>
-  """
+  template: require('html!../templates/errors.html')
 
   controller: ($scope) ->
     makeMessage = (idn) ->
@@ -19,8 +19,7 @@ angular
 
     $scope.$watch 'model.$error', errorsWatcher, true
 
-angular
-.module('formstamp').directive 'fsFormFor', ()->
+mod.directive 'fsFormFor', ()->
   restrict: 'AE'
   template: (el, attrs) ->
     modelName = el.attr("model")
@@ -53,28 +52,17 @@ angular
         attributes['class'] = 'form-control'
         inputEl = $("<input />", attributes)
 
-      """
-      <div class="form-group" ng-class="{'has-error': (form.#{name}.$dirty && form.#{name}.$invalid)}">
-        <label class="col-sm-2 control-label">#{label}</label>
-        <div class="col-sm-10">
-          #{inputEl.get(0).outerHTML}
-          <div fs-errors model="form.#{name}"></div>
-        </div>
-      </div>
-      """
+      inputTpl
+        .replace(/::name/g, name)
+        .replace(/::label/g,label)
+        .replace(/::content/, inputEl.get(0).outerHTML)
 
     rowReplacer = () ->
       row = $(this)
       label = row.attr("label")
-
-      """
-      <div class="form-group">
-        <label class="col-sm-2 control-label">#{label}</label>
-        <div class="col-sm-10">
-          #{row.get(0).outerHTML}
-        </div>
-      </div>
-      """
+      rowTpl
+        .replace(/::label/g,label)
+        .replace(/::content/, row.get(0).outerHTML)
 
     html = el.find("fs-input")
       .replaceWith(inputReplacer)
