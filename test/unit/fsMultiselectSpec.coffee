@@ -2,7 +2,7 @@ describe 'fsMultiselect', ->
   $scope = null
   $compile = null
 
-  beforeEach module('formstamp')
+  beforeEach angular.mock.module('formstamp')
 
   beforeEach inject ($rootScope, _$compile_) ->
     $scope = $rootScope.$new()

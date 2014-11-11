@@ -2,7 +2,7 @@ var etx = require("extract-text-webpack-plugin");
 
 module.exports = {
   context: __dirname + "/src",
-  entry: "./formstamp.coffee",
+  entry: "./coffee/formstamp.coffee",
   output: {
     path: __dirname + "/dist",
     filename: "formstamp.js"

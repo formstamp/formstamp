@@ -13,15 +13,15 @@
   "description": "Pure AngularJS widgets library",
   "keywords": ["ui", "angular", "widgets"],
   "main": [
-    "build/formstamp.css",
-    "build/formstamp.js",
+    "dist/formstamp.css",
+    "dist/formstamp.js",
     "README.md",
     "MIT-LICENSE"
   ],
   "license": "MIT",
   "ignore": [ ],
   "dependencies": {
-    "angular":"1.2.16",
+    "angular":"1.3.2",
     "bootstrap":"~3",
     "jquery": ">= 1.9.0",
     "moment": "~2.7"

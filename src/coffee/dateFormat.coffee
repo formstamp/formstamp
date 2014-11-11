@@ -1,9 +1,9 @@
 mod = require('./module')
-mod.directive('fsDateFormat', ['$filter', 'fsConfig', ($filter, fsConfig)->
+mod.directive('fsDateFormat', ['$filter', ($filter)->
     restrict: 'A'
     require: 'ngModel'
     link: (scope, element, attrs, ngModel)->
-      format = attrs.fsDateFormat || fsConfig.dateFormat
+      format = attrs.fsDateFormat || 'MM/DD/YYYY'
 
       ngModel.$formatters.push (value)->
         moment(value).format(format)
