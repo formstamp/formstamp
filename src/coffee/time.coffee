@@ -1,6 +1,8 @@
-angular
-.module("formstamp")
-.directive "fsTime", ['$compile', '$filter', '$timeout', ($compile, $filter, $timeout) ->
+mod = require('./module')
+
+u = require('./utils')
+
+mod.directive "fsTime", ['$compile', '$filter', '$timeout', ($compile, $filter, $timeout) ->
   restrict: "A"
   scope:
     disabled: '=ngDisabled'
@@ -46,7 +48,7 @@ angular
         items.push "#{zh}:#{m}"
 
     dynamicItems = ->
-      if scope.value and scope.value.length == 5 and indexOf(items, scope.value) == -1
+      if scope.value and scope.value.length == 5 and u.indexOf(items, scope.value) == -1
         [scope.value]
       else
         []

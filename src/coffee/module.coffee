@@ -1,1 +1,1 @@
-module.exports angular.module('formstamp',['ng'])
+module.exports = angular.module('formstamp',['ng'])

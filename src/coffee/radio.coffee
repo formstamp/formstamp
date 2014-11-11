@@ -1,8 +1,11 @@
 mod = require('./module')
 
 require('../styles/racheck.less')
+u = require('./utils')
 
-mod.directive "fsRadio", ['$window', ($window) ->
+tpl = require('html!../templates/metaRadio.html')
+
+mod.directive "fsRadio", ->
     restrict: "A"
     scope:
       required: '='
@@ -14,29 +17,12 @@ mod.directive "fsRadio", ['$window', ($window) ->
     require: '?ngModel'
     template: (el, attrs)->
       itemTpl = el.html() || '{{item.label}}'
-      name = "fsRadio_#{nextUid()}"
+      name = "fsRadio_#{u.nextUid()}"
 
-      template = """
-<div class='fs-widget-root fs-radio fs-racheck' ng-class="{disabled: disabled, enabled: !disabled}">
-  <div class="fs-radio-item"
-     ng-repeat="item in items" >
-    <input
-     fs-null-form
-     type="radio"
-     ng-model="$parent.selectedItem"
-     name="#{name}"
-     ng-value="item"
-     ng-disabled="disabled"
-     id="#{name}_{{$index}}" />
+      template = tpl
+        .replace(/::name/g,name)
+        .replace(/::itemTpl/g, itemTpl)
 
-    <label for="#{name}_{{$index}}">
-      <span class='fs-radio-btn'><span></span></span>
-
-      #{itemTpl}
-    </label>
-  </div>
-</div>
-      """
     link: (scope, element, attrs, ngModelCtrl, transcludeFn) ->
       if ngModelCtrl
         scope.$watch 'selectedItem', (newValue, oldValue)->
@@ -45,4 +31,3 @@ mod.directive "fsRadio", ['$window', ($window) ->
 
         ngModelCtrl.$render = ->
           scope.selectedItem = ngModelCtrl.$modelValue
-]

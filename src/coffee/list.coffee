@@ -2,21 +2,26 @@ mod = require('./module')
 
 require("../styles/list.less")
 
+u = require('./utils')
+
+tpl = require('html!../templates/list.html')
+
 mod.directive "fsList", () ->
   restrict: "A"
   scope:
     items: '='
     class: '@'
     listInterface: '='
-  transclude: true
   replace: true
-  template: require('html!../templates/list.html')
+  template: (el, attrs)->
+    itemTpl = el.html() || 'template me: {{item | json}}'
+    tpl.replace(/::itemTpl/g, itemTpl)
   link: ($scope, $element, $attrs) ->
     ensureHighlightedItemVisible = ->
       delayedScrollFn = ->
           ul = $element.find('ul')[0]
           li = ul.querySelector('li.active')
-          scrollToTarget(ul, li)
+          u.scrollToTarget(ul, li)
         setTimeout(delayedScrollFn, 0)
 
     $scope.$watch 'highlightIndex', (idx) ->
@@ -29,7 +34,8 @@ mod.directive "fsList", () ->
 
     $scope.highlightItem = (item) ->
       $scope.highlightIndex = $scope.items.indexOf(item)
-      $scope.$parent.listInterface.onSelect(item)
+      if $scope.$parent.listInterface?
+        $scope.$parent.listInterface.onSelect(item)
 
     $scope.$watch 'items', (newItems)->
       $scope.highlightIndex = 0

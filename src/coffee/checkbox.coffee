@@ -1,6 +1,9 @@
 mod = require('./module')
 
 require('../styles/racheck.less')
+u = require('./utils')
+
+tpl = require('html!../templates/metaCheckbox.html')
 
 mod.directive "fsCheckbox", ['$window', ($window) ->
     restrict: "A"
@@ -14,36 +17,17 @@ mod.directive "fsCheckbox", ['$window', ($window) ->
     replace: true
     template: (el, attrs)->
       itemTpl = el.html() || 'template me: {{item | json}}'
-      template = """
-<div class='fs-racheck fs-checkbox' ng-class="{disabled: disabled, enabled: !disabled}">
-  <div ng-repeat='item in items'>
-    <div class="fs-racheck-item"
-       href='javascript:void(0)'
-       ng-disabled="disabled"
-       ng-click="toggle(item)"
-       fs-space='toggle(item)'>
-      <div class="row">
-<div class="col-xs-1">
-      <span class="fs-check-outer"><span ng-show="isSelected(item)" class="fs-check-inner"></span></span>
-</div>
-      <div class="col-xs-11">
-      #{itemTpl}
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-      """
+      tpl.replace(/::itemTpl/g, itemTpl)
     controller: ($scope, $element, $attrs) ->
       $scope.toggle = (item)->
         return if $scope.disabled
         unless $scope.isSelected(item)
           $scope.selectedItems.push(item)
         else
-          $scope.selectedItems.splice(indexOf($scope.selectedItems, item), 1)
+          $scope.selectedItems.splice(u.indexOf($scope.selectedItems, item), 1)
         false
 
-      $scope.isSelected = (item) -> indexOf($scope.selectedItems, item) > -1
+      $scope.isSelected = (item) -> u.indexOf($scope.selectedItems, item) > -1
 
       $scope.invalid = -> $scope.errors? and $scope.errors.length > 0
 

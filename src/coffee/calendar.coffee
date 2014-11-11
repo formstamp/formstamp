@@ -2,6 +2,8 @@ mod = require('./module')
 
 require("../styles/calendar.less")
 
+u = require("./utils")
+
 shiftWeekDays = (weekDays, firstDayOfWeek)->
   weekDaysHead = weekDays.slice(firstDayOfWeek, weekDays.length)
   weekDaysHead.concat(weekDays.slice(0, firstDayOfWeek))
@@ -25,14 +27,14 @@ mod.directive 'fsCalendar', ['$locale', ($locale)->
     $scope.monthGroups = ($scope.months.slice(i * 4, i * 4 + 4) for i in [0..2])
 
     $scope.prevMonth = ->
-      month = indexOf($scope.months, $scope.selectedMonth) - 1
+      month = u.indexOf($scope.months, $scope.selectedMonth) - 1
       if month < 0
         month = $scope.months.length - 1
         $scope.selectedYear--
       $scope.selectedMonth = $scope.months[month]
 
     $scope.nextMonth = ->
-      month = indexOf($scope.months, $scope.selectedMonth) + 1
+      month = u.indexOf($scope.months, $scope.selectedMonth) + 1
       if month >= $scope.months.length
         month = 0
         $scope.selectedYear++
@@ -72,7 +74,7 @@ mod.directive 'fsCalendar', ['$locale', ($locale)->
       new Date(date.getFullYear(), date.getMonth(), date.getDate() + days)
 
     updateSelectionRanges = ->
-      monthIndex = indexOf($scope.months, $scope.selectedMonth)
+      monthIndex = u.indexOf($scope.months, $scope.selectedMonth)
       firstDayOfMonth = new Date($scope.selectedYear, monthIndex)
       dayOffset = $scope.firstDayOfWeek - firstDayOfMonth.getDay()
       dayOffset -= 7 if dayOffset > 0
@@ -97,7 +99,7 @@ mod.directive 'fsCalendar', ['$locale', ($locale)->
   link: (scope, element, attrs, ngModel)->
 
     scope.isSameYear = ->
-      parseDate(ngModel.$modelValue)?.getFullYear() == scope.selectedYear
+      u.parseDate(ngModel.$modelValue)?.getFullYear() == scope.selectedYear
 
     scope.selectDay = (day)->
       scope.selectedDate = day
@@ -105,7 +107,7 @@ mod.directive 'fsCalendar', ['$locale', ($locale)->
       scope.onSelect()
 
     ngModel.$render = ->
-      scope.selectedDate = parseDate(ngModel.$modelValue)
+      scope.selectedDate = u.parseDate(ngModel.$modelValue)
 
     scope.selectMonth = (monthName)->
       scope.selectionMode = 'day'

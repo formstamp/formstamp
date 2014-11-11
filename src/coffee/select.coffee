@@ -68,7 +68,7 @@ mod.directive "fsSelect", ['$compile', ($compile) ->
       $scope.dynamicItems = -> []
 
     updateDropdown = () ->
-      $scope.dropdownItems = $filter('filter')($scope.items, $scope.search).concat($scope.dynamicItems())
+      $scope.dropdownItems = $filter('filter')(($scope.items || []), $scope.search).concat($scope.dynamicItems())
 
     $scope.$watch 'active', (q)-> updateDropdown()
     $scope.$watch 'search', (q)-> updateDropdown()

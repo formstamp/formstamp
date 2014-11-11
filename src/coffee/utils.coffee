@@ -1,15 +1,16 @@
-comp = (a, b)->
-  "#{a}".toLowerCase()
-    .indexOf(b.toString().toLowerCase()) > -1
+# TODO: test & export utils
+# exports.comp = (a, b)->
+#   "#{a}".toLowerCase()
+#     .indexOf(b.toString().toLowerCase()) > -1
 
-filter = (x, xs, valueAttr) ->
+exports.filter = (x, xs, valueAttr) ->
   if x
     xs.filter (i) ->
       item = if valueAttr then i[valueAttr] else i
       comp(item, x)
   else xs
 
-indexOf = (array, elem) ->
+exports.indexOf = (array, elem) ->
   for index in [0..array.length-1]
     if angular.equals(array[index], elem)
       return index
@@ -21,7 +22,7 @@ getComputedStyleFor = (elem, prop) ->
 innerHeightOf = (elem) ->
   elem.clientHeight - getComputedStyleFor(elem, 'padding-top') - getComputedStyleFor(elem, 'padding-bottom')
 
-scrollToTarget = (container, target) ->
+exports.scrollToTarget = (container, target) ->
   return unless container and target
 
   viewport =
@@ -41,7 +42,7 @@ scrollToTarget = (container, target) ->
     container.scrollTop -= viewport.top - item.top
 
 
-addValidations = (attrs, ctrl) ->
+exports.addValidations = (attrs, ctrl) ->
 
   validate = (ctrl, validatorName, validity, value) ->
     ctrl.$setValidity(validatorName, validity)
@@ -87,13 +88,13 @@ addValidations = (attrs, ctrl) ->
     ctrl.$formatters.push(patternValidator)
     ctrl.$parsers.push(patternValidator)
 
-updateTime = (date, time)->
+exports.updateTime = (date, time)->
   if date?
     date.setHours(time.getHours())
     date.setMinutes(time.getMinutes())
   date
 
-updateDate = (date, newDate) ->
+exports.updateDate = (date, newDate) ->
   switch
     when !date? then newDate
     when !newDate? then date
@@ -103,7 +104,7 @@ updateDate = (date, newDate) ->
       date.setSeconds(newDate.getSeconds())
       date
 
-parseDate = (dateString)->
+exports.parseDate = (dateString)->
   time = Date.parse(dateString)
   unless isNaN(time)
     parsedDate = new Date(time)
@@ -111,7 +112,7 @@ parseDate = (dateString)->
 
 uid = ['0', '0', '0']
 # copypaste from angularjs utils
-nextUid = ()->
+exports.nextUid = ()->
   index = uid.length
   digit
 
@@ -129,7 +130,7 @@ nextUid = ()->
   uid.unshift('0')
   uid.join('')
 
-toTimeStr = (time) ->
+exports.toTimeStr = (time) ->
   return '' unless time? && time.hours? && time.minutes?
   h = time.hours?.toString()
   h = "0#{h}" if h?.length < 2

@@ -1,5 +1,7 @@
 mod = require('./module')
 
+u = require('./utils')
+
 mod.directive('fsDate', ->
   restrict: 'EA'
   require: '?ngModel'
@@ -18,7 +20,7 @@ mod.directive('fsDate', ->
         $scope.selectedDate.date = ngModel.$modelValue
 
       $scope.$watch 'selectedDate.date', (newDate, oldDate) ->
-        updatedDate = updateDate(newDate, oldDate)
+        updatedDate = u.updateDate(newDate, oldDate)
 
         if updatedDate?.getTime() != oldDate?.getTime()
           ngModel.$setViewValue(updatedDate)

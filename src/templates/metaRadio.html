@@ -1,0 +1,18 @@
+<div class='fs-widget-root fs-radio fs-racheck' ng-class="{disabled: disabled, enabled: !disabled}">
+  <div class="fs-radio-item"
+     ng-repeat="item in items" >
+    <input
+     fs-null-form
+     type="radio"
+     ng-model="$parent.selectedItem"
+     name="::name"
+     ng-value="item"
+     ng-disabled="disabled"
+     id="::name_{{$index}}" />
+
+    <label for="::name_{{$index}}">
+      <span class='fs-radio-btn'><span></span></span>
+      ::itemTpl
+    </label>
+  </div>
+</div>

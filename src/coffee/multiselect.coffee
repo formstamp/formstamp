@@ -1,6 +1,7 @@
 mod = require('./module')
 
 require("../styles/multiselect.less")
+u = require("./utils")
 
 mod.filter 'exclude', ->
   (input, selected) ->
@@ -69,17 +70,17 @@ mod.directive "fsMultiselect", ['$window', ($window) ->
       $scope.updateDropdownItems = () ->
         searchFilter = $filter('filter')
         excludeFilter = $filter('exclude')
-        allItems = $scope.items.concat($scope.dynamicItems())
+        allItems = ($scope.items || []).concat($scope.dynamicItems())
 
         $scope.dropdownItems = searchFilter(excludeFilter(allItems, $scope.selectedItems), $scope.search)
 
       $scope.selectItem = (item)->
-        if item? and indexOf($scope.selectedItems, item) == -1
+        if item? and u.indexOf($scope.selectedItems, item) == -1
           $scope.selectedItems = $scope.selectedItems.concat([item])
         $scope.search = ''
 
       $scope.unselectItem = (item)->
-        index = indexOf($scope.selectedItems, item)
+        index = u.indexOf($scope.selectedItems, item)
         if index > -1
           $scope.selectedItems.splice(index, 1)
 
