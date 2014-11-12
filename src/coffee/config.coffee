@@ -1,7 +1,10 @@
 mod = require('./module')
 
-fsDefaultConfig =
-    dateFormat: 'MM/DD/YYYY'
+mod.provider 'fsConfig', () ->
+  dateFormat = 'MM/DD/YYYY'
+  this.dateFormat = (v) -> dateFormat = v
 
-mod.service 'fsConfig', ()->
-  fsDefaultConfig
+  this.$get = () ->
+    return {dateFormat: dateFormat}
+
+  this

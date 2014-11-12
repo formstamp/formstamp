@@ -11,24 +11,26 @@ date = (elems) ->
 
 describe 'fsDate', ->
   require '../../src/coffee/date'
+  require '../../src/coffee/config'
 
   $scope = null
   $compile = null
   input = null
+  $config = null
 
   beforeEach angular.mock.module('formstamp')
 
-  beforeEach inject ($rootScope, _$compile_) ->
+  beforeEach inject ($rootScope, _$compile_, fsConfig) ->
     $scope = $rootScope.$new()
     $compile = _$compile_
+    $config = fsConfig
 
   compile = (elem) ->
     element = $compile(elem)($scope)
     $scope.$apply()
     element
 
-
-  it 'should expands', ->
+  it 'should expand', ->
     element = compile('<div fs-date></div>')
     $scope.$apply()
     expect(element.children().length).not.toBe 0
@@ -38,3 +40,16 @@ describe 'fsDate', ->
     element = compile('<div fs-date ng-model="value"></div>')
     $scope.$apply()
     expect(element.find('input').val()).toEqual '03/01/2010'
+
+  it 'should use date format from config', ->
+    $config.dateFormat = 'DD/MM/YY'
+    $scope.value = date(day: 3, month: 10, year: 2010)
+    element = compile('<div fs-date ng-model="value"></div>')
+    $scope.$apply()
+    expect(element.find('input').val()).toEqual '03/11/10'
+
+  it 'should use date format from attribute', ->
+    $scope.value = date(day: 27, month: 10, year: 2010)
+    element = compile('<div fs-date ng-model="value" format="YYYY/DD/MM"></div>')
+    $scope.$apply()
+    expect(element.find('input').val()).toEqual '2010/27/11'
