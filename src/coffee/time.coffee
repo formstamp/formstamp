@@ -1,4 +1,5 @@
 mod = require('./module')
+require('../templates/time.html')
 
 u = require('./utils')
 si = require('./smartInput')
@@ -53,7 +54,6 @@ dynamicItems = (v,items)->
   else
     []
 
-
 mod.directive "fsTime", ['$filter', '$timeout', ($filter, $timeout) ->
   restrict: "A"
   scope:
@@ -61,7 +61,7 @@ mod.directive "fsTime", ['$filter', '$timeout', ($filter, $timeout) ->
     class: '@'
   require: '?ngModel'
   replace: true
-  template: require('html!../templates/time.html')
+  templateUrl: 'templates/fs/time.html'
   link: (scope, element, attrs, ngModelCtrl) ->
     scope.dropdownItems = mkTimeItems()
 

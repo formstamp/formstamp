@@ -1,12 +1,10 @@
 mod = require('./module')
 
 require("../styles/list.less")
-
+require('../templates/list.html')
 u = require('./utils')
 
-tpl = require('html!../templates/list.html')
-
-mod.directive "fsList", () ->
+mod.directive "fsList", ['$templateCache', ($templateCache) ->
   restrict: "A"
   scope:
     items: '='
@@ -15,7 +13,10 @@ mod.directive "fsList", () ->
   replace: true
   template: (el, attrs)->
     itemTpl = el.html() || 'template me: {{item | json}}'
-    tpl.replace(/::itemTpl/g, itemTpl)
+
+    $templateCache.get('templates/fs/list.html')
+      .replace(/::itemTpl/g, itemTpl)
+
   link: ($scope, $element, $attrs) ->
     ensureHighlightedItemVisible = ->
       delayedScrollFn = ->
@@ -29,7 +30,7 @@ mod.directive "fsList", () ->
 
   controller: ($scope, $element, $attrs, $filter) ->
     updateSelectedItem = (hlIdx) ->
-      if $scope.$parent.listInterface?
+      if $scope.$parent.listInterface? && hlIdx >= 0
         $scope.$parent.listInterface.selectedItem = $scope.items[hlIdx]
 
     $scope.highlightItem = (item) ->
@@ -38,8 +39,7 @@ mod.directive "fsList", () ->
         $scope.$parent.listInterface.onSelect(item)
 
     $scope.$watch 'items', (newItems)->
-      $scope.highlightIndex = 0
-      updateSelectedItem(0)
+      $scope.highlightIndex = -1
 
     $scope.$watch 'highlightIndex', (idx) ->
       updateSelectedItem(idx)
@@ -56,3 +56,4 @@ mod.directive "fsList", () ->
     if $scope.$parent.listInterface?
       $scope.$parent.listInterface.move = (delta) ->
         $scope.move(delta)
+]

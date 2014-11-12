@@ -1,3 +1,11 @@
+takeScreenshot = (n)->
+  fs = require('fs')
+  browser.takeScreenshot().then (png) ->
+    stream = fs.createWriteStream("/tmp/screenshot#{n}.png")
+
+    stream.write(new Buffer(png, 'base64'))
+    stream.end()
+
 describe 'fsDate', ->
   beforeEach ->
     browser.get('date.html')

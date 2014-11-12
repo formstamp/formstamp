@@ -1,6 +1,8 @@
 mod = require('./module')
 
+require('../templates/datetime.html')
 require("../styles/datetime.less")
+
 u = require('./utils')
 
 mod.directive "fsDatetime", ['$compile', ($compile) ->
@@ -10,7 +12,7 @@ mod.directive "fsDatetime", ['$compile', ($compile) ->
     class: '@'
   require: '?ngModel'
   replace: true
-  template: require('html!../templates/datetime.html')
+  templateUrl: 'templates/fs/datetime.html'
   controller: ($scope) ->
     $scope.clearDate = () ->
       $scope.time = null

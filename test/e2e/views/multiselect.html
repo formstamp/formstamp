@@ -1,20 +1,20 @@
 <html ng-app='formstamp-test'>
   <head>
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
-    <link rel="stylesheet" href="/build/formstamp.css"/>
+    <link rel="stylesheet" href="/formstamp.css"/>
     <script type='text/javascript' src='/bower_components/jquery/dist/jquery.js'></script>
     <script type='text/javascript' src='/bower_components/angular/angular.js'></script>
-    <script type='text/javascript' src='/build/formstamp.js'></script>
+    <script type='text/javascript' src='/formstamp.js'></script>
     <script type='text/javascript'>
-      angular.module('formstamp-test', ['formstamp']);
+      var app = angular.module('formstamp-test', ['formstamp']);
 
-      function MultiselectCtrl($scope) {
+      app.controller('MultiselectCtrl', function ($scope) {
         $scope.items = ['one', 'two', 'three'];
 
         $scope.selectValues = function() {
           $scope.value = ['one', 'two'];
         };
-      }
+      });
     </script>
   </head>
   <body ng-controller='MultiselectCtrl'>

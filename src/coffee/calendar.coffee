@@ -1,6 +1,7 @@
 mod = require('./module')
 
 require("../styles/calendar.less")
+require('../templates/calendar.html')
 
 u = require("./utils")
 
@@ -11,7 +12,7 @@ shiftWeekDays = (weekDays, firstDayOfWeek)->
 
 mod.directive 'fsCalendar', ['$locale', ($locale)->
   restrict: 'EA'
-  template: require('html!../templates/calendar.html')
+  templateUrl: 'templates/fs/calendar.html'
   replace: true
   require: '?ngModel'
   scope:

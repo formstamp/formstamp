@@ -1,5 +1,6 @@
 mod = require('./module')
 
+require('../templates/date.html')
 u = require('./utils')
 
 mod.directive('fsDate', ->
@@ -10,7 +11,7 @@ mod.directive('fsDate', ->
     disabled: '=ngDisabled'
     placeholder: '@'
     format: '@'
-  template: require('html!../templates/date.html')
+  templateUrl: 'templates/fs/date.html'
   replace: true
   link: ($scope, element, attrs, ngModel) ->
     $scope.selectedDate = {}
