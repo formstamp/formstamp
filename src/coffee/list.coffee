@@ -1,12 +1,10 @@
 mod = require('./module')
 
 require("../styles/list.less")
-
+require('../templates/list.html')
 u = require('./utils')
 
-tpl = require('html!../templates/list.html')
-
-mod.directive "fsList", () ->
+mod.directive "fsList", ['$templateCache', ($templateCache) ->
   restrict: "A"
   scope:
     items: '='
@@ -15,7 +13,10 @@ mod.directive "fsList", () ->
   replace: true
   template: (el, attrs)->
     itemTpl = el.html() || 'template me: {{item | json}}'
-    tpl.replace(/::itemTpl/g, itemTpl)
+
+    $templateCache.get('templates/fs/list.html')
+      .replace(/::itemTpl/g, itemTpl)
+
   link: ($scope, $element, $attrs) ->
     ensureHighlightedItemVisible = ->
       delayedScrollFn = ->
@@ -56,3 +57,4 @@ mod.directive "fsList", () ->
     if $scope.$parent.listInterface?
       $scope.$parent.listInterface.move = (delta) ->
         $scope.move(delta)
+]

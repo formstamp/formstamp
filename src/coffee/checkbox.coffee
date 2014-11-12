@@ -2,10 +2,9 @@ mod = require('./module')
 
 require('../styles/racheck.less')
 u = require('./utils')
+require('../templates/metaCheckbox.html')
 
-tpl = require('html!../templates/metaCheckbox.html')
-
-mod.directive "fsCheckbox", ['$window', ($window) ->
+mod.directive "fsCheckbox", ['$window', '$templateCache', ($window, $templateCache) ->
     restrict: "A"
     scope:
       disabled: '=ngDisabled'
@@ -17,7 +16,10 @@ mod.directive "fsCheckbox", ['$window', ($window) ->
     replace: true
     template: (el, attrs)->
       itemTpl = el.html() || 'template me: {{item | json}}'
-      tpl.replace(/::itemTpl/g, itemTpl)
+
+      $templateCache.get('templates/fs/metaCheckbox.html')
+        .replace(/::itemTpl/g, itemTpl)
+
     controller: ($scope, $element, $attrs) ->
       $scope.toggle = (item)->
         return if $scope.disabled

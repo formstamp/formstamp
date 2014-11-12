@@ -2,10 +2,9 @@ mod = require('./module')
 
 require('../styles/racheck.less')
 u = require('./utils')
+require('../templates/metaRadio.html')
 
-tpl = require('html!../templates/metaRadio.html')
-
-mod.directive "fsRadio", ->
+mod.directive "fsRadio", ['$templateCache', ($templateCache) ->
     restrict: "A"
     scope:
       required: '='
@@ -15,11 +14,11 @@ mod.directive "fsRadio", ->
       keyAttr: '@'
       valueAttr: '@'
     require: '?ngModel'
-    template: (el, attrs)->
+    template: (el, attrs) ->
       itemTpl = el.html() || '{{item.label}}'
       name = "fsRadio_#{u.nextUid()}"
 
-      template = tpl
+      $templateCache.get('templates/fs/metaRadio.html')
         .replace(/::name/g,name)
         .replace(/::itemTpl/g, itemTpl)
 
@@ -31,3 +30,4 @@ mod.directive "fsRadio", ->
 
         ngModelCtrl.$render = ->
           scope.selectedItem = ngModelCtrl.$modelValue
+]

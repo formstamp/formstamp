@@ -1,6 +1,7 @@
 mod = require('./module')
 
 u = require('./utils')
+require('../templates/time.html')
 
 mod.directive "fsTime", ['$compile', '$filter', '$timeout', ($compile, $filter, $timeout) ->
   restrict: "A"
@@ -9,7 +10,7 @@ mod.directive "fsTime", ['$compile', '$filter', '$timeout', ($compile, $filter, 
     class: '@'
   require: '?ngModel'
   replace: true
-  template: require('html!../templates/time.html')
+  templateUrl: 'templates/fs/time.html'
   link: (scope, element, attrs, ngModelCtrl) ->
     hours = (num for num in [0..23])
     minutes = ['00','15','30','45']

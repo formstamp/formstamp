@@ -5,11 +5,13 @@ VALIDATION_DIRECTIVES = [
   'ngMaxlength', 'ngPattern',
   'ngDisabled']
 
+require('../templates/field.html')
+
 mod.directive 'fsField', [->
   restrict: 'A'
   replace: true
   require: ['^fsFormFor', '^form']
-  template: require('html!../templates/field.html')
+  templateUrl: 'templates/fs/field.html'
   scope:
     items: '='
     field: '@fsField'

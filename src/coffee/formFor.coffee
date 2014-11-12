@@ -1,14 +1,15 @@
 mod = require('./module')
 
-inputTpl = require('html!../templates/metaInput.html')
-rowTpl = require('html!../templates/metaRow.html')
+require('../templates/metaInput.html')
+require('../templates/metaRow.html')
+require('../templates/errors.html')
 
-mod.directive 'fsErrors', ->
+mod.directive 'fsErrors', ['$templateCache', ($templateCache) ->
   restrict: 'A'
   scope:
     model: '='
   replace: true
-  template: require('html!../templates/errors.html')
+  template: $templateCache.get('templates/fs/errors.html')
 
   controller: ($scope) ->
     makeMessage = (idn) ->
@@ -18,10 +19,14 @@ mod.directive 'fsErrors', ->
       $scope.messages = (makeMessage(errorIdn) for errorIdn, occured of newErrors when occured)
 
     $scope.$watch 'model.$error', errorsWatcher, true
+]
 
-mod.directive 'fsFormFor', ()->
+mod.directive 'fsFormFor', ['$templateCache', ($templateCache)->
   restrict: 'AE'
   template: (el, attrs) ->
+    inputTpl = $templateCache.get('templates/fs/metaInput.html')
+    rowTpl = $templateCache.get('templates/fs/metaRow.html')
+
     modelName = el.attr("model")
     action = el.attr("action")
     formAttributes = {
@@ -35,7 +40,7 @@ mod.directive 'fsFormFor', ()->
       input = $(this)
       name = input.attr("name")
       type = input.attr("as")
-      label = input.attr("label") ? name # TODO: labelize name
+      label = input.attr("label")
 
       attributes = {}
       attributes[attr.name] = attr.value for attr in input.prop("attributes")
@@ -77,3 +82,4 @@ mod.directive 'fsFormFor', ()->
       .end().html()
 
     $('<form>', formAttributes).html(html)[0].outerHTML
+]

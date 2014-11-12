@@ -1,10 +1,9 @@
 mod = require('./module')
 
 require('../styles/select.less')
+require('../templates/metaSelect.html')
 
-tpl = require('html!../templates/metaSelect.html')
-
-mod.directive "fsSelect", ['$compile', ($compile) ->
+mod.directive "fsSelect", ['$compile', '$templateCache', ($compile, $templateCache) ->
   restrict: "A"
   scope:
     items: '='
@@ -15,7 +14,9 @@ mod.directive "fsSelect", ['$compile', ($compile) ->
   replace: true
   template: (el)->
     itemTpl = el.html()
-    tpl.replace(/::itemTpl/g, itemTpl)
+
+    $templateCache.get('templates/fs/metaSelect.html')
+      .replace(/::itemTpl/g, itemTpl)
 
   controller: ($scope, $element, $attrs, $filter, $timeout) ->
     $scope.active = false

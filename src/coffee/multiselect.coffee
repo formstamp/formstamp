@@ -1,6 +1,7 @@
 mod = require('./module')
 
 require("../styles/multiselect.less")
+require("../templates/multiselect.html")
 u = require("./utils")
 
 mod.filter 'exclude', ->
@@ -10,7 +11,7 @@ mod.filter 'exclude', ->
 
     input.filter (item) -> selected.indexOf(item) < 0
 
-mod.directive "fsMultiselect", ['$window', ($window) ->
+mod.directive "fsMultiselect", ['$window', '$templateCache', ($window, $templateCache) ->
     restrict: "A"
     scope:
       items: '='
@@ -23,43 +24,9 @@ mod.directive "fsMultiselect", ['$window', ($window) ->
       defaultItemTpl = "{{ item }}"
       itemTpl = el.html() || defaultItemTpl
 
-      """
-<div class='fs-multiselect fs-widget-root' ng-class='{ "fs-with-selected-items": selectedItems.length > 0 }'>
-  <div class='fs-multiselect-wrapper'>
-    <div class="fs-multiselect-selected-items" ng-if="selectedItems.length > 0">
-      <a ng-repeat='item in selectedItems' class="btn" ng-click="unselectItem(item)" ng-disabled="disabled">
-        #{itemTpl}
-        <span class="glyphicon glyphicon-remove" ></span>
-      </a>
-    </div>
+      $templateCache.get('templates/fs/multiselect.html')
+        .replace(/::item-template/g, itemTpl)
 
-    <input ng-keydown="onkeys($event)"
-           fs-null-form
-           ng-disabled="disabled"
-           fs-input
-           fs-hold-focus
-           fs-on-focus="active = true"
-           fs-on-blur="onBlur()"
-           fs-blur-when="!active"
-           fs-down='listInterface.move(1)'
-           fs-up='listInterface.move(-1)'
-           fs-pgup='listInterface.move(-11)'
-           fs-pgdown='listInterface.move(11)'
-           fs-enter='onEnter()'
-           fs-esc='active = false'
-           class="form-control"
-           type="text"
-           placeholder='Select something'
-           ng-model="search" />
-
-    <div ng-if="active && dropdownItems.length > 0" class="open">
-      <div fs-list items="dropdownItems">
-        #{itemTpl}
-      </div>
-    </div>
-  </div>
-</div>
-    """
     controller: ($scope, $element, $attrs, $filter) ->
       if $attrs.freetext?
         $scope.dynamicItems = ->

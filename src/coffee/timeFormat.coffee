@@ -11,7 +11,6 @@ match = (value)->
   [_..., matched] = PATTERNS.filter((p) -> p.test(value))
   matched
 
-
 mod = require('./module')
 mod.directive('fsTimeFormat', ['$filter', ($filter)->
     restrict: 'A'
