@@ -90,8 +90,13 @@ Install bower dependencies and node.js packages
 
 Build, start server and start watching changes using
 
-    grunt serve              # server starts on port 17405 by default
-    grunt serve --port 3000  # specify port
+```sh
+
+./node_modules/.bin/webpack-dev-server --progress --colors --content-base=./
+
+# open browser @ localhost:8080/index.html
+
+```
 
 Now, point your browser to http://localhost:17405/ and you'll see
 FormStamp's demo page.
@@ -102,6 +107,12 @@ have to manually configure profile file.
 
 Running Tests
 -------
+
+Run unit tests:
+
+```sh
+node_modules/karma/bin/karma start --single-run
+```
 
 Before run test suite:
 

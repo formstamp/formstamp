@@ -1,6 +1,6 @@
 ## TODO
 
-[] use webpack with karma
+[*] use webpack with karma
 [] form from json
 [] use buind once
 [] honor angularjs time, number etc
