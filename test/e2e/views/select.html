@@ -1,14 +1,14 @@
 <html ng-app='formstamp-test'>
   <head>
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
-    <link rel="stylesheet" href="/build/formstamp.css"/>
+    <link rel="stylesheet" href="/formstamp.css"/>
     <script type='text/javascript' src='/bower_components/jquery/dist/jquery.js'></script>
     <script type='text/javascript' src='/bower_components/angular/angular.js'></script>
-    <script type='text/javascript' src='/build/formstamp.js'></script>
+    <script type='text/javascript' src='/formstamp.js'></script>
     <script type='text/javascript'>
-      angular.module('formstamp-test', ['formstamp']);
+      var app = angular.module('formstamp-test', ['formstamp']);
 
-      function SelectCtrl($scope) {
+      app.controller('SelectCtrl', function ($scope) {
         $scope.items = [
           { id: 1, label: "first label" },
           { id: 2, label: "second label" },
@@ -16,7 +16,7 @@
         ];
 
         $scope.freetextItems = ['one', 'two', 'three'];
-      }
+      });
     </script>
   </head>
   <body ng-controller='SelectCtrl'>

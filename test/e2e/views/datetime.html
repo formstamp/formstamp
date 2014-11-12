@@ -1,28 +1,17 @@
-\<html ng-app='formstamp-test'>
+<html ng-app='formstamp-test'>
   <head>
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
-    <link rel="stylesheet" href="/build/formstamp.css"/>
+    <link rel="stylesheet" href="/formstamp.css"/>
     <script type='text/javascript' src='/bower_components/jquery/dist/jquery.js'></script>
     <script type='text/javascript' src='/bower_components/angular/angular.js'></script>
-    <script type='text/javascript' src='/build/formstamp.js'></script>
+    <script type='text/javascript' src='/formstamp.js'></script>
     <script type='text/javascript'>
       angular.module('formstamp-test', ['formstamp']);
-
-      function DateCtrl($scope) {
-        $scope.disabled = false;
-
-        $scope.setNow = function() {
-          $scope.value = new Date()
-        };
-      }
     </script>
   </head>
-  <body ng-controller='DateCtrl'>
-    <h1>fsDate</h1>
-    <div fs-date ng-model='value' ng-disabled='disabled'></div>
-
-    <a href="#" id="setNow" ng-click="setNow()">set now</a>
-    <a href="#" id="disable" ng-click="disabled = true">set now</a>
+  <body>
+    <h1>fsDatetime</h1>
+    <div fs-datetime ng-model='value'></div>
 
     <span ng-bind='value' id="value"></span>
     <span ng-bind='value.getHours()' id="hours"></span>
