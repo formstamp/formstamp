@@ -1,4 +1,5 @@
 describe 'fsTime', ->
+  require '../../src/coffee/time'
   $scope = null
   $compile = null
 

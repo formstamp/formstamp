@@ -1,4 +1,5 @@
 describe 'fsList', ->
+  require '../../src/coffee/list'
   $scope = null
   $compile = null
   input = null

@@ -1,4 +1,5 @@
 describe 'fsRadio', ->
+  require '../../src/coffee/radio'
   $scope = null
   $compile = null
   element = null

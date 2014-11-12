@@ -1,4 +1,5 @@
 describe 'fsFormFor', ->
+  require '../../src/coffee/formFor'
   $scope = null
   $compile = null
 

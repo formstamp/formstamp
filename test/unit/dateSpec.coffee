@@ -10,6 +10,8 @@ date = (elems) ->
   res
 
 describe 'fsDate', ->
+  require '../../src/coffee/date'
+
   $scope = null
   $compile = null
   input = null

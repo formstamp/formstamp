@@ -1,4 +1,5 @@
 describe 'fsSelect', ->
+  require '../../src/coffee/select'
   $scope = null
   $compile = null
 

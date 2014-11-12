@@ -27,8 +27,7 @@ module.exports = function(config) {
 
       'src/coffee/module.coffee',
 
-      'test/unit/dateFormatSpec.coffee',
-      'test/unit/timeFormatSpec.coffee'
+      'test/unit/*.coffee'
     ],
 
     // list of files to exclude
