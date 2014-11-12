@@ -12,12 +12,15 @@
   <div class="row" ng-controller="FormBuilderCtrl">
     <div class="col-xs-8">
       <fs-form-for model="samurai">
+
       <fieldset class="form-horizontal">
         <legend>Samurai Personal Info</legend>
-        <fs-input as="text" name="name" required="" label="Name"></fs-input>
-        <fs-input as="email" name="email" required="" label="Email"></fs-input>
         <fs-input as="fs-datetime" name="birthdate" required="" label="Date of Birth"></fs-input>
-        <fs-input as="textarea" name="details" required="" label="Details"></fs-input>
+        <fs-input as="fs-date" name="date" required label="Date"></fs-input>
+        <fs-input as="fs-time" name="time" required label="Time"></fs-input>
+        <fs-input as="fs-time" name="time" required label="Time"></fs-input>
+
+        <fs-input as="textarea" name="details" required label="Details"></fs-input>
 
         <fs-row label="Living district">
         <div class="row">
@@ -26,6 +29,19 @@
         </div>
         </fs-row>
       </fieldset>
+      <fieldset class="form-horizontal">
+        <legend>Angular native</legend>
+        <fs-input as="text" required name="name"></fs-input>
+        <fs-input as="email" required name="email"></fs-input>
+        <fs-input as="number" name="number"></fs-input>
+        <fs-input as="url" name="url"></fs-input>
+        <fs-input as="time" name="ngTime"></fs-input>
+        <fs-input as="date" name="ngDate"></fs-input>
+        <fs-input as="datetime-local" name="ngDatelocal"></fs-input>
+        <fs-input as="week" name="ngWeek"></fs-input>
+        <fs-input as="month" name="ngMonth"></fs-input>
+      </fieldset>
+
 
       <fieldset class="form-horizontal">
         <legend>Samurai CV</legend>
@@ -38,9 +54,11 @@
 
       <fieldset class="form-horizontal">
         <legend>List</legend>
-        <div fs-list="" items="districts" class="no-popup">
-          {{item | json}}
-        </div>
+        <fs-row label="list">
+          <div fs-list="" items="districts" class="no-popup">
+            {{item | json}}
+          </div>
+        </fs-row>
       </fieldset>
 
       </fs-form-for>
