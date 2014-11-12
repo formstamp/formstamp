@@ -23,6 +23,7 @@
     "webpack-dev-server": "latest",
     "karma-sourcemap-loader": "latest",
     "extract-text-webpack-plugin": "latest"
+    "ng-cache-loader": "latest"
   },
   "scripts": { "test": "echo \"Error: no test specified\" && exit 1" },
   "repository": "https://github.com/formstamp/formstamp",
