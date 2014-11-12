@@ -47,6 +47,11 @@ mod.directive 'fsFormFor', ()->
         attributes[type] = true
         inputEl = $("<div />", attributes)
         inputEl.html(input.html())
+      else if type == 'textarea'
+        attributes[type] = true
+        attributes['class'] = 'form-control'
+        inputEl = $("<textarea />", attributes)
+        inputEl.html(input.html())
       else
         attributes['type'] = type
         attributes['class'] = 'form-control'
