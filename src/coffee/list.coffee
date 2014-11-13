@@ -30,7 +30,7 @@ mod.directive "fsList", ['$templateCache', ($templateCache) ->
 
   controller: ($scope, $element, $attrs, $filter) ->
     updateSelectedItem = (hlIdx) ->
-      if $scope.$parent.listInterface? && hlIdx >= 0
+      if $scope.$parent.listInterface?
         $scope.$parent.listInterface.selectedItem = $scope.items[hlIdx]
 
     $scope.highlightItem = (item) ->
@@ -39,7 +39,8 @@ mod.directive "fsList", ['$templateCache', ($templateCache) ->
         $scope.$parent.listInterface.onSelect(item)
 
     $scope.$watch 'items', (newItems)->
-      $scope.highlightIndex = -1
+      $scope.highlightIndex = 0
+      updateSelectedItem(0)
 
     $scope.$watch 'highlightIndex', (idx) ->
       updateSelectedItem(idx)
