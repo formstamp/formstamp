@@ -1,6 +1,6 @@
 app  = angular.module('app', ['formstamp'])
 app.run(function(){
-  console.log('here')
+  console.log('Configure app')
 })
 
 app.controller('FormBuilderCtrl', function($scope){

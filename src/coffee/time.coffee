@@ -16,15 +16,20 @@ mkTimeInput = (el, cb, ddcb)->
 
   el.on 'blur', (e)->
     v = el.val()
-    unless validInput(v)
-      cb(null)
+    fixed = si.timeLastFix(v)
+    if fixed != v && validInput(fixed)
+      el.val(fixed)
+      cb(fixed)
+    else if not validInput(v)
       el.val(null)
+      cb(null)
 
-  el.on 'keyup', (e)->
+  el.on 'keydown', (e)->
+    # console.log('keyup',e.which)
     v = el.val()
     if /:$/.test(v)
       if e.which == 8
-        el.val(v.substring(0, v.length - 2))
+        el.val(v.substring(0, v.length - 1))
 
   el.on 'input', (e)->
     v = si.timeInput(el.val())

@@ -1,19 +1,29 @@
 describe 'fsDateFormat', ->
   si = require '../../src/coffee/smartInput'
-  timeInput = si.timeInput
 
-  it "test", ()->
+  it "test #timeInput", ()->
+    subject = si.timeInput
 
-    expect(timeInput('')).toEqual('')
-    expect(timeInput('a')).toEqual('')
-    expect(timeInput('0')).toEqual('0')
-    expect(timeInput('2')).toEqual('2')
-    expect(timeInput('9')).toEqual('09:')
+    expect(subject('')).toEqual('')
+    expect(subject('a')).toEqual('')
+    expect(subject('0')).toEqual('0')
+    expect(subject('2')).toEqual('2')
+    expect(subject('9')).toEqual('09:')
 
-    expect(timeInput('15')).toEqual('15:')
-    expect(timeInput('23')).toEqual('23:')
-    expect(timeInput('28')).toEqual('2')
-    expect(timeInput('2a')).toEqual('2')
+    expect(subject('15')).toEqual('15:')
+    expect(subject('23')).toEqual('23:')
+    expect(subject('28')).toEqual('2')
+    expect(subject('2a')).toEqual('2')
+
+
+  it "test #timeLastFix", ()->
+    subject = si.timeLastFix
+
+    expect(subject('10')).toEqual('10:00')
+    expect(subject('10:')).toEqual('10:00')
+    expect(subject('10:5')).toEqual('10:05')
+    expect(subject('10:13')).toEqual('10:13')
+
 
 # describe 'fsTimeFormat', ->
 #   require '../../src/coffee/timeFormat'
