@@ -43,7 +43,7 @@ describe 'fsSelect', ->
     $scope.$apply(-> $scope.value = $scope.items.first)
     expect($scope.value).toBe $scope.items.first
 
-    element.find('.fs-select-clear-btn').click()
+    element.find('.fs-close').click()
     expect($scope.value).toBe(null)
 
   it 'should set scope value exactly as it was in items array', ->
