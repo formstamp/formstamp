@@ -4,6 +4,10 @@ require('../templates/metaInput.html')
 require('../templates/metaRow.html')
 require('../templates/errors.html')
 
+setAttrs = (el, attrs) ->
+  for own attr, value of attrs
+    el.attr(attr, value)
+
 mod.directive 'fsErrors', ['$templateCache', ($templateCache) ->
   restrict: 'A'
   scope:
@@ -37,8 +41,8 @@ mod.directive 'fsFormFor', ['$templateCache', ($templateCache)->
 
     formAttributes[attr.name] = attr.value for attr in el.prop("attributes")
 
-    inputReplacer = () ->
-      input = angular.element(this)
+    inputReplacer = (el) ->
+      input = angular.element(el)
       name = input.attr("name")
       type = input.attr("as")
       label = input.attr("label") || name
@@ -51,36 +55,44 @@ mod.directive 'fsFormFor', ['$templateCache', ($templateCache)->
 
       if type.indexOf("fs-") == 0
         attributes[type] = true
-        inputEl = angular.element("<div />", attributes)
+        inputEl = angular.element("<div />")
+        setAttrs(inputEl, attributes)
         inputEl.html(input.html())
       else if type == 'textarea'
         attributes[type] = true
         attributes['class'] = 'form-control'
-        inputEl = angular.element("<textarea />", attributes)
+        inputEl = angular.element("<textarea />")
+        setAttrs(inputEl, attributes)
         inputEl.html(input.html())
       else
         attributes['type'] = type
         attributes['class'] = 'form-control'
-        inputEl = angular.element("<input />", attributes)
+        inputEl = angular.element("<input />")
+        setAttrs(inputEl, attributes)
 
       inputTpl
         .replace(/::name/g, name)
         .replace(/::label/g,label)
-        .replace(/::content/, inputEl.get(0).outerHTML)
+        .replace(/::content/, inputEl[0].outerHTML)
 
-    rowReplacer = () ->
-      row = angular.element(this)
+    rowReplacer = (el) ->
+      row = angular.element(el)
       label = row.attr("label")
       rowTpl
         .replace(/::label/g,label)
-        .replace(/::content/, row.get(0).outerHTML)
+        .replace(/::content/, row.html())
 
-    html = el.find("fs-input")
-      .replaceWith(inputReplacer)
+    tplEl = el.clone()
 
-    html = html.find("fs-row")
-      .replaceWith(rowReplacer)
-      .html()
+    for input in tplEl.find("fs-input")
+      angular.element(input).replaceWith(inputReplacer(input))
 
-    angular.element('<form>', formAttributes).html(html).outerHTML
+    for row in tplEl.find("fs-row")
+      angular.element(row).replaceWith(rowReplacer(row))
+
+    form = angular.element('<form>')
+    setAttrs(form, formAttributes)
+    form.html(tplEl.html())
+    form[0].outerHTML
+
 ]
