@@ -1,6 +1,8 @@
 mod = require('./module')
 
+require('../styles/common.less')
 require('../styles/select.less')
+
 require('../templates/metaSelect.html')
 
 mod.directive "fsSelect", ['$compile', '$templateCache', ($compile, $templateCache) ->

@@ -1,5 +1,6 @@
 mod = require('./module')
 
+require("../styles/common.less")
 require("../styles/multiselect.less")
 require("../templates/multiselect.html")
 u = require("./utils")

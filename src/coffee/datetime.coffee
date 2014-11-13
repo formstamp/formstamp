@@ -1,6 +1,8 @@
 mod = require('./module')
 
 require('../templates/datetime.html')
+
+require('../styles/common.less')
 require("../styles/datetime.less")
 
 u = require('./utils')

@@ -29,6 +29,16 @@
         </div>
         </fs-row>
       </fieldset>
+
+      <fieldset class="form-horizontal">
+        <legend>Samurai CV</legend>
+        <fs-input as="fs-radio" name="learningStage" label="Current Learning Stage" items="learningStages"></fs-input>
+        <fs-input as="fs-multiselect" name="weapons" label="Owned Weapons" items="weapons">{{ item.label }}</fs-input>
+        <fs-input as="fs-multiselect" name="weaponStyles" freetext="123" label="Weapon Styles" items="weaponStyles">{{ item }}</fs-input>
+        <fs-input as="fs-select" name="meal" label="Preferable Food" items="meals"><b>{{ item.id.toUpperCase() }}</b> {{ item.label }}</fs-input>
+        <fs-input as="fs-checkbox" name="otherFacts" label="Other Facts" items="otherFacts">{{ item }}</fs-input>
+      </fieldset>
+
       <fieldset class="form-horizontal">
         <legend>Angular native</legend>
         <fs-input as="text" required name="name"></fs-input>
@@ -40,16 +50,6 @@
         <fs-input as="datetime-local" name="ngDatelocal"></fs-input>
         <fs-input as="week" name="ngWeek"></fs-input>
         <fs-input as="month" name="ngMonth"></fs-input>
-      </fieldset>
-
-
-      <fieldset class="form-horizontal">
-        <legend>Samurai CV</legend>
-        <fs-input as="fs-radio" name="learningStage" label="Current Learning Stage" items="learningStages"></fs-input>
-        <fs-input as="fs-multiselect" name="weapons" label="Owned Weapons" items="weapons">{{ item.label }}</fs-input>
-        <fs-input as="fs-multiselect" name="weaponStyles" freetext="123" label="Weapon Styles" items="weaponStyles">{{ item }}</fs-input>
-        <fs-input as="fs-select" name="meal" label="Preferable Food" items="meals"><b>{{ item.id.toUpperCase() }}</b> {{ item.label }}</fs-input>
-        <fs-input as="fs-checkbox" name="otherFacts" label="Other Facts" items="otherFacts">{{ item }}</fs-input>
       </fieldset>
 
       <fieldset class="form-horizontal">
