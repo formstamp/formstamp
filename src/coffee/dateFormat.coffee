@@ -1,19 +1,25 @@
 mod = require('./module')
 
-mod.directive('fsDateFormat', ['$filter', 'fsConfig', ($filter, fsConfig) ->
+require('./dateParser.coffee')
+
+mod.directive('fsDateFormat', ['$locale', '$filter', '$dateParser', ($locale, $filter, $dateParser) ->
   restrict: 'A'
   require: 'ngModel'
   link: (scope, element, attrs, ngModel)->
-    format = attrs.fsDateFormat || fsConfig.dateFormat || 'MM/DD/YYYY'
+    format = attrs.fsDateFormat || 'shortDate'
+    dateFilter = $filter('date')
 
-    ngModel.$formatters.push (value)->
-      moment(value).format(format)
+    ngModel.$formatters.push (value) ->
+      dateFilter(value, 'shortDate')
 
-    ngModel.$parsers.unshift (value)->
+    ngModel.$parsers.unshift (value) ->
       return null unless value
       return null if value == ''
-      if moment(value, format).isValid()
-        new Date(moment(value, format).valueOf())
+
+      result = $dateParser(value, format)
+
+      if result
+        result
       else
         null
 ])

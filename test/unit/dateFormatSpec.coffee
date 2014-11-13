@@ -5,7 +5,7 @@ date = (elems) ->
   res.setMinutes(elems.minutes || 0)
   res.setHours(elems.hours || 0)
   res.setDate(elems.day) if elems.day?
-  res.setMonth(elems.month) if elems.month?
+  res.setMonth(elems.month - 1) if elems.month?
   res.setFullYear(elems.year) if elems.year?
   res
 
@@ -28,11 +28,10 @@ describe 'fsDateFormat', ->
   it "test", inject ($rootScope, $compile)->
     $scope.value = date(day: 1, month: 1, year: 2012)
     $scope.$apply()
-    expect(input.val()).toEqual '02/01/2012'
-
+    expect(input.val()).toEqual '1/1/12'
 
   it 'should parse date', ->
-    input.val('03/02/2012').triggerHandler('input')
+    input.val('2/2/12').triggerHandler('input')
     expect($scope.value).toEqual date(day: 2, month: 2, year: 2012)
 
   it 'should set model to null if view is empty', ->

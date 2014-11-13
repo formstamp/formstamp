@@ -25,7 +25,6 @@ mkTimeInput = (el, cb, ddcb)->
       cb(null)
 
   el.on 'keydown', (e)->
-    # console.log('keyup',e.which)
     v = el.val()
     if /:$/.test(v)
       if e.which == 8
@@ -34,7 +33,6 @@ mkTimeInput = (el, cb, ddcb)->
   el.on 'input', (e)->
     v = si.timeInput(el.val())
     el.val(v)
-    # console.log('input',v)
     if v == ''
       cb(null, items)
       ddcb(items)

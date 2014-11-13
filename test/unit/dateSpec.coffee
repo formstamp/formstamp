@@ -5,7 +5,7 @@ date = (elems) ->
   res.setMinutes(elems.minutes || 0)
   res.setHours(elems.hours || 0)
   res.setDate(elems.day) if elems.day?
-  res.setMonth(elems.month) if elems.month?
+  res.setMonth(elems.month - 1) if elems.month?
   res.setFullYear(elems.year) if elems.year?
   res
 
@@ -16,14 +16,12 @@ describe 'fsDate', ->
   $scope = null
   $compile = null
   input = null
-  $config = null
 
   beforeEach angular.mock.module('formstamp')
 
-  beforeEach inject ($rootScope, _$compile_, fsConfig) ->
+  beforeEach inject ($rootScope, _$compile_) ->
     $scope = $rootScope.$new()
     $compile = _$compile_
-    $config = fsConfig
 
   compile = (elem) ->
     element = $compile(elem)($scope)
@@ -39,17 +37,10 @@ describe 'fsDate', ->
     $scope.value = date(day: 1, month: 2, year: 2010)
     element = compile('<div fs-date ng-model="value"></div>')
     $scope.$apply()
-    expect(element.find('input').val()).toEqual '03/01/2010'
-
-  it 'should use date format from config', ->
-    $config.dateFormat = 'DD/MM/YY'
-    $scope.value = date(day: 3, month: 10, year: 2010)
-    element = compile('<div fs-date ng-model="value"></div>')
-    $scope.$apply()
-    expect(element.find('input').val()).toEqual '03/11/10'
+    expect(element.find('input').val()).toEqual '2/1/10'
 
   it 'should use date format from attribute', ->
     $scope.value = date(day: 27, month: 10, year: 2010)
-    element = compile('<div fs-date ng-model="value" format="YYYY/DD/MM"></div>')
+    element = compile('<div fs-date ng-model="value" format="yyyy/dd/mm"></div>')
     $scope.$apply()
-    expect(element.find('input').val()).toEqual '2010/27/11'
+    expect(element.find('input').val()).toEqual '10/26/10'

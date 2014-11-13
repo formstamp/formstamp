@@ -22,7 +22,7 @@ describe 'fsDatetime', ->
     res.setMinutes(elems.minutes || 0)
     res.setHours(elems.hours || 0)
     res.setDate(elems.day) if elems.day?
-    res.setMonth(elems.month) if elems.month?
+    res.setMonth(elems.month - 1) if elems.month?
     res.setFullYear(elems.year) if elems.year?
     res
 
@@ -45,8 +45,8 @@ describe 'fsDatetime', ->
 
   it 'should set date', ->
     element = compile('<div fs-datetime ng-model="value"></div>')
-    element.find('.fs-date input').val('01/01/2012').triggerHandler('input')
-    equalsDates($scope.value, date(day: 1, month: 0, year: 2012))
+    element.find('.fs-date input').val('1/1/12').triggerHandler('input')
+    equalsDates($scope.value, date(day: 1, month: 1, year: 2012))
 
   it 'should set time', ->
     element = compile('<div fs-datetime ng-model="value"></div>')
@@ -56,23 +56,22 @@ describe 'fsDatetime', ->
   it 'should set time and date', ->
     element = compile('<div fs-datetime ng-model="value"></div>')
     element.find('.fs-time input').val('12:02').triggerHandler('input')
-    element.find('.fs-date input').val('01/01/2012').triggerHandler('input')
-    equalsDatetimes($scope.value, date(day: 1, month: 0, year: 2012, hours: 12, minutes: 2))
+    element.find('.fs-date input').val('1/1/12').triggerHandler('input')
+    equalsDatetimes($scope.value, date(day: 1, month: 1, year: 2012, hours: 12, minutes: 2))
 
-    element.find('.fs-date input').val('01/02/2012').triggerHandler('input')
-    equalsDatetimes($scope.value, date(day: 2, month: 0, year: 2012, hours: 12, minutes: 2))
+    element.find('.fs-date input').val('1/2/12').triggerHandler('input')
+    equalsDatetimes($scope.value, date(day: 2, month: 1, year: 2012, hours: 12, minutes: 2))
 
     element.find('.fs-time input').val('23:06').triggerHandler('input')
-    equalsDatetimes($scope.value, date(day: 2, month: 0, year: 2012, hours: 23, minutes: 6))
+    equalsDatetimes($scope.value, date(day: 2, month: 1, year: 2012, hours: 23, minutes: 6))
 
   it 'should update view', ->
-    $scope.value = date(year: 2010, month: 1, day: 1, hours: 12, minutes: 3)
+    $scope.value = date(year: 2010, month: 2, day: 1, hours: 12, minutes: 3)
     element = compile('<div fs-datetime ng-model="value"></div>')
-    expect(element.find('.fs-date input').val()).toBe '02/01/2010'
+    expect(element.find('.fs-date input').val()).toBe '2/1/10'
     expect(element.find('.fs-time input').val()).toBe '12:03'
 
     $scope.value = null
     $scope.$apply()
     expect(element.find('.fs-date input').val()).toBe ''
     expect(element.find('.fs-time input').val()).toBe ''
-
