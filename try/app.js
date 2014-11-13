@@ -94,7 +94,7 @@ return {
   restrict: "A",
   require : 'ngModel',
   link : function($scope, element, attrs, ngModel) {
-    console.log('customValidation')
+    // console.log('customValidation')
     ngModel.$validators.ups = function(value) {
       console.log('customValidation', value)
       return value == 'formstamp';
@@ -107,7 +107,7 @@ return {
   restrict: "A",
   require : 'ngModel',
   link : function($scope, element, attrs, ngModel) {
-    console.log('customValidationFuture')
+    // console.log('customValidationFuture')
     ngModel.$validators.future = function(value) {
       var now = new Date()
       console.log('future validation', value)
