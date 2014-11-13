@@ -78,8 +78,7 @@ mod.directive "fsTime", ['$filter', '$timeout', ($filter, $timeout) ->
       scope.$apply ()->
         scope.value = v
 
-    updateInput = mkTimeInput element.find('.fs-time-role'), scopeUpdate, dropDownUpdate
-
+    updateInput = mkTimeInput element.find('input'), scopeUpdate, dropDownUpdate
     scope.$watch 'value', (q)->
       updateInput(scope.value)
 

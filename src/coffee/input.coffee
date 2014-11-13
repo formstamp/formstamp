@@ -1,3 +1,14 @@
+parentsUntil = (element, cssClass) ->
+  el = element
+
+  while el && !el.hasClass(cssClass)
+    el = el.parent()
+
+  if !el || !el.hasClass(cssClass)
+    nil
+  else
+    el
+
 angular
 .module("formstamp")
 .directive "fsInput", ['$parse', ($parse) ->
@@ -37,10 +48,10 @@ angular
         scope.$apply(attrs["fsOnBlur"])
 
     if attrs["fsHoldFocus"]?
-      fsRoot = $(element).parents(".fs-widget-root").first()
+      fsRoot = parentsUntil(element, "fs-widget-root")
 
       fsRoot.on "mousedown", (event) ->
-        if event.target != element.get(0)
+        if event.target != element[0]
           event.preventDefault()
           false
         else
