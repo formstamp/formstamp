@@ -51,7 +51,7 @@ angular
       fsRoot = parentsUntil(element, "fs-widget-root")
 
       fsRoot.on "mousedown", (event) ->
-        if event.target != element.get(0)
+        if event.target != element[0]
           event.preventDefault()
           false
         else
