@@ -40,7 +40,7 @@ mod.directive 'fsFormFor', ['$templateCache', ($templateCache)->
       input = $(this)
       name = input.attr("name")
       type = input.attr("as")
-      label = input.attr("label")
+      label = input.attr("label") || name
 
       attributes = {}
       attributes[attr.name] = attr.value for attr in input.prop("attributes")
