@@ -34,10 +34,11 @@ mod.directive 'fsFormFor', ['$templateCache', ($templateCache)->
       class: 'form-horizontal'
       novalidate: ''
     }
+
     formAttributes[attr.name] = attr.value for attr in el.prop("attributes")
 
     inputReplacer = () ->
-      input = $(this)
+      input = angular.element(this)
       name = input.attr("name")
       type = input.attr("as")
       label = input.attr("label") || name
@@ -50,17 +51,17 @@ mod.directive 'fsFormFor', ['$templateCache', ($templateCache)->
 
       if type.indexOf("fs-") == 0
         attributes[type] = true
-        inputEl = $("<div />", attributes)
+        inputEl = angular.element("<div />", attributes)
         inputEl.html(input.html())
       else if type == 'textarea'
         attributes[type] = true
         attributes['class'] = 'form-control'
-        inputEl = $("<textarea />", attributes)
+        inputEl = angular.element("<textarea />", attributes)
         inputEl.html(input.html())
       else
         attributes['type'] = type
         attributes['class'] = 'form-control'
-        inputEl = $("<input />", attributes)
+        inputEl = angular.element("<input />", attributes)
 
       inputTpl
         .replace(/::name/g, name)
@@ -68,7 +69,7 @@ mod.directive 'fsFormFor', ['$templateCache', ($templateCache)->
         .replace(/::content/, inputEl.get(0).outerHTML)
 
     rowReplacer = () ->
-      row = $(this)
+      row = angular.element(this)
       label = row.attr("label")
       rowTpl
         .replace(/::label/g,label)
@@ -76,10 +77,10 @@ mod.directive 'fsFormFor', ['$templateCache', ($templateCache)->
 
     html = el.find("fs-input")
       .replaceWith(inputReplacer)
-      .end()
-      .find("fs-row")
-      .replaceWith(rowReplacer)
-      .end().html()
 
-    $('<form>', formAttributes).html(html)[0].outerHTML
+    html = html.find("fs-row")
+      .replaceWith(rowReplacer)
+      .html()
+
+    angular.element('<form>', formAttributes).html(html).outerHTML
 ]
