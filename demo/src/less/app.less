@@ -1,0 +1,78 @@
+@redy: #e62b1e;
+
+.navbar-brand {
+ .glyphicon {
+   color: @redy;
+ }
+}
+
+.navbar-static-top.navbar-default {
+  border-bottom-width: 2px;
+  border-color: @redy;
+  background-color: #f1f1f1;
+  .fa { font-size: 19px; }
+}
+
+.navbar-default .navbar-nav>.active>a {
+  font-weight: bold;
+}
+
+.view {
+  padding: 20px 50px;
+  margin: 0 auto;
+  &.ng-enter,
+  &.ng-leave {
+    -webkit-transition: 455ms cubic-bezier(0.190, 1.000, 0.220, 1.000) all;
+    -moz-transition: 455ms cubic-bezier(0.190, 1.000, 0.220, 1.000) all;
+    -ms-transition: 455ms cubic-bezier(0.190, 1.000, 0.220, 1.000) all;
+    -o-transition: 455ms cubic-bezier(0.190, 1.000, 0.220, 1.000) all;
+    transition: 1000ms cubic-bezier(0.190, 1.000, 0.220, 1.000) all;
+    &.ng-leave-active {
+      display: none;
+    }
+  }
+
+  &.ng-enter {
+    opacity: 0.1;
+    position: relative;
+    &.ng-enter-active { opacity: 1; }
+  }
+}
+
+.fs-sample {
+  position: relative;
+  margin: 60px 0 60px 0;
+  padding: 30px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  .fstabs{
+    position: absolute;
+    top: -18px;
+    right: 30px;
+  }
+
+  pre:last-child {
+    margin-bottom: 0;
+  }
+
+  pre {
+   font-size: 13px;
+   font-family: monospace;
+   padding: 20px;
+   .important {
+     color: red;
+   }
+  }
+
+  .example-label {
+    opacity: 1;
+  }
+
+  & > h4 {
+    margin: 0;
+    margin-top: -46px;
+    background-color: #fff;
+    padding: 5px;
+  }
+}
+

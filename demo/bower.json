@@ -1,0 +1,14 @@
+{
+  "name": "formstamp-demo",
+  "version": "0.0.0",
+  "dependencies": {
+    "bootstrap": "latest",
+    "jquery": "latest",
+    "angular": "latest",
+    "angular-sanitize": "latest",
+    "angular-route": "latest",
+    "angular-animate": "latest",
+    "fontawesome": "latest",
+    "components-font-awesome": "latest"
+  }
+}

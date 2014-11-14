@@ -1,0 +1,28 @@
+{
+  "author": "Health Samurai",
+  "name": "formstamp-demo",
+  "version": "0.0.0",
+  "description": "Pure AngularJS widgets library",
+  "homepage": "http://formstamp.github.io/",
+  "dependencies": {},
+  "devDependencies": {
+    "bower": "latest",
+    "coffee": "latest",
+    "coffee-loader": "latest",
+    "css-loader": "latest",
+    "html-loader": "latest",
+    "file-loader": "latest",
+    "style-loader": "latest",
+    "less-loader": "latest",
+    "raw-loader":"latest",
+    "markdown-loader":"latest",
+    "webpack": "latest",
+    "marked":"latest",
+    "webpack-dev-server": "latest",
+    "extract-text-webpack-plugin": "latest",
+    "ng-cache-loader": "latest"
+  },
+  "scripts": { "test": "echo \"Error: no test specified\" && exit 1" },
+  "repository": "https://github.com/formstamp/formstamp",
+  "engines": { "node": "0.10" }
+}

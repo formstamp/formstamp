@@ -26,3 +26,6 @@ build/
 spec/build
 demo/js/
 dist
+demo/bower_components
+demo/node_modules
+demo/build
