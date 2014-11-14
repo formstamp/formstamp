@@ -19,12 +19,12 @@ before_script:
 - '`npm bin`/webdriver-manager update --chrome'
 
 script:
-# - 'node_modules/karma/bin/karma start  --single-run'
-# - './devserver.sh &'
-# - '`npm bin`/webdriver-manager start &'
-# - 'until $(wget -O /dev/null http://127.0.0.1:4444/wd/hub/); do sleep 1; done'
-# - '`npm bin`/protractor test/protractor.conf.js'
+- 'node_modules/karma/bin/karma start  --single-run'
+- './devserver.sh &'
+- '`npm bin`/webdriver-manager start &'
+- 'until $(wget -O /dev/null http://127.0.0.1:4444/wd/hub/); do sleep 1; done'
+- '`npm bin`/protractor test/protractor.conf.js'
 
-# after_success:
+after_success:
 - 'cd .. && git clone --depth=50 --branch=master https://$TOKEN:x-oauth-basic@github.com/formstamp/formstamp.github.io.git'
-- 'ls -lah'
+- 'cd formstamp && script/deploy-demo.sh edge'
