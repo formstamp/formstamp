@@ -17,4 +17,5 @@ script:
 - 'node_modules/karma/bin/karma start  --single-run'
 - './devserver.sh &'
 - '`npm bin`/webdriver-manager start &'
+- 'sleep 1'
 - '`npm bin`/protractor test/protractor.conf.js'
