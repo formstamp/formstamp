@@ -22,7 +22,7 @@ script:
 # - 'node_modules/karma/bin/karma start  --single-run'
 # - './devserver.sh &'
 # - '`npm bin`/webdriver-manager start &'
-# - 'until $(wget -O /dev/null http://127.0.0.1:4444/wd/hub/); do sleep 1; done '
+# - 'until $(wget -O /dev/null http://127.0.0.1:4444/wd/hub/); do sleep 1; done'
 # - '`npm bin`/protractor test/protractor.conf.js'
 
 # after_success:
