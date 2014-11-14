@@ -26,5 +26,5 @@ script:
 # - '`npm bin`/protractor test/protractor.conf.js'
 
 # after_success:
-- 'cd .. && https://$TOKEN:x-oauth-basic@github.com/formstamp/formstamp.git'
+- 'cd .. && git clone --depth=50 --branch=master https://$TOKEN:x-oauth-basic@github.com/formstamp/formstamp.git'
 - 'ls -lah'
