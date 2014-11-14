@@ -41,6 +41,6 @@ describe 'fsDate', ->
 
   it 'should use date format from attribute', ->
     $scope.value = date(day: 27, month: 10, year: 2010)
-    element = compile('<div fs-date ng-model="value" format="yyyy/dd/mm"></div>')
+    element = compile('<div fs-date ng-model="value" format="yyyy/d/m"></div>')
     $scope.$apply()
     expect(element.find('input').val()).toEqual '10/26/10'
