@@ -5,5 +5,11 @@ exports.config = {
     defaultTimeoutInterval: 30000
   },
   specs: ["e2e/*.coffee"],
-  baseUrl: 'http://localhost:8080/test/e2e/views/'
+  baseUrl: 'http://localhost:8080/test/e2e/views/',
+  capabilities: {
+    'browserName': 'chrome',
+    'chromeOptions': {
+      'args': ['no-sandbox']
+    }
+  }
 }
