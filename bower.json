@@ -24,7 +24,7 @@
     "angular":"1.3.2",
     "bootstrap":"~3"
   },
-  "devDEpendencies": {
+  "devDependencies": {
     "jquery":"~1.9",
     "angular-mocks":"1.3.2"
   }
