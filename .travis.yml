@@ -16,5 +16,5 @@ before_script:
 script:
 - 'node_modules/karma/bin/karma start  --single-run'
 - './devserver.sh &'
-- '`npm bin`/webdriver-manager start'
+- '`npm bin`/webdriver-manager start &'
 - '`npm bin`/protractor test/protractor.conf.js'
