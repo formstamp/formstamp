@@ -21,5 +21,5 @@ script:
 - 'node_modules/karma/bin/karma start  --single-run'
 - './devserver.sh &'
 - '`npm bin`/webdriver-manager start &'
-- 'sleep 60'
+-- 'while echo | telnet localhost 4444 2>&1 | grep -qe "Connection refused"; do sleep 2; done'
 - '`npm bin`/protractor test/protractor.conf.js'
