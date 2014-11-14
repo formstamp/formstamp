@@ -3,7 +3,7 @@ app = require('./module')
 src = require('raw!./multiselect.js')
 
 countries = require('./countries')
-app.controller('MultiSelectCtrl', function ($scope){
+app.controller('MultiselectCtrl', function ($scope){
     $scope.src = src;
     $scope.disabled = false;
 

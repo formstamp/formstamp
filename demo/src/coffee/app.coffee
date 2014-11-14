@@ -32,45 +32,52 @@ require('../views/datetime.html')
 require('../less/app.less')
 require('../less/flags.css')
 
+capitalize = (s)->
+  s && s[0].toUpperCase() + s.slice(1)
+
+buildSiteMap = (x)->
+  x.href = "#/#{x.name}"
+  x.templateUrl = "views/#{x.name}.html"
+  x.controller = "#{capitalize(x.name)}Ctrl"
+  x
+
+sitemap = {
+  main: [
+    {name: 'form', label: 'Form'}
+    {name: 'select', label: 'Select'}
+    {name: 'multiselect', label: 'MultiSelect'}
+    {name: 'radio', label: 'Radio'}
+    {name: 'check', label: 'Checkbox'}
+    {name: 'datetime', label: 'Date/Time'}
+  ].map(buildSiteMap)
+}
 
 app.config ($routeProvider) ->
-  $routeProvider
+  rp = $routeProvider
     .when '/',
       templateUrl: 'views/readme.html'
       controller: 'ReadmeCtrl'
-    .when '/fs-form',
-      templateUrl: 'views/form.html'
-      controller: 'FormBuilderCtrl'
-    .when '/select',
-      templateUrl: 'views/select.html'
-      controller: 'SelectCtrl'
-    .when '/multiselect',
-      templateUrl: 'views/multiselect.html'
-      controller: 'MultiSelectCtrl'
-    .when '/radio',
-      templateUrl: 'views/radio.html'
-      controller: 'RadioCtrl'
-    .when '/check',
-      templateUrl: 'views/check.html'
-      controller: 'CheckCtrl'
-    .when '/datetime',
-      templateUrl: 'views/datetime.html'
-      controller: 'DatetimeCtrl'
-    .otherwise
-      templateUrl: '/views/404.html'
+
+  mkRoute = (acc, x)->
+    acc.when("/#{x.name}", x)
+
+  rp = sitemap.main.reduce mkRoute, rp
+
+  rp.otherwise
+    templateUrl: '/views/404.html'
+
+activate = (name)->
+  sitemap.main.forEach (x)->
+    if x.name == name
+      x.active = true
+    else
+      delete x.active
 
 app.run ($rootScope) ->
   $rootScope.brand = "Formstamp"
-  $rootScope.sitemap = {
-    main: [
-      {label: 'Form Builder', href: '#/fs-form'}
-      {label: 'Select', href: '#/select'}
-      {label: 'MultiSelect', href: '#/multiselect'}
-      {label: 'Radio', href: '#/radio'}
-      {label: 'Checkbox', href: '#/check'}
-      {label: 'Date/Time', href: '#/datetime'}
-    ]
-  }
+  $rootScope.sitemap = sitemap
+  $rootScope.$on  "$routeChangeStart", (event, next, current)->
+    activate(next.name)
 
 
 app.controller 'WelcomeCtrl', ()->

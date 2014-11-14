@@ -2,7 +2,7 @@ app = require('./module')
 
 src = require('raw!./form.js')
 
-app.controller('FormBuilderCtrl', function FormBuilderCtrl($scope){
+app.controller('FormCtrl', function ($scope){
   $scope.src = src
 
   $scope.samurai = {
