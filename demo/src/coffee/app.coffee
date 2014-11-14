@@ -20,6 +20,9 @@ require('../views/select.html')
 require('./multiselect')
 require('../views/multiselect.html')
 
+require('./radio')
+require('../views/radio.html')
+
 require('../less/app.less')
 require('../less/flags.css')
 
@@ -38,6 +41,9 @@ app.config ($routeProvider) ->
     .when '/multiselect',
       templateUrl: 'views/multiselect.html'
       controller: 'MultiSelectCtrl'
+    .when '/radio',
+      templateUrl: 'views/radio.html'
+      controller: 'RadioCtrl'
     .otherwise
       templateUrl: '/views/404.html'
 
@@ -48,6 +54,7 @@ app.run ($rootScope) ->
       {label: 'Form Builder', href: '#/fs-form'}
       {label: 'Select', href: '#/select'}
       {label: 'MultiSelect', href: '#/multiselect'}
+      {label: 'Radio', href: '#/radio'}
     ]
   }
 
