@@ -10,22 +10,32 @@
     "coffee": "latest",
     "coffee-loader": "latest",
     "css-loader": "latest",
-    "html-loader": "latest",
-    "style-loader": "latest",
-    "less-loader": "latest",
-    "karma" : "latest",
-    "karma-webpack": "latest",
-    "karma-jasmine" : "latest",
-    "karma-phantomjs-launcher":"latest",
-    "phantomjs" : "latest",
-    "protractor" : "latest",
-    "webpack": "latest",
-    "webpack-dev-server": "latest",
-    "karma-sourcemap-loader": "latest",
     "extract-text-webpack-plugin": "latest",
-    "ng-cache-loader": "latest"
+    "html-loader": "latest",
+    "karma": "latest",
+    "karma-cli": "0.0.4",
+    "karma-jasmine": "latest",
+    "karma-phantomjs-launcher": "latest",
+    "karma-sourcemap-loader": "latest",
+    "karma-webpack": "latest",
+    "less-loader": "latest",
+    "ng-cache-loader": "latest",
+    "phantomjs": "latest",
+    "protractor": "latest",
+    "style-loader": "latest",
+    "webpack": "latest",
+    "webpack-dev-server": "latest"
   },
-  "scripts": { "test": "echo \"Error: no test specified\" && exit 1" },
+  "scripts": {
+    "start": "webpack-dev-server --progress --colors",
+    "test": "karma start --single-run",
+    "protractor": "protractor test/protractor.conf.js",
+    "webdriver-start": "webdriver-manager start",
+    "webdriver-update": "webdriver-manager update --standalone",
+    "bower": "bower install"
+  },
   "repository": "https://github.com/formstamp/formstamp",
-  "engines": { "node": "0.10" }
+  "engines": {
+    "node": "0.10"
+  }
 }

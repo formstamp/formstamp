@@ -86,13 +86,13 @@ Install bower dependencies and node.js packages
     cd formstamp
     nvm use 0.10
     npm install # server deps
-    bower install # demo deps
+    npm run-script bower # demo deps
 
 Build, start server and start watching changes using
 
 ```sh
 
-./node_modules/.bin/webpack-dev-server --progress --colors --content-base=./
+npm start
 
 # open browser @ localhost:8080/index.html
 
@@ -111,26 +111,14 @@ Running Tests
 Run unit tests:
 
 ```sh
-node_modules/karma/bin/karma start --single-run
+npm test
 ```
-
-Before run test suite:
-
-    `npm bin`/webdriver-manager update
 
 To run protractor tests you could use:
 
-    grunt test:e2e:phantomjs
-    grunt test:e2e:chrome
-    grunt test:e2e:firefox
-
-Alse you can provide option to protractor test to run specific test:
-
-    grunt test:e2e:chrome --specs test/build/e2e/fsDateSpec.js
-
-Then you can run unit tests with following command:
-
-    `npm bin`/karma start test/karma.conf.js --single-run
+```sh
+./script/run-e2e.sh
+```
 
 License
 -------
