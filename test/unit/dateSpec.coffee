@@ -31,7 +31,6 @@ describe 'fsDate', ->
 
   it 'should set view by model', ->
     $scope.value = date(day: 1, month: 2, year: 2012)
-    console.log "!!!!", $scope.value
     element = compile('<div fs-date ng-model="value"></div>')
     $scope.$apply()
     expect(element.find('input').val()).toEqual '2/1/12'

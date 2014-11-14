@@ -54,6 +54,5 @@ describe 'fsTime', ->
 
   it 'should allow to enter value form keyboard', ->
     $('.fs-time input').click()
-    $('.fs-time input').sendKeys('11:00')
+    $('.fs-time input').sendKeys('1100')
     expect($('.fs-time input').getAttribute('value')).toBe '11:00'
-

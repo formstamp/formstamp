@@ -70,8 +70,8 @@ describe 'fsDate', ->
     $('.fs-date input').clear()
     $('.fs-date input').sendKeys("9/11/2001")
 
-    expect($("#day").getText()).toBe('11')
-    expect($("#month").getText()).toBe('8')
+    expect($("#day").getText()).toBe('9')
+    expect($("#month").getText()).toBe('10')
     expect($("#year").getText()).toBe('2001')
 
   it "should set value to null when input is cleared", ->

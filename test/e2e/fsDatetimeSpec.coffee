@@ -1,3 +1,11 @@
+takeScreenshot = (n)->
+  fs = require('fs')
+  browser.takeScreenshot().then (png) ->
+    stream = fs.createWriteStream("/tmp/screenshot#{n}.png")
+
+    stream.write(new Buffer(png, 'base64'))
+    stream.end()
+
 describe 'fsDatetime', ->
   beforeEach ->
     browser.get('datetime.html')
@@ -19,7 +27,7 @@ describe 'fsDatetime', ->
     day = currentTd.getText()
     currentTd.click()
 
-    $('.fs-datetime .fs-time input').sendKeys('12:01')
+    $('.fs-datetime .fs-time input').sendKeys('1201')
 
     now = new Date()
     [month, year] = [now.getMonth(), now.getFullYear()].map String
@@ -37,7 +45,7 @@ describe 'fsDatetime', ->
 
   it "should allow to enter date via keyboard", ->
     $('.fs-datetime .fs-date input').clear()
-    $('.fs-datetime .fs-date input').sendKeys("9/11/2001")
+    $('.fs-datetime .fs-date input').sendKeys("9/11/01")
 
     expect($("#day").getText()).toBe('11')
     expect($("#month").getText()).toBe('8')

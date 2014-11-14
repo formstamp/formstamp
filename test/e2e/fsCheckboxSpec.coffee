@@ -7,7 +7,6 @@ describe 'fsCheckbox', ->
     $('.fs-checkbox:first-child > div:first-child > .fs-racheck-item').click()
     $('.fs-checkbox:first-child > div:last-child > .fs-racheck-item').click()
 
-    takeScreenshot()
     expect($('#value').getText()).toMatch(/one/)
     expect($('#value').getText()).toMatch(/three/)
 
