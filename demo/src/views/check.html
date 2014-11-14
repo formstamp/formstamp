@@ -1,0 +1,47 @@
+<pre markdown>
+## Directive `fs-check`
+
+This directive creates a set of checkboxes.
+List of available choices is passed via items attribute and can be an Array of Objects, Strings, Numbers, etc.
+User can select multiple items. fsCheckbox supports custom templating for item's label.
+
+Supported attributes:
+
+* items - property of scope containing list of available values (of strings for autocomplete, if freetext is enabled)
+* ng-model - see AngularJS documentation for ngModel directive
+* ng-disabled - disable/enable input with scope property
+* class - additional CSS classes
+</pre>
+<pre sample>
+<fs-form-for>
+    <div class="form-group">
+      <label class="col-xs-2 control-label">Choose your katawari</label>
+      <div class="col-xs-6">
+        <div fs-checkbox
+             items="items"
+             ng-disabled="disabled"
+             ng-model="value">
+            <b>{{item.id}}</b> {{item.label}}
+        </div>
+      </div>
+      <div class="col-xs-2">
+        <button class="btn btn-default" ng-click="disabled=!disabled">
+          {{disabled ? 'Enable' : 'Disable'}}
+        </button>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-xs-2 control-label">Choose your katawari</label>
+      <div class="col-xs-6">
+        <div fs-checkbox
+             items="items"
+             ng-model="value">
+          {{item.label}}
+        </div>
+      </div>
+    </div>
+<fs-row label="Result">
+    <pre>Selected value: {{ value | json }}</pre>
+</fs-row>
+</fs-form-for>
+</pre>

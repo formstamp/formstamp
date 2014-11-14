@@ -1,0 +1,3 @@
+npm install && bower prune && bower install && `npm bin`/webpack-dev-server --progress --colors --content-base=./
+
+echo 'open browser on localhost:8080'

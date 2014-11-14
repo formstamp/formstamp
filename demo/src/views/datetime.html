@@ -1,0 +1,60 @@
+<pre markdown>
+## Directive `fs-datetime`
+
+  This directive creates a time-input widget. This directive expects
+  that scope property specified in <var>ngModel</var> will be a Date,
+  and will modify only hours/minutes/seconds components of this Date,
+  year/month/day will remain unchanged. Supported attributes:
+
+</pre>
+<pre sample>
+<fs-form-for>
+<div class="form-group row">
+  <label class="col-xs-2 control-label">Choose convenient seppuku date</label>
+  <div class="col-xs-2"><div fs-date ng-model="selectedDate" ng-disabled="disabled"></div></div>
+  <div class="col-xs-2 col-xs-offset-3">
+    <button class="btn btn-default" ng-click="disabled=!disabled">
+      {{disabled ? 'Enable' : 'Disable'}}
+    </button>
+  </div>
+</div>
+<fs-row label="Calendar"><fs-calendar ng-model="selectedDate" /></fs-row>
+
+<hr/>
+
+
+<div class='form-group row'>
+<label class="col-xs-2 control-label">Select appointment time</label>
+  <div class="col-xs-2"><div fs-time ng-disabled="disabled" ng-model="svalue"></div></div>
+  <div class="col-xs-1"><button class="btn btn-default" ng-click="setTime('21:52')"> 21:52 </button></div>
+  <div class="col-xs-1"><button class="btn btn-default" ng-click="setTime('19:22')"> 19:22 </button> </div>
+  <div class="col-xs-2 col-xs-offset-1">
+    <button class="btn btn-default" ng-click="disabled=!disabled">
+      {{disabled ? 'Enable' : 'Disable'}}
+    </button>
+  </div>
+</div>
+
+<fs-row label="Result">
+<pre>Time is: {{ svalue | json }}</pre>
+</fs-row>
+
+<hr/>
+
+<div class="form-group row">
+  <label class="col-xs-2 control-label">DateTime</label>
+  <div class="col-xs-4"><div fs-datetime ng-model="selectedDateTime" ng-disabled="disabled"></div></div>
+  <div class="col-xs-2 col-xs-offset-2">
+    <button class="btn btn-default" ng-click="disabled=!disabled">
+      {{disabled ? 'Enable' : 'Disable'}}
+    </button>
+  </div>
+</div>
+
+<fs-row label="Result">
+<pre>
+Entered datetime: {{ selectedDateTime | date:'medium'}}
+</pre></fs-row>
+
+</fs-form-for>
+</pre>

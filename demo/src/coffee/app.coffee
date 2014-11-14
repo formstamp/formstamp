@@ -23,6 +23,12 @@ require('../views/multiselect.html')
 require('./radio')
 require('../views/radio.html')
 
+require('./check')
+require('../views/check.html')
+
+require('./datetime')
+require('../views/datetime.html')
+
 require('../less/app.less')
 require('../less/flags.css')
 
@@ -44,6 +50,12 @@ app.config ($routeProvider) ->
     .when '/radio',
       templateUrl: 'views/radio.html'
       controller: 'RadioCtrl'
+    .when '/check',
+      templateUrl: 'views/check.html'
+      controller: 'CheckCtrl'
+    .when '/datetime',
+      templateUrl: 'views/datetime.html'
+      controller: 'DatetimeCtrl'
     .otherwise
       templateUrl: '/views/404.html'
 
@@ -55,6 +67,8 @@ app.run ($rootScope) ->
       {label: 'Select', href: '#/select'}
       {label: 'MultiSelect', href: '#/multiselect'}
       {label: 'Radio', href: '#/radio'}
+      {label: 'Checkbox', href: '#/check'}
+      {label: 'Date/Time', href: '#/datetime'}
     ]
   }
 
