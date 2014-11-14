@@ -1,11 +1,14 @@
 @redy: #e62b1e;
 
 .navbar-brand {
- .glyphicon {
-   color: @redy;
- }
+  .icon {
+    color: @redy;
+  }
 }
 
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
 .navbar-static-top.navbar-default {
   border-bottom-width: 2px;
   border-color: @redy;
@@ -56,12 +59,12 @@
   }
 
   pre {
-   font-size: 13px;
-   font-family: monospace;
-   padding: 20px;
-   .important {
-     color: red;
-   }
+    font-size: 13px;
+    font-family: monospace;
+    padding: 20px;
+    .important {
+      color: red;
+    }
   }
 
   .example-label {
@@ -74,5 +77,21 @@
     background-color: #fff;
     padding: 5px;
   }
+}
+@font-face {
+  font-family: 'LogosFont';
+  src: url('../fonts/LogosFont.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.icon {
+  display: inline-block;
+  font-family: LogosFont ;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
