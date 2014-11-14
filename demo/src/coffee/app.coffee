@@ -17,6 +17,9 @@ require('../views/form.html')
 require('./select')
 require('../views/select.html')
 
+require('./multiselect')
+require('../views/multiselect.html')
+
 require('../less/app.less')
 require('../less/flags.css')
 
@@ -32,6 +35,9 @@ app.config ($routeProvider) ->
     .when '/select',
       templateUrl: 'views/select.html'
       controller: 'SelectCtrl'
+    .when '/multiselect',
+      templateUrl: 'views/multiselect.html'
+      controller: 'MultiSelectCtrl'
     .otherwise
       templateUrl: '/views/404.html'
 
@@ -41,6 +47,7 @@ app.run ($rootScope) ->
     main: [
       {label: 'Form Builder', href: '#/fs-form'}
       {label: 'Select', href: '#/select'}
+      {label: 'MultiSelect', href: '#/multiselect'}
     ]
   }
 

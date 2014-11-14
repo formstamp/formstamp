@@ -1,0 +1,82 @@
+<pre markdown>
+## Directive `fs-multiselect`
+
+### Warning!
+
+  You should never use this directive on
+  `input` tag.  Use `div` instead.
+
+This directive creates a 'multi-select' widget, i.e.
+'select' widget with multiple choices.
+Depending on freetext attribute,
+it allows to select items from predefined list or enter custom values.
+In both cases, text input inside widget is used as a search box.
+Items and selected values can be objects, strings or integers.
+
+Supports several Angular directives:
+`ngModel`, `ngDisabled`, `ngRequired`.
+You can provide template for single item in list to display any information you need,
+not only label text. In ngModel it holds full object, not only value.
+
+Supported attributes:
+
+* items - property of scope containing list of available values (of strings for autocomplete, if freetext is enabled)
+* ng-model - see AngularJS documentation for ngModel directive
+* ng-disabled - disable/enable input with scope property
+* class - additional CSS classes
+
+</pre>
+
+<pre sample label="MultiSelect">
+  <fs-form-for>
+<fieldset>
+<legend>fsMultiSelect without freetext</legend>
+    <div class='form-group'>
+      <label class="col-xs-2 control-label">Select weapon</label>
+
+      <div fs-multiselect
+        items="countries"
+        freetext
+        class="col-xs-8"
+        ng-disabled="disabled"
+        ng-model="country">
+          <span ng-show="item"><span class="flag flag-{{ item['alpha-2'].toLowerCase() }}"></span>&nbsp;{{item.name}}</span>
+          <span ng-hide="item"> No country </span>
+      </div>
+
+      <div class="col-xs-2">
+        <button class="btn btn-default" ng-click="disabled=!disabled">
+          {{disabled ? 'Enable' : 'Disable'}}
+        </button>
+      </div>
+    </div>
+    <fs-row label="Result"><pre>Selection: {{country | json}}</pre></fs-row>
+</fieldset>
+
+<br/>
+<br/>
+
+<fieldset>
+<legend>fsMultiselect with freetext</legend>
+<div class="form-group row">
+  <label class="col-xs-2 control-label">
+    Where have you been?
+  </label>
+  <div fs-multiselect
+    items="countryNames"
+    freetext
+    class="col-xs-8"
+    ng-disabled="disabled"
+    ng-model="countryName"></div>
+  <div class="col-xs-2">
+    <button class="btn btn-default"
+      ng-click="disabled=!disabled">
+      {{disabled ? 'Enable' : 'Disable'}}
+    </button>
+  </div>
+</div>
+
+<fs-row label="Result"><pre>Selection: {{countryName | json}}</pre></fs-row>
+</fieldset>
+</fs-form-for>
+</pre>
