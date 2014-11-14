@@ -10,7 +10,7 @@ mod.directive('fsDateFormat', ['$locale', '$filter', '$dateParser', ($locale, $f
     dateFilter = $filter('date')
 
     ngModel.$formatters.push (value) ->
-      dateFilter(value, 'shortDate')
+      dateFilter(value, format)
 
     ngModel.$parsers.unshift (value) ->
       return null unless value

@@ -1,13 +1,9 @@
 date = (elems) ->
-  res = new Date()
-  res.setMilliseconds(0)
-  res.setSeconds(elems.seconds || 0)
-  res.setMinutes(elems.minutes || 0)
-  res.setHours(elems.hours || 0)
-  res.setDate(elems.day) if elems.day?
-  res.setMonth(elems.month - 1) if elems.month?
-  res.setFullYear(elems.year) if elems.year?
-  res
+  m = Date.UTC(elems.year,
+    elems.month - 1,
+    elems.day)
+
+  new Date(m)
 
 describe 'fsDate', ->
   require '../../src/coffee/date'
@@ -34,13 +30,14 @@ describe 'fsDate', ->
     expect(element.children().length).not.toBe 0
 
   it 'should set view by model', ->
-    $scope.value = date(day: 1, month: 2, year: 2010)
+    $scope.value = date(day: 1, month: 2, year: 2012)
+    console.log "!!!!", $scope.value
     element = compile('<div fs-date ng-model="value"></div>')
     $scope.$apply()
-    expect(element.find('input').val()).toEqual '2/1/10'
+    expect(element.find('input').val()).toEqual '2/1/12'
 
   it 'should use date format from attribute', ->
-    $scope.value = date(day: 27, month: 10, year: 2010)
-    element = compile('<div fs-date ng-model="value" format="yyyy/d/m"></div>')
+    $scope.value = date(day: 27, month: 10, year: 2011)
+    element = compile('<div fs-date ng-model="value" format="yyyy/dd/MM"></div>')
     $scope.$apply()
-    expect(element.find('input').val()).toEqual '10/26/10'
+    expect(element.find('input').val()).toEqual '2011/27/10'
