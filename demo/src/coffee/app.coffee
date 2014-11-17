@@ -54,6 +54,9 @@ sitemap = {
     {name: 'datetime', label: 'Date/Time'}
     {name: 'list', label: 'List'}
   ].map(buildSiteMap)
+  user: [
+    {name: 'src', label: 'Source', icon: 'github', href: 'https://github.com/formstamp/formstamp'}
+  ]
 }
 
 app.config ($routeProvider) ->
