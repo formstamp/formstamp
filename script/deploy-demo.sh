@@ -31,6 +31,7 @@ cd demo
 npm install
 `npm bin`/bower install
 `npm bin`/webpack
+cd ..
 
 cd ../formstamp.github.io
 git checkout .
