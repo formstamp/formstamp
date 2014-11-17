@@ -19,7 +19,7 @@ before_script:
 
 script:
 - 'npm test'
-- './script/run-e2e.sh > /dev/null'
+- './script/run-e2e.sh > /dev/null '
 
 after_success:
 - 'git config --global user.email "robot@health-samurai.io"'
