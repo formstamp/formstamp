@@ -23,5 +23,7 @@ script:
 - 'echo "hello"'
 
 after_success:
+- 'git config --global user.email "robot@health-samurai.io"'
+- 'git config --global user.name "Travis CI Deployer"'
 - 'cd .. && git clone --depth=50 --branch=master https://$TOKEN:x-oauth-basic@github.com/formstamp/formstamp.github.io.git'
 - 'cd formstamp && script/deploy-demo.sh edge'
