@@ -18,9 +18,8 @@ before_script:
 - "sh -e /etc/init.d/xvfb start"
 
 script:
-# - 'npm test'
-# - './script/run-e2e.sh'
-- 'echo "hello"'
+- 'npm test'
+- './script/run-e2e.sh'
 
 after_success:
 - 'git config --global user.email "robot@health-samurai.io"'
