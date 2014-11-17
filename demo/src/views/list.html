@@ -1,0 +1,55 @@
+<pre markdown>
+## Directive `fs-list`
+
+This directive renders a list of items, with one of them marked as
+selected. It provides interface for moving selection up or down.
+This directive is used in <code class="ng-binding">fsSelect</code>
+and <code class="ng-binding">fsMultiselect</code> to create dropdowns.
+
+This directive doesn't use <code class="ng-binding">ngModel</code>
+to set selected value in scope. Instead, you should create
+special <code>listInterface</code> property in your scope and
+implement <var>onSelect</var> callback function:
+
+```
+$scope.listInterface = {
+  onSelect: function(selectedItem) {
+    $scope.selectedItem = selectedItem;
+  }
+};
+```
+
+You can call <code>scope.listInteface.move()</code> function from
+your controller to move list's selection up or down.
+
+Supported attributes:
+* `items` - list of items to display
+* `class` - additional CSS classes for list
+</pre>
+
+<style>
+.dropdown.no-popup .dropdown-menu {
+  box-shadow: none;
+}
+</style>
+
+<pre sample>
+    <div class="row">
+      <div class="col-xs-7">
+        <input class='form-control' autofocus="1" fs-input fs-up='move(-1)' fs-down='move(1)' fs-enter='select()' ng-model='search' />
+        <div fs-list items='tracks' class="no-popup">
+          <img src="{{ item.artwork_url }}" width="30" height="30" />
+          {{item.title}} <small class="text-muted">{{item.genre}}</small>
+        </div>
+        <div class="alert alert-success" style="margin-top: 20px;">
+          <strong>NB:</strong> you can navigate through list
+          using <kbd>Up</kbd> and <kbd>Down</kbd> arrows and select
+          track with <kbd>Enter</kbd> key.
+        </div>
+      </div>
+      <div class="col-xs-5">
+        <demo-audio track="selectedTrack"></demo-audio>
+        <pre style="margin-top: 20px;">Selected Item: {{ selectedTrack | json }}</pre>
+      </div>
+    </div>
+</pre>

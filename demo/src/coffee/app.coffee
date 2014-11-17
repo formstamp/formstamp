@@ -29,6 +29,9 @@ require('../views/check.html')
 require('./datetime')
 require('../views/datetime.html')
 
+require('./list')
+require('../views/list.html')
+
 require('../less/app.less')
 require('../less/flags.css')
 
@@ -49,6 +52,7 @@ sitemap = {
     {name: 'radio', label: 'Radio'}
     {name: 'check', label: 'Checkbox'}
     {name: 'datetime', label: 'Date/Time'}
+    {name: 'list', label: 'List'}
   ].map(buildSiteMap)
 }
 
