@@ -1,6 +1,6 @@
 {
   "name": "angular-formstamp",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "authors": [
     "Alexander Bondarev",
     "Alexandra Pavlyshina",
@@ -13,8 +13,8 @@
   "description": "Pure AngularJS widgets library",
   "keywords": ["ui", "angular", "widgets"],
   "main": [
-    "dist/formstamp.css",
-    "dist/formstamp.js",
+    "formstamp.css",
+    "formstamp.js",
     "README.md",
     "MIT-LICENSE"
   ],

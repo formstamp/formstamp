@@ -5,7 +5,6 @@ FormStamp
 
 [![Gitter chat](https://badges.gitter.im/formstamp/formstamp.png)](https://gitter.im/formstamp/formstamp)
 
-***This project is under development. Some API may be changed.***
 
 FormStamp is a pure AngularJS widgets library designed for rich
 front-end web applications. FormStamp core principles are:
@@ -120,6 +119,12 @@ To run protractor tests you could use:
 
 npm run-script e2e
 
+```
+
+To build bower package in dist/ run:
+
+```sh
+npm run-script build
 ```
 
 License

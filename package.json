@@ -35,6 +35,7 @@
     "e2e": "./script/run-e2e.sh",
 
     "runtest": "node_modules/karma/bin/karma run",
+    "build": "webpack --progress --colors && cp bower.json dist/ && cp README.md dist/ && cp MIT-LICENSE dist/",
     "protractor": "protractor test/protractor.conf.js",
     "webdriver-start": "webdriver-manager start",
     "webdriver-update": "webdriver-manager update --standalone"
