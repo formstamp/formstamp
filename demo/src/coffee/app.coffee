@@ -4,6 +4,8 @@ require('../../bower_components/angular-sanitize/angular-sanitize.js')
 require('../../bower_components/angular-animate/angular-animate.js')
 require('../../../src/coffee/formstamp.coffee')
 
+require('file?name=index.html!../index.html')
+
 app = require('./module')
 require('./sampleDirective')
 require('./markdown')
@@ -55,6 +57,7 @@ sitemap = {
     {name: 'list', label: 'List'}
   ].map(buildSiteMap)
   user: [
+    {name: 'src', label: 'Edge', href: 'http://formstamp.github.io/edge'}
     {name: 'src', label: 'Source', icon: 'github', href: 'https://github.com/formstamp/formstamp'}
   ]
 }

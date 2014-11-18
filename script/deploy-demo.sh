@@ -24,13 +24,12 @@ nvm use 0.10
 
 # install dependencies
 npm install
-`npm bin`/bower install
 `npm bin`/webpack
 
 cd demo
 npm install
-`npm bin`/bower install
-`npm bin`/webpack
+npm run-script build
+
 cd ..
 
 cd ../formstamp.github.io
@@ -41,7 +40,6 @@ cd ../formstamp
 
 ls -lah
 cp demo/build/* ../formstamp.github.io/$SUBDIR/
-cp demo/index.html ../formstamp.github.io/$SUBDIR/
 
 cd ../formstamp.github.io
 git add .
