@@ -1,6 +1,6 @@
 {
   "name": "angular-formstamp",
-  "version": "0.0.0",
+  "version": "0.0.3",
   "authors": [
     "Alexander Bondarev",
     "Alexandra Pavlyshina",
@@ -21,7 +21,7 @@
   "license": "MIT",
   "ignore": [ ],
   "dependencies": {
-    "angular":"1.3.2",
+    "angular":"~1.3",
     "bootstrap":"~3"
   },
   "devDependencies": {

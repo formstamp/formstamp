@@ -18,7 +18,7 @@
 
 </pre>
 
-<pre sample label="label" src="src">
+<pre sample label="label" src="{{src}}">
 <fs-form-for model="samurai">
 <fieldset class="form-horizontal">
   <legend>Samurai Personal Info</legend>
@@ -32,6 +32,13 @@
     <div class="col-xs-3"><div fs-date="" ng-model="samurai.districtMoveDate" placeholder="Settled date"></div></div>
   </div>
   </fs-row>
+</fieldset>
+
+<fieldset class="form-horizontal">
+<legend>Frend</legend>
+  <fs-form-for model="samurai.frend">
+    <fs-input as="text" name="name"/>
+  </fs-form-for>
 </fieldset>
 
 <fieldset class="form-horizontal">

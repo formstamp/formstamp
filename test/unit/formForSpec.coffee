@@ -19,13 +19,11 @@ describe 'fsFormFor', ->
 
   compile = (elem) ->
     elem ||= """
-<form>
-  <fs-form-for model="user">
-    <fs-input as="text" name="name" required="" label="Name"></fs-input>
-    <fs-input as="email" name="email" required="" label="Email"></fs-input>
-    <fs-input as="fs-select" name="title" required="" label="Title" items="titles" freetext=""></fs-input>
-  </fs-form-for>
-</form>
+<fs-form-for model="user">
+  <fs-input as="text" name="name" required="" label="Name"></fs-input>
+  <fs-input as="email" name="email" required="" label="Email"></fs-input>
+  <fs-input as="fs-select" name="title" required="" label="Title" items="titles" freetext=""></fs-input>
+</fs-form-for>
     """
     element = $compile(elem)($scope)
     $scope.$apply()

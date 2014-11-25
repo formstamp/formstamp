@@ -1,13 +1,15 @@
 app = require('./module')
 
-src = require('raw!./form.js')
 
 app.controller('FormCtrl', function ($scope){
-  $scope.src = src
+  $scope.src = require('raw!./form.js')
 
   $scope.samurai = {
     name: "Unnamed",
-    districts: []
+    districts: [],
+    frend: {
+      name: 'Geisha'
+    }
   };
 
   $scope.learningStages = [

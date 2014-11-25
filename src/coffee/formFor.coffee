@@ -25,8 +25,20 @@ mod.directive 'fsErrors', ['$templateCache', ($templateCache) ->
     $scope.$watch 'model.$error', errorsWatcher, true
 ]
 
+isDirectChild = (form, el)->
+  testel = el
+  while testel
+    if testel.tagName.toLowerCase() == 'fs-form-for'
+      if testel.isSameNode(form)
+        return true
+      else
+        return false
+    testel = testel.parentNode
+  return false
+
 mod.directive 'fsFormFor', ['$templateCache', ($templateCache)->
   restrict: 'AE'
+  replace: true
   template: (el, attrs) ->
     inputTpl = $templateCache.get('templates/fs/metaInput.html')
     rowTpl = $templateCache.get('templates/fs/metaRow.html')
@@ -84,7 +96,8 @@ mod.directive 'fsFormFor', ['$templateCache', ($templateCache)->
 
     tplEl = el.clone()
 
-    for input in tplEl.find("fs-input")
+    root = tplEl[0]
+    for input in tplEl.find("fs-input") when isDirectChild(root,input)
       angular.element(input).replaceWith(inputReplacer(input))
 
     for row in tplEl.find("fs-row")

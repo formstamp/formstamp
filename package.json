@@ -27,8 +27,10 @@
     "webpack-dev-server": "latest"
   },
   "scripts": {
+    "postinstall": "bower prune && bower install",
     "start": "webpack-dev-server --progress --colors",
     "test": "karma start --single-run",
+    "build": "webpack --progress --colors && cp bower.json dist/",
     "protractor": "protractor test/protractor.conf.js",
     "webdriver-start": "webdriver-manager start",
     "webdriver-update": "webdriver-manager update --standalone",
