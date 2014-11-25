@@ -42,7 +42,7 @@ app.directive 'sample', ($sce)->
 
         <div class='clearfix' style="height: 0;"></div>
         <div ng-show="current=='demo'">#{orig}</div>
-        <div ng-show="current=='html'"><pre ng-non-bindalbe>#{html}</pre></div>
+        <div ng-show="current=='html'"><pre ng-non-bindable>#{html}</pre></div>
         <div ng-show="current=='js'"><pre ng-bind-html="js"></pre></div>
       </div>
     """

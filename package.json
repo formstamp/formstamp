@@ -14,7 +14,7 @@
     "html-loader": "latest",
     "karma": "latest",
     "karma-cli": "0.0.4",
-    "karma-jasmine": "latest",
+    "karma-jasmine": "0.2.0",
     "karma-phantomjs-launcher": "latest",
     "karma-sourcemap-loader": "latest",
     "karma-webpack": "latest",
@@ -27,14 +27,18 @@
     "webpack-dev-server": "latest"
   },
   "scripts": {
-    "postinstall": "bower prune && bower install",
-    "start": "webpack-dev-server --progress --colors",
-    "test": "karma start --single-run",
-    "build": "webpack --progress --colors && cp bower.json dist/",
+    "install": "bower prune && bower install",
+    "start": "cd demo && bower prune && bower install && webpack-dev-server --progress --colors",
+    "test": "node_modules/karma/bin/karma start --single-run",
+
+    "autotest": "node_modules/karma/bin/karma start",
+    "e2e": "./script/run-e2e.sh",
+
+    "runtest": "node_modules/karma/bin/karma run",
+    "build": "webpack --progress --colors && cp bower.json dist/ && cp README.md dist/ && cp MIT-LICENSE dist/",
     "protractor": "protractor test/protractor.conf.js",
     "webdriver-start": "webdriver-manager start",
-    "webdriver-update": "webdriver-manager update --standalone",
-    "bower": "bower install"
+    "webdriver-update": "webdriver-manager update --standalone"
   },
   "repository": "https://github.com/formstamp/formstamp",
   "engines": {

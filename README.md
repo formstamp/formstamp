@@ -5,7 +5,6 @@ FormStamp
 
 [![Gitter chat](https://badges.gitter.im/formstamp/formstamp.png)](https://gitter.im/formstamp/formstamp)
 
-***This project is under development. Some API may be changed.***
 
 FormStamp is a pure AngularJS widgets library designed for rich
 front-end web applications. FormStamp core principles are:
@@ -65,9 +64,6 @@ Low-level Directives
 * `fsInput` - simplifies keyboard & focus events handling;
 * `fsCalendar` - draws a calendar and allows to mark one day as selected.
 
-TODO
-----
-  * support I18n
 
 Development Environment
 -----------
@@ -83,12 +79,13 @@ Clone FormStamp repository
 
 Install bower dependencies and node.js packages
 
-    cd formstamp
-    nvm use 0.10
-    npm install # server deps
-    npm run-script bower # demo deps
+```sh
+  cd formstamp
+  nvm use 0.10
+  npm install
+```
 
-Build, start server and start watching changes using
+Build, start demo server and start watching changes using
 
 ```sh
 
@@ -98,7 +95,7 @@ npm start
 
 ```
 
-Now, point your browser to http://localhost:17405/ and you'll see
+Now, point your browser to http://localhost:8080/ and you'll see
 FormStamp's demo page.
 
 NOTE: These commands add `nvm` command to `.bash_profile`. It may not
@@ -111,13 +108,23 @@ Running Tests
 Run unit tests:
 
 ```sh
+
 npm test
+
 ```
 
 To run protractor tests you could use:
 
 ```sh
-./script/run-e2e.sh
+
+npm run-script e2e
+
+```
+
+To build bower package in dist/ run:
+
+```sh
+npm run-script build
 ```
 
 License

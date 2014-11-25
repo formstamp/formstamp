@@ -4,6 +4,8 @@ require('../../bower_components/angular-sanitize/angular-sanitize.js')
 require('../../bower_components/angular-animate/angular-animate.js')
 require('../../../src/coffee/formstamp.coffee')
 
+require('file?name=index.html!../index.html')
+
 app = require('./module')
 require('./sampleDirective')
 require('./markdown')
@@ -29,6 +31,9 @@ require('../views/check.html')
 require('./datetime')
 require('../views/datetime.html')
 
+require('./list')
+require('../views/list.html')
+
 require('../less/app.less')
 require('../less/flags.css')
 
@@ -49,7 +54,12 @@ sitemap = {
     {name: 'radio', label: 'Radio'}
     {name: 'check', label: 'Checkbox'}
     {name: 'datetime', label: 'Date/Time'}
+    {name: 'list', label: 'List'}
   ].map(buildSiteMap)
+  user: [
+    {name: 'src', label: 'Edge', href: 'http://formstamp.github.io/edge'}
+    {name: 'src', label: 'Source', icon: 'github', href: 'https://github.com/formstamp/formstamp'}
+  ]
 }
 
 app.config ($routeProvider) ->

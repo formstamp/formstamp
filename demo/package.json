@@ -24,7 +24,8 @@
   },
   "scripts": {
     "install": "bower prune && bower install",
-    "start": "npm install && bower prune && bower install && webpack-dev-server --progress --colors"
+    "start": "bower prune && bower install && webpack-dev-server --progress --colors",
+    "build": "npm install && rm -rf dist && webpack --progress --colors"
   },
   "repository": "https://github.com/formstamp/formstamp",
   "engines": { "node": "0.10" }

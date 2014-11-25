@@ -14,13 +14,15 @@ env:
 before_script:
 - npm install
 - "npm run-script bower"
-- "export DISPLAY=:99.0"
-- "sh -e /etc/init.d/xvfb start"
+# - "export DISPLAY=:99.0"
+# - "sh -e /etc/init.d/xvfb start"
 
 script:
 - 'npm test'
-- './script/run-e2e.sh'
+# - './script/run-e2e.sh > /dev/null '
 
 after_success:
+- 'git config --global user.email "robot@health-samurai.io"'
+- 'git config --global user.name "Travis CI Deployer"'
 - 'cd .. && git clone --depth=50 --branch=master https://$TOKEN:x-oauth-basic@github.com/formstamp/formstamp.github.io.git'
 - 'cd formstamp && script/deploy-demo.sh edge'

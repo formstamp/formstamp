@@ -1,1 +1,0 @@
-`npm bin`/webpack-dev-server --progress --colors --content-base=./ || npm install && `npm bin`/bower prune && `npm bin`bower install
