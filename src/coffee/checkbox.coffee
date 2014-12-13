@@ -4,7 +4,7 @@ require('../styles/racheck.less')
 u = require('./utils')
 require('../templates/metaCheckbox.html')
 
-mod.directive "fsCheckbox", ['$window', '$templateCache', ($window, $templateCache) ->
+mod.directive "fsCheckbox", ['$templateCache', ($templateCache) ->
     restrict: "A"
     scope:
       disabled: '=ngDisabled'
@@ -20,7 +20,7 @@ mod.directive "fsCheckbox", ['$window', '$templateCache', ($window, $templateCac
       $templateCache.get('templates/fs/metaCheckbox.html')
         .replace(/::itemTpl/g, itemTpl)
 
-    controller: ($scope, $element, $attrs) ->
+    controller: ['$scope', '$element', '$attrs', ($scope, $element, $attrs) ->
       $scope.toggle = (item)->
         return if $scope.disabled
         unless $scope.isSelected(item)
@@ -34,6 +34,7 @@ mod.directive "fsCheckbox", ['$window', '$templateCache', ($window, $templateCac
       $scope.invalid = -> $scope.errors? and $scope.errors.length > 0
 
       $scope.selectedItems = []
+    ]
 
     link: (scope, element, attrs, ngModelCtrl, transcludeFn) ->
         if ngModelCtrl

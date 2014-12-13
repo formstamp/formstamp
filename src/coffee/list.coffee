@@ -28,7 +28,7 @@ mod.directive "fsList", ['$templateCache', ($templateCache) ->
     $scope.$watch 'highlightIndex', (idx) ->
       ensureHighlightedItemVisible()
 
-  controller: ($scope, $element, $attrs, $filter) ->
+  controller: ['$scope', '$element', '$attrs', '$filter', ($scope, $element, $attrs, $filter) ->
     updateSelectedItem = (hlIdx) ->
       if $scope.$parent.listInterface?
         $scope.$parent.listInterface.selectedItem = $scope.items[hlIdx]
@@ -57,4 +57,5 @@ mod.directive "fsList", ['$templateCache', ($templateCache) ->
     if $scope.$parent.listInterface?
       $scope.$parent.listInterface.move = (delta) ->
         $scope.move(delta)
+  ]
 ]

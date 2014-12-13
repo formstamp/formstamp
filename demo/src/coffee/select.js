@@ -4,7 +4,7 @@ src = require('raw!./select.js')
 
 countries = require('./countries')
 
-app.controller('SelectCtrl', function ($scope){
+app.controller('SelectCtrl',['$scope', function ($scope){
   $scope.disabled = false;
   $scope.src = src
 
@@ -17,4 +17,4 @@ app.controller('SelectCtrl', function ($scope){
   $scope.countries = countries;
 
   $scope.laughs = ['Ha-ha-ha', 'Ho-ho-ho', 'He-he-he'];
-})
+}])

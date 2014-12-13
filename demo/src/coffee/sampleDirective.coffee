@@ -12,23 +12,26 @@ unindentCode = (str) ->
     str
 
 
-app.directive 'sample', ($sce)->
+app.directive 'sample', ['$sce', ($sce)->
   # scope:
   #   src: '='
   restrict: 'A'
-  controller: ($scope)->
+  controller: ['$scope', ($scope)->
     $scope.current = 'demo'
     $scope.$watch 'src', (v)->
-      $scope.js = $sce.trustAsHtml(hljs.highlightAuto(v).value)
+      if window.hljs
+        $scope.js = $sce.trustAsHtml(hljs.highlightAuto(v).value)
+  ]
   replace: true
   link: (scope, el, args...)->
   template: ($el, attrs)->
     orig = $el.html()
     html = orig
-    html = hljs.highlightAuto(html)
-      .value
-      .replace(/{{([^}]*)}}/g, "<b style='color:green;'>{{$1}}</b>")
-      .replace(/(fs-[-a-zA-Z]*)/g, "<b class='important'>$1</b>")
+    if window.hljs
+      html = hljs.highlightAuto(html)
+        .value
+        .replace(/{{([^}]*)}}/g, "<b style='color:green;'>{{$1}}</b>")
+        .replace(/(fs-[-a-zA-Z]*)/g, "<b class='important'>$1</b>")
 
     """
       <div class="fs-sample">
@@ -46,3 +49,4 @@ app.directive 'sample', ($sce)->
         <div ng-show="current=='js'"><pre ng-bind-html="js"></pre></div>
       </div>
     """
+]

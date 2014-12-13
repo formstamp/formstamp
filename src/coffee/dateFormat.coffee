@@ -2,7 +2,7 @@ mod = require('./module')
 
 require('./dateParser.coffee')
 
-mod.directive('fsDateFormat', ['$locale', '$filter', '$dateParser', ($locale, $filter, $dateParser) ->
+mod.directive('fsDateFormat', ['$filter', '$dateParser', ($filter, $dateParser) ->
   restrict: 'A'
   require: 'ngModel'
   link: (scope, element, attrs, ngModel)->

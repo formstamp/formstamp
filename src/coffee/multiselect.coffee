@@ -12,7 +12,7 @@ mod.filter 'exclude', ->
 
     input.filter (item) -> selected.indexOf(item) < 0
 
-mod.directive "fsMultiselect", ['$window', '$templateCache', ($window, $templateCache) ->
+mod.directive "fsMultiselect", ['$templateCache', ($templateCache) ->
     restrict: "A"
     scope:
       items: '='
@@ -28,7 +28,7 @@ mod.directive "fsMultiselect", ['$window', '$templateCache', ($window, $template
       $templateCache.get('templates/fs/multiselect.html')
         .replace(/::item-template/g, itemTpl)
 
-    controller: ($scope, $element, $attrs, $filter) ->
+    controller: ['$scope', '$element', '$attrs', '$filter', ($scope, $element, $attrs, $filter) ->
       if $attrs.freetext?
         $scope.dynamicItems = ->
           if $scope.search then [$scope.search] else []
@@ -73,6 +73,7 @@ mod.directive "fsMultiselect", ['$window', '$templateCache', ($window, $template
       $scope.$watchCollection 'items', -> $scope.updateDropdownItems()
       $scope.$watch 'search', -> $scope.updateDropdownItems()
       $scope.updateDropdownItems()
+    ]
 
     link: ($scope, element, attrs, ngModelCtrl, transcludeFn) ->
       if ngModelCtrl

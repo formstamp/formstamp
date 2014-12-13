@@ -7,7 +7,7 @@ VALIDATION_DIRECTIVES = [
 
 require('../templates/field.html')
 
-mod.directive 'fsField', [->
+mod.directive 'fsField', ->
   restrict: 'A'
   replace: true
   require: ['^fsFormFor', '^form']
@@ -60,4 +60,3 @@ mod.directive 'fsField', [->
           scope.validationErrors = scope.validationErrors.concat(errs)
         console.log scope.validationErrors
         return
-]

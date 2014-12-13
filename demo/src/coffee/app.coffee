@@ -62,7 +62,7 @@ sitemap = {
   ]
 }
 
-app.config ($routeProvider) ->
+app.config ['$routeProvider', ($routeProvider) ->
   rp = $routeProvider
     .when '/',
       templateUrl: 'views/readme.html'
@@ -75,6 +75,7 @@ app.config ($routeProvider) ->
 
   rp.otherwise
     templateUrl: '/views/404.html'
+]
 
 activate = (name)->
   sitemap.main.forEach (x)->
@@ -83,18 +84,19 @@ activate = (name)->
     else
       delete x.active
 
-app.run ($rootScope) ->
+app.run ['$rootScope', ($rootScope) ->
   $rootScope.brand = "Formstamp"
   $rootScope.sitemap = sitemap
   $rootScope.$on  "$routeChangeStart", (event, next, current)->
     activate(next.name)
+]
 
 
 app.controller 'WelcomeCtrl', ()->
 
 app.readme = require('../../../README.md')
 
-app.controller 'ReadmeCtrl', ($sce, $scope)->
-  console.log($sce.trustAsHtml(app.readme))
+app.controller 'ReadmeCtrl', ['$sce', '$scope', ($sce, $scope)->
   $scope.readme = $sce.trustAsHtml(app.readme)
+]
 

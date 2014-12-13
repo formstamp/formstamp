@@ -12,6 +12,7 @@
     "css-loader": "latest",
     "html-loader": "latest",
     "file-loader": "latest",
+    "url-loader": "latest",
     "style-loader": "latest",
     "less-loader": "latest",
     "raw-loader":"latest",
@@ -24,7 +25,7 @@
   },
   "scripts": {
     "install": "bower prune && bower install",
-    "start": "bower prune && bower install && webpack-dev-server --progress --colors",
+    "start": "bower prune && bower install && webpack-dev-server --progress --colors --optimize-minimize",
     "build": "npm install && rm -rf dist && webpack --progress --colors"
   },
   "repository": "https://github.com/formstamp/formstamp",

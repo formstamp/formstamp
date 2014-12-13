@@ -3,7 +3,7 @@ app = require('./module')
 src = require('raw!./multiselect.js')
 
 countries = require('./countries')
-app.controller('MultiselectCtrl', function ($scope){
+app.controller('MultiselectCtrl',['$scope', function ($scope){
     $scope.src = src;
     $scope.disabled = false;
 
@@ -20,4 +20,4 @@ app.controller('MultiselectCtrl', function ($scope){
     $scope.countries = countries
     $scope.countryNames = countries.map(function(x){return x.name})
 
-})
+}])

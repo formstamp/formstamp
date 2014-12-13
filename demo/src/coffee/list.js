@@ -2,7 +2,7 @@ app = require('./module')
 
 src = require('raw!./list.js')
 
-app.controller('ListCtrl', function ($scope){
+app.controller('ListCtrl',['$scope', function ($scope){
   $scope.src = src
   SC.initialize({ client_id: '8399f2e0577e0acb4eee4d65d6c6cce6' });
 
@@ -30,7 +30,7 @@ app.controller('ListCtrl', function ($scope){
   $scope.select = function(selectedItem) {
     $scope.selectedTrack = selectedItem || $scope.listInterface.selectedItem;
   };
-})
+}])
 
 app.directive("demoAudio", function() {
   return {

@@ -67,5 +67,4 @@ angular
         element.on 'keydown', (event) ->
           if event.keyCode == keyCode and event.shiftKey == shift
             event.preventDefault() unless scope.$apply(-> callbackExpr(scope, $event: event))
-
 ]

@@ -7,7 +7,7 @@ require("../styles/datetime.less")
 
 u = require('./utils')
 
-mod.directive "fsDatetime", ['$compile', ($compile) ->
+mod.directive "fsDatetime", () ->
   restrict: "A"
   scope:
     disabled: '=ngDisabled'
@@ -15,11 +15,12 @@ mod.directive "fsDatetime", ['$compile', ($compile) ->
   require: '?ngModel'
   replace: true
   templateUrl: 'templates/fs/datetime.html'
-  controller: ($scope) ->
+  controller: ['$scope', ($scope) ->
     $scope.clearDate = () ->
       $scope.time = null
       $scope.date = null
       $scope.value = null
+  ]
   link: (scope, element, attrs, ngModelCtrl, transcludeFn) ->
     if ngModelCtrl
       scope.value = null
@@ -58,4 +59,3 @@ mod.directive "fsDatetime", ['$compile', ($compile) ->
               minutes: ngModelCtrl.$viewValue.getMinutes()
           else
             null
-]

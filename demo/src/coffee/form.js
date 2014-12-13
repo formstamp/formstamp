@@ -1,7 +1,7 @@
 app = require('./module')
 
 
-app.controller('FormCtrl', function ($scope){
+app.controller('FormCtrl',['$scope', function ($scope){
   $scope.src = require('raw!./form.js')
 
   $scope.samurai = {
@@ -93,4 +93,4 @@ app.controller('FormCtrl', function ($scope){
     'Soo District',
     'Isa District'
   ];
-})
+}])

@@ -5,7 +5,7 @@ require('../styles/select.less')
 
 require('../templates/metaSelect.html')
 
-mod.directive "fsSelect", ['$compile', '$templateCache', ($compile, $templateCache) ->
+mod.directive "fsSelect", ['$templateCache', ($templateCache) ->
   restrict: "A"
   scope:
     items: '='
@@ -20,7 +20,7 @@ mod.directive "fsSelect", ['$compile', '$templateCache', ($compile, $templateCac
     $templateCache.get('templates/fs/metaSelect.html')
       .replace(/::itemTpl/g, itemTpl)
 
-  controller: ($scope, $element, $attrs, $filter, $timeout) ->
+  controller: ['$scope', '$element', '$attrs', '$filter', '$timeout', ($scope, $element, $attrs, $filter, $timeout) ->
     $scope.active = false
 
     if $attrs.freetext?
@@ -64,6 +64,7 @@ mod.directive "fsSelect", ['$compile', '$templateCache', ($compile, $templateCac
 
       move: () ->
         console.log "not-implemented listInterface.move() function"
+  ]
 
   link: (scope, element, attrs, ngModelCtrl, transcludeFn) ->
     if ngModelCtrl

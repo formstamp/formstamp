@@ -15,7 +15,7 @@ mod.directive 'fsErrors', ['$templateCache', ($templateCache) ->
   replace: true
   template: $templateCache.get('templates/fs/errors.html')
 
-  controller: ($scope) ->
+  controller:['$scope', ($scope) ->
     makeMessage = (idn) ->
       "Error happened: #{idn}"
 
@@ -23,6 +23,7 @@ mod.directive 'fsErrors', ['$templateCache', ($templateCache) ->
       $scope.messages = (makeMessage(errorIdn) for errorIdn, occured of newErrors when occured)
 
     $scope.$watch 'model.$error', errorsWatcher, true
+  ]
 ]
 
 isDirectChild = (form, el)->
@@ -107,5 +108,4 @@ mod.directive 'fsFormFor', ['$templateCache', ($templateCache)->
     setAttrs(form, formAttributes)
     form.html(tplEl.html())
     form[0].outerHTML
-
 ]

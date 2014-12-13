@@ -2,7 +2,7 @@ app = require('./module')
 
 src = require('raw!./datetime.js')
 
-app.controller('DatetimeCtrl', function ($scope){
+app.controller('DatetimeCtrl',['$scope', function ($scope){
   $scope.selectedDate = new Date();
   $scope.src = src
   $scope.selectedDate = new Date();
@@ -16,4 +16,4 @@ app.controller('DatetimeCtrl', function ($scope){
   };
   $scope.disabled = false;
   $scope.selectedDateTime = new Date();
-})
+}])

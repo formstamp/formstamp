@@ -11,7 +11,7 @@ sushi = [
   {img: 'Shrimp', label: 'Shrimp', src: require('../imgs/Shrimp.gif')}
 ]
 
-app.controller('RadioCtrl', function ($scope){
+app.controller('RadioCtrl', ['$scope', function ($scope){
   $scope.src = src
   $scope.sushi = sushi
   $scope.items = [
@@ -19,4 +19,4 @@ app.controller('RadioCtrl', function ($scope){
     {id: 'M', label: 'Musubi'},
     {id: 'Y', label: 'Yosuga'}
   ];
-})
+}])
