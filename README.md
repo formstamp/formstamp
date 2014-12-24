@@ -82,7 +82,7 @@ Install bower dependencies and node.js packages
 ```sh
   cd formstamp
   nvm use 0.10
-  npm install
+  npm install && cd demo && npm install && cd ..
 ```
 
 Build, start demo server and start watching changes using
