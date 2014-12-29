@@ -2,9 +2,7 @@
      ng-class='{"has-error": object.$errors[field].length > 0}'>
   <label for='{{ objectName }}[{{ field }}]' class='col-sm-2 control-label'>Name</label>
   <div class='col-sm-10'>
-    <div w-combo
-         class='w-field-input'
-         items='items'
+    <div items='items'
          invalid='object.$errors[field]'
          name='{{ objectName }}[{{ field }}]'
          ng-model='object[field]'></div>

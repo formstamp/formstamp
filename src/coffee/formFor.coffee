@@ -6,7 +6,7 @@ require('../templates/errors.html')
 
 setAttrs = (el, attrs) ->
   for own attr, value of attrs
-    el.attr(attr, value)
+    el.attr(attr, value || true)
 
 mod.directive 'fsErrors', ['$templateCache', ($templateCache) ->
   restrict: 'A'

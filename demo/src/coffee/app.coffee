@@ -37,6 +37,8 @@ require('../views/list.html')
 require('../less/app.less')
 require('../less/flags.css')
 
+require('../views/validation.html')
+
 capitalize = (s)->
   s && s[0].toUpperCase() + s.slice(1)
 
@@ -55,6 +57,7 @@ sitemap = {
     {name: 'check', label: 'Checkbox'}
     {name: 'datetime', label: 'Date/Time'}
     {name: 'list', label: 'List'}
+    {name: 'validation', label: 'Validation'}
   ].map(buildSiteMap)
   user: [
     {name: 'src', label: 'Edge', href: 'http://formstamp.github.io/edge'}
@@ -97,6 +100,10 @@ app.controller 'WelcomeCtrl', ()->
 app.readme = require('../../../README.md')
 
 app.controller 'ReadmeCtrl', ['$sce', '$scope', ($sce, $scope)->
+  $scope.readme = $sce.trustAsHtml(app.readme)
+]
+
+app.controller 'ValidationCtrl', ['$sce', '$scope', ($sce, $scope)->
   $scope.readme = $sce.trustAsHtml(app.readme)
 ]
 

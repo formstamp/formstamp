@@ -14,6 +14,7 @@
     "file-loader": "latest",
     "url-loader": "latest",
     "style-loader": "latest",
+    "less": "latest",
     "less-loader": "latest",
     "raw-loader":"latest",
     "markdown-loader":"latest",

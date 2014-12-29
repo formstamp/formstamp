@@ -22,7 +22,7 @@
 <fs-form-for model="samurai">
 <fieldset class="form-horizontal">
   <legend>Samurai Personal Info</legend>
-  <fs-input as="fs-datetime" name="birthdate" required="" label="Date of Birth"></fs-input>
+  <fs-input as="fs-datetime" name="birthdate" required label="Date of Birth"></fs-input>
   <fs-input as="fs-date" name="date" required label="Date" custom-validation-future></fs-input>
   <fs-input as="fs-time" name="time" required label="Time"></fs-input>
   <fs-input as="textarea" name="details" required label="Details"></fs-input>
@@ -36,9 +36,7 @@
 
 <fieldset class="form-horizontal">
 <legend>Frend</legend>
-  <fs-form-for model="samurai.frend">
-    <fs-input as="text" name="name"/>
-  </fs-form-for>
+  <fs-input as="text" name="frend.name"/>
 </fieldset>
 
 <fieldset class="form-horizontal">
@@ -62,6 +60,7 @@
   <fs-input as="week" name="ngWeek"></fs-input>
   <fs-input as="month" name="ngMonth"></fs-input>
 </fieldset>
+  <pre>form = {{form | json}}</pre>
 </fs-form-for>
 <h4>Angular Scope</h4>
 <pre>samurai = {{samurai | json}}</pre>
