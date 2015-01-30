@@ -8,6 +8,13 @@ describe 'fsFormFor', ->
   beforeEach inject ($rootScope, _$compile_) ->
     $scope = $rootScope.$new()
 
+    $scope.submitCount = 0
+
+    $scope.submit = (event) ->
+      $scope.submitCount = $scope.submitCount + 1
+      event.preventDefault()
+      return false
+
     $scope.titles = ['developer', 'manager', 'ceo', 'qa']
 
     $scope.user =
@@ -19,11 +26,11 @@ describe 'fsFormFor', ->
 
   compile = (elem) ->
     elem ||= """
-<fs-form-for model="user">
+<form fs-form-for model="user" ng-submit="submit($event)">
   <fs-input as="text" name="name" required="" label="Name"></fs-input>
   <fs-input as="email" name="email" required="" label="Email"></fs-input>
   <fs-input as="fs-select" name="title" required="" label="Title" items="titles" freetext=""></fs-input>
-</fs-form-for>
+</form fs-form-for>
     """
     element = $compile(elem)($scope)
     $scope.$apply()
@@ -54,3 +61,8 @@ describe 'fsFormFor', ->
     formCtrl = element.data('$formController')
     attrs = (name for name, val of formCtrl when '$' not in name)
     expect(attrs).toEqual(['name', 'email', 'title'])
+
+  it 'should perform submit only once', ->
+    element = compile()
+    element.submit()
+    expect($scope.submitCount).toBe 1
