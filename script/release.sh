@@ -18,13 +18,13 @@ if [ ! -d ../bower-formstamp/.git ]; then
 fi
 
 source ~/.nvm/nvm.sh # make sure nvm command is available
+nvm use 0.10
 
 # install dependencies
-bower install
+`npm bin`/bower install
 
 # force compilation of all assets
-nvm use 0.10
-`npm bin`/grunt build
+`npm bin`/webpack
 
 cd ../bower-formstamp
 git checkout .
@@ -32,8 +32,8 @@ git pull -f origin master
 
 cd ../formstamp
 mkdir -p ../bower-formstamp/build
-cp build/formstamp.css ../bower-formstamp/build/
-cp build/formstamp.js  ../bower-formstamp/build/
+cp dist/formstamp.css ../bower-formstamp/
+cp dist/formstamp.js  ../bower-formstamp/
 cp bower.json          ../bower-formstamp/
 
 cd ../bower-formstamp

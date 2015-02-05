@@ -18,6 +18,7 @@
     "karma-phantomjs-launcher": "latest",
     "karma-sourcemap-loader": "latest",
     "karma-webpack": "latest",
+    "less": "latest",
     "less-loader": "latest",
     "ng-cache-loader": "latest",
     "phantomjs": "latest",
