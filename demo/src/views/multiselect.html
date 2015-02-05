@@ -28,9 +28,9 @@ Supported attributes:
 </pre>
 
 <pre sample label="MultiSelect">
-  <fs-form-for>
-<fieldset>
-<legend>fsMultiSelect without freetext</legend>
+<form fs-form-for class="form-horizontal">
+  <fieldset>
+    <legend>fsMultiSelect without freetext</legend>
     <div class='form-group'>
       <label class="col-xs-2 control-label">Select country</label>
 
@@ -51,32 +51,32 @@ Supported attributes:
       </div>
     </div>
     <fs-row label="Result"><pre>Selection: {{country | json}}</pre></fs-row>
-</fieldset>
+  </fieldset>
 
-<br/>
-<br/>
+  <br/>
+  <br/>
 
-<fieldset>
-<legend>fsMultiselect with freetext</legend>
-<div class="form-group row">
-  <label class="col-xs-2 control-label">
-    Where have you been?
-  </label>
-  <div fs-multiselect
-    items="countryNames"
-    freetext
-    class="col-xs-8"
-    ng-disabled="disabled"
-    ng-model="countryName"></div>
-  <div class="col-xs-2">
-    <button class="btn btn-default"
-      ng-click="disabled=!disabled">
-      {{disabled ? 'Enable' : 'Disable'}}
-    </button>
-  </div>
-</div>
+  <fieldset>
+    <legend>fsMultiselect with freetext</legend>
+    <div class="form-group row">
+      <label class="col-xs-2 control-label">
+        Where have you been?
+      </label>
+      <div fs-multiselect
+        items="countryNames"
+        freetext
+        class="col-xs-8"
+        ng-disabled="disabled"
+        ng-model="countryName"></div>
+      <div class="col-xs-2">
+        <button class="btn btn-default"
+          ng-click="disabled=!disabled">
+          {{disabled ? 'Enable' : 'Disable'}}
+        </button>
+      </div>
+    </div>
 
-<fs-row label="Result"><pre>Selection: {{countryName | json}}</pre></fs-row>
-</fieldset>
-</fs-form-for>
+    <fs-row label="Result"><pre>Selection: {{countryName | json}}</pre></fs-row>
+  </fieldset>
+</form>
 </pre>

@@ -1,14 +1,11 @@
-<fs-form-for model="samurai">
-<fieldset class="form-horizontal">
-  <legend>Samurai Personal Info</legend>
-  <!-- <fs-input as="fs-datetime" name="birthdate" required label="Date of Birth"></fs-input> -->
-  <!-- <fs-input as="fs-date" name="date" required label="Date" custom-validation-future></fs-input> -->
-  <fs-input as="fs-time" name="time" required label="Time"></fs-input>
-  <!-- <fs-input as="textarea" name="details" required label="Details"></fs-input> -->
-</fieldset>
+<form fs-form-for model="samurai">
+  <fieldset class="form-horizontal">
+    <legend>Samurai Personal Info</legend>
+    <fs-input as="fs-time" name="time" required label="Time"></fs-input>
+  </fieldset>
 
-<pre>{{form | json}}</pre>
-</fs-form-for>
+  <pre>{{form | json}}</pre>
+</form>
 
 <pre>{{samurai | json}}</pre>
 
