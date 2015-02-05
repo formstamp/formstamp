@@ -24,7 +24,7 @@ bower install
 
 # force compilation of all assets
 nvm use 0.10
-`npm bin`/webpack build
+`npm bin`/webpack
 
 cd ../bower-formstamp
 git checkout .
