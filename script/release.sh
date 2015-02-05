@@ -18,12 +18,12 @@ if [ ! -d ../bower-formstamp/.git ]; then
 fi
 
 source ~/.nvm/nvm.sh # make sure nvm command is available
+nvm use 0.10
 
 # install dependencies
-bower install
+`npm bin`/bower install
 
 # force compilation of all assets
-nvm use 0.10
 `npm bin`/webpack
 
 cd ../bower-formstamp
