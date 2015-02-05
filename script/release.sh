@@ -32,8 +32,8 @@ git pull -f origin master
 
 cd ../formstamp
 mkdir -p ../bower-formstamp/build
-cp build/formstamp.css ../bower-formstamp/build/
-cp build/formstamp.js  ../bower-formstamp/build/
+cp dist/formstamp.css ../bower-formstamp/
+cp dist/formstamp.js  ../bower-formstamp/
 cp bower.json          ../bower-formstamp/
 
 cd ../bower-formstamp
