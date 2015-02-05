@@ -14,7 +14,7 @@ Supported attributes:
 * class - additional CSS classes
 </pre>
 <pre sample>
-  <fs-form-for>
+  <form fs-form-for class="form-horizontal">
     <div class="form-group">
       <label class="col-xs-2 control-label">Choose your katawari</label>
       <div class="col-xs-3">
@@ -41,28 +41,28 @@ Supported attributes:
         </div>
       </div>
     </div>
-<fs-row label="Result"><pre>Selected value: {{ radiovalue | json }}</pre></fs-row>
+    <fs-row label="Result"><pre>Selected value: {{ radiovalue | json }}</pre></fs-row>
 
-<hr/>
+    <hr/>
 
-<div class="form-group">
-  <label class="col-xs-2 control-label">Your meal</label>
-  <div class="col-xs-3">
-    <div fs-radio
-      items="sushi"
-      ng-disabled="disabled"
-      ng-model="value">
-      <img ng-src="{{item.src}}"
-      width="24"
-      height="24" alt="{{item.label}}" /> {{item.label}}
+    <div class="form-group">
+      <label class="col-xs-2 control-label">Your meal</label>
+      <div class="col-xs-3">
+        <div fs-radio
+          items="sushi"
+          ng-disabled="disabled"
+          ng-model="value">
+          <img ng-src="{{item.src}}"
+          width="24"
+          height="24" alt="{{item.label}}" /> {{item.label}}
+        </div>
+      </div>
+      <div class="col-xs-2">
+        <button class="btn btn-default" ng-click="disabled=!disabled">
+          {{disabled ? 'Enable' : 'Disable'}}
+        </button>
+      </div>
     </div>
-  </div>
-  <div class="col-xs-2">
-    <button class="btn btn-default" ng-click="disabled=!disabled">
-      {{disabled ? 'Enable' : 'Disable'}}
-    </button>
-  </div>
-</div>
-<fs-row label="Result"><pre>Selected dish: {{ value | json }}</pre></fs-row>
-  </fs-form-for>
+    <fs-row label="Result"><pre>Selected dish: {{ value | json }}</pre></fs-row>
+  </form>
 </pre>
