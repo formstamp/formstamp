@@ -42,7 +42,7 @@ mod.directive 'fsFormFor', ['$templateCache', ($templateCache)->
   replace: false
   template: (el, attrs) ->
     if el[0].tagName == "FS-FORM-FOR"
-      template = "<h3>DEPRECATED: &lt;fs-form-for&gt;&lt;/fs-form-for&gt;</h3> \
+      template = "<h3 style=\"color: red\">DEPRECATED: &lt;fs-form-for&gt;&lt;/fs-form-for&gt;</h3> \
         <p><code>&lt;fs-form-for&gt;</code> usage as element was deprecated. \
         Use <code>&lt;form fs-form-for&gt;</code> instead.</p>"
     else
