@@ -7,8 +7,6 @@ branches:
   - master
 env:
   global:
-  - secure: orh/qjGCOk8zzATI19BV/qoV9Zv+m6C2sLeCYR1aeWXU2g9xX+f0iW960zrg1ja2Dj1PsX7c0SXbdXSUEko/AqQQqyiZZjE0r4SVZKn6fIBIGrZvnhkKwr7CtGdxWqy4PFNZi6DHLd6DKi2bFOUgmulk8GnZ64d2TstD9tEzLzA=
-  - secure: iBYDR5myuv+J2NvdWfwlHE36JAFFduEoHSs91WRbnehwkd3AO89rSro0izeTbRM+e8VGGtNMr04RQTrcuu0mRSsrL+NOkACBWa42Z/EdE0ZAgAZdwz65gM+Ng9wXNhKZHEqN8pyGsNUA0RKyUoYcjOLkBoKeS/vUTqCb5aZDEyI=
   - secure: "D5pOPimhhpjEyQPSRtz7K9KOd6x5Y7WdWX0STsJW+KdMQXY2xIeNSxqWt9gEj6IEtO5OYjBLCR+GaF2E/WTve6Y2dO2JxnJbatervRx4Vtdoi0l0tghiPVDUqVoF8eIIXiFGhZemDCw0wknVLkxG12mizTBDrXpagUooq9QGz6s="
 
 before_script:
@@ -24,5 +22,7 @@ script:
 after_success:
 - 'git config --global user.email "robot@health-samurai.io"'
 - 'git config --global user.name "Travis CI Deployer"'
-- 'cd .. && git clone --depth=50 --branch=master https://$TOKEN:x-oauth-basic@github.com/formstamp/formstamp.github.io.git'
-- 'cd formstamp && script/deploy-demo.sh edge'
+- 'if [ -n "$TRAVIS_TAG" ]; then ./script/release.sh; fi'
+# - 'if [ "$TRAVIS_BRANCH" = "master" ]; then ./script/release.sh; fi'
+# - 'cd .. && git clone --depth=50 --branch=master https://$TOKEN:x-oauth-basic@github.com/formstamp/formstamp.github.io.git'
+# - 'cd formstamp && script/deploy-demo.sh edge'
