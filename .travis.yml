@@ -2,9 +2,9 @@ language: node_js
 node_js: '0.10'
 # addons:
 #   sauce_connect: true
-branches:
-  only:
-  - master
+# branches:
+#   only:
+#   - master
 env:
   global:
   - secure: "D5pOPimhhpjEyQPSRtz7K9KOd6x5Y7WdWX0STsJW+KdMQXY2xIeNSxqWt9gEj6IEtO5OYjBLCR+GaF2E/WTve6Y2dO2JxnJbatervRx4Vtdoi0l0tghiPVDUqVoF8eIIXiFGhZemDCw0wknVLkxG12mizTBDrXpagUooq9QGz6s="
