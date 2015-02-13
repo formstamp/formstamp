@@ -61,6 +61,13 @@ git add .
 git commit -a -m "release at `date` by `git config --get user.name`"
 git push origin master
 
+if [ -n "$TRAVIS_TAG" ]; then
+    git tag -a -m "$TRAVIS_TAG" $TRAVIS_TAG
+else
+    git tag -a -m "$LOCAL_VERSION" $LOCAL_VERSION
+fi
+git push --tags
+
 echo "-----------------------"
 if [ -n "$TRAVIS_TAG" ]; then
     echo "Released version $TRAVIS_TAG successfully!"
