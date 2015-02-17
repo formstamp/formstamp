@@ -57,6 +57,6 @@ describe 'fsCalendar', ->
     $('.fs-calendar .month').click()
     $('.fs-calendar .day-in-selected-month').click()
 
-    expect($('#year').getText()).toBe '2009'
+    expect($('#year').getText()).toBe String(year - 5)
     expect($('#month').getText()).toBe '0'
     expect($('#day').getText()).toBe '1'
