@@ -1,10 +1,14 @@
 language: node_js
 node_js: '0.10'
-# addons:
-#   sauce_connect: true
 # branches:
 #   only:
 #   - master
+install:
+  - 'wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -'
+  - sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+  - sudo apt-get update
+  - sudo apt-get install google-chrome-stable
+
 env:
   global:
   - secure: "D5pOPimhhpjEyQPSRtz7K9KOd6x5Y7WdWX0STsJW+KdMQXY2xIeNSxqWt9gEj6IEtO5OYjBLCR+GaF2E/WTve6Y2dO2JxnJbatervRx4Vtdoi0l0tghiPVDUqVoF8eIIXiFGhZemDCw0wknVLkxG12mizTBDrXpagUooq9QGz6s="
