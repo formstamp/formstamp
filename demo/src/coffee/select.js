@@ -2,12 +2,6 @@ var app = require('./module');
 var src = require('raw!./select.js');
 var countries = require('./countries');
 
-app.config(function($httpProvider) {
-  // Enable cross domain calls
-  $httpProvider.defaults.useXDomain = true;
-  console.log("configurationBlock called!");
-});
-
 app.controller('SelectCtrl', ['$scope', '$q', '$http', function ($scope, $q, $http) {
   $scope.disabled = false;
   $scope.src = src;
@@ -22,7 +16,7 @@ app.controller('SelectCtrl', ['$scope', '$q', '$http', function ($scope, $q, $ht
   $scope.laughs = ['Ha-ha-ha', 'Ho-ho-ho', 'He-he-he'];
 
   $scope.wikipediaArticles = function(lookupText) {
-    console.log("Search Wikipedia for", lookupText);
+    console.log("Searching Wikipedia for", lookupText);
 
     if (typeof lookupText == 'undefined'
         || lookupText == null
@@ -32,8 +26,14 @@ app.controller('SelectCtrl', ['$scope', '$q', '$http', function ($scope, $q, $ht
       return $q(function(resolve, reject) {
         $http.jsonp('http://en.wikipedia.org/w/api.php?action=opensearch&search=' + lookupText + '&limit=40&format=json&callback=JSON_CALLBACK')
           .success(function(data) {
-            console.log(data);
-            resolve(data[1]);
+            var result = [];
+            var i = 0;
+
+            for(i = 0; i < data[1].length; i++) {
+              result.push({label: data[1][i], desc: data[2][i], url: data[3][i]});
+            }
+
+            resolve(result);
           })
           .error(function(data) {
             console.log(data);

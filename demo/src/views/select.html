@@ -65,8 +65,8 @@ Supported attributes:
     <fs-row label="Select country">
       <div class="col-xs-4">
         <div fs-select
-          items='countries'
-          ng-model="country">
+             items='countries'
+             ng-model="country">
           <span ng-show="item"><span class="flag flag-{{ item['alpha-2'].toLowerCase() }}"></span>&nbsp;{{item.name}}</span>
           <span ng-hide="item"> No country </span>
         </div>
@@ -98,18 +98,21 @@ Supported attributes:
       <pre>Your laugh is like: {{ laugh || '...' }}</pre>
     </fs-row>
 
-    <fs-row label="">
+    <hr/>
+
+    <fs-row label="items as function">
       <div class="col-xs-4">
         <div fs-select
              freetext="true"
              items="wikipediaArticles"
-             ng-model="articles">
-          {{item}}
+             ng-model="article">
+          {{item.label}}
         </div>
       </div>
-      <div class="col-xs-4">
-        <button class="btn btn-default" ng-click="disabled = !disabled">{{disabled ? 'Enable' : 'Disable'}}</button>
-      </div>
+    </fs-row>
+
+    <fs-row label="Selected Wikipedia article">
+      <pre>{{article | json}}</pre>
     </fs-row>
   </form>
 </pre>
