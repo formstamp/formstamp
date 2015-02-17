@@ -59,4 +59,4 @@ describe 'fsSelect', ->
   it 'should apply custom template for item', ->
     element = compile('<div fs-select ng-model="value" items="items"><span class="bang"></span>{{ item }}</div>')
     $scope.$apply(-> $scope.value = $scope.items.first)
-    expect(element.find(".fs-select-active .bang").length).toBe(1)
+    expect(element.find(".activate-button .bang").length).toBe(1)
