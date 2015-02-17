@@ -2,13 +2,15 @@ describe 'fsSelect', ->
   require '../../src/coffee/select'
   $scope = null
   $compile = null
+  $timeout = null
 
   beforeEach angular.mock.module('formstamp')
 
-  beforeEach inject ($rootScope, _$compile_) ->
+  beforeEach inject ($rootScope, _$compile_, _$timeout_) ->
     $scope = $rootScope.$new()
     $scope.items = ['first', 'second', 'last']
     $compile = _$compile_
+    $timeout = _$timeout_
 
   compile = (elem) ->
     elem ||= '<div fs-select items="items" ng-model="value"></div>'
@@ -60,3 +62,28 @@ describe 'fsSelect', ->
     element = compile('<div fs-select ng-model="value" items="items"><span class="bang"></span>{{ item }}</div>')
     $scope.$apply(-> $scope.value = $scope.items.first)
     expect(element.find(".activate-button .bang").length).toBe(1)
+
+  it 'should accept function as item value', ->
+    $scope.itemsFn = (t) ->
+      ["foo", "bar"]
+
+    element = compile('<div fs-select ng-model="value" items="itemsFn">{{ item }}</div>')
+    $scope.$apply(-> $scope.value = "bar")
+    expect(element.find(".activate-button").text()).toMatch(/bar/)
+
+  it "should accept function returning promise as item value", ->
+    $scope.itemsFn = (t) ->
+      $timeout () ->
+       ["first promise response", "second promise response"]
+      , 10000
+
+    element = compile('<div fs-select ng-model="value" items="itemsFn">{{ item }}</div>')
+    element.find(".activate-button").click()
+    $timeout.flush()
+    $scope.$apply()
+
+    expect(element.isolateScope().dropdownItems[0]).toBe("first promise response")
+    expect(element.attr('class')).toMatch(/async-state-loaded/)
+
+    element.find(".activate-button").click()
+    expect(element.find('.dropdown-menu li').length).toBe(2)
