@@ -1,6 +1,6 @@
-<div class='fs-select fs-widget-root'>
+<div class="fs-select fs-widget-root" ng-class="'async-state-' + asyncState">
   <div ng-hide="active" class="fs-select-sel" ng-class="{'btn-group': item}">
-      <a class="btn btn-default fs-select-active"
+      <a class="btn btn-default activate-button"
          ng-class='{"btn-danger": invalid}'
          href="javascript:void(0)"
          ng-click="active = true"
@@ -32,6 +32,8 @@
            placeholder='Search'
            ng-model="search"
            fs-null-form />
+
+    <div class="spinner"></div>
 
     <div ng-if="active && dropdownItems.length > 0">
       <div fs-list items="dropdownItems">

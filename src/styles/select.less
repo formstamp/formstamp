@@ -16,7 +16,7 @@
     -moz-box-orient: horizontal;
   }
 
-  .fs-select-active {
+  .activate-button {
     -webkit-box-flex: 1;
     -moz-box-flex: 1;
     display: block;
@@ -31,6 +31,39 @@
   .fs-select-items-list-default {
     width: 100%;
     overflofs-y: auto;
+  }
+
+  .spinner {
+    width: 30px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: none;
+    background: transparent url(spinner.png) no-repeat center center;
+  }
+
+  &.async-state-loading {
+    .spinner {
+      display: block;
+
+      -webkit-animation-name: spin;
+      -webkit-animation-duration: 1500ms;
+      -webkit-animation-iteration-count: infinite;
+      -webkit-animation-timing-function: ease-out;
+
+      @-webkit-keyframes spin {
+        from {
+          transform: rotate(0deg);
+        } to {
+          transform: rotate(360deg);
+        }
+      }
+    }
+
+    input.form-control {
+      padding-right: 30px;
+    }
   }
 }
 .dropdown.no-popup .dropdown-menu {

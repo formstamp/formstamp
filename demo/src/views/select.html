@@ -97,5 +97,19 @@ Supported attributes:
     <fs-row label="Result">
       <pre>Your laugh is like: {{ laugh || '...' }}</pre>
     </fs-row>
+
+    <fs-row label="">
+      <div class="col-xs-4">
+        <div fs-select
+             freetext="true"
+             items="wikipediaArticles"
+             ng-model="articles">
+          {{item}}
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <button class="btn btn-default" ng-click="disabled = !disabled">{{disabled ? 'Enable' : 'Disable'}}</button>
+      </div>
+    </fs-row>
   </form>
 </pre>

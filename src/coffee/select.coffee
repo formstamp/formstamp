@@ -21,7 +21,9 @@ mod.directive "fsSelect", ['$templateCache', ($templateCache) ->
       .replace(/::itemTpl/g, itemTpl)
 
   controller: ['$scope', '$element', '$attrs', '$filter', '$timeout', ($scope, $element, $attrs, $filter, $timeout) ->
+    $scope.asyncState = 'loaded'
     $scope.active = false
+    throttleTime = parseInt($attrs['throttle'] || '200')
 
     if $attrs.freetext?
       $scope.dynamicItems = ->
@@ -30,10 +32,35 @@ mod.directive "fsSelect", ['$templateCache', ($templateCache) ->
       $scope.dynamicItems = -> []
 
     updateDropdown = () ->
-      $scope.dropdownItems = $filter('filter')(($scope.items || []), $scope.search).concat($scope.dynamicItems())
+      if angular.isFunction($scope.items)
+        result = $scope.items($scope.search)
 
-    $scope.$watch 'active', (q)-> updateDropdown()
-    $scope.$watch 'search', (q)-> updateDropdown()
+        if angular.isArray(result)
+          $scope.dropdownItems = result
+        else
+          # result is a promise!
+          $scope.asyncState = 'loading'
+
+          result.then((data) ->
+            $scope.asyncState = 'loaded'
+            $scope.dropdownItems = data
+          , (data) ->
+            console.log("WARNING: promise rejected")
+            $scope.asyncState = 'loaded'
+            $scope.dropdownItems = []
+          )
+      else
+        $scope.dropdownItems = $filter('filter')(($scope.items || []), $scope.search).concat($scope.dynamicItems())
+
+    $scope.$watch 'active', (q) -> updateDropdown()
+    $scope.$watch 'search', (q) ->
+      if angular.isFunction($scope.items)
+        if $scope.searchTimeout
+          $timeout.cancel($scope.searchTimeout)
+
+        $scope.searchTimeout = $timeout(updateDropdown, throttleTime)
+      else
+        updateDropdown()
 
     $scope.selectItem = (item)->
       $scope.item = item

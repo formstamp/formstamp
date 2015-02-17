@@ -10,6 +10,7 @@
     "coffee": "latest",
     "coffee-loader": "latest",
     "css-loader": "latest",
+    "file-loader": "latest",
     "extract-text-webpack-plugin": "latest",
     "html-loader": "latest",
     "karma": "latest",
