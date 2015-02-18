@@ -53,6 +53,8 @@ mod.directive "fsSelect", ['$templateCache', ($templateCache) ->
         $scope.dropdownItems = $filter('filter')(($scope.items || []), $scope.search).concat($scope.dynamicItems())
 
     $scope.$watch 'active', (q) -> updateDropdown()
+    $scope.$watch 'items', (q) -> $scope.dropdownItems = []
+
     $scope.$watch 'search', (q) ->
       if angular.isFunction($scope.items)
         if $scope.searchTimeout
