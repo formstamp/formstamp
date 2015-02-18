@@ -13,8 +13,28 @@ Supported attributes:
 * ng-disabled - disable/enable input with scope property
 * class - additional CSS classes
 </pre>
-<pre sample>
-  <form fs-form-for class="form-horizontal">
+
+<div sample>
+  <script type="text/javascript">
+   app.controller('RadioExampleCtrl', ['$scope', function ($scope){
+     $scope.sushi = [
+       {img: 'CaliforniaRoll', label: 'California Roll'},
+       {img: 'CucumberRoll', label: 'Cucumber Roll'},
+       {img: 'FattyTuna', label: 'Fatty Tuna'},
+       {img: 'Inari', label: 'Inari'},
+       {img: 'Octopus', label: 'Octopus'},
+       {img: 'Shrimp', label: 'Shrimp'}
+     ];
+
+     $scope.items = [
+       {id: 'S', label: 'Shijima'},
+       {id: 'M', label: 'Musubi'},
+       {id: 'Y', label: 'Yosuga'}
+     ];
+   }]);
+  </script>
+
+  <form fs-form-for class="form-horizontal" ng-controller="RadioExampleCtrl">
     <div class="form-group">
       <label class="col-xs-2 control-label">Choose your katawari</label>
       <div class="col-xs-3">
@@ -49,12 +69,10 @@ Supported attributes:
       <label class="col-xs-2 control-label">Your meal</label>
       <div class="col-xs-3">
         <div fs-radio
-          items="sushi"
-          ng-disabled="disabled"
-          ng-model="value">
-          <img ng-src="{{item.src}}"
-          width="24"
-          height="24" alt="{{item.label}}" /> {{item.label}}
+             items="sushi"
+             ng-disabled="disabled"
+             ng-model="value">
+          <span class="sushi" ng-class="item.img"></span> {{item.label}}
         </div>
       </div>
       <div class="col-xs-2">
@@ -65,4 +83,4 @@ Supported attributes:
     </div>
     <fs-row label="Result"><pre>Selected dish: {{ value | json }}</pre></fs-row>
   </form>
-</pre>
+</div>

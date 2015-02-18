@@ -32,6 +32,9 @@ app.directive 'sample', [() ->
     eval(rawJs)
     rawJs = unindentCode(rawJs)
 
+    if !rawJs
+      rawJs = '/* No code to display */'
+
     hlJs = hljs.highlightAuto(rawJs).value
 
     """

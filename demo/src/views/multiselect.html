@@ -27,56 +27,75 @@ Supported attributes:
 
 </pre>
 
-<pre sample label="MultiSelect">
-<form fs-form-for class="form-horizontal">
-  <fieldset>
-    <legend>fsMultiSelect without freetext</legend>
-    <div class='form-group'>
-      <label class="col-xs-2 control-label">Select country</label>
+<div sample label="MultiSelect">
+  <script type="text/javascript">
+   app.controller('MultiselectExampleCtrl',['$scope', function ($scope){
+     $scope.disabled = false;
 
-      <div fs-multiselect
-        items="countries"
-        freetext
-        class="col-xs-8"
-        ng-disabled="disabled"
-        ng-model="country">
+     $scope.items = [
+       {id: 'S', label: 'Shijima'},
+       {id: 'M', label: 'Musubi'},
+       {id: 'Y', label: 'Yosuga'},
+       {id: 'GG', label: 'Genmai gohan'},
+       {id: 'K', label: 'Kamameshi'},
+       {id: 'MO', label: 'Mochi'},
+       {id: 'SH', label: 'Sekihan'}
+     ];
+
+     $scope.countries = countries;
+     $scope.countryNames = countries.map(function(x){return x.name});
+   }]);
+  </script>
+
+  <form fs-form-for class="form-horizontal" ng-controller="MultiselectExampleCtrl">
+    <fieldset>
+      <legend>fsMultiSelect without freetext</legend>
+      <div class='form-group'>
+        <label class="col-xs-2 control-label">Select country</label>
+
+        <div fs-multiselect
+             items="countries"
+             freetext
+             class="col-xs-8"
+             ng-disabled="disabled"
+             ng-model="country">
           <span ng-show="item"><span class="flag flag-{{ item['alpha-2'].toLowerCase() }}"></span>&nbsp;{{item.name}}</span>
           <span ng-hide="item"> No country </span>
+        </div>
+
+        <div class="col-xs-2">
+          <button class="btn btn-default" ng-click="disabled=!disabled">
+            {{disabled ? 'Enable' : 'Disable'}}
+          </button>
+        </div>
+      </div>
+      <fs-row label="Result"><pre>Selection: {{country | json}}</pre></fs-row>
+    </fieldset>
+
+    <br/>
+    <br/>
+
+    <fieldset>
+      <legend>fsMultiselect with freetext</legend>
+      <div class="form-group row">
+        <label class="col-xs-2 control-label">
+          Where have you been?
+        </label>
+        <div fs-multiselect
+             items="countryNames"
+             freetext
+             class="col-xs-8"
+             ng-disabled="disabled"
+             ng-model="countryName"></div>
+        <div class="col-xs-2">
+          <button class="btn btn-default"
+                  ng-click="disabled=!disabled">
+            {{disabled ? 'Enable' : 'Disable'}}
+          </button>
+        </div>
       </div>
 
-      <div class="col-xs-2">
-        <button class="btn btn-default" ng-click="disabled=!disabled">
-          {{disabled ? 'Enable' : 'Disable'}}
-        </button>
-      </div>
-    </div>
-    <fs-row label="Result"><pre>Selection: {{country | json}}</pre></fs-row>
-  </fieldset>
-
-  <br/>
-  <br/>
-
-  <fieldset>
-    <legend>fsMultiselect with freetext</legend>
-    <div class="form-group row">
-      <label class="col-xs-2 control-label">
-        Where have you been?
-      </label>
-      <div fs-multiselect
-        items="countryNames"
-        freetext
-        class="col-xs-8"
-        ng-disabled="disabled"
-        ng-model="countryName"></div>
-      <div class="col-xs-2">
-        <button class="btn btn-default"
-          ng-click="disabled=!disabled">
-          {{disabled ? 'Enable' : 'Disable'}}
-        </button>
-      </div>
-    </div>
-
-    <fs-row label="Result"><pre>Selection: {{countryName | json}}</pre></fs-row>
-  </fieldset>
-</form>
-</pre>
+      <fs-row label="Result"><pre>Selection: {{countryName | json}}</pre></fs-row>
+    </fieldset>
+  </form>
+</div>

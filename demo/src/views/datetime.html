@@ -7,8 +7,25 @@
   year/month/day will remain unchanged.
 
 </pre>
-<pre sample>
-  <form fs-form-for class="form-horizontal">
+<div sample>
+  <script type="text/javascript">
+   app.controller('DatetimeExampleCtrl', ['$scope', function ($scope){
+     $scope.selectedDate = new Date();
+     $scope.selectedDate = new Date();
+     $scope.disabled = false;
+     now = new Date();
+     $scope.svalue = now.getHours() + ":" + now.getMinutes();
+     $scope.disabled = false;
+
+     $scope.setTime = function(str) {
+       $scope.svalue = str;
+     };
+     $scope.disabled = false;
+     $scope.selectedDateTime = new Date();
+   }]);
+  </script>
+
+  <form fs-form-for class="form-horizontal" ng-controller="DatetimeExampleCtrl">
     <div class="form-group row">
       <label class="col-xs-2 control-label">Choose convenient seppuku date</label>
       <div class="col-xs-2"><div fs-date ng-model="selectedDate" ng-disabled="disabled"></div></div>
@@ -23,7 +40,7 @@
     <hr/>
 
     <div class='form-group row'>
-    <label class="col-xs-2 control-label">Select appointment time</label>
+      <label class="col-xs-2 control-label">Select appointment time</label>
       <div class="col-xs-2"><div fs-time ng-disabled="disabled" ng-model="svalue"></div></div>
       <div class="col-xs-1"><button class="btn btn-default" ng-click="setTime('21:52')"> 21:52 </button></div>
       <div class="col-xs-1"><button class="btn btn-default" ng-click="setTime('19:22')"> 19:22 </button> </div>
@@ -56,4 +73,4 @@
       </pre></fs-row>
 
   </form>
-</pre>
+</div>

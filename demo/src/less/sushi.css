@@ -1,0 +1,32 @@
+.sushi {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  vertical-align: bottom;
+}
+
+.sushi.CaliforniaRoll {
+  background-image: url('../imgs/CaliforniaRoll.gif');
+}
+
+.sushi.CucumberRoll {
+  background-image: url('../imgs/CucumberRoll.gif');
+}
+
+.sushi.FattyTuna {
+  background-image: url('../imgs/FattyTuna.gif');
+}
+
+.sushi.Inari {
+  background-image: url('../imgs/Inari.gif');
+}
+
+.sushi.Octopus {
+  background-image: url('../imgs/Octopus.gif');
+}
+
+.sushi.Shrimp {
+  background-image: url('../imgs/Shrimp.gif');
+}

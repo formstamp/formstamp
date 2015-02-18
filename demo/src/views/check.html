@@ -12,36 +12,47 @@ Supported attributes:
 * ng-disabled - disable/enable input with scope property
 * class - additional CSS classes
 </pre>
-<pre sample>
-<form fs-form-for class="form-horizontal">
-  <div class="form-group">
-    <label class="col-xs-2 control-label">Choose your katawari</label>
-    <div class="col-xs-6">
-      <div fs-checkbox
-           items="items"
-           ng-disabled="disabled"
-           ng-model="value">
+
+<div sample>
+  <script type="text/javascript">
+   app.controller('CheckExampleCtrl', ['$scope', function ($scope) {
+     $scope.items = [
+       {id: 'S', label: 'Shijima'},
+       {id: 'M', label: 'Musubi'},
+       {id: 'Y', label: 'Yosuga'}
+     ];
+   }]);
+  </script>
+
+  <form fs-form-for class="form-horizontal" ng-controller="CheckExampleCtrl">
+    <div class="form-group">
+      <label class="col-xs-2 control-label">Choose your katawari</label>
+      <div class="col-xs-6">
+        <div fs-checkbox
+             items="items"
+             ng-disabled="disabled"
+             ng-model="value">
           <b>{{item.id}}</b> {{item.label}}
+        </div>
+      </div>
+      <div class="col-xs-2">
+        <button class="btn btn-default" ng-click="disabled=!disabled">
+          {{disabled ? 'Enable' : 'Disable'}}
+        </button>
       </div>
     </div>
-    <div class="col-xs-2">
-      <button class="btn btn-default" ng-click="disabled=!disabled">
-        {{disabled ? 'Enable' : 'Disable'}}
-      </button>
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="col-xs-2 control-label">Choose your katawari</label>
-    <div class="col-xs-6">
-      <div fs-checkbox
-           items="items"
-           ng-model="value">
-        {{item.label}}
+    <div class="form-group">
+      <label class="col-xs-2 control-label">Choose your katawari</label>
+      <div class="col-xs-6">
+        <div fs-checkbox
+             items="items"
+             ng-model="value">
+          {{item.label}}
+        </div>
       </div>
     </div>
-  </div>
-  <fs-row label="Result">
+    <fs-row label="Result">
       <pre>Selected value: {{ value | json }}</pre>
-  </fs-row>
-</form>
-</pre>
+    </fs-row>
+  </form>
+</div>

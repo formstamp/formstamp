@@ -13,31 +13,18 @@ require('./markdown')
 require('../views/index.html')
 require('../views/readme.html')
 
-require('./form')
 require('../views/form.html')
-
-require('./select')
 require('../views/select.html')
-
-require('./multiselect')
 require('../views/multiselect.html')
-
-require('./radio')
 require('../views/radio.html')
-
-require('./check')
 require('../views/check.html')
-
-require('./datetime')
 require('../views/datetime.html')
-
-require('./list')
 require('../views/list.html')
+require('../views/validation.html')
 
 require('../less/app.less')
 require('../less/flags.css')
-
-require('../views/validation.html')
+require('../less/sushi.css')
 
 capitalize = (s)->
   s && s[0].toUpperCase() + s.slice(1)
