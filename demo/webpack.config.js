@@ -17,6 +17,7 @@ module.exports = {
       { test: /\.eot(\?v.*)?$/, loader: "url-loader" },
       { test: /\.ttf(\?v.*)?$/, loader: "url-loader" },
       { test: /\.woff(\?v.*)?$/, loader: "url-loader" },
+      { test: /\.woff2?$/, loader: "url-loader" },
       { test: /\.svg(\?v.*$)?/, loader: "url-loader" },
       { test: /\.swf$/, loader: "url-loader" },
 
