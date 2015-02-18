@@ -42,8 +42,8 @@ Supported attributes:
        {id: 'SH', label: 'Sekihan'}
      ];
 
-     $scope.countries = countries;
-     $scope.countryNames = countries.map(function(x){return x.name});
+     $scope.countries = window.countries;
+     $scope.countryNames = window.countries.map(function(x){return x.name});
    }]);
   </script>
 

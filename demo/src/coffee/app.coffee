@@ -26,6 +26,8 @@ require('../less/app.less')
 require('../less/flags.css')
 require('../less/sushi.css')
 
+window.countries = require('./countries')
+
 capitalize = (s)->
   s && s[0].toUpperCase() + s.slice(1)
 
