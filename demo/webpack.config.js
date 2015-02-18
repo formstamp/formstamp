@@ -26,7 +26,7 @@ module.exports = {
 
       { test: /templates\/.*?\.html$/,   loader: "ng-cache?prefix=templates/fs/" },
       { test: /\.md$/, loader: "html!markdown" },
-      { test: /views\/.*?\.html$/,   loader: "ng-cache?prefix=views/" }
+      { test: /views\/.*?\.html$/, loader: "ng-cache?prefix=views/&dontminify=true" }
     ]
   },
   plugins: [

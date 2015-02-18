@@ -45,7 +45,6 @@ capitalize = (s)->
 buildSiteMap = (x)->
   x.href = "#/#{x.name}"
   x.templateUrl = "views/#{x.name}.html"
-  x.controller = "#{capitalize(x.name)}Ctrl"
   x
 
 sitemap = {
@@ -64,6 +63,16 @@ sitemap = {
     {name: 'src', label: 'Source', icon: 'github', href: 'https://github.com/formstamp/formstamp'}
   ]
 }
+
+# Lazy Loading of controllers after app is bootstraped
+# This general idea is based on excellent article by
+# Ifeanyi Isitor: http://ify.io/lazy-loading-in-angularjs/
+app.config ['$controllerProvider', ($controllerProvider) ->
+  app._controller = app.controller
+  app.controller = (name, c) ->
+    $controllerProvider.register(name, c)
+    this
+]
 
 app.config ['$routeProvider', ($routeProvider) ->
   rp = $routeProvider
@@ -90,10 +99,9 @@ activate = (name)->
 app.run ['$rootScope', ($rootScope) ->
   $rootScope.brand = "Formstamp"
   $rootScope.sitemap = sitemap
-  $rootScope.$on  "$routeChangeStart", (event, next, current)->
+  $rootScope.$on "$routeChangeStart", (event, next, current)->
     activate(next.name)
 ]
-
 
 app.controller 'WelcomeCtrl', ()->
 
@@ -106,4 +114,3 @@ app.controller 'ReadmeCtrl', ['$sce', '$scope', ($sce, $scope)->
 app.controller 'ValidationCtrl', ['$sce', '$scope', ($sce, $scope)->
   $scope.readme = $sce.trustAsHtml(app.readme)
 ]
-

@@ -2,7 +2,7 @@ app = require('./module')
 
 unindentCode = (str) ->
   str = str ? ""
-  str = str.replace(/^\n/, "")
+  str = str.replace(/^\s*\n/g, "")
   leadingSpaces = str.match(/^\s+/)
 
   if leadingSpaces
@@ -11,27 +11,28 @@ unindentCode = (str) ->
   else
     str
 
-
-app.directive 'sample', ['$sce', ($sce)->
-  # scope:
-  #   src: '='
+app.directive 'sample', [() ->
+  scope: {}
   restrict: 'A'
   controller: ['$scope', ($scope)->
     $scope.current = 'demo'
-    $scope.$watch 'src', (v)->
-      if window.hljs
-        $scope.js = $sce.trustAsHtml(hljs.highlightAuto(v).value)
   ]
-  replace: true
-  link: (scope, el, args...)->
-  template: ($el, attrs)->
-    orig = $el.html()
-    html = orig
-    if window.hljs
-      html = hljs.highlightAuto(html)
-        .value
-        .replace(/{{([^}]*)}}/g, "<b style='color:green;'>{{$1}}</b>")
-        .replace(/(fs-[-a-zA-Z]*)/g, "<b class='important'>$1</b>")
+
+  template: ($el, attrs) ->
+    rawHtml = $el.html()
+      .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+    rawHtml = unindentCode(rawHtml)
+
+    hlHtml = hljs.highlightAuto(rawHtml)
+      .value
+      .replace(/{{([^}]*)}}/g, "<b style='color:green;'>{{$1}}</b>")
+      .replace(/(fs-[-a-zA-Z]*)/g, "<b class='important'>$1</b>")
+
+    rawJs = $el.find("script").text()
+    eval(rawJs)
+    rawJs = unindentCode(rawJs)
+
+    hlJs = hljs.highlightAuto(rawJs).value
 
     """
       <div class="fs-sample">
@@ -44,9 +45,9 @@ app.directive 'sample', ['$sce', ($sce)->
         </div>
 
         <div class='clearfix' style="height: 0;"></div>
-        <div ng-show="current=='demo'">#{orig}</div>
-        <div ng-show="current=='html'"><pre ng-non-bindable>#{html}</pre></div>
-        <div ng-show="current=='js'"><pre ng-bind-html="js"></pre></div>
+        <div ng-show="current=='demo'">#{rawHtml}</div>
+        <div ng-show="current=='html'"><pre ng-non-bindable>#{hlHtml}</pre></div>
+        <div ng-show="current=='js'"><pre ng-non-bindable>#{hlJs}</pre></div>
       </div>
     """
 ]

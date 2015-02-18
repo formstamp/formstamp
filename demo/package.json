@@ -22,7 +22,7 @@
     "marked":"latest",
     "webpack-dev-server": "latest",
     "extract-text-webpack-plugin": "latest",
-    "ng-cache-loader": "latest"
+    "ng-cache-loader": "mlapshin/ng-cache-loader"
   },
   "scripts": {
     "install": "bower prune && bower install",
