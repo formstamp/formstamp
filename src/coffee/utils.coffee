@@ -94,11 +94,20 @@ exports.updateTime = (date, time)->
     date.setMinutes(time.getMinutes())
   date
 
+# added casts to support input of various string representation of dates
 exports.updateDate = (date, newDate) ->
   switch
-    when !date? then newDate
-    when !newDate? then date
+    when !date?
+        # cast input value to 'Date' in each case separately -
+        # i don't think there is more elegant solution here unfortunately
+        newDate = new Date newDate
+        newDate
+    when !newDate?
+        date = new Date date
+        date
     else
+      date = new Date date
+      newDate = new Date newDate
       date.setHours(newDate.getHours())
       date.setMinutes(newDate.getMinutes())
       date.setSeconds(newDate.getSeconds())

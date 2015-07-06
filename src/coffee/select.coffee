@@ -9,6 +9,7 @@ mod.directive "fsSelect", ['$templateCache', ($templateCache) ->
   restrict: "A"
   scope:
     items: '='
+    fsPlaceholder: '@'
     disabled: '=ngDisabled'
     freetext: '@'
     class: '@'
